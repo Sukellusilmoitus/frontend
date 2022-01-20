@@ -1,5 +1,8 @@
 # Sukellusilmotus frontend
 
+[![GitHub Actions](https://github.com/Sukellusilmoitus/frontend/workflows/CI/badge.svg)](https://github.com/Sukellusilmoitus/frontend/actions)
+[![codecov](https://codecov.io/gh/Sukellusilmoitus/frontend/branch/master/graph/badge.svg)](https://app.codecov.io/gh/Sukellusilmoitus/frontend)
+
 This repository contains the frontend for the _Sukellusilmoitus_ app. It can be reached [here](https://sukellusilmoitus-staging-front.herokuapp.com/)
 
 ## Usage
