@@ -1,0 +1,21 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+      - name: install frontend dependencies
+        run: npm ci
+      - name: frontend tests
+        run: CI=true npm test
+      - name: run eslint
+        run: npx eslint --fix --ext .js,.jsx .
