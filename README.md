@@ -31,9 +31,9 @@ Hyväksymiskriteerit testataan käyttäen Robot-frameworkia.
 Koodia testataan kattavasti myös unit testeillä.
 Koodityyli noudattaa lintin avulla määriteltyjä sääntöjä.
 
-Asiakas voi seurata koodin ja testien tilannetta CI-palvelusta: 
-Frontend: [codecov](https://app.codecov.io/gh/Sukellusilmoitus/frontend)
-Backend: [codecov](https://app.codecov.io/gh/Sukellusilmoitus/backend)
+Asiakas voi seurata koodin ja testien tilannetta CI-palvelusta:
+* Frontend: [codecov](https://app.codecov.io/gh/Sukellusilmoitus/frontend)
+* Backend: [codecov](https://app.codecov.io/gh/Sukellusilmoitus/backend)
 
 Koodin arkkitehtuuri on suunniteltua ja perusteltua,
 pyrkimyksenä on mahdollisimman hyvä ylläpidettävyys pitämällä koodi selkeänä.
