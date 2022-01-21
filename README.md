@@ -27,7 +27,7 @@ Scrumin mukaisesti projektissa toteutetaan backlogista löytyvät user storyt,
 joille on jokaiselle määritelty hyväksymiskriteerit.
 Projektin product- ja sprint-backlogit ja siten myös hyväksymiskriteerit löytyvät tästä sheetistä: [backlogit](https://helsinkifi-my.sharepoint.com/:x:/g/personal/amikko_ad_helsinki_fi/EaUHpV9XQy1BmeSrSOFVoi8BKp4hDY_YXGRn8sG6nbl1oA?rtime=T01JVzDb2Ug)
 
-Hyväksymiskriteerit testataan käyttäen Robot-frameworkia.
+Hyväksymiskriteerit testataan käyttäen Cypressia.
 Koodia testataan kattavasti myös unit testeillä.
 Koodityyli noudattaa lintin avulla määriteltyjä sääntöjä.
 
