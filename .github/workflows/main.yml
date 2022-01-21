@@ -23,7 +23,7 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
          command: npx cypress run
-         start: npm run start-prod
+         start: npm start
          wait-on: http://localhost:3000
       - name: run eslint
         run: npx eslint --fix --ext .js,.jsx .
