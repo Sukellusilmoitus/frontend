@@ -93,7 +93,7 @@ function NotificationForm({ createNotification }) {
             onChange={({ target }) => setNewYCoordinate(target.value)}
           />
           <br />
-          Koordinaatit info:
+          Koordinaatit lisäinfo:
           <input
             id="newcoordinatetext"
             value={newCoordinateText}
@@ -129,7 +129,7 @@ function NotificationForm({ createNotification }) {
         </p>
         )}
         <br />
-        Lisä infoa:
+        Lisäinfoa:
         <input
           id="newmisctext"
           value={newMiscText}
