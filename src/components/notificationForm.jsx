@@ -4,11 +4,11 @@ function NotificationForm({ createNotification }) {
   const [newName, setNewName] = useState('');
   const [newPhone, setNewPhone] = useState('');
   const [newLocationName, setNewLocationName] = useState('');
-  const [coordinateIsChecked, setCoordinateIsChecked] = useState(false);
+  const [coordinateRadio, setCoordinateRadio] = useState('yes');
   const [newXCoordinate, setNewXCoordinate] = useState('');
   const [newYCoordinate, setNewYCoordinate] = useState('');
   const [newCoordinateText, setNewCoordinateText] = useState('');
-  const [changeIsChecked, setChangeIsChecked] = useState(false);
+  const [changeRadio, setChangeRadio] = useState('no');
   const [newChangeText, setNewChangeText] = useState('');
   const [newMiscText, setNewMiscText] = useState('');
 
@@ -64,15 +64,19 @@ function NotificationForm({ createNotification }) {
         Were coordinates correct:
         Yes
         <input
-          type="checkbox"
+          type="radio"
+          checked={coordinateRadio === 'yes'}
+          value="yes"
+          onChange={(c) => { setCoordinateRadio(c.target.value); }}
         />
         No
         <input
-          type="checkbox"
-          checked={coordinateIsChecked}
-          onChange={(c) => { setCoordinateIsChecked(c.target.checked); }}
+          type="radio"
+          checked={coordinateRadio === 'no'}
+          value="no"
+          onChange={(c) => { setCoordinateRadio(c.target.value); }}
         />
-        {coordinateIsChecked && (
+        {coordinateRadio === 'no' && (
         <p>
           {' '}
           New longitude:
@@ -101,15 +105,19 @@ function NotificationForm({ createNotification }) {
         Any changes on location?:
         Yes
         <input
-          type="checkbox"
-          checked={changeIsChecked}
-          onChange={(e) => { setChangeIsChecked(e.target.checked); }}
+          type="radio"
+          checked={changeRadio === 'yes'}
+          value="yes"
+          onChange={(c) => { setChangeRadio(c.target.value); }}
         />
         No
         <input
-          type="checkbox"
+          type="radio"
+          checked={changeRadio === 'no'}
+          value="no"
+          onChange={(c) => { setChangeRadio(c.target.value); }}
         />
-        {changeIsChecked && (
+        {changeRadio === 'yes' && (
         <p>
           {' '}
           What has changed:
