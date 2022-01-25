@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import REACT_APP_SERVER_URL from './util/config';
+import NotificationForm from './components/notificationForm';
 
 function App() {
   const [message, setMessage] = useState('loading...');
@@ -17,6 +18,7 @@ function App() {
     <div>
       <h1>Hylkusukellusilmoituspalvelu</h1>
       {message}
+      <NotificationForm />
     </div>
   );
 }
