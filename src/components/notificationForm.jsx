@@ -37,39 +37,39 @@ function NotificationForm({ createNotification }) {
 
   return (
     <div>
-      <h2>Create a new notification</h2>
+      <h2>Tee uusi sukellusilmoitus</h2>
 
       <form onSubmit={addNotification}>
-        Diver name:
+        Sukeltajan nimi:
         <input
           id="newname"
           value={newName}
           onChange={({ target }) => setNewName(target.value)}
         />
         <br />
-        Phone:
+        Puhelinnumero:
         <input
           id="newphone"
           value={newPhone}
           onChange={({ target }) => setNewPhone(target.value)}
         />
         <br />
-        Location Name:
+        Hylyn nimi:
         <input
           id="newlocationname"
           value={newLocationName}
           onChange={({ target }) => setNewLocationName(target.value)}
         />
         <br />
-        Were coordinates correct:
-        Yes
+        Olivatko koordinaatit oikein:
+        Kyllä
         <input
           type="radio"
           checked={coordinateRadio === 'yes'}
           value="yes"
           onChange={(c) => { setCoordinateRadio(c.target.value); }}
         />
-        No
+        Ei
         <input
           type="radio"
           checked={coordinateRadio === 'no'}
@@ -79,21 +79,21 @@ function NotificationForm({ createNotification }) {
         {coordinateRadio === 'no' && (
         <p>
           {' '}
-          New longitude:
+          Uusi pituuspiiri:
           <input
             id="newxcoordinate"
             value={newXCoordinate}
             onChange={({ target }) => setNewXCoordinate(target.value)}
           />
           <br />
-          New latitude:
+          Uusi leveyspiiri:
           <input
             id="newycoordinate"
             value={newYCoordinate}
             onChange={({ target }) => setNewYCoordinate(target.value)}
           />
           <br />
-          Coordinate info:
+          Koordinaatit info:
           <input
             id="newcoordinatetext"
             value={newCoordinateText}
@@ -102,15 +102,15 @@ function NotificationForm({ createNotification }) {
         </p>
         )}
         <br />
-        Any changes on location?:
-        Yes
+        Onko hylyssä havaittu muutoksia?:
+        Kyllä
         <input
           type="radio"
           checked={changeRadio === 'yes'}
           value="yes"
           onChange={(c) => { setChangeRadio(c.target.value); }}
         />
-        No
+        Ei
         <input
           type="radio"
           checked={changeRadio === 'no'}
@@ -120,7 +120,7 @@ function NotificationForm({ createNotification }) {
         {changeRadio === 'yes' && (
         <p>
           {' '}
-          What has changed:
+          Kuvaile muutoksia:
           <input
             id="newchange"
             value={newChangeText}
@@ -129,14 +129,14 @@ function NotificationForm({ createNotification }) {
         </p>
         )}
         <br />
-        Extra info:
+        Lisä infoa:
         <input
           id="newmisctext"
           value={newMiscText}
           onChange={({ target }) => setNewMiscText(target.value)}
         />
         <br />
-        <button type="submit">save</button>
+        <button type="submit">Lähetä</button>
       </form>
     </div>
   );
