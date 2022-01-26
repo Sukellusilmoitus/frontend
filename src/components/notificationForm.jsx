@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Form, Button } from 'react-bootstrap';
 
 function NotificationForm({ createNotification }) {
   const [newName, setNewName] = useState('');
@@ -39,105 +40,118 @@ function NotificationForm({ createNotification }) {
     <div>
       <h2>Tee uusi sukellusilmoitus</h2>
 
-      <form onSubmit={addNotification}>
-        Sukeltajan nimi:
-        <input
-          id="newname"
-          value={newName}
-          onChange={({ target }) => setNewName(target.value)}
-        />
-        <br />
-        Puhelinnumero:
-        <input
-          id="newphone"
-          value={newPhone}
-          onChange={({ target }) => setNewPhone(target.value)}
-        />
-        <br />
-        Hylyn nimi:
-        <input
-          id="newlocationname"
-          value={newLocationName}
-          onChange={({ target }) => setNewLocationName(target.value)}
-        />
-        <br />
-        Olivatko koordinaatit oikein:
-        Kyllä
-        <input
-          type="radio"
-          checked={coordinateRadio === 'yes'}
-          value="yes"
-          onChange={(c) => { setCoordinateRadio(c.target.value); }}
-        />
-        Ei
-        <input
-          type="radio"
-          checked={coordinateRadio === 'no'}
-          value="no"
-          onChange={(c) => { setCoordinateRadio(c.target.value); }}
-        />
-        {coordinateRadio === 'no' && (
-        <p>
-          {' '}
-          Uusi pituuspiiri:
-          <input
-            id="newxcoordinate"
-            value={newXCoordinate}
-            onChange={({ target }) => setNewXCoordinate(target.value)}
+      <Form onSubmit={addNotification}>
+        <Form.Group>
+          <Form.Label>Sukeltajan nimi:</Form.Label>
+          <Form.Control
+            type="text"
+            id="newname"
+            value={newName}
+            onChange={({ target }) => setNewName(target.value)}
           />
           <br />
-          Uusi leveyspiiri:
-          <input
-            id="newycoordinate"
-            value={newYCoordinate}
-            onChange={({ target }) => setNewYCoordinate(target.value)}
+          <Form.Label>Puhelinnumero:</Form.Label>
+          <Form.Control
+            type="text"
+            id="newphone"
+            value={newPhone}
+            onChange={({ target }) => setNewPhone(target.value)}
           />
           <br />
-          Koordinaatit lisäinfo:
-          <input
-            id="newcoordinatetext"
-            value={newCoordinateText}
-            onChange={({ target }) => setNewCoordinateText(target.value)}
+          <Form.Label>Hylyn nimi:</Form.Label>
+          <Form.Control
+            type="text"
+            id="newlocationname"
+            value={newLocationName}
+            onChange={({ target }) => setNewLocationName(target.value)}
           />
-        </p>
-        )}
-        <br />
-        Onko hylyssä havaittu muutoksia?:
-        Kyllä
-        <input
-          type="radio"
-          checked={changeRadio === 'yes'}
-          value="yes"
-          onChange={(c) => { setChangeRadio(c.target.value); }}
-        />
-        Ei
-        <input
-          type="radio"
-          checked={changeRadio === 'no'}
-          value="no"
-          onChange={(c) => { setChangeRadio(c.target.value); }}
-        />
-        {changeRadio === 'yes' && (
-        <p>
-          {' '}
-          Kuvaile muutoksia:
-          <input
-            id="newchange"
-            value={newChangeText}
-            onChange={({ target }) => setNewChangeText(target.value)}
+          <br />
+          <Form.Label>Olivatko koordinaatit oikein:</Form.Label>
+          <Form.Check
+            type="radio"
+            label="Kyllä"
+            checked={coordinateRadio === 'yes'}
+            value="yes"
+            onChange={(c) => { setCoordinateRadio(c.target.value); }}
           />
-        </p>
-        )}
-        <br />
-        Lisäinfoa:
-        <input
-          id="newmisctext"
-          value={newMiscText}
-          onChange={({ target }) => setNewMiscText(target.value)}
-        />
-        <br />
-        <button type="submit">Lähetä</button>
-      </form>
+          <Form.Check
+            type="radio"
+            label="Ei"
+            checked={coordinateRadio === 'no'}
+            value="no"
+            onChange={(c) => { setCoordinateRadio(c.target.value); }}
+          />
+          {coordinateRadio === 'no' && (
+          <p>
+            {' '}
+            <Form.Label>Uusi pituuspiiri:</Form.Label>
+            <Form.Control
+              type="text"
+              id="newxcoordinate"
+              value={newXCoordinate}
+              onChange={({ target }) => setNewXCoordinate(target.value)}
+            />
+            <br />
+            <Form.Label>Uusi leveyspiiri:</Form.Label>
+            <Form.Control
+              type="text"
+              id="newycoordinate"
+              value={newYCoordinate}
+              onChange={({ target }) => setNewYCoordinate(target.value)}
+            />
+            <br />
+            <Form.Label>Koordinaatit lisäinfo:</Form.Label>
+            <Form.Control
+              as="textarea"
+              rows="5"
+              id="newcoordinatetext"
+              value={newCoordinateText}
+              onChange={({ target }) => setNewCoordinateText(target.value)}
+            />
+          </p>
+          )}
+          <br />
+          <Form.Label>Onko hylyssä havaittu muutoksia?:</Form.Label>
+          <Form.Check
+            type="radio"
+            label="Kyllä"
+            checked={changeRadio === 'yes'}
+            value="yes"
+            onChange={(c) => { setChangeRadio(c.target.value); }}
+          />
+          <Form.Check
+            type="radio"
+            label="Ei"
+            checked={changeRadio === 'no'}
+            value="no"
+            onChange={(c) => { setChangeRadio(c.target.value); }}
+          />
+          {changeRadio === 'yes' && (
+          <p>
+            {' '}
+            <Form.Label>Kuvaile muutoksia:</Form.Label>
+            <Form.Control
+              as="textarea"
+              rows="5"
+              id="newchange"
+              value={newChangeText}
+              onChange={({ target }) => setNewChangeText(target.value)}
+            />
+          </p>
+          )}
+          <br />
+          <Form.Label>Lisäinfoa:</Form.Label>
+          <Form.Control
+            as="textarea"
+            rows="5"
+            id="newmisctext"
+            value={newMiscText}
+            onChange={({ target }) => setNewMiscText(target.value)}
+          />
+          <br />
+          <Button variant="primary" type="submit">Lähetä</Button>
+        </Form.Group>
+      </Form>
     </div>
   );
 }

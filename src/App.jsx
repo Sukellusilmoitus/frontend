@@ -15,7 +15,7 @@ function App() {
   }, []);
 
   return (
-    <div>
+    <div className="container">
       <h1>Hylkusukellusilmoituspalvelu</h1>
       {message}
       <NotificationForm />
