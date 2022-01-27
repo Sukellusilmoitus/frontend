@@ -40,7 +40,9 @@ function NotificationForm({ createNotification }) {
     <div>
       <h2>Tee uusi sukellusilmoitus</h2>
 
-      <Form onSubmit={addNotification}>
+      <Form
+        onSubmit={addNotification}
+      >
         <Form.Group>
           <Form.Label>Sukeltajan nimi:</Form.Label>
           <Form.Control
@@ -48,7 +50,16 @@ function NotificationForm({ createNotification }) {
             id="newname"
             value={newName}
             onChange={({ target }) => setNewName(target.value)}
+            pattern="(?!.*?\s{2})[A-Za-z ]{7,20}"
+            onInvalid={(e) => { e.target.setCustomValidity('Tulee olla 7-20 merkkiä pitkä ja sisältää vain kirjaimia ja välilyöntejä'); }}
+            onInput={(e) => { e.target.setCustomValidity(''); }}
+            required
           />
+          <Form.Text className="text-muted">
+            Tulee olla 7-20 merkkiä pitkä
+          </Form.Text>
+        </Form.Group>
+        <Form.Group>
           <br />
           <Form.Label>Puhelinnumero:</Form.Label>
           <Form.Control
@@ -56,7 +67,13 @@ function NotificationForm({ createNotification }) {
             id="newphone"
             value={newPhone}
             onChange={({ target }) => setNewPhone(target.value)}
+            pattern="\+?[0-9]{3}-?[0-9]{6,12}"
+            onInvalid={(e) => { e.target.setCustomValidity('Virheellinen puhelinnumero'); }}
+            onInput={(e) => { e.target.setCustomValidity(''); }}
+            required
           />
+        </Form.Group>
+        <Form.Group>
           <br />
           <Form.Label>Hylyn nimi:</Form.Label>
           <Form.Control
@@ -64,7 +81,16 @@ function NotificationForm({ createNotification }) {
             id="newlocationname"
             value={newLocationName}
             onChange={({ target }) => setNewLocationName(target.value)}
+            pattern="(?!.*?\s{2})[A-Za-z ]{4,20}"
+            onInvalid={(e) => { e.target.setCustomValidity('Tulee olla 4-20 merkkiä pitkä ja sisältää vain kirjaimia ja välilyöntejä'); }}
+            onInput={(e) => { e.target.setCustomValidity(''); }}
+            required
           />
+          <Form.Text className="text-muted">
+            Tulee olla 4-20 merkkiä pitkä
+          </Form.Text>
+        </Form.Group>
+        <Form.Group>
           <br />
           <Form.Label>Olivatko koordinaatit oikein:</Form.Label>
           <Form.Check
@@ -90,6 +116,9 @@ function NotificationForm({ createNotification }) {
               id="newxcoordinate"
               value={newXCoordinate}
               onChange={({ target }) => setNewXCoordinate(target.value)}
+              pattern="[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)"
+              onInvalid={(e) => { e.target.setCustomValidity('Virheellinen koordinaatti'); }}
+              onInput={(e) => { e.target.setCustomValidity(''); }}
             />
             <br />
             <Form.Label>Uusi leveyspiiri:</Form.Label>
@@ -98,6 +127,9 @@ function NotificationForm({ createNotification }) {
               id="newycoordinate"
               value={newYCoordinate}
               onChange={({ target }) => setNewYCoordinate(target.value)}
+              pattern="[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)"
+              onInvalid={(e) => { e.target.setCustomValidity('Virheellinen koordinaatti'); }}
+              onInput={(e) => { e.target.setCustomValidity(''); }}
             />
             <br />
             <Form.Label>Koordinaatit lisäinfo:</Form.Label>
@@ -107,9 +139,18 @@ function NotificationForm({ createNotification }) {
               id="newcoordinatetext"
               value={newCoordinateText}
               onChange={({ target }) => setNewCoordinateText(target.value)}
+              pattern=".{10,1000}"
+              onInvalid={(e) => { e.target.setCustomValidity('Tulee olla 10-1000 merkkiä pitkä'); }}
+              onInput={(e) => { e.target.setCustomValidity(''); }}
+              required
             />
+            <Form.Text className="text-muted">
+              Tulee olla 10-1000 merkkiä pitkä
+            </Form.Text>
           </p>
           )}
+        </Form.Group>
+        <Form.Group>
           <br />
           <Form.Label>Onko hylyssä havaittu muutoksia?:</Form.Label>
           <Form.Check
@@ -136,21 +177,35 @@ function NotificationForm({ createNotification }) {
               id="newchange"
               value={newChangeText}
               onChange={({ target }) => setNewChangeText(target.value)}
+              pattern=".{10,1000}"
+              onInvalid={(e) => { e.target.setCustomValidity('Tulee olla 10-1000 merkkiä pitkä'); }}
+              onInput={(e) => { e.target.setCustomValidity(''); }}
+              required
             />
+            <Form.Text className="text-muted">
+              Tulee olla 10-1000 merkkiä pitkä
+            </Form.Text>
           </p>
           )}
+        </Form.Group>
+        <Form.Group>
           <br />
           <Form.Label>Lisäinfoa:</Form.Label>
           <Form.Control
             as="textarea"
-            rows="5"
             id="newmisctext"
             value={newMiscText}
             onChange={({ target }) => setNewMiscText(target.value)}
+            pattern=".{0,1000}"
+            onInvalid={(e) => { e.target.setCustomValidity('Tulee olla enintään 1000 merkkiä pitkä'); }}
+            onInput={(e) => { e.target.setCustomValidity(''); }}
           />
-          <br />
-          <Button variant="primary" type="submit">Lähetä</Button>
+          <Form.Text className="text-muted">
+            Enintään 1000 merkkiä pitkä
+          </Form.Text>
         </Form.Group>
+        <br />
+        <Button variant="primary" type="submit">Lähetä</Button>
       </Form>
     </div>
   );
