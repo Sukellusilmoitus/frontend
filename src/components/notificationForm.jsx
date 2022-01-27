@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Form, Button } from 'react-bootstrap';
 
 function NotificationForm({ createNotification }) {
   const [newName, setNewName] = useState('');
@@ -39,105 +40,173 @@ function NotificationForm({ createNotification }) {
     <div>
       <h2>Tee uusi sukellusilmoitus</h2>
 
-      <form onSubmit={addNotification}>
-        Sukeltajan nimi:
-        <input
-          id="newname"
-          value={newName}
-          onChange={({ target }) => setNewName(target.value)}
-        />
-        <br />
-        Puhelinnumero:
-        <input
-          id="newphone"
-          value={newPhone}
-          onChange={({ target }) => setNewPhone(target.value)}
-        />
-        <br />
-        Hylyn nimi:
-        <input
-          id="newlocationname"
-          value={newLocationName}
-          onChange={({ target }) => setNewLocationName(target.value)}
-        />
-        <br />
-        Olivatko koordinaatit oikein:
-        Kyllä
-        <input
-          type="radio"
-          checked={coordinateRadio === 'yes'}
-          value="yes"
-          onChange={(c) => { setCoordinateRadio(c.target.value); }}
-        />
-        Ei
-        <input
-          type="radio"
-          checked={coordinateRadio === 'no'}
-          value="no"
-          onChange={(c) => { setCoordinateRadio(c.target.value); }}
-        />
-        {coordinateRadio === 'no' && (
-        <p>
-          {' '}
-          Uusi pituuspiiri:
-          <input
-            id="newxcoordinate"
-            value={newXCoordinate}
-            onChange={({ target }) => setNewXCoordinate(target.value)}
+      <Form
+        onSubmit={addNotification}
+      >
+        <Form.Group>
+          <Form.Label>Sukeltajan nimi:</Form.Label>
+          <Form.Control
+            type="text"
+            id="newname"
+            value={newName}
+            onChange={({ target }) => setNewName(target.value)}
+            pattern="(?!.*?\s{2})[A-Za-z ]{7,20}"
+            onInvalid={(e) => { e.target.setCustomValidity('Tulee olla 7-20 merkkiä pitkä ja sisältää vain kirjaimia ja välilyöntejä'); }}
+            onInput={(e) => { e.target.setCustomValidity(''); }}
+            required
           />
+          <Form.Text className="text-muted">
+            Tulee olla 7-20 merkkiä pitkä
+          </Form.Text>
+        </Form.Group>
+        <Form.Group>
           <br />
-          Uusi leveyspiiri:
-          <input
-            id="newycoordinate"
-            value={newYCoordinate}
-            onChange={({ target }) => setNewYCoordinate(target.value)}
+          <Form.Label>Puhelinnumero:</Form.Label>
+          <Form.Control
+            type="text"
+            id="newphone"
+            value={newPhone}
+            onChange={({ target }) => setNewPhone(target.value)}
+            pattern="\+?[0-9]{3}-?[0-9]{6,12}"
+            onInvalid={(e) => { e.target.setCustomValidity('Virheellinen puhelinnumero'); }}
+            onInput={(e) => { e.target.setCustomValidity(''); }}
+            required
           />
+        </Form.Group>
+        <Form.Group>
           <br />
-          Koordinaatit lisäinfo:
-          <input
-            id="newcoordinatetext"
-            value={newCoordinateText}
-            onChange={({ target }) => setNewCoordinateText(target.value)}
+          <Form.Label>Hylyn nimi:</Form.Label>
+          <Form.Control
+            type="text"
+            id="newlocationname"
+            value={newLocationName}
+            onChange={({ target }) => setNewLocationName(target.value)}
+            pattern="(?!.*?\s{2})[A-Za-z ]{4,20}"
+            onInvalid={(e) => { e.target.setCustomValidity('Tulee olla 4-20 merkkiä pitkä ja sisältää vain kirjaimia ja välilyöntejä'); }}
+            onInput={(e) => { e.target.setCustomValidity(''); }}
+            required
           />
-        </p>
-        )}
-        <br />
-        Onko hylyssä havaittu muutoksia?:
-        Kyllä
-        <input
-          type="radio"
-          checked={changeRadio === 'yes'}
-          value="yes"
-          onChange={(c) => { setChangeRadio(c.target.value); }}
-        />
-        Ei
-        <input
-          type="radio"
-          checked={changeRadio === 'no'}
-          value="no"
-          onChange={(c) => { setChangeRadio(c.target.value); }}
-        />
-        {changeRadio === 'yes' && (
-        <p>
-          {' '}
-          Kuvaile muutoksia:
-          <input
-            id="newchange"
-            value={newChangeText}
-            onChange={({ target }) => setNewChangeText(target.value)}
+          <Form.Text className="text-muted">
+            Tulee olla 4-20 merkkiä pitkä
+          </Form.Text>
+        </Form.Group>
+        <Form.Group>
+          <br />
+          <Form.Label>Olivatko koordinaatit oikein:</Form.Label>
+          <Form.Check
+            type="radio"
+            label="Kyllä"
+            checked={coordinateRadio === 'yes'}
+            value="yes"
+            onChange={(c) => { setCoordinateRadio(c.target.value); }}
           />
-        </p>
-        )}
+          <Form.Check
+            type="radio"
+            label="Ei"
+            checked={coordinateRadio === 'no'}
+            value="no"
+            onChange={(c) => { setCoordinateRadio(c.target.value); }}
+          />
+          {coordinateRadio === 'no' && (
+          <p>
+            {' '}
+            <Form.Label>Uusi pituuspiiri:</Form.Label>
+            <Form.Control
+              type="text"
+              id="newxcoordinate"
+              value={newXCoordinate}
+              onChange={({ target }) => setNewXCoordinate(target.value)}
+              pattern="[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)"
+              onInvalid={(e) => { e.target.setCustomValidity('Virheellinen koordinaatti'); }}
+              onInput={(e) => { e.target.setCustomValidity(''); }}
+            />
+            <br />
+            <Form.Label>Uusi leveyspiiri:</Form.Label>
+            <Form.Control
+              type="text"
+              id="newycoordinate"
+              value={newYCoordinate}
+              onChange={({ target }) => setNewYCoordinate(target.value)}
+              pattern="[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)"
+              onInvalid={(e) => { e.target.setCustomValidity('Virheellinen koordinaatti'); }}
+              onInput={(e) => { e.target.setCustomValidity(''); }}
+            />
+            <br />
+            <Form.Label>Koordinaatit lisäinfo:</Form.Label>
+            <Form.Control
+              as="textarea"
+              rows="5"
+              id="newcoordinatetext"
+              value={newCoordinateText}
+              onChange={({ target }) => setNewCoordinateText(target.value)}
+              pattern=".{10,1000}"
+              onInvalid={(e) => { e.target.setCustomValidity('Tulee olla 10-1000 merkkiä pitkä'); }}
+              onInput={(e) => { e.target.setCustomValidity(''); }}
+              required
+            />
+            <Form.Text className="text-muted">
+              Tulee olla 10-1000 merkkiä pitkä
+            </Form.Text>
+          </p>
+          )}
+        </Form.Group>
+        <Form.Group>
+          <br />
+          <Form.Label>Onko hylyssä havaittu muutoksia?:</Form.Label>
+          <Form.Check
+            type="radio"
+            label="Kyllä"
+            checked={changeRadio === 'yes'}
+            value="yes"
+            onChange={(c) => { setChangeRadio(c.target.value); }}
+          />
+          <Form.Check
+            type="radio"
+            label="Ei"
+            checked={changeRadio === 'no'}
+            value="no"
+            onChange={(c) => { setChangeRadio(c.target.value); }}
+          />
+          {changeRadio === 'yes' && (
+          <p>
+            {' '}
+            <Form.Label>Kuvaile muutoksia:</Form.Label>
+            <Form.Control
+              as="textarea"
+              rows="5"
+              id="newchange"
+              value={newChangeText}
+              onChange={({ target }) => setNewChangeText(target.value)}
+              pattern=".{10,1000}"
+              onInvalid={(e) => { e.target.setCustomValidity('Tulee olla 10-1000 merkkiä pitkä'); }}
+              onInput={(e) => { e.target.setCustomValidity(''); }}
+              required
+            />
+            <Form.Text className="text-muted">
+              Tulee olla 10-1000 merkkiä pitkä
+            </Form.Text>
+          </p>
+          )}
+        </Form.Group>
+        <Form.Group>
+          <br />
+          <Form.Label>Lisäinfoa:</Form.Label>
+          <Form.Control
+            as="textarea"
+            id="newmisctext"
+            value={newMiscText}
+            onChange={({ target }) => setNewMiscText(target.value)}
+            pattern=".{0,1000}"
+            onInvalid={(e) => { e.target.setCustomValidity('Tulee olla enintään 1000 merkkiä pitkä'); }}
+            onInput={(e) => { e.target.setCustomValidity(''); }}
+          />
+          <Form.Text className="text-muted">
+            Enintään 1000 merkkiä pitkä
+          </Form.Text>
+        </Form.Group>
         <br />
-        Lisäinfoa:
-        <input
-          id="newmisctext"
-          value={newMiscText}
-          onChange={({ target }) => setNewMiscText(target.value)}
-        />
-        <br />
-        <button type="submit">Lähetä</button>
-      </form>
+        <Button variant="primary" type="submit">Lähetä</Button>
+      </Form>
     </div>
   );
 }
