@@ -14,7 +14,6 @@ function WrecksList() {
   }, []);
   return (
     <div>
-      <p>Hylyt</p>
       {(wrecks === 'loading...')
         ? (
           <div>
