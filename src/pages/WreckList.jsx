@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Table from 'react-bootstrap/Table';
 import wreckService from '../services/wrecks';
 
 function Wrecklist() {
@@ -11,20 +12,15 @@ function Wrecklist() {
     }
     getWreckData();
   }, []);
-  console.log(wrecks.features);
   return (
     <div>
       <p>Hylyt</p>
-      {/* {wrecks !== 'loading...' && (
-        <th>{wrecks.features['0'].properties.id}</th>
-        <th>{wrecks.features['0'].properties.name}</th>
-      )} */}
       {(wrecks === 'loading...')
         ? (
           <p>Ladataan</p>
         )
         : (
-          <table>
+          <Table striped bordered hover>
             <thead>
               <tr>
                 <th>id</th>
@@ -39,7 +35,7 @@ function Wrecklist() {
                 </tr>
               ))}
             </tbody>
-          </table>
+          </Table>
         )}
     </div>
   );
