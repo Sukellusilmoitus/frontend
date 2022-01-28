@@ -44,7 +44,7 @@ function NotificationForm({ createNotification }) {
         onSubmit={addNotification}
       >
         <Form.Group>
-          <Form.Label>Sukeltajan nimi:</Form.Label>
+          <Form.Label>Sukeltajan etu- ja sukunimi:</Form.Label>
           <Form.Control
             type="text"
             id="newname"
@@ -56,7 +56,7 @@ function NotificationForm({ createNotification }) {
             required
           />
           <Form.Text className="text-muted">
-            Tulee olla 7-20 merkkiä pitkä
+            Pakollinen kenttä
           </Form.Text>
         </Form.Group>
         <Form.Group>
@@ -72,6 +72,9 @@ function NotificationForm({ createNotification }) {
             onInput={(e) => { e.target.setCustomValidity(''); }}
             required
           />
+          <Form.Text className="text-muted">
+            Pakollinen kenttä
+          </Form.Text>
         </Form.Group>
         <Form.Group>
           <br />
@@ -87,7 +90,7 @@ function NotificationForm({ createNotification }) {
             required
           />
           <Form.Text className="text-muted">
-            Tulee olla 4-20 merkkiä pitkä
+            Pakollinen kenttä
           </Form.Text>
         </Form.Group>
         <Form.Group>
@@ -145,7 +148,7 @@ function NotificationForm({ createNotification }) {
               required
             />
             <Form.Text className="text-muted">
-              Tulee olla 10-1000 merkkiä pitkä
+              Pakollinen kenttä
             </Form.Text>
           </p>
           )}
@@ -183,7 +186,7 @@ function NotificationForm({ createNotification }) {
               required
             />
             <Form.Text className="text-muted">
-              Tulee olla 10-1000 merkkiä pitkä
+              Pakollinen kenttä
             </Form.Text>
           </p>
           )}
