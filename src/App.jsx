@@ -21,7 +21,7 @@ function App() {
 
   return (
     <div className="container">
-      <h1>Hylkusukellusilmoituspalvelu</h1>
+      <h1>Hylkysukellusilmoituspalvelu</h1>
       {message}
       <Router>
         <Header />
