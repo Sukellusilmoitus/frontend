@@ -18,7 +18,7 @@ function App() {
     <div className="container">
       <h1>Hylkusukellusilmoituspalvelu</h1>
       {message}
-      <NotificationForm />
+      <NotificationForm createNotification={() => {}} />
     </div>
   );
 }
