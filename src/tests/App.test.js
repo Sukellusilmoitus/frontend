@@ -7,5 +7,5 @@ test('renders loading', () => {
   const app = render(
     <App />
   )
-  expect(app.container).toHaveTextContent('loading...');
+  expect(app.container).toHaveTextContent('Hylkysukellusilmoituspalvelu');
 })
