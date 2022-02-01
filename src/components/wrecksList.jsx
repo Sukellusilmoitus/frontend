@@ -10,7 +10,7 @@ function WrecksList() {
     data.features.sort((a, b) => (a.properties.name > b.properties.name ? 1 : -1));
     setWrecks(data);
   }
-  
+
   useEffect(() => {
     getWreckData();
   }, []);
