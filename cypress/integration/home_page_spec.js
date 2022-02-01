@@ -17,10 +17,11 @@ describe('Test form', () => {
     cy.get('[id=newphone]').then($x => expect($x[0].checkValidity()).to.be.false);
   });
 
-  it('user has to fill in the location', () => {
+  it('location name is prefilled', () => {
     cy.get('[id=newphone]').type('0000000000');
+    cy.get('.tr').click();
     cy.get('.btn').click();
-    cy.get('[id=newlocationname]').then($x => expect($x[0].checkValidity()).to.be.false);
+    cy.get('[id=newlocationname]') != '';
   });
 
   it('user can make make a notice', () => {
