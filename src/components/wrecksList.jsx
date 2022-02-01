@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Table, Spinner } from 'react-bootstrap';
 import wreckService from '../services/wrecks';
 
-function WrecksList() {
+function WrecksList(props) {
+  const { onRowClick } = props;
   const [wrecks, setWrecks] = useState('loading...');
 
   async function getWreckData() {
@@ -14,6 +15,7 @@ function WrecksList() {
   useEffect(() => {
     getWreckData();
   }, []);
+
   return (
     <div>
       {(wrecks === 'loading...')
@@ -36,7 +38,10 @@ function WrecksList() {
             </thead>
             <tbody>
               {wrecks.features.map((wreck) => (
-                <tr key={wreck.properties.id}>
+                <tr
+                  key={wreck.properties.id}
+                  onClick={() => onRowClick(wreck.properties.name, wreck.properties.id)}
+                >
                   <td>{wreck.properties.name}</td>
                   <td>{wreck.properties.town}</td>
                   <td>{wreck.properties.type}</td>
