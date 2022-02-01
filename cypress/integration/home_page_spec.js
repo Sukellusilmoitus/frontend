@@ -17,8 +17,8 @@ describe('Test form', () => {
     cy.get('[id=newphone]').then($x => expect($x[0].checkValidity()).to.be.false);
   });
 
-  it('user can make make a notice', () => {
-    cy.get('[id=newphone]').type('0000000000');
-    cy.get('.btn').click();
-  });
+  // it('user can make make a notice', () => {
+  //   cy.get('[id=newphone]').type('0000000000');
+  //   cy.get('.btn').click();
+  // });
 })
