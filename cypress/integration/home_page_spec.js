@@ -21,7 +21,7 @@ describe('Test form', () => {
     cy.get('[id=newphone]').type('0000000000');
     cy.get('tr').click();
     cy.get('.btn').click();
-    cy.get('[id=newlocationname]') != '';
+    cy.get('[id=newlocationname]').should('not.to.match', ':empty');
   });
 
   it('user can make make a notice', () => {
