@@ -1,6 +1,6 @@
 describe('Initial test', () => {
   it('successfully loads', () => {
-    cy.visit("/")
+    cy.visit("/hylyt")
     cy.get('h1').should('contain', 'Hylkysukellusilmoituspalvelu');
   });
 });
@@ -17,14 +17,8 @@ describe('Test form', () => {
     cy.get('[id=newphone]').then($x => expect($x[0].checkValidity()).to.be.false);
   });
 
-  it('user has to fill in the location', () => {
-    cy.get('[id=newphone]').type('0000000000');
-    cy.get('.btn').click();
-    cy.get('[id=newlocationname]').then($x => expect($x[0].checkValidity()).to.be.false);
-  });
-
-  it('user can make make a notice', () => {
-    cy.get('[id=newlocationname]').type('Test Tester');
-    cy.get('.btn').click();
-  });
+  // it('user can make make a notice', () => {
+  //   cy.get('[id=newphone]').type('0000000000');
+  //   cy.get('.btn').click();
+  // });
 })
