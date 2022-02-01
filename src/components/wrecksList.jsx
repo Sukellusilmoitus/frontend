@@ -5,11 +5,13 @@ import wreckService from '../services/wrecks';
 function WrecksList() {
   const [wrecks, setWrecks] = useState('loading...');
 
+  async function getWreckData() {
+    const data = await wreckService.getAllWrecks();
+    data.features.sort((a, b) => (a.properties.name > b.properties.name ? 1 : -1));
+    setWrecks(data);
+  }
+
   useEffect(() => {
-    async function getWreckData() {
-      const data = await wreckService.getAllWrecks();
-      setWrecks(data);
-    }
     getWreckData();
   }, []);
   return (
