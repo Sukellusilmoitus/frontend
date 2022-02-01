@@ -1,6 +1,6 @@
 describe('Initial test', () => {
   it('successfully loads', () => {
-    cy.visit("/")
+    cy.visit("/hylyt")
     cy.get('h1').should('contain', 'Hylkysukellusilmoituspalvelu');
   });
 });
