@@ -19,13 +19,12 @@ describe('Test form', () => {
 
   it('location name is prefilled', () => {
     cy.get('[id=newphone]').type('0000000000');
-    cy.get('.tr').click();
+    cy.get('tr').click();
     cy.get('.btn').click();
     cy.get('[id=newlocationname]') != '';
   });
 
   it('user can make make a notice', () => {
-    cy.get('[id=newlocationname]').type('Test Tester');
     cy.get('.btn').click();
   });
 })
