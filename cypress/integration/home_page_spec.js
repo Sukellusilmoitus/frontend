@@ -28,11 +28,15 @@ describe('Test form', () => {
   });
 
   it('locationname is not empty when clicked a row', () => {
+    cy.scrollTo('top')
+    cy.wait(2000)
     cy.get('tbody').find('tr').first().click();
     cy.get('[id=newlocationname]').should('not.have.value', '')
   });
 
   it('locationid is not empty when clicked a row', () => {
+    cy.scrollTo('top')
+    cy.wait(2000)
     cy.get('tbody').find('tr').first().click();
     cy.get('[id=newlocationid]').should('not.have.value', '')
   });
