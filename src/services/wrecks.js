@@ -1,9 +1,10 @@
 import axios from 'axios';
+import REACT_APP_SERVER_URL from '../util/config';
 
-const baseUrl = 'http://127.0.0.1:5000/api/data';
+const baseUrl = REACT_APP_SERVER_URL;
 
 const getAllWrecks = () => {
-  const request = axios.get(baseUrl);
+  const request = axios.get(`${baseUrl}/api/data`);
   return request.then((response) => response.data);
 };
 

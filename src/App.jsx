@@ -2,9 +2,8 @@ import React from 'react';
 import {
   BrowserRouter as Router, Switch, Route,
 } from 'react-router-dom';
-import NotificationForm from './components/notificationForm';
-import Wreckslist from './components/wrecksList';
 import Header from './components/navigation';
+import ListAndNotification from './components/listAndNotification';
 
 function App() {
   return (
@@ -13,11 +12,9 @@ function App() {
       <Router>
         <Header />
         <Switch>
-          <Route path="/hylyt" component={Wreckslist} />
-          <Route path="/sukellusilmoitus" component={NotificationForm} />
+          <Route path="/hylyt" component={ListAndNotification} />
         </Switch>
       </Router>
-      <NotificationForm createNotification={() => {}} />
     </div>
   );
 }

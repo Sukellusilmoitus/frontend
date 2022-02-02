@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 
-function NotificationForm({ createNotification }) {
+function NotificationForm(props, { createNotification }) {
+  const { wreckName, wreckId } = props;
   const [newName, setNewName] = useState('');
   const [newPhone, setNewPhone] = useState('');
   const [newLocationName, setNewLocationName] = useState('');
+  const [newLocationId, setNewLocationId] = useState('');
   const [coordinateRadio, setCoordinateRadio] = useState('yes');
   const [newXCoordinate, setNewXCoordinate] = useState('');
   const [newYCoordinate, setNewYCoordinate] = useState('');
@@ -19,6 +21,7 @@ function NotificationForm({ createNotification }) {
       name: newName,
       phone: newPhone,
       locationName: newLocationName,
+      locationId: newLocationId,
       xCoordinate: newXCoordinate,
       yCoordinate: newYCoordinate,
       coordinateText: newCoordinateText,
@@ -29,6 +32,7 @@ function NotificationForm({ createNotification }) {
     setNewName('');
     setNewPhone('');
     setNewLocationName('');
+    setNewLocationId('');
     setNewXCoordinate('');
     setNewYCoordinate('');
     setNewCoordinateText('');
@@ -36,12 +40,18 @@ function NotificationForm({ createNotification }) {
     setNewMiscText('');
   };
 
+  const update = () => {
+    setNewLocationName(wreckName);
+    setNewLocationId(wreckId);
+  };
+
   return (
     <div>
       <h2>Tee uusi sukellusilmoitus</h2>
 
       <Form
-        onSubmit={addNotification}
+        onSubmit={() => addNotification()}
+        onFocus={() => update()}
       >
         <Form.Group>
           <Form.Label>Sukeltajan etu- ja sukunimi:</Form.Label>
@@ -50,7 +60,7 @@ function NotificationForm({ createNotification }) {
             id="newname"
             value={newName}
             onChange={({ target }) => setNewName(target.value)}
-            pattern="(?!.*?\s{2})[A-Za-z ]{7,20}"
+            pattern="(?!.*?\s{2})[ A-Za-zäöåÅÄÖ]{7,20}"
             onInvalid={(e) => { e.target.setCustomValidity('Tulee olla 7-20 merkkiä pitkä ja sisältää vain kirjaimia ja välilyöntejä'); }}
             onInput={(e) => { e.target.setCustomValidity(''); }}
             required
@@ -82,15 +92,28 @@ function NotificationForm({ createNotification }) {
           <Form.Control
             type="text"
             id="newlocationname"
-            value={newLocationName}
+            value={wreckName}
             onChange={({ target }) => setNewLocationName(target.value)}
-            pattern="(?!.*?\s{2})[A-Za-z ]{4,20}"
-            onInvalid={(e) => { e.target.setCustomValidity('Tulee olla 4-20 merkkiä pitkä ja sisältää vain kirjaimia ja välilyöntejä'); }}
-            onInput={(e) => { e.target.setCustomValidity(''); }}
+            readOnly
             required
           />
           <Form.Text className="text-muted">
-            Pakollinen kenttä
+            Automaattinen täyttö (klikkaa kohdetta)
+          </Form.Text>
+        </Form.Group>
+        <Form.Group>
+          <br />
+          <Form.Label>Hylyn id:</Form.Label>
+          <Form.Control
+            type="text"
+            id="newlocationid"
+            value={wreckId}
+            onChange={({ target }) => setNewLocationId(target.value)}
+            readOnly
+            required
+          />
+          <Form.Text className="text-muted">
+            Automaattinen täyttö (klikkaa kohdetta)
           </Form.Text>
         </Form.Group>
         <Form.Group>
@@ -113,29 +136,37 @@ function NotificationForm({ createNotification }) {
           {coordinateRadio === 'no' && (
           <p>
             {' '}
-            <Form.Label>Uusi pituuspiiri:</Form.Label>
+            <Form.Label>Uusi pituuspiiri desimaaliasteina:</Form.Label>
             <Form.Control
               type="text"
               id="newxcoordinate"
               value={newXCoordinate}
               onChange={({ target }) => setNewXCoordinate(target.value)}
-              pattern="[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)"
-              onInvalid={(e) => { e.target.setCustomValidity('Virheellinen koordinaatti'); }}
+              pattern="^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)"
+              onInvalid={(e) => { e.target.setCustomValidity('Anna koordinaatti muodossa xx.xxxxxxxx, esim. 25.34234323'); }}
               onInput={(e) => { e.target.setCustomValidity(''); }}
+              required
             />
+            <Form.Text className="text-muted">
+              Pakollinen kenttä
+            </Form.Text>
             <br />
-            <Form.Label>Uusi leveyspiiri:</Form.Label>
+            <Form.Label>Uusi leveyspiiri desimaaliasteina:</Form.Label>
             <Form.Control
               type="text"
               id="newycoordinate"
               value={newYCoordinate}
               onChange={({ target }) => setNewYCoordinate(target.value)}
-              pattern="[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)"
-              onInvalid={(e) => { e.target.setCustomValidity('Virheellinen koordinaatti'); }}
+              pattern="^[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)"
+              onInvalid={(e) => { e.target.setCustomValidity('Anna koordinaatti muodossa xx.xxxxxxxx, esim. 60.42342334'); }}
               onInput={(e) => { e.target.setCustomValidity(''); }}
+              required
             />
+            <Form.Text className="text-muted">
+              Pakollinen kenttä
+            </Form.Text>
             <br />
-            <Form.Label>Koordinaatit lisäinfo:</Form.Label>
+            <Form.Label>Paikannuksen lisäinfo:</Form.Label>
             <Form.Control
               as="textarea"
               rows="5"
@@ -145,7 +176,6 @@ function NotificationForm({ createNotification }) {
               pattern=".{10,1000}"
               onInvalid={(e) => { e.target.setCustomValidity('Tulee olla 10-1000 merkkiä pitkä'); }}
               onInput={(e) => { e.target.setCustomValidity(''); }}
-              required
             />
             <Form.Text className="text-muted">
               Pakollinen kenttä
