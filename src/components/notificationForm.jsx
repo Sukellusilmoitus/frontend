@@ -52,12 +52,14 @@ function NotificationForm(props, { createNotification }) {
       <Form
         onSubmit={() => addNotification()}
         onFocus={() => update()}
+        data-testid="testform"
       >
         <Form.Group>
           <Form.Label>Sukeltajan etu- ja sukunimi:</Form.Label>
           <Form.Control
             type="text"
             id="newname"
+            data-testid="testname"
             value={newName}
             onChange={({ target }) => setNewName(target.value)}
             pattern="(?!.*?\s{2})[ A-Za-zäöåÅÄÖ]{7,20}"
@@ -75,6 +77,7 @@ function NotificationForm(props, { createNotification }) {
           <Form.Control
             type="text"
             id="newphone"
+            data-testid="testphone"
             value={newPhone}
             onChange={({ target }) => setNewPhone(target.value)}
             pattern="\+?[0-9]{3}-?[0-9]{6,12}"
