@@ -19,7 +19,6 @@ function ListAndNotification() {
   };
 
   const createNewNotification = (notification) => {
-    console.log(notification);
     diveService.create(notification);
   };
 
