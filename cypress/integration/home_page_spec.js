@@ -19,7 +19,7 @@ describe('Test form', () => {
   });
 
   it('locationid is not empty when clicked a row', () => {
-    cy.wait(6000);
+    cy.wait(5000);
     cy.scrollTo('top');
     cy.wait(2000);
     cy.get('table tbody').find('tr').first().click();
