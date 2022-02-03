@@ -2,8 +2,8 @@ import React from 'react';
 import {
   BrowserRouter as Router, Switch, Route,
 } from 'react-router-dom';
-import Header from './components/navigation';
-import ListAndNotification from './components/listAndNotification';
+import Header from './components/Navigation';
+import ListAndNotification from './components/ListAndNotification';
 
 function App() {
   return (
