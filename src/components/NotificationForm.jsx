@@ -43,8 +43,6 @@ function NotificationForm(props) {
     setNewCoordinateText('');
     setNewChangeText('');
     setNewMiscText('');
-    setNewLocationName('');
-    setNewLocationId('');
   };
 
   const update = () => {
