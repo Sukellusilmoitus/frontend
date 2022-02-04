@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 
-function NotificationForm(props, { createNotification }) {
-  const { wreckName, wreckId } = props;
+function NotificationForm(props) {
+  const { wreckName, wreckId, createNotification } = props;
+
   const [newName, setNewName] = useState('');
   const [newPhone, setNewPhone] = useState('');
+  const [newEmail, setNewEmail] = useState('');
   const [newLocationName, setNewLocationName] = useState('');
   const [newLocationId, setNewLocationId] = useState('');
   const [coordinateRadio, setCoordinateRadio] = useState('yes');
@@ -20,8 +22,10 @@ function NotificationForm(props, { createNotification }) {
     createNotification({
       name: newName,
       phone: newPhone,
+      email: newEmail,
       locationName: newLocationName,
       locationId: newLocationId,
+      locationCorrect: coordinateRadio === 'yes',
       xCoordinate: newXCoordinate,
       yCoordinate: newYCoordinate,
       coordinateText: newCoordinateText,
@@ -31,6 +35,7 @@ function NotificationForm(props, { createNotification }) {
 
     setNewName('');
     setNewPhone('');
+    setNewEmail('');
     setNewLocationName('');
     setNewLocationId('');
     setNewXCoordinate('');
@@ -50,7 +55,7 @@ function NotificationForm(props, { createNotification }) {
       <h2>Tee uusi sukellusilmoitus</h2>
 
       <Form
-        onSubmit={() => addNotification()}
+        onSubmit={(event) => addNotification(event)}
         onFocus={() => update()}
       >
         <Form.Group>
@@ -73,13 +78,27 @@ function NotificationForm(props, { createNotification }) {
           <br />
           <Form.Label>Puhelinnumero:</Form.Label>
           <Form.Control
-            type="text"
+            type="tel"
             id="newphone"
             value={newPhone}
             onChange={({ target }) => setNewPhone(target.value)}
             pattern="\+?[0-9]{3}-?[0-9]{6,12}"
             onInvalid={(e) => { e.target.setCustomValidity('Virheellinen puhelinnumero'); }}
             onInput={(e) => { e.target.setCustomValidity(''); }}
+            required
+          />
+          <Form.Text className="text-muted">
+            Pakollinen kenttä
+          </Form.Text>
+        </Form.Group>
+        <Form.Group>
+          <br />
+          <Form.Label>Sähköpostiosoite:</Form.Label>
+          <Form.Control
+            type="email"
+            id="newemail"
+            value={newEmail}
+            onChange={({ target }) => setNewEmail(target.value)}
             required
           />
           <Form.Text className="text-muted">
