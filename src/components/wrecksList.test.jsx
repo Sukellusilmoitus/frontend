@@ -1,12 +1,27 @@
 /* eslint-disable no-undef */
 import React from 'react';
 import { render } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
 import { act } from 'react-dom/test-utils';
+import '@testing-library/jest-dom/extend-expect';
 import WrecksList from './WrecksList';
-import wreckService from '../services/wrecks';
+import WreckService from '../services/wrecks';
 
-const data = [{}];
+const data = {
+  features: [
+    {
+      properties: {
+        name: 'first',
+        id: 1,
+      },
+    },
+    {
+      properties: {
+        name: 'second',
+        id: 2,
+      },
+    },
+  ],
+};
 
 test('renders component loading', () => {
   const component = render(
@@ -17,10 +32,10 @@ test('renders component loading', () => {
   );
 });
 
-test('service get called', () => {
-  wreckService.getAllWrecks = jest.fn().mockReturnValue(data);
+test('service get called', async () => {
+  WreckService.getAllWrecks = jest.fn().mockReturnValue(data);
 
-  act(() => { (<WrecksList />); });
+  await act(async () => { render(<WrecksList />); });
 
-  expect(wreckService.getAllWrecks.mock.calls).toHaveLength(1);
+  await expect(WreckService.getAllWrecks.mock.calls).toHaveLength(1);
 });
