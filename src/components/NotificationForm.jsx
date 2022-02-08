@@ -57,12 +57,15 @@ function NotificationForm(props) {
       <Form
         onSubmit={(event) => addNotification(event)}
         onFocus={() => update()}
+        data-testid="testform"
+        validated
       >
         <Form.Group>
           <Form.Label>Sukeltajan etu- ja sukunimi:</Form.Label>
           <Form.Control
             type="text"
             id="newname"
+            data-testid="testname"
             value={newName}
             onChange={({ target }) => setNewName(target.value)}
             pattern="(?!.*?\s{2})[ A-Za-zäöåÅÄÖ]{7,20}"
@@ -80,6 +83,7 @@ function NotificationForm(props) {
           <Form.Control
             type="tel"
             id="newphone"
+            data-testid="testphone"
             value={newPhone}
             onChange={({ target }) => setNewPhone(target.value)}
             pattern="\+?[0-9]{3}-?[0-9]{6,12}"
@@ -97,6 +101,7 @@ function NotificationForm(props) {
           <Form.Control
             type="email"
             id="newemail"
+            data-testid="testemail"
             value={newEmail}
             onChange={({ target }) => setNewEmail(target.value)}
             required
@@ -148,6 +153,7 @@ function NotificationForm(props) {
           <Form.Check
             type="radio"
             label="Ei"
+            data-testid="testradio"
             checked={coordinateRadio === 'no'}
             value="no"
             onChange={(c) => { setCoordinateRadio(c.target.value); }}
@@ -159,6 +165,7 @@ function NotificationForm(props) {
             <Form.Control
               type="text"
               id="newxcoordinate"
+              data-testid="testxcoordinate"
               value={newXCoordinate}
               onChange={({ target }) => setNewXCoordinate(target.value)}
               pattern="^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)"
@@ -174,6 +181,7 @@ function NotificationForm(props) {
             <Form.Control
               type="text"
               id="newycoordinate"
+              data-testid="testycoordinate"
               value={newYCoordinate}
               onChange={({ target }) => setNewYCoordinate(target.value)}
               pattern="^[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)"
@@ -190,6 +198,7 @@ function NotificationForm(props) {
               as="textarea"
               rows="5"
               id="newcoordinatetext"
+              data-testid="testcoordinateinfo"
               value={newCoordinateText}
               onChange={({ target }) => setNewCoordinateText(target.value)}
               pattern=".{10,1000}"
@@ -208,6 +217,7 @@ function NotificationForm(props) {
           <Form.Check
             type="radio"
             label="Kyllä"
+            data-testid="testradio2"
             checked={changeRadio === 'yes'}
             value="yes"
             onChange={(c) => { setChangeRadio(c.target.value); }}
@@ -227,6 +237,7 @@ function NotificationForm(props) {
               as="textarea"
               rows="5"
               id="newchange"
+              data-testid="testchange"
               value={newChangeText}
               onChange={({ target }) => setNewChangeText(target.value)}
               pattern=".{10,1000}"
@@ -246,6 +257,7 @@ function NotificationForm(props) {
           <Form.Control
             as="textarea"
             id="newmisctext"
+            data-testid="testmisc"
             value={newMiscText}
             onChange={({ target }) => setNewMiscText(target.value)}
             pattern=".{0,1000}"
