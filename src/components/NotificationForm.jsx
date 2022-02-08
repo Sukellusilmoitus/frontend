@@ -2,7 +2,13 @@ import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 
 function NotificationForm(props) {
-  const { wreckName, wreckId, createNotification } = props;
+  const {
+    wreckName,
+    wreckId,
+    wreckXcoordinate,
+    wreckYcoordinate,
+    createNotification,
+  } = props;
 
   const [newName, setNewName] = useState('');
   const [newPhone, setNewPhone] = useState('');
@@ -136,6 +142,13 @@ function NotificationForm(props) {
           </Form.Text>
         </Form.Group>
         <Form.Group>
+          <br />
+          <Form.Label>
+            Lat:
+            {wreckYcoordinate}
+            Lon:
+            {wreckXcoordinate}
+          </Form.Label>
           <br />
           <Form.Label>Olivatko koordinaatit oikein:</Form.Label>
           <Form.Check

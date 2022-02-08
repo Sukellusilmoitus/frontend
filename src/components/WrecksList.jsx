@@ -40,7 +40,11 @@ function WrecksList(props) {
               {wrecks.features.map((wreck) => (
                 <tr
                   key={wreck.properties.id}
-                  onClick={() => onRowClick(wreck.properties.name, wreck.properties.id)}
+                  onClick={() => onRowClick(
+                    wreck.properties.name,
+                    wreck.properties.id,
+                    wreck.geometry.coordinates,
+                  )}
                 >
                   <td>{wreck.properties.name}</td>
                   <td>{wreck.properties.town}</td>
