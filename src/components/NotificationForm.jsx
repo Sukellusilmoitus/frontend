@@ -50,12 +50,35 @@ function NotificationForm(props) {
     setNewLocationId(wreckId);
   };
 
+  // event listeners to detect if either phonenumber or email is given
+
+  const changeRequiredTel = (elm) => {
+    if (elm.value !== '') {
+      document.querySelector('input[id=newphone]').required = false;
+    } else if (elm.value === '') {
+      document.querySelector('input[id=newphone]').required = true;
+    }
+  };
+
+  const changeRequiredEmail = (elm) => {
+    if (elm.value !== '') {
+      document.querySelector('input[id=newemail]').required = false;
+    } else if (elm.value === '') {
+      document.querySelector('input[id=newemail]').required = true;
+    }
+  };
+
+  const resetRequired = () => {
+    document.querySelector('input[id=newemail]').required = true;
+    document.querySelector('input[id=newphone]').required = true;
+  };
+
   return (
     <div>
       <h2>Tee uusi sukellusilmoitus</h2>
 
       <Form
-        onSubmit={(event) => addNotification(event)}
+        onSubmit={(event) => { addNotification(event); resetRequired(); }}
         onFocus={() => update()}
         data-testid="testform"
         validated
@@ -68,8 +91,8 @@ function NotificationForm(props) {
             data-testid="testname"
             value={newName}
             onChange={({ target }) => setNewName(target.value)}
-            pattern="(?!.*?\s{2})[ A-Za-zäöåÅÄÖ]{7,20}"
-            onInvalid={(e) => { e.target.setCustomValidity('Tulee olla 7-20 merkkiä pitkä ja sisältää vain kirjaimia ja välilyöntejä'); }}
+            pattern="(?!.*?\s{2})[ A-Za-zäöåÅÄÖ]{4,30}"
+            onInvalid={(e) => { e.target.setCustomValidity('Tulee olla 4-30 merkkiä pitkä ja sisältää vain kirjaimia ja välilyöntejä'); }}
             onInput={(e) => { e.target.setCustomValidity(''); }}
             required
           />
@@ -85,14 +108,14 @@ function NotificationForm(props) {
             id="newphone"
             data-testid="testphone"
             value={newPhone}
-            onChange={({ target }) => setNewPhone(target.value)}
+            onChange={({ target }) => { setNewPhone(target.value); changeRequiredEmail(target); }}
             pattern="\+?[0-9]{3}-?[0-9]{6,12}"
             onInvalid={(e) => { e.target.setCustomValidity('Virheellinen puhelinnumero'); }}
             onInput={(e) => { e.target.setCustomValidity(''); }}
             required
           />
           <Form.Text className="text-muted">
-            Pakollinen kenttä
+            Anna joko puhelinnumero tai sähköposti
           </Form.Text>
         </Form.Group>
         <Form.Group>
@@ -103,11 +126,11 @@ function NotificationForm(props) {
             id="newemail"
             data-testid="testemail"
             value={newEmail}
-            onChange={({ target }) => setNewEmail(target.value)}
+            onChange={({ target }) => { setNewEmail(target.value); changeRequiredTel(target); }}
             required
           />
           <Form.Text className="text-muted">
-            Pakollinen kenttä
+            Anna joko puhelinnumero tai sähköposti
           </Form.Text>
         </Form.Group>
         <Form.Group>
@@ -193,7 +216,9 @@ function NotificationForm(props) {
               Pakollinen kenttä
             </Form.Text>
             <br />
-            <Form.Label>Paikannuksen lisäinfo:</Form.Label>
+            <Form.Label>
+              Mikä vanhoissa koordinaateissa oli pielessä ja miten uudet koordinaatit on mitattu:
+            </Form.Label>
             <Form.Control
               as="textarea"
               rows="5"
@@ -205,9 +230,6 @@ function NotificationForm(props) {
               onInvalid={(e) => { e.target.setCustomValidity('Tulee olla 10-1000 merkkiä pitkä'); }}
               onInput={(e) => { e.target.setCustomValidity(''); }}
             />
-            <Form.Text className="text-muted">
-              Pakollinen kenttä
-            </Form.Text>
           </p>
           )}
         </Form.Group>
