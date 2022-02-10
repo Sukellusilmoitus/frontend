@@ -4,7 +4,13 @@ function DiveHistory({ diveList }) {
   return (
     <div>
       {diveList.map((dive) => (
-        dive.created_at
+        <section key={dive.id}>
+          <strong>{dive.created_at}</strong>
+          <br />
+          Sukeltaja:
+          {' '}
+          {dive.diver.name}
+        </section>
       ))}
     </div>
   );

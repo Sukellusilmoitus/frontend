@@ -4,7 +4,6 @@ import {
 } from 'react-bootstrap';
 
 function TargetInfo({ target }) {
-  // console.log(target);
   return (
     <Container>
       <Table bordered size="sm">
@@ -28,9 +27,9 @@ function TargetInfo({ target }) {
           <tr>
             <td>Koordinaatit</td>
             <td>
-              {target.geometry.coordinates[1]}
-              {', '}
               {target.geometry.coordinates[0]}
+              {', '}
+              {target.geometry.coordinates[1]}
             </td>
           </tr>
           <tr>

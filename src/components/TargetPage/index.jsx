@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import NotificationForm from '../NotificationForm';
 import TargetInfo from './TargetInfo';
@@ -7,6 +7,17 @@ import TargetLocationMap from './TargetLocationMap';
 import DiveHistory from './DiveHistory';
 
 function TargetPage({ target }) {
+  const [dives, setDives] = useState([]);
+
+  const getDives = async () => {
+    const data = await diveService.getAllByTarget(target.properties.id);
+    setDives(data.data);
+  };
+
+  useEffect(() => {
+    getDives();
+  }, []);
+
   const createNewNotification = (notification) => {
     diveService.create(notification);
   };
@@ -19,22 +30,25 @@ function TargetPage({ target }) {
         <h2>{target.properties.name}</h2>
         <Row>
           <Col>
+            <h3>Tietoja</h3>
             <TargetInfo target={target} />
           </Col>
           <Col>
+            <h3>Sijainti kartalla</h3>
             <TargetLocationMap target={target} />
           </Col>
         </Row>
-        <Row>
-          <Col>
-            <DiveHistory diveList={[{ created_at: 'eilen' }]} />
-          </Col>
+        <Row style={{ marginTop: '40px' }}>
           <Col>
             <NotificationForm
               wreckName={target.properties.name}
               wreckId={target.properties.id}
               createNotification={createNewNotification}
             />
+          </Col>
+          <Col>
+            <h3>Sukellushistoria</h3>
+            <DiveHistory diveList={dives} />
           </Col>
         </Row>
       </Container>
