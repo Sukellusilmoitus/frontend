@@ -13,7 +13,7 @@ function NewTargetForm(props) {
   const [newXCoordinate, setNewXCoordinate] = useState('');
   const [newYCoordinate, setNewYCoordinate] = useState('');
   const [newCoordinateText, setNewCoordinateText] = useState('');
-  const [newChangeText, setNewChangeText] = useState('');
+  const [newDiverInfoText, setNewDiverInfoText] = useState('');
   const [newMiscText, setNewMiscText] = useState('');
 
   const addNotification = (event) => {
@@ -28,7 +28,7 @@ function NewTargetForm(props) {
       xCoordinate: newXCoordinate,
       yCoordinate: newYCoordinate,
       coordinateText: newCoordinateText,
-      changeText: newChangeText,
+      diverInfoText: newDiverInfoText,
       miscText: newMiscText,
     });
 
@@ -40,7 +40,7 @@ function NewTargetForm(props) {
     setNewXCoordinate('');
     setNewYCoordinate('');
     setNewCoordinateText('');
-    setNewChangeText('');
+    setNewDiverInfoText('');
     setNewMiscText('');
   };
 
@@ -106,6 +106,7 @@ function NewTargetForm(props) {
           <Form.Control
             type="text"
             id="newtargetdescription"
+            data-testid="testtargetdescription"
             value={newTargetDescription}
             onChange={({ target }) => setNewTargetDescription(target.value)}
             required
@@ -131,6 +132,7 @@ function NewTargetForm(props) {
           <Form.Check
             type="radio"
             label="Kyllä"
+            data-testid="testradio"
             checked={coordinateRadio === 'yes'}
             value="yes"
             onChange={(c) => { setCoordinateRadio(c.target.value); }}
@@ -138,7 +140,6 @@ function NewTargetForm(props) {
           <Form.Check
             type="radio"
             label="Ei"
-            data-testid="testradio"
             checked={coordinateRadio === 'no'}
             value="no"
             onChange={(c) => { setCoordinateRadio(c.target.value); }}
@@ -203,10 +204,10 @@ function NewTargetForm(props) {
           <Form.Control
             as="textarea"
             rows="5"
-            id="newchange"
-            data-testid="testchange"
-            value={newChangeText}
-            onChange={({ target }) => setNewChangeText(target.value)}
+            id="newdiverinfo"
+            data-testid="testdiverinfo"
+            value={newDiverInfoText}
+            onChange={({ target }) => setNewDiverInfoText(target.value)}
             pattern=".{10,1000}"
             onInvalid={(e) => { e.target.setCustomValidity('Tulee olla 10-1000 merkkiä pitkä'); }}
             onInput={(e) => { e.target.setCustomValidity(''); }}
