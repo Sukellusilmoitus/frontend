@@ -18,8 +18,8 @@ test('<NoteForm /> updates parent state and calls onSubmit with all inputs fille
 
   const component = render(
     <NoteForm
-      wreckName="testihylky"
-      wreckId="456"
+      targetName="testihylky"
+      targetId="456"
       createNotification={createNotification}
     />,
   );
