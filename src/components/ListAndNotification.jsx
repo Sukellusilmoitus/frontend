@@ -1,13 +1,13 @@
 import React, { useState, useRef } from 'react';
 import NotificationForm from './NotificationForm';
-import WrecksList from './WrecksList';
+import TargetsList from './TargetsList';
 import diveService from '../services/dives';
 
 function ListAndNotification() {
-  const [wreckName, setWreckName] = useState('');
-  const [wreckId, setWreckId] = useState('');
-  const [wreckXcoordinate, setWreckXcoordinate] = useState('');
-  const [wreckYcoordinate, setWreckYcoordinate] = useState('');
+  const [targetName, setTargetName] = useState('');
+  const [targetId, setTargetId] = useState('');
+  const [targetXcoordinate, setTargetXcoordinate] = useState('');
+  const [targetYcoordinate, setTargetYcoordinate] = useState('');
   const formRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -15,10 +15,10 @@ function ListAndNotification() {
   };
 
   const handleClick = (name, id, coordinates) => {
-    setWreckName(name);
-    setWreckId(id);
-    setWreckXcoordinate(coordinates[0]);
-    setWreckYcoordinate(coordinates[1]);
+    setTargetName(name);
+    setTargetId(id);
+    setTargetXcoordinate(coordinates[0]);
+    setTargetYcoordinate(coordinates[1]);
     scrollToBottom();
   };
 
@@ -28,7 +28,7 @@ function ListAndNotification() {
 
   return (
     <div>
-      <WrecksList onRowClick={handleClick} />
+      <TargetsList onRowClick={handleClick} />
       <div
         style={{
           float: 'left',
@@ -37,10 +37,10 @@ function ListAndNotification() {
         ref={formRef}
       />
       <NotificationForm
-        wreckName={wreckName}
-        wreckId={wreckId}
-        wreckXcoordinate={wreckXcoordinate}
-        wreckYcoordinate={wreckYcoordinate}
+        targetName={targetName}
+        targetId={targetId}
+        targetXcoordinate={targetXcoordinate}
+        targetYcoordinate={targetYcoordinate}
         createNotification={createNewNotification}
       />
     </div>

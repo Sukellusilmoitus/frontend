@@ -1,24 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Spinner } from 'react-bootstrap';
-import wreckService from '../services/wrecks';
+import targetService from '../services/targets';
 
-function WrecksList(props) {
+function TargetsList(props) {
   const { onRowClick } = props;
-  const [wrecks, setWrecks] = useState('loading...');
+  const [targets, setTargets] = useState('loading...');
 
-  async function getWreckData() {
-    const data = await wreckService.getAllWrecks();
+  async function getTargetData() {
+    const data = await targetService.getAllTargets();
     data.features.sort((a, b) => (a.properties.name > b.properties.name ? 1 : -1));
-    setWrecks(data);
+    setTargets(data);
   }
 
   useEffect(() => {
-    getWreckData();
+    getTargetData();
   }, []);
 
   return (
     <div>
-      {(wrecks === 'loading...')
+      {(targets === 'loading...')
         ? (
           <div>
             <Spinner animation="border" />
@@ -37,19 +37,19 @@ function WrecksList(props) {
               </tr>
             </thead>
             <tbody>
-              {wrecks.features.map((wreck) => (
+              {targets.features.map((target) => (
                 <tr
-                  key={wreck.properties.id}
+                  key={target.properties.id}
                   onClick={() => onRowClick(
-                    wreck.properties.name,
-                    wreck.properties.id,
-                    wreck.geometry.coordinates,
+                    target.properties.name,
+                    target.properties.id,
+                    target.geometry.coordinates,
                   )}
                 >
-                  <td>{wreck.properties.name}</td>
-                  <td>{wreck.properties.town}</td>
-                  <td>{wreck.properties.type}</td>
-                  <td><a href={wreck.properties.url}>{wreck.properties.source}</a></td>
+                  <td>{target.properties.name}</td>
+                  <td>{target.properties.town}</td>
+                  <td>{target.properties.type}</td>
+                  <td><a href={target.properties.url}>{target.properties.source}</a></td>
                 </tr>
               ))}
             </tbody>
@@ -58,4 +58,4 @@ function WrecksList(props) {
     </div>
   );
 }
-export default WrecksList;
+export default TargetsList;
