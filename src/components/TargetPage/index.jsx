@@ -25,34 +25,32 @@ function TargetPage({ target }) {
   if (!target) return <div>Ei löytynyt</div>;
 
   return (
-    <div>
-      <Container>
-        <h2>{target.properties.name}</h2>
-        <Row>
-          <Col>
-            <h3>Tietoja</h3>
-            <TargetInfo target={target} />
-          </Col>
-          <Col>
-            <h3>Sijainti kartalla</h3>
-            <TargetLocationMap target={target} />
-          </Col>
-        </Row>
-        <Row style={{ marginTop: '40px' }}>
-          <Col>
-            <NotificationForm
-              wreckName={target.properties.name}
-              wreckId={target.properties.id}
-              createNotification={createNewNotification}
-            />
-          </Col>
-          <Col>
-            <h3>Sukellushistoria</h3>
-            <DiveHistory diveList={dives} />
-          </Col>
-        </Row>
-      </Container>
-    </div>
+    <Container>
+      <h2>{target.properties.name}</h2>
+      <Row>
+        <Col>
+          <h3>Tietoja</h3>
+          <TargetInfo target={target} />
+        </Col>
+        <Col>
+          <h3>Sijainti kartalla</h3>
+          <TargetLocationMap target={target} />
+        </Col>
+      </Row>
+      <Row style={{ marginTop: '40px' }}>
+        <Col>
+          <NotificationForm
+            wreckName={target.properties.name}
+            wreckId={target.properties.id}
+            createNotification={createNewNotification}
+          />
+        </Col>
+        <Col>
+          <h3>Sukellushistoria</h3>
+          <DiveHistory diveList={dives} />
+        </Col>
+      </Row>
+    </Container>
   );
 }
 

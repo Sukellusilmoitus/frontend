@@ -10,6 +10,10 @@ function DiveHistory({ diveList }) {
           Sukeltaja:
           {' '}
           {dive.diver.name}
+          <br />
+          Muutokset:
+          {' '}
+          <i>{dive.change_text || 'ei muutoksia'}</i>
         </section>
       ))}
     </div>
