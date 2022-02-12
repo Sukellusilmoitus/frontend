@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Container, Table,
 } from 'react-bootstrap';
+import dayjs from 'dayjs';
 
 function TargetInfo({ target }) {
   return (
@@ -18,7 +19,7 @@ function TargetInfo({ target }) {
           </tr>
           <tr>
             <td>Lisätty</td>
-            <td>{target.properties.created_at}</td>
+            <td>{dayjs(target.properties.created_at).format('DD.MM.YYYY')}</td>
           </tr>
           <tr>
             <td>Tyyppi</td>

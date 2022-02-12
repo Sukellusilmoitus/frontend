@@ -10,17 +10,19 @@ function TargetPage({ target }) {
   const [dives, setDives] = useState([]);
 
   const getDives = async () => {
-    const data = await diveService.getAllByTarget(target.properties.id);
-    setDives(data.data);
+    if (target) {
+      const data = await diveService.getAllByTarget(target.properties.id);
+      setDives(data.data);
+    }
   };
-
-  useEffect(() => {
-    getDives();
-  }, []);
 
   const createNewNotification = (notification) => {
     diveService.create(notification);
   };
+
+  useEffect(() => {
+    getDives();
+  }, [target]);
 
   if (!target) return <div>Ei löytynyt</div>;
 

@@ -2,9 +2,9 @@ import React from 'react';
 
 function DiveHistory({ diveList }) {
   return (
-    <div>
+    <section>
       {diveList.map((dive) => (
-        <section key={dive.id}>
+        <div key={dive.id} data-testid={dive.id}>
           <strong>{dive.created_at}</strong>
           <br />
           Sukeltaja:
@@ -14,9 +14,9 @@ function DiveHistory({ diveList }) {
           Muutokset:
           {' '}
           <i>{dive.change_text || 'ei muutoksia'}</i>
-        </section>
+        </div>
       ))}
-    </div>
+    </section>
   );
 }
 
