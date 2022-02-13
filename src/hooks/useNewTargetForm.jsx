@@ -10,6 +10,14 @@ const useForm = (createNotification) => {
     createNotification({
       name: values.divername,
       phone: values.phone,
+      email: values.email,
+      targetDescription: values.targetdescription,
+      locationName: values.locationname,
+      xCoordinate: values.xcoordinate,
+      yCoordinate: values.ycoordinate,
+      coordinateText: values.coordinateinfo,
+      diverInfoText: values.diverinfo,
+      miscText: values.misctext,
     });
   };
 
