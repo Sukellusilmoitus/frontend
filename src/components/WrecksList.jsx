@@ -38,8 +38,8 @@ function WrecksList() {
             </thead>
             <tbody>
               {wrecks.features.map((wreck) => (
-                <LinkContainer to={`/sukellusilmoitus/${wreck.properties.id}`}>
-                  <tr key={wreck.properties.id}>
+                <LinkContainer to={`/sukellusilmoitus/${wreck.properties.id}`} key={wreck.properties.id}>
+                  <tr>
                     <td>{wreck.properties.name}</td>
                     <td>{wreck.properties.town}</td>
                     <td>{wreck.properties.type}</td>

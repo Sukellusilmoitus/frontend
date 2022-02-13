@@ -5,6 +5,7 @@ import { act } from 'react-dom/test-utils';
 import '@testing-library/jest-dom/extend-expect';
 import WrecksList from './WrecksList';
 import WreckService from '../services/wrecks';
+import { BrowserRouter } from 'react-router-dom';
 
 const data = {
   features: [
@@ -25,7 +26,9 @@ const data = {
 
 test('renders component loading', () => {
   const component = render(
-    <WrecksList />,
+    <BrowserRouter>
+      <WrecksList />
+    </BrowserRouter>,
   );
   expect(component.container).toHaveTextContent(
     'Ladataan',
@@ -35,7 +38,12 @@ test('renders component loading', () => {
 test('service get called', async () => {
   WreckService.getAllWrecks = jest.fn().mockReturnValue(data);
 
-  await act(async () => { render(<WrecksList />); });
+  await act(async () => { render(
+      <BrowserRouter>
+        <WrecksList />
+      </BrowserRouter>);
+    }
+  );
 
   await expect(WreckService.getAllWrecks.mock.calls).toHaveLength(1);
 });
