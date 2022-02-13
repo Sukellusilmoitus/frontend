@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router, Switch, Route,
 } from 'react-router-dom';
 import Header from './components/Navigation';
-import ListAndNotification from './components/ListAndNotification';
+import WrecksList from './components/WrecksList';
 import NotificationForm from './components/NotificationForm';
 
 function App() {
@@ -13,7 +13,7 @@ function App() {
       <Router>
         <Header />
         <Switch>
-          <Route path="/hylyt" component={ListAndNotification} />
+          <Route path="/hylyt" component={WrecksList} />
           <Route path="/sukellusilmoitus/:id" component={NotificationForm} />
         </Switch>
       </Router>
