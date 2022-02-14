@@ -12,19 +12,19 @@ const useForm = (createNotification) => {
     createNotification({
       id: wrecks.generateUniqueID(),
       name: values.divername,
-      town: values.locationname,
+      town: values.locationname || '',
       type: values.targetdescription,
       x_coordinate: values.xcoordinate,
       y_coordinate: values.ycoordinate,
-      location_method: values.coordinateinfo,
-      location_accuracy: values.diverinfo,
+      location_method: values.coordinateinfo || '',
+      location_accuracy: values.diverinfo || '',
       is_ancient: false,
       created_at: Date.now() / 1000.0,
       url: REACT_APP_SERVER_URL,
       source: 'ilmoitus',
       phone: values.phone,
       email: values.email,
-      miscText: values.misctext,
+      miscText: values.misctext || '',
     });
   };
 

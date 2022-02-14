@@ -120,6 +120,7 @@ function NewTargetForm() {
               data-testid="testxcoordinate"
               onChange={handleChange}
               isInvalid={!!errors.xcoordinate}
+              required
             />
             <Form.Control.Feedback type="invalid">
               { errors.xcoordinate }
@@ -135,6 +136,7 @@ function NewTargetForm() {
               data-testid="testycoordinate"
               onChange={handleChange}
               isInvalid={!!errors.ycoordinate}
+              required
             />
             <Form.Control.Feedback type="invalid">
               { errors.ycoordinate }
