@@ -5,6 +5,7 @@ import ListAndNotification from './components/ListAndNotification';
 import TargetPage from './components/TargetPage';
 import wreckService from './services/wrecks';
 import './App.css';
+import NewTargetForm from './components/NewTargetForm';
 
 function App() {
   const [targets, setTargets] = useState([]);
@@ -33,6 +34,7 @@ function App() {
           <TargetPage target={target} />
         </Route>
         <Route path="/hylyt" component={ListAndNotification} />
+        <Route path="/uusi" component={NewTargetForm} />
       </Switch>
     </div>
   );

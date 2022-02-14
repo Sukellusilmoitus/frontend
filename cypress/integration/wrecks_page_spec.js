@@ -59,11 +59,17 @@ describe('Test form', () => {
     cy.get('[id=newname]').then($x => expect($x[0].checkValidity()).to.be.false);
   });
 
-  it('user has to fill in their phone number', () => {
+  it('user has to fill in their phone number if email is empty', () => {
     cy.get('[id=newname]').type('Test Tester');
     cy.get('.btn').click();
     cy.wait(2000);
     cy.get('[id=newphone]').then($x => expect($x[0].checkValidity()).to.be.false);
+  });
+
+  it('user has to fill in their email if phone number is not given', () => {
+    cy.get('.btn').click();
+    cy.wait(2000);
+    cy.get('[id=newemail]').then($x => expect($x[0].checkValidity()).to.be.false);
   });
 
   it('locationname cannot be modified by typing', () => {
