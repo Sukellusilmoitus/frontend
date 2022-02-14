@@ -14,6 +14,9 @@ function Navigation() {
           <LinkContainer to="/hylyt">
             <Nav.Link>Hylyt</Nav.Link>
           </LinkContainer>
+          <LinkContainer to="/uusi">
+            <Nav.Link>Uusi hylky</Nav.Link>
+          </LinkContainer>
         </Nav>
       </Navbar.Collapse>
     </Navbar>

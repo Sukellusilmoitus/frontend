@@ -4,6 +4,7 @@ import {
 } from 'react-router-dom';
 import Header from './components/Navigation';
 import ListAndNotification from './components/ListAndNotification';
+import NewTargetForm from './components/NewTargetForm';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Header />
         <Switch>
           <Route path="/hylyt" component={ListAndNotification} />
+          <Route path="/uusi" component={NewTargetForm} />
         </Switch>
       </Router>
     </div>
