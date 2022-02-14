@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { omit } from 'lodash';
+import wrecks from '../services/wrecks';
+import REACT_APP_SERVER_URL from '../util/config';
 
 const useForm = (createNotification) => {
   const [values, setValues] = useState({});
@@ -8,15 +10,20 @@ const useForm = (createNotification) => {
   const callback = (event) => {
     event.preventDefault();
     createNotification({
+      id: wrecks.generateUniqueID(),
       name: values.divername,
+      town: values.locationname,
+      type: values.targetdescription,
+      x_coordinate: values.xcoordinate,
+      y_coordinate: values.ycoordinate,
+      location_method: values.coordinateinfo,
+      location_accuracy: values.diverinfo,
+      is_ancient: false,
+      created_at: Date.now() / 1000.0,
+      url: REACT_APP_SERVER_URL,
+      source: 'ilmoitus',
       phone: values.phone,
       email: values.email,
-      targetDescription: values.targetdescription,
-      locationName: values.locationname,
-      xCoordinate: values.xcoordinate,
-      yCoordinate: values.ycoordinate,
-      coordinateText: values.coordinateinfo,
-      diverInfoText: values.diverinfo,
       miscText: values.misctext,
     });
   };
@@ -177,7 +184,8 @@ const useForm = (createNotification) => {
     if (event) event.preventDefault();
 
     if (Object.keys(errors).length === 0 && Object.keys(values).length !== 0) {
-      callback();
+      callback(event);
+      alert('Lomake lähetetty onnistuneesti!');
     } else {
       // eslint-disable-next-line no-alert
       alert('Lomakkeessa on virheitä tai sen tiedot ovat puutteellisia!');

@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import useForm from '../hooks/useNewTargetForm';
+import wrecks from '../services/wrecks';
 
-function NewTargetForm(props) {
-  const { createNotification } = props;
+function NewTargetForm() {
   const [coordinateRadio, setCoordinateRadio] = useState('no');
 
   const {
     handleChange, errors, handleSubmit,
-  } = useForm(createNotification);
+  } = useForm(wrecks.postTarget);
 
   return (
     <div>
