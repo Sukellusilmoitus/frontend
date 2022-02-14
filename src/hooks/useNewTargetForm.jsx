@@ -20,7 +20,7 @@ const useForm = (createNotification) => {
       location_accuracy: values.diverinfo || '',
       is_ancient: false,
       created_at: Date.now() / 1000.0,
-      url: REACT_APP_SERVER_URL,
+      url: REACT_APP_SERVER_URL === 'http://localhost:5000' ? 'http://localhost.com' : REACT_APP_SERVER_URL,
       source: 'ilmoitus',
       phone: values.phone,
       email: values.email,
@@ -183,9 +183,12 @@ const useForm = (createNotification) => {
   const handleSubmit = (event) => {
     if (event) event.preventDefault();
 
+    if (values.phone === undefined && values.email === undefined) {
+      alert('Ilmoita puhellinumero tai sähköpostiosoite!');
+    }
+
     if (Object.keys(errors).length === 0 && Object.keys(values).length !== 0) {
       callback(event);
-      alert('Lomake lähetetty onnistuneesti!');
     } else {
       // eslint-disable-next-line no-alert
       alert('Lomakkeessa on virheitä tai sen tiedot ovat puutteellisia!');
