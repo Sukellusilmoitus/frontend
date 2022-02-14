@@ -7,7 +7,7 @@ function WrecksList(props) {
   const [wrecks, setWrecks] = useState('loading...');
 
   async function getWreckData() {
-    const data = wreckService.getAllWrecks();
+    const data = await wreckService.getAllWrecks();
     data.features.sort((a, b) => (a.properties.name > b.properties.name ? 1 : -1));
     setWrecks(data);
   }
