@@ -3,6 +3,7 @@ import React from 'react';
 function DiveHistory({ diveList }) {
   return (
     <section>
+      <h3>Sukellushistoria</h3>
       {diveList.map((dive) => (
         <div key={dive.id} data-testid={dive.id}>
           <strong>{dive.created_at}</strong>

@@ -7,6 +7,7 @@ import dayjs from 'dayjs';
 function TargetInfo({ target }) {
   return (
     <Container>
+      <h3>Tietoja</h3>
       <Table bordered size="sm">
         <tbody>
           <tr>

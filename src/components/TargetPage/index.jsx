@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
-import NotificationForm from '../NotificationForm';
-import TargetInfo from './TargetInfo';
 import diveService from '../../services/dives';
-import TargetLocationMap from './TargetLocationMap';
-import DiveHistory from './DiveHistory';
+import TargetPage from './TargetPage';
 
-function TargetPage({ target }) {
+function Target({ target }) {
   const [dives, setDives] = useState([]);
 
   const getDives = async () => {
@@ -27,33 +23,12 @@ function TargetPage({ target }) {
   if (!target) return <div>Ei löytynyt</div>;
 
   return (
-    <Container>
-      <h2>{target.properties.name}</h2>
-      <Row>
-        <Col>
-          <h3>Tietoja</h3>
-          <TargetInfo target={target} />
-        </Col>
-        <Col>
-          <h3>Sijainti kartalla</h3>
-          <TargetLocationMap target={target} />
-        </Col>
-      </Row>
-      <Row style={{ marginTop: '40px' }}>
-        <Col>
-          <NotificationForm
-            wreckName={target.properties.name}
-            wreckId={target.properties.id}
-            createNotification={createNewNotification}
-          />
-        </Col>
-        <Col>
-          <h3>Sukellushistoria</h3>
-          <DiveHistory diveList={dives} />
-        </Col>
-      </Row>
-    </Container>
+    <TargetPage
+      target={target}
+      createNewNotification={createNewNotification}
+      dives={dives}
+    />
   );
 }
 
-export default TargetPage;
+export default Target;
