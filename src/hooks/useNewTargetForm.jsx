@@ -191,6 +191,7 @@ const useForm = (createNotification) => {
     if (values.phone === undefined && values.email === undefined) {
       // eslint-disable-next-line no-alert
       alert('Ilmoita puhellinumero tai sähköpostiosoite!');
+      return;
     }
 
     if (Object.keys(errors).length === 0 && Object.keys(values).length !== 0) {

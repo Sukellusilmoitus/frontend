@@ -23,13 +23,14 @@ function NewTargetForm() {
         data-testid="testform"
       >
         <Form.Group>
-          <Form.Label>Etu- ja sukunimi:</Form.Label>
+          <Form.Label>Kohteen nimi:</Form.Label>
           <Form.Control
             type="text"
             name="divername"
             data-testid="testdivername"
             onChange={handleChange}
             isInvalid={!!errors.divername}
+            required
           />
           <Form.Control.Feedback type="invalid">
             { errors.divername }
@@ -69,6 +70,7 @@ function NewTargetForm() {
             data-testid="testtargetdescription"
             onChange={handleChange}
             isInvalid={!!errors.targetdescription}
+            required
           />
           <Form.Text className="text-muted">
             Hylky, hylyn osa, rakenne, esine, pintahylky, pohjaan vajonnut
@@ -85,6 +87,7 @@ function NewTargetForm() {
             data-testid="testlocationname"
             onChange={handleChange}
             isInvalid={!!errors.locationname}
+            required
           />
           <Form.Control.Feedback type="invalid">
             { errors.locationname }
@@ -98,6 +101,7 @@ function NewTargetForm() {
             data-testid="testxcoordinate"
             onChange={handleChange}
             isInvalid={!!errors.xcoordinate}
+            required
           />
           <Form.Control.Feedback type="invalid">
             { errors.xcoordinate }
@@ -113,6 +117,7 @@ function NewTargetForm() {
             data-testid="testycoordinate"
             onChange={handleChange}
             isInvalid={!!errors.ycoordinate}
+            required
           />
           <Form.Control.Feedback type="invalid">
             { errors.ycoordinate }
@@ -129,6 +134,7 @@ function NewTargetForm() {
             data-testid="testcoordinateinfo"
             onChange={handleChange}
             isInvalid={!!errors.coordinateinfo}
+            required
           />
           <Form.Control.Feedback type="invalid">
             { errors.coordinateinfo }
@@ -138,20 +144,18 @@ function NewTargetForm() {
           </Form.Text>
         </Form.Group>
         <Form.Group>
-          <Form.Label>Tarkastussukeltajalle tärkeät havainnot:</Form.Label>
+          <Form.Label>Paikannuksen tarkkuus:</Form.Label>
           <Form.Control
             type="text"
             name="diverinfo"
             data-testid="testdiverinfo"
             onChange={handleChange}
             isInvalid={!!errors.diverinfo}
+            required
           />
           <Form.Control.Feedback type="invalid">
             { errors.diverinfo }
           </Form.Control.Feedback>
-          <Form.Text className="text-muted">
-            Esimerkiksi voimakas virtaus, näkyvyys, verkot
-          </Form.Text>
         </Form.Group>
         <Form.Group>
           <Form.Label>Lisäinfoa:</Form.Label>
@@ -166,7 +170,7 @@ function NewTargetForm() {
             { errors.misctext }
           </Form.Control.Feedback>
           <Form.Text className="text-muted">
-            Enintään 1000 merkkiä pitkä
+            Enintään 1000 merkkiä pitkä. Esimerkiksi voimakas virtaus, näkyvyys, verkot
           </Form.Text>
         </Form.Group>
         <br />
