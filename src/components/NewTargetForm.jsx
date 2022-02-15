@@ -1,12 +1,12 @@
 import React from 'react';
 import { Form, Button } from 'react-bootstrap';
 import useForm from '../hooks/useNewTargetForm';
-import wrecks from '../services/wrecks';
+import targets from '../services/targets';
 
 function NewTargetForm() {
   const {
     handleChange, errors, handleSubmit,
-  } = useForm(wrecks.postTarget);
+  } = useForm(targets.postTarget);
 
   return (
     <div>
@@ -30,7 +30,6 @@ function NewTargetForm() {
             data-testid="testdivername"
             onChange={handleChange}
             isInvalid={!!errors.divername}
-            required
           />
           <Form.Control.Feedback type="invalid">
             { errors.divername }
@@ -70,7 +69,6 @@ function NewTargetForm() {
             data-testid="testtargetdescription"
             onChange={handleChange}
             isInvalid={!!errors.targetdescription}
-            required
           />
           <Form.Text className="text-muted">
             Hylky, hylyn osa, rakenne, esine, pintahylky, pohjaan vajonnut
@@ -100,7 +98,6 @@ function NewTargetForm() {
             data-testid="testxcoordinate"
             onChange={handleChange}
             isInvalid={!!errors.xcoordinate}
-            required
           />
           <Form.Control.Feedback type="invalid">
             { errors.xcoordinate }
@@ -116,7 +113,6 @@ function NewTargetForm() {
             data-testid="testycoordinate"
             onChange={handleChange}
             isInvalid={!!errors.ycoordinate}
-            required
           />
           <Form.Control.Feedback type="invalid">
             { errors.ycoordinate }

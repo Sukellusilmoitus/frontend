@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { omit } from 'lodash';
-import wrecks from '../services/wrecks';
+import targets from '../services/targets';
 import REACT_APP_SERVER_URL from '../util/config';
 
 const useForm = (createNotification) => {
@@ -9,8 +9,13 @@ const useForm = (createNotification) => {
 
   const callback = (event) => {
     event.preventDefault();
+    // Try to generate target id until free one is found
+    let targetID = null;
+    while (targetID === null) {
+      targetID = targets.generateUniqueID();
+    }
     createNotification({
-      id: wrecks.generateUniqueID(),
+      id: targetID,
       name: values.divername,
       town: values.locationname || '',
       type: values.targetdescription,
@@ -184,6 +189,7 @@ const useForm = (createNotification) => {
     if (event) event.preventDefault();
 
     if (values.phone === undefined && values.email === undefined) {
+      // eslint-disable-next-line no-alert
       alert('Ilmoita puhellinumero tai sähköpostiosoite!');
     }
 
