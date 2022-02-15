@@ -21,8 +21,8 @@ function TargetPage({ target, createNewNotification, dives }) {
       <Row style={{ marginTop: '40px' }}>
         <Col>
           <NotificationForm
-            wreckName={target.properties.name}
-            wreckId={target.properties.id}
+            targetName={target.properties.name}
+            targetId={target.properties.id}
             createNotification={createNewNotification}
           />
         </Col>

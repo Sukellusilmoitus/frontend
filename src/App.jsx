@@ -3,15 +3,15 @@ import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import Header from './components/Navigation';
 import ListAndNotification from './components/ListAndNotification';
 import TargetPage from './components/TargetPage';
-import wreckService from './services/wrecks';
-import './App.css';
+import targetService from './services/targets';
 import NewTargetForm from './components/NewTargetForm';
+import './App.css';
 
 function App() {
   const [targets, setTargets] = useState([]);
 
   const getTargets = async () => {
-    const data = await wreckService.getAllWrecks();
+    const data = await targetService.getAllTargets();
     data.features.sort((a, b) => (a.properties.name > b.properties.name ? 1 : -1));
     setTargets(data.features);
   };
