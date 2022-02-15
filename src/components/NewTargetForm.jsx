@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Form, Button } from 'react-bootstrap';
 import useForm from '../hooks/useNewTargetForm';
+import targets from '../services/targets';
 
-function NewTargetForm(props) {
-  const { createNotification } = props;
-  const [coordinateRadio, setCoordinateRadio] = useState('no');
-
+function NewTargetForm() {
   const {
     handleChange, errors, handleSubmit,
-  } = useForm(createNotification);
+  } = useForm(targets.postTarget);
 
   return (
     <div>
@@ -25,13 +23,14 @@ function NewTargetForm(props) {
         data-testid="testform"
       >
         <Form.Group>
-          <Form.Label>Etu- ja sukunimi:</Form.Label>
+          <Form.Label>Kohteen nimi:</Form.Label>
           <Form.Control
             type="text"
             name="divername"
             data-testid="testdivername"
             onChange={handleChange}
             isInvalid={!!errors.divername}
+            required
           />
           <Form.Control.Feedback type="invalid">
             { errors.divername }
@@ -71,6 +70,7 @@ function NewTargetForm(props) {
             data-testid="testtargetdescription"
             onChange={handleChange}
             isInvalid={!!errors.targetdescription}
+            required
           />
           <Form.Text className="text-muted">
             Hylky, hylyn osa, rakenne, esine, pintahylky, pohjaan vajonnut
@@ -87,63 +87,44 @@ function NewTargetForm(props) {
             data-testid="testlocationname"
             onChange={handleChange}
             isInvalid={!!errors.locationname}
+            required
           />
           <Form.Control.Feedback type="invalid">
             { errors.locationname }
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group>
+          <Form.Label>Pituuspiiri desimaaliasteina:</Form.Label>
+          <Form.Control
+            type="text"
+            name="xcoordinate"
+            data-testid="testxcoordinate"
+            onChange={handleChange}
+            isInvalid={!!errors.xcoordinate}
+            required
+          />
+          <Form.Control.Feedback type="invalid">
+            { errors.xcoordinate }
+          </Form.Control.Feedback>
+          <Form.Text className="text-muted">
+            esim. 25.34234323
+          </Form.Text>
           <br />
-          <Form.Label>Ovatko koordinaatit tiedossa:</Form.Label>
-          <Form.Check
-            type="radio"
-            label="Kyllä"
-            data-testid="testradio"
-            checked={coordinateRadio === 'yes'}
-            value="yes"
-            onChange={(c) => { setCoordinateRadio(c.target.value); }}
+          <Form.Label>Leveyspiiri desimaaliasteina:</Form.Label>
+          <Form.Control
+            type="text"
+            name="ycoordinate"
+            data-testid="testycoordinate"
+            onChange={handleChange}
+            isInvalid={!!errors.ycoordinate}
+            required
           />
-          <Form.Check
-            type="radio"
-            label="Ei"
-            checked={coordinateRadio === 'no'}
-            value="no"
-            onChange={(c) => { setCoordinateRadio(c.target.value); }}
-          />
-          {coordinateRadio === 'yes' && (
-          <p>
-            {' '}
-            <Form.Label>Pituuspiiri desimaaliasteina:</Form.Label>
-            <Form.Control
-              type="text"
-              name="xcoordinate"
-              data-testid="testxcoordinate"
-              onChange={handleChange}
-              isInvalid={!!errors.xcoordinate}
-            />
-            <Form.Control.Feedback type="invalid">
-              { errors.xcoordinate }
-            </Form.Control.Feedback>
-            <Form.Text className="text-muted">
-              esim. 25.34234323
-            </Form.Text>
-            <br />
-            <Form.Label>Leveyspiiri desimaaliasteina:</Form.Label>
-            <Form.Control
-              type="text"
-              name="ycoordinate"
-              data-testid="testycoordinate"
-              onChange={handleChange}
-              isInvalid={!!errors.ycoordinate}
-            />
-            <Form.Control.Feedback type="invalid">
-              { errors.ycoordinate }
-            </Form.Control.Feedback>
-            <Form.Text className="text-muted">
-              esim. 60.42342334
-            </Form.Text>
-          </p>
-          )}
+          <Form.Control.Feedback type="invalid">
+            { errors.ycoordinate }
+          </Form.Control.Feedback>
+          <Form.Text className="text-muted">
+            esim. 60.42342334
+          </Form.Text>
         </Form.Group>
         <Form.Group>
           <Form.Label>Paikannuksen lisäinfo:</Form.Label>
@@ -153,6 +134,7 @@ function NewTargetForm(props) {
             data-testid="testcoordinateinfo"
             onChange={handleChange}
             isInvalid={!!errors.coordinateinfo}
+            required
           />
           <Form.Control.Feedback type="invalid">
             { errors.coordinateinfo }
@@ -162,20 +144,18 @@ function NewTargetForm(props) {
           </Form.Text>
         </Form.Group>
         <Form.Group>
-          <Form.Label>Tarkastussukeltajalle tärkeät havainnot:</Form.Label>
+          <Form.Label>Paikannuksen tarkkuus:</Form.Label>
           <Form.Control
             type="text"
             name="diverinfo"
             data-testid="testdiverinfo"
             onChange={handleChange}
             isInvalid={!!errors.diverinfo}
+            required
           />
           <Form.Control.Feedback type="invalid">
             { errors.diverinfo }
           </Form.Control.Feedback>
-          <Form.Text className="text-muted">
-            Esimerkiksi voimakas virtaus, näkyvyys, verkot
-          </Form.Text>
         </Form.Group>
         <Form.Group>
           <Form.Label>Lisäinfoa:</Form.Label>
@@ -190,7 +170,7 @@ function NewTargetForm(props) {
             { errors.misctext }
           </Form.Control.Feedback>
           <Form.Text className="text-muted">
-            Enintään 1000 merkkiä pitkä
+            Enintään 1000 merkkiä pitkä. Esimerkiksi voimakas virtaus, näkyvyys, verkot
           </Form.Text>
         </Form.Group>
         <br />
