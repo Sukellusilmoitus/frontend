@@ -2,7 +2,13 @@ import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 
 function NotificationForm(props) {
-  const { wreckName, wreckId, createNotification } = props;
+  const {
+    targetName,
+    targetId,
+    targetXcoordinate,
+    targetYcoordinate,
+    createNotification,
+  } = props;
 
   const [newName, setNewName] = useState('');
   const [newPhone, setNewPhone] = useState('');
@@ -46,8 +52,8 @@ function NotificationForm(props) {
   };
 
   const update = () => {
-    setNewLocationName(wreckName);
-    setNewLocationId(wreckId);
+    setNewLocationName(targetName);
+    setNewLocationId(targetId);
   };
 
   // event listeners to detect if either phonenumber or email is given
@@ -139,7 +145,7 @@ function NotificationForm(props) {
           <Form.Control
             type="text"
             id="newlocationname"
-            value={wreckName}
+            value={targetName}
             onChange={({ target }) => setNewLocationName(target.value)}
             readOnly
             required
@@ -154,7 +160,7 @@ function NotificationForm(props) {
           <Form.Control
             type="text"
             id="newlocationid"
-            value={wreckId}
+            value={targetId}
             onChange={({ target }) => setNewLocationId(target.value)}
             readOnly
             required
@@ -164,6 +170,14 @@ function NotificationForm(props) {
           </Form.Text>
         </Form.Group>
         <Form.Group>
+          <br />
+          <Form.Label>
+            Nykyiset koordinaatit
+            Lat:
+            {targetYcoordinate}
+            Lon:
+            {targetXcoordinate}
+          </Form.Label>
           <br />
           <Form.Label>Olivatko koordinaatit oikein:</Form.Label>
           <Form.Check

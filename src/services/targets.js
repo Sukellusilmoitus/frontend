@@ -3,14 +3,14 @@ import REACT_APP_SERVER_URL from '../util/config';
 
 const baseUrl = REACT_APP_SERVER_URL;
 
-const getAllWrecks = async () => {
-  const response = await axios.get(`${baseUrl}/api/data`);
-  return response.data;
+const getAllTargets = () => {
+  const request = axios.get(`${baseUrl}/api/data`);
+  return request.then((response) => response.data);
 };
 
-const getWreck = async (id) => {
+const getTarget = async (id) => {
   const response = await axios.get(`${baseUrl}/api/targets/${id}`);
   return response.data;
 };
 
-export default { getAllWrecks, getWreck };
+export default { getAllTargets, getTarget };
