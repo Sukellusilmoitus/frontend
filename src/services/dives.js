@@ -13,7 +13,13 @@ const create = async (newDive) => {
   return response.data;
 };
 
+const getAllByTarget = async (targetId) => {
+  const response = await axios.get(`${baseUrl}/api/dives/target/${targetId}`);
+  return response.data;
+};
+
 export default {
   getAll,
   create,
+  getAllByTarget,
 };
