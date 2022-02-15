@@ -38,6 +38,10 @@ function TargetInfo({ target }) {
             <td>Koordinaattien tarkkuus</td>
             <td>{target.properties.location_accuracy}</td>
           </tr>
+          <tr>
+            <td>Tietolähde</td>
+            <td>{target.properties.source}</td>
+          </tr>
         </tbody>
       </Table>
     </Container>
