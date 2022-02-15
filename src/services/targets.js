@@ -8,4 +8,9 @@ const getAllTargets = () => {
   return request.then((response) => response.data);
 };
 
-export default { getAllTargets };
+const getTarget = async (id) => {
+  const response = await axios.get(`${baseUrl}/api/targets/${id}`);
+  return response.data;
+};
+
+export default { getAllTargets, getTarget };
