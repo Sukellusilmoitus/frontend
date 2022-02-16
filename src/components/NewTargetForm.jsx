@@ -1,12 +1,12 @@
 import React from 'react';
 import { Form, Button } from 'react-bootstrap';
 import useForm from '../hooks/useNewTargetForm';
-import targets from '../services/targets';
 
-function NewTargetForm() {
+function NewTargetForm(props) {
+  const { postTarget } = props;
   const {
     handleChange, errors, handleSubmit,
-  } = useForm(targets.postTarget);
+  } = useForm(postTarget);
 
   return (
     <div>
@@ -162,7 +162,7 @@ function NewTargetForm() {
           <Form.Control
             type="text"
             name="misctext"
-            data-testid="testmisctest"
+            data-testid="testmisctext"
             onChange={handleChange}
             isInvalid={!!errors.misctext}
           />
