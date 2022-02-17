@@ -40,11 +40,7 @@ function TargetsList(props) {
               {targets.features.map((target) => (
                 <tr
                   key={target.properties.id}
-                  onClick={() => onRowClick(
-                    target.properties.name,
-                    target.properties.id,
-                    target.geometry.coordinates,
-                  )}
+                  onClick={() => onRowClick(target.properties.id)}
                 >
                   <td>{target.properties.name}</td>
                   <td>{target.properties.town}</td>

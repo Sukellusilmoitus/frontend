@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { omit } from 'lodash';
+import targets from '../services/targets';
+import REACT_APP_SERVER_URL from '../util/config';
 
 const useForm = (createNotification) => {
   const [values, setValues] = useState({});
@@ -7,17 +9,27 @@ const useForm = (createNotification) => {
 
   const callback = (event) => {
     event.preventDefault();
+    // Try to generate target id until free one is found
+    let targetID = null;
+    while (targetID === null) {
+      targetID = targets.generateUniqueID();
+    }
     createNotification({
+      id: targetID,
       name: values.divername,
+      town: values.locationname || '',
+      type: values.targetdescription,
+      x_coordinate: values.xcoordinate,
+      y_coordinate: values.ycoordinate,
+      location_method: values.coordinateinfo || '',
+      location_accuracy: values.diverinfo || '',
+      is_ancient: false,
+      created_at: Date.now() / 1000.0,
+      url: REACT_APP_SERVER_URL === 'http://localhost:5000' ? 'http://localhost.com' : REACT_APP_SERVER_URL,
+      source: 'ilmoitus',
       phone: values.phone,
       email: values.email,
-      targetDescription: values.targetdescription,
-      locationName: values.locationname,
-      xCoordinate: values.xcoordinate,
-      yCoordinate: values.ycoordinate,
-      coordinateText: values.coordinateinfo,
-      diverInfoText: values.diverinfo,
-      miscText: values.misctext,
+      miscText: values.misctext || '',
     });
   };
 
@@ -176,8 +188,14 @@ const useForm = (createNotification) => {
   const handleSubmit = (event) => {
     if (event) event.preventDefault();
 
+    if (values.phone === undefined && values.email === undefined) {
+      // eslint-disable-next-line no-alert
+      alert('Ilmoita puhellinumero tai sähköpostiosoite!');
+      return;
+    }
+
     if (Object.keys(errors).length === 0 && Object.keys(values).length !== 0) {
-      callback();
+      callback(event);
     } else {
       // eslint-disable-next-line no-alert
       alert('Lomakkeessa on virheitä tai sen tiedot ovat puutteellisia!');
