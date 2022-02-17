@@ -1,5 +1,7 @@
 import React from 'react';
-import { Form, Button } from 'react-bootstrap';
+import {
+  Col, Form, Button, Row, Breadcrumb,
+} from 'react-bootstrap';
 import useForm from '../hooks/useNewTargetForm';
 import targets from '../services/targets';
 
@@ -36,98 +38,124 @@ function NewTargetForm() {
             { errors.divername }
           </Form.Control.Feedback>
         </Form.Group>
+        <br />
+        <Breadcrumb>
+          <Breadcrumb.Item>Syötä puhelinnumero ja/tai sähköposti</Breadcrumb.Item>
+        </Breadcrumb>
+        <Row>
+          <Col>
+            <Form.Group>
+              <Form.Label>Puhelinnumero:</Form.Label>
+              <Form.Control
+                type="text"
+                name="phone"
+                data-testid="testphone"
+                onChange={handleChange}
+                isInvalid={!!errors.phone}
+              />
+              <Form.Control.Feedback type="invalid">
+                { errors.phone }
+              </Form.Control.Feedback>
+            </Form.Group>
+          </Col>
+          <Col>
+            <Form.Group>
+              <Form.Label>Sähköpostiosoite:</Form.Label>
+              <Form.Control
+                type="text"
+                name="email"
+                data-testid="testemail"
+                onChange={handleChange}
+                isInvalid={!!errors.email}
+              />
+              <Form.Control.Feedback type="invalid">
+                { errors.email }
+              </Form.Control.Feedback>
+            </Form.Group>
+          </Col>
+        </Row>
+        <br />
+        <Row>
+          <Col>
+            <Form.Group>
+              <Form.Label>Kuvaus kohteesta:</Form.Label>
+              <Form.Control
+                type="text"
+                name="targetdescription"
+                data-testid="testtargetdescription"
+                onChange={handleChange}
+                isInvalid={!!errors.targetdescription}
+                required
+              />
+              <Form.Text className="text-muted">
+                Hylky, hylyn osa, rakenne, esine, pintahylky, pohjaan vajonnut
+              </Form.Text>
+              <Form.Control.Feedback type="invalid">
+                { errors.targetdescription }
+              </Form.Control.Feedback>
+            </Form.Group>
+          </Col>
+          <Col>
+            <Form.Group>
+              <Form.Label>Vesialueen tai lähisaaren nimi:</Form.Label>
+              <Form.Control
+                type="text"
+                name="locationname"
+                data-testid="testlocationname"
+                onChange={handleChange}
+                isInvalid={!!errors.locationname}
+                required
+              />
+              <Form.Control.Feedback type="invalid">
+                { errors.locationname }
+              </Form.Control.Feedback>
+            </Form.Group>
+          </Col>
+        </Row>
+        <br />
+        <Row>
+          <Col>
+            <Form.Group>
+              <Form.Label>Pituuspiiri desimaaliasteina:</Form.Label>
+              <Form.Control
+                type="text"
+                name="xcoordinate"
+                data-testid="testxcoordinate"
+                onChange={handleChange}
+                isInvalid={!!errors.xcoordinate}
+                required
+              />
+              <Form.Control.Feedback type="invalid">
+                { errors.xcoordinate }
+              </Form.Control.Feedback>
+              <Form.Text className="text-muted">
+                esim. 25.34234323
+              </Form.Text>
+            </Form.Group>
+          </Col>
+          <Col>
+            <Form.Group>
+              <Form.Label>Leveyspiiri desimaaliasteina:</Form.Label>
+              <Form.Control
+                type="text"
+                name="ycoordinate"
+                data-testid="testycoordinate"
+                onChange={handleChange}
+                isInvalid={!!errors.ycoordinate}
+                required
+              />
+              <Form.Control.Feedback type="invalid">
+                { errors.ycoordinate }
+              </Form.Control.Feedback>
+              <Form.Text className="text-muted">
+                esim. 60.42342334
+              </Form.Text>
+            </Form.Group>
+          </Col>
+        </Row>
+        <br />
         <Form.Group>
-          <Form.Label>Puhelinnumero:</Form.Label>
-          <Form.Control
-            type="text"
-            name="phone"
-            data-testid="testphone"
-            onChange={handleChange}
-            isInvalid={!!errors.phone}
-          />
-          <Form.Control.Feedback type="invalid">
-            { errors.phone }
-          </Form.Control.Feedback>
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Sähköpostiosoite:</Form.Label>
-          <Form.Control
-            type="text"
-            name="email"
-            data-testid="testemail"
-            onChange={handleChange}
-            isInvalid={!!errors.email}
-          />
-          <Form.Control.Feedback type="invalid">
-            { errors.email }
-          </Form.Control.Feedback>
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Kuvaus kohteesta:</Form.Label>
-          <Form.Control
-            type="text"
-            name="targetdescription"
-            data-testid="testtargetdescription"
-            onChange={handleChange}
-            isInvalid={!!errors.targetdescription}
-            required
-          />
-          <Form.Text className="text-muted">
-            Hylky, hylyn osa, rakenne, esine, pintahylky, pohjaan vajonnut
-          </Form.Text>
-          <Form.Control.Feedback type="invalid">
-            { errors.targetdescription }
-          </Form.Control.Feedback>
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Vesialueen tai lähisaaren nimi:</Form.Label>
-          <Form.Control
-            type="text"
-            name="locationname"
-            data-testid="testlocationname"
-            onChange={handleChange}
-            isInvalid={!!errors.locationname}
-            required
-          />
-          <Form.Control.Feedback type="invalid">
-            { errors.locationname }
-          </Form.Control.Feedback>
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Pituuspiiri desimaaliasteina:</Form.Label>
-          <Form.Control
-            type="text"
-            name="xcoordinate"
-            data-testid="testxcoordinate"
-            onChange={handleChange}
-            isInvalid={!!errors.xcoordinate}
-            required
-          />
-          <Form.Control.Feedback type="invalid">
-            { errors.xcoordinate }
-          </Form.Control.Feedback>
-          <Form.Text className="text-muted">
-            esim. 25.34234323
-          </Form.Text>
-          <br />
-          <Form.Label>Leveyspiiri desimaaliasteina:</Form.Label>
-          <Form.Control
-            type="text"
-            name="ycoordinate"
-            data-testid="testycoordinate"
-            onChange={handleChange}
-            isInvalid={!!errors.ycoordinate}
-            required
-          />
-          <Form.Control.Feedback type="invalid">
-            { errors.ycoordinate }
-          </Form.Control.Feedback>
-          <Form.Text className="text-muted">
-            esim. 60.42342334
-          </Form.Text>
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Paikannuksen lisäinfo:</Form.Label>
+          <Form.Label>Koordinaattien määrittelytapa:</Form.Label>
           <Form.Control
             type="text"
             name="coordinateinfo"
@@ -143,6 +171,7 @@ function NewTargetForm() {
             GPS, arvio
           </Form.Text>
         </Form.Group>
+        <br />
         <Form.Group>
           <Form.Label>Paikannuksen tarkkuus:</Form.Label>
           <Form.Control
@@ -157,14 +186,17 @@ function NewTargetForm() {
             { errors.diverinfo }
           </Form.Control.Feedback>
         </Form.Group>
+        <br />
         <Form.Group>
           <Form.Label>Lisäinfoa:</Form.Label>
           <Form.Control
+            as="textarea"
             type="text"
             name="misctext"
             data-testid="testmisctest"
             onChange={handleChange}
             isInvalid={!!errors.misctext}
+            rows={3}
           />
           <Form.Control.Feedback type="invalid">
             { errors.misctext }
@@ -176,6 +208,7 @@ function NewTargetForm() {
         <br />
         <Button variant="primary" type="submit" value="Submit">Lähetä</Button>
       </Form>
+      <br />
     </div>
   );
 }
