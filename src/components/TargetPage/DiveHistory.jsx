@@ -1,4 +1,5 @@
 import React from 'react';
+import dayjs from 'dayjs';
 
 function DiveHistory({ diveList }) {
   return (
@@ -6,7 +7,7 @@ function DiveHistory({ diveList }) {
       <h3>Sukellushistoria</h3>
       {diveList.map((dive) => (
         <div key={dive.id} data-testid={dive.id}>
-          <strong>{dive.created_at}</strong>
+          <strong>{dayjs(dive.created_at).format('DD.MM.YYYY')}</strong>
           <br />
           Sukeltaja:
           {' '}
