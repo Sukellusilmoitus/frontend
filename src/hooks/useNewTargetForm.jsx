@@ -7,13 +7,10 @@ const useForm = (createNotification) => {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
 
-  const callback = (event) => {
+  const callback = async (event) => {
     event.preventDefault();
     // Try to generate target id until free one is found
-    let targetID = null;
-    while (targetID === null) {
-      targetID = targets.generateUniqueID();
-    }
+    const targetID = await targets.generateUniqueID();
     createNotification({
       id: targetID,
       name: values.divername,
