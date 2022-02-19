@@ -8,8 +8,8 @@ function Navigation() {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <LinkContainer to="/hylyt">
-            <Nav.Link>Sukellusilmoitus</Nav.Link>
+          <LinkContainer to="/">
+            <Nav.Link>Etusivu</Nav.Link>
           </LinkContainer>
           <LinkContainer to="/hylyt">
             <Nav.Link>Hylyt</Nav.Link>
