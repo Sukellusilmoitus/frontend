@@ -16,6 +16,10 @@ function App() {
     setTargets(data.features);
   };
 
+  const createNewTarget = (newTarget) => {
+    targetService.postTarget(newTarget);
+  };
+
   useEffect(() => {
     getTargets();
   }, []);
@@ -34,7 +38,7 @@ function App() {
           <TargetPage target={target} />
         </Route>
         <Route path="/hylyt" component={ListAndNotification} />
-        <Route path="/uusi" component={NewTargetForm} />
+        <Route exact path="/uusi" render={() => <NewTargetForm postTarget={createNewTarget} />} />
       </Switch>
     </div>
   );

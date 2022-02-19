@@ -3,7 +3,7 @@ import { omit } from 'lodash';
 import targets from '../services/targets';
 import REACT_APP_SERVER_URL from '../util/config';
 
-const useForm = (createNotification) => {
+const useForm = (postTarget) => {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
 
@@ -11,7 +11,7 @@ const useForm = (createNotification) => {
     event.preventDefault();
     // Try to generate target id until free one is found
     const targetID = await targets.generateUniqueID();
-    createNotification({
+    postTarget({
       id: targetID,
       name: values.divername,
       town: values.locationname || '',
