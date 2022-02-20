@@ -4,7 +4,8 @@ import { LinkContainer } from 'react-router-bootstrap';
 
 function Navigation() {
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar bg="light" expand="lg" sticky="top">
+      <h1>Hylkysukellusilmoituspalvelu</h1>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">

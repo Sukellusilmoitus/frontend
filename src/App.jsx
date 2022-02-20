@@ -31,7 +31,6 @@ function App() {
 
   return (
     <div className="container">
-      <h1>Hylkysukellusilmoituspalvelu</h1>
       <Header />
       <Switch>
         <Route path="/hylyt/:id">
