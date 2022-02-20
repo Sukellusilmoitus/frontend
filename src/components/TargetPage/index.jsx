@@ -28,6 +28,9 @@ function Target({ target }) {
     );
   }
 
+  // this flips the coordinates because map takes them in order y, x
+  target.geometry.coordinates.reverse();
+
   return (
     <TargetPage
       target={target}

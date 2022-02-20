@@ -174,8 +174,11 @@ function NotificationForm(props) {
           <Form.Label>
             Nykyiset koordinaatit
             Lat:
+            {' '}
             {targetYcoordinate}
+            {', '}
             Lon:
+            {' '}
             {targetXcoordinate}
           </Form.Label>
           <br />
