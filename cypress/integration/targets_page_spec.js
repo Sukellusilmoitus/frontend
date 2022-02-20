@@ -18,7 +18,7 @@ describe('UI is correct', () => {
   });
 });
 
-describe('Wreck list is sorted alphabetically', () => {
+describe('Target list is sorted alphabetically', () => {
   it('sorted', () => {
     let names = [];
     cy.get('table tbody tr')
