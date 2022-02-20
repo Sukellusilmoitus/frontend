@@ -4,7 +4,7 @@ import REACT_APP_SERVER_URL from '../util/config';
 const baseUrl = REACT_APP_SERVER_URL;
 
 const getAllTargets = () => {
-  const request = axios.get(`${baseUrl}/api/data`);
+  const request = axios.get(`${baseUrl}/api/targets`);
   return request.then((response) => response.data);
 };
 

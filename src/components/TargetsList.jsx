@@ -9,7 +9,7 @@ function TargetsList(props) {
   async function getTargetData() {
     const data = await targetService.getAllTargets();
     data.features.sort((a, b) => (a.properties.name > b.properties.name ? 1 : -1));
-    setTargets(data);
+    setTargets(data.features);
   }
 
   useEffect(() => {
@@ -37,7 +37,7 @@ function TargetsList(props) {
               </tr>
             </thead>
             <tbody>
-              {targets.features.map((target) => (
+              {targets.map((target) => (
                 <tr
                   key={target.properties.id}
                   onClick={() => onRowClick(target.properties.id)}
