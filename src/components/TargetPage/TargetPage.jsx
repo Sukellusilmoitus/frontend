@@ -23,6 +23,8 @@ function TargetPage({ target, createNewNotification, dives }) {
           <NotificationForm
             targetName={target.properties.name}
             targetId={target.properties.id}
+            targetXcoordinate={target.geometry.coordinates[0]}
+            targetYcoordinate={target.geometry.coordinates[1]}
             createNotification={createNewNotification}
           />
         </Col>

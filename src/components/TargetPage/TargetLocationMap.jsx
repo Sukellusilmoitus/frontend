@@ -4,7 +4,7 @@ import {
 } from 'react-leaflet';
 
 function TargetLocationMap({ target }) {
-  const coordinates = target.geometry.coordinates.reverse();
+  const { coordinates } = target.geometry;
   return (
     <MapContainer center={coordinates} zoom={8}>
       <LayersControl position="topright">

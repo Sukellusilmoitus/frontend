@@ -20,7 +20,16 @@ function Target({ target }) {
     getDives();
   }, [target]);
 
-  if (!target) return <div>Ei löytynyt</div>;
+  if (!target) {
+    return (
+      <div>
+        Kyseisellä id:llä ei löytynyt yhtään kohdetta, onhan käyttämäsi osoite oikea?
+      </div>
+    );
+  }
+
+  // this flips the coordinates because map takes them in order y, x
+  target.geometry.coordinates.reverse();
 
   return (
     <TargetPage

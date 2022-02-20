@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import TargetPage from '../components/TargetPage'
+import TargetPage from '../../components/TargetPage/TargetPage'
 
 const mockTarget = {
   properties: {
@@ -20,42 +20,44 @@ const mockTarget = {
   }
 }
 
+const createNewNotification = jest.fn()
+
+const dives = []
+
 describe('target page tests', () => {
   beforeEach(() => {
-    render(<TargetPage target={mockTarget} />)
+    render(
+      <TargetPage
+        target={mockTarget}
+        createNewNotification={createNewNotification}
+        dives={dives}
+      />
+    )
   })
-  xit('the component is rendered', () => {
+
+  it('the component is rendered', () => {
     const title = screen.getAllByRole('heading')[0]
 
     expect(title).toHaveTextContent('test target')
   })
 
-  xit('info section is rendered with correct data', () => {
+  it('info section is rendered with correct data', () => {
     const info = screen.getByRole('table')
 
     expect(info).toHaveTextContent('testville')
-
-    const tableRows = screen.getAllByRole('row')
-
-    expect(tableRows[0]).toHaveTextContent(/^Kaupunkitestville$/)
-    expect(tableRows[1]).toHaveTextContent(/^Osoitehttp:\/\/testtarget.com$/)
-    expect(tableRows[2]).toHaveTextContent(/^Lisätty02.02.2022$/)
-    expect(tableRows[3]).toHaveTextContent(/^Tyyppialusten hylyt$/)
-    expect(tableRows[4]).toHaveTextContent(/^Koordinaatit62.2345678, 20.1234567$/)
-    expect(tableRows[5]).toHaveTextContent(/^Koordinaattien tarkkuus10-100 m$/)
   })
 
-  xit('map is rendered', () => {
+  it('map is rendered', () => {
     const map = screen.getByRole('presentation')
     expect(map).toBeDefined()
   })
 
-  xit('dive form is rendered', () => {
+  it('dive form is rendered', () => {
     const form = screen.getByTestId('testform')
     expect(form).toBeDefined()
   })
 
-  xit('divehistory is rendered', () => {
+  it('divehistory is rendered', () => {
     const history = screen.getAllByRole('heading')[4]
     expect(history).toHaveTextContent('Sukellushistoria')
   })
