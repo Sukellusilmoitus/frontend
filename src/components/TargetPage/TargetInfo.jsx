@@ -11,7 +11,7 @@ function TargetInfo({ target }) {
       <Table bordered size="sm">
         <tbody>
           <tr>
-            <td>Kaupunki</td>
+            <td>Kunta</td>
             <td>{target.properties.town}</td>
           </tr>
           <tr>
@@ -36,7 +36,7 @@ function TargetInfo({ target }) {
           </tr>
           <tr>
             <td>Koordinaattien tarkkuus</td>
-            <td>{target.properties.location_accuracy}</td>
+            <td>{target.properties.location_accuracy || 'ei määritelty'}</td>
           </tr>
           <tr>
             <td>Tietolähde</td>

@@ -82,12 +82,12 @@ describe('dive history list tests', () => {
     expect(diveData).toHaveTextContent('Muutokset: no changes')
   })
 
-  it('nothing is rendered with no dives', () => {
+  it('correct info is rendered with no dives', () => {
     render(<DiveHistory diveList={[]} />)
 
-    const firstDive = screen.queryByTestId('123')
+    const diveData = screen.getByTestId('dive-history-list')
 
-    expect(firstDive).toBeNull()
+    expect(diveData).toHaveTextContent('Ei rekisteröityjä sukelluksia')
   })
 
   it('renders correctly when change text is omitted', () => {
