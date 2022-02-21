@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import NewTargetForm from './NewTargetForm';
 import { wait } from '@testing-library/user-event/dist/utils';
@@ -103,7 +103,6 @@ test('submit works with all accurate inputs', async () => {
     />,
   );
   const form = component.getByTestId('testform');
-  const submitButton = component.getByTestId('submit');
 
   const input = component.getByTestId('testdivername');
   const input2 = component.getByTestId('testphone');
