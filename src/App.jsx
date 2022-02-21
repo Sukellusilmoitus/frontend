@@ -17,7 +17,7 @@ function App() {
   };
 
   const createNewTarget = (newTarget) => {
-    targetService.create(newTarget);
+    targetService.postTarget(newTarget);
   };
 
   useEffect(() => {

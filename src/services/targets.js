@@ -9,12 +9,8 @@ const getAllTargets = () => {
 };
 
 const getTarget = async (id) => {
-  try {
-    const response = await axios.get(`${baseUrl}/api/targets/${id}`);
-    return response.data;
-  } catch {
-    return null;
-  }
+  const response = await axios.get(`${baseUrl}/api/targets/${id}`);
+  return response.data;
 };
 
 const postTarget = (newTarget) => {
@@ -25,10 +21,10 @@ const postTarget = (newTarget) => {
 const generateUniqueID = async () => {
   const id = (Math.random() * 1e16).toString(36);
   const target = await getTarget(id);
-  if (target === null || target.data.length === 0) {
+  if (target.data === null) {
     return id;
   }
-  return null;
+  return generateUniqueID();
 };
 
 export default {
