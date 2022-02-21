@@ -24,6 +24,24 @@ describe('Test form fields', () => {
 
 });
 
+describe('Test submit', () => {
+  it('user can submit', () => {
+    cy.visit("/uusi");
+    cy.get('[id=newname]').type('Test Tester');
+    cy.get('[id=newemail]').type('tester@test.com');
+    cy.get('[id=newphone]').type('0415063434');
+    cy.get('[id=newdescription]').type('newdescription');
+    cy.get('[id=newlocationname]').type('newlocationname');
+    cy.get('[id=newx]').type('25.34234323');
+    cy.get('[id=newy]').type('60.42342334');
+    cy.get('[id=newcoordinateinfo]').type('newcoordinateinfo');
+    cy.get('[id=newdiverinfo]').type('newdiverinfo');
+    cy.contains('Lähetä').click();
+    cy.get('[id=newtargetform]').then($x => expect($x[0].checkValidity()).to.be.true);
+  });
+
+});
+
 describe('Test email and phone fields', () => {
   it('user has to fill email or phone', () => {
     cy.visit("/uusi");
