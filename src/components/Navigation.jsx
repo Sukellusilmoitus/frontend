@@ -4,11 +4,11 @@ import { LinkContainer } from 'react-router-bootstrap';
 
 function Navigation() {
   return (
-    <Navbar bg="light" expand="lg" sticky="top">
-      <h1>Hylkysukellusilmoituspalvelu</h1>
+    <Navbar bg="white" expand="lg" sticky="top" className="py-3">
+      <Navbar.Brand href="/">Hylkysukellusilmoituspalvelu</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
+      <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
+        <Nav>
           <LinkContainer to="/hylyt">
             <Nav.Link>Sukellusilmoitus</Nav.Link>
           </LinkContainer>
