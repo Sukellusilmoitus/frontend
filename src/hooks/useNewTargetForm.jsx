@@ -187,7 +187,7 @@ const useForm = (postTarget) => {
 
     if (values.phone === undefined && values.email === undefined) {
       // eslint-disable-next-line no-alert
-      alert('Ilmoita puhellinumero tai sähköpostiosoite!');
+      alert('Ilmoita puhelinnumero tai sähköpostiosoite!');
       return;
     }
 

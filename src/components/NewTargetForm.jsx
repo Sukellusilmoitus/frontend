@@ -23,6 +23,7 @@ function NewTargetForm(props) {
       <Form
         onSubmit={handleSubmit}
         data-testid="testform"
+        id="newtargetform"
       >
         <Form.Group>
           <Form.Label>Kohteen nimi:</Form.Label>
@@ -30,6 +31,7 @@ function NewTargetForm(props) {
             type="text"
             name="divername"
             data-testid="testdivername"
+            id="newname"
             onChange={handleChange}
             isInvalid={!!errors.divername}
             required
@@ -50,6 +52,7 @@ function NewTargetForm(props) {
                 type="text"
                 name="phone"
                 data-testid="testphone"
+                id="newphone"
                 onChange={handleChange}
                 isInvalid={!!errors.phone}
               />
@@ -65,6 +68,7 @@ function NewTargetForm(props) {
                 type="text"
                 name="email"
                 data-testid="testemail"
+                id="newemail"
                 onChange={handleChange}
                 isInvalid={!!errors.email}
               />
@@ -83,6 +87,7 @@ function NewTargetForm(props) {
                 type="text"
                 name="targetdescription"
                 data-testid="testtargetdescription"
+                id="newdescription"
                 onChange={handleChange}
                 isInvalid={!!errors.targetdescription}
                 required
@@ -102,6 +107,7 @@ function NewTargetForm(props) {
                 type="text"
                 name="locationname"
                 data-testid="testlocationname"
+                id="newlocationname"
                 onChange={handleChange}
                 isInvalid={!!errors.locationname}
                 required
@@ -121,6 +127,7 @@ function NewTargetForm(props) {
                 type="text"
                 name="xcoordinate"
                 data-testid="testxcoordinate"
+                id="newx"
                 onChange={handleChange}
                 isInvalid={!!errors.xcoordinate}
                 required
@@ -140,6 +147,7 @@ function NewTargetForm(props) {
                 type="text"
                 name="ycoordinate"
                 data-testid="testycoordinate"
+                id="newy"
                 onChange={handleChange}
                 isInvalid={!!errors.ycoordinate}
                 required
@@ -160,6 +168,7 @@ function NewTargetForm(props) {
             type="text"
             name="coordinateinfo"
             data-testid="testcoordinateinfo"
+            id="newcoordinateinfo"
             onChange={handleChange}
             isInvalid={!!errors.coordinateinfo}
             required
@@ -178,6 +187,7 @@ function NewTargetForm(props) {
             type="text"
             name="diverinfo"
             data-testid="testdiverinfo"
+            id="newdiverinfo"
             onChange={handleChange}
             isInvalid={!!errors.diverinfo}
             required

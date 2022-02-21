@@ -23,7 +23,7 @@ function TargetLocationMap({ target }) {
         <LayersControl.Overlay name="Merimerkit">
           <TileLayer
             attribution='&copy; <a href="https://openseamap.org/index.php?id=imprint&L=1">OpenSeaMap</a> contributors'
-            url="http://tiles.openseamap.org/seamark/{z}/{x}/{y}.png"
+            url="https://tiles.openseamap.org/seamark/{z}/{x}/{y}.png"
           />
         </LayersControl.Overlay>
         <Marker position={coordinates}>
