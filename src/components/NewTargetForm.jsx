@@ -206,7 +206,7 @@ function NewTargetForm(props) {
           </Form.Text>
         </Form.Group>
         <br />
-        <Button variant="primary" type="submit" value="Submit">Lähetä</Button>
+        <Button variant="primary" type="submit" data-testid="submit" value="Submit">Lähetä</Button>
       </Form>
       <br />
     </div>

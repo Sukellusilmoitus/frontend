@@ -1,6 +1,8 @@
 describe('UI is correct', () => {
   it('successfully loads', () => {
+    cy.wait(1000);
     cy.visit("/hylyt")
+    cy.wait(1000);
     cy.get('h1').contains('Hylkysukellusilmoituspalvelu')
     cy.get('table').contains('Nimi');
     cy.get('table').contains('Kaupunki');
