@@ -15,7 +15,9 @@ describe('Test form fields', () => {
     cy.get('[id=newcoordinateinfo]').type('newcoordinateinfo');
     cy.get('[id=newdiverinfo]').type('newdiverinfo');
     cy.contains('Lähetä').click();
-    cy.contains('Lomakkeessa on virheitä tai sen tiedot ovat puutteellisia!');
+    cy.on('window:alert',(txt)=>{
+      expect(txt).to.contains('Lomakkeessa on virheitä tai sen tiedot ovat puutteellisia!');
+    })
     cy.get('[id=newtargetform]').then($x => expect($x[0].checkValidity()).to.be.false);
     cy.get('[id=newname]').then($x => expect($x[0].checkValidity()).to.be.false);
   });
@@ -33,7 +35,9 @@ describe('Test email and phone fields', () => {
     cy.get('[id=newcoordinateinfo]').type('newcoordinateinfo');
     cy.get('[id=newdiverinfo]').type('newdiverinfo');
     cy.contains('Lähetä').click();
-    cy.contains('Ilmoita puhellinumero tai sähköpostiosoite!');
+    cy.on('window:alert',(txt)=>{
+      expect(txt).to.contains('Ilmoita puhelinnumero tai sähköpostiosoite!');
+    })
   });
 
 });
