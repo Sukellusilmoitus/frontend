@@ -26,7 +26,7 @@ function App() {
 
   const match = useRouteMatch('/hylyt/:id');
   const target = match
-    ? targets.find((t) => t.properties.id === Number(match.params.id))
+    ? targets.find((t) => t.properties.id === match.params.id)
     : null;
 
   return (
