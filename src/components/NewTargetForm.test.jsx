@@ -1,8 +1,9 @@
 /* eslint-disable no-undef */
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import NewTargetForm from './NewTargetForm';
+import { wait } from '@testing-library/user-event/dist/utils';
 
 window.alert = jest.fn();
 
@@ -94,7 +95,7 @@ test('empty form does not get submitted', () => {
 
 });
 
-test('submit works with all accurate inputs', () => {
+test('submit works with all accurate inputs', async () => {
   const postTarget = jest.fn();
   const component = render(
     <NewTargetForm
@@ -102,6 +103,7 @@ test('submit works with all accurate inputs', () => {
     />,
   );
   const form = component.getByTestId('testform');
+  const submitButton = component.getByTestId('submit');
 
   const input = component.getByTestId('testdivername');
   const input2 = component.getByTestId('testphone');
@@ -150,17 +152,21 @@ test('submit works with all accurate inputs', () => {
     target: { value: 'a wave hit the ship' },
   });
 
-  fireEvent.submit(form);
-
-  expect(postTarget.mock.calls).toHaveLength(1);
-  expect(postTarget.mock.calls[0][0].name).toBe('Sukeltajan Nimi');
-  expect(postTarget.mock.calls[0][0].phone).toBe('0415064545');
-  expect(postTarget.mock.calls[0][0].email).toBe('seppo@gmail.com');
-  expect(postTarget.mock.calls[0][0].type).toBe('hylky');
-  expect(postTarget.mock.calls[0][0].town).toBe('näsijärvi');
-  expect(postTarget.mock.calls[0][0].x_coordinate).toBe('25.34234323');
-  expect(postTarget.mock.calls[0][0].y_coordinate).toBe('60.42342334');
-  expect(postTarget.mock.calls[0][0].location_method).toBe('koordinaatit selvitetty');
-  expect(postTarget.mock.calls[0][0].location_accuracy).toBe('the front fell off');
-  expect(postTarget.mock.calls[0][0].miscText).toBe('a wave hit the ship');
+  await wait(() => {
+    fireEvent.submit(form);
+    expect(postTarget).toHaveBeenCalledTimes(1);
+    console.log(postTarget.mock.calls);
+    
+    expect(postTarget.mock.calls).toHaveLength(1);
+    expect(postTarget.mock.calls[0][0].name).toBe('Sukeltajan Nimi');
+    expect(postTarget.mock.calls[0][0].phone).toBe('0415064545');
+    expect(postTarget.mock.calls[0][0].email).toBe('seppo@gmail.com');
+    expect(postTarget.mock.calls[0][0].type).toBe('hylky');
+    expect(postTarget.mock.calls[0][0].town).toBe('näsijärvi');
+    expect(postTarget.mock.calls[0][0].x_coordinate).toBe('25.34234323');
+    expect(postTarget.mock.calls[0][0].y_coordinate).toBe('60.42342334');
+    expect(postTarget.mock.calls[0][0].location_method).toBe('koordinaatit selvitetty');
+    expect(postTarget.mock.calls[0][0].location_accuracy).toBe('the front fell off');
+    expect(postTarget.mock.calls[0][0].miscText).toBe('a wave hit the ship');
+  })
 });
