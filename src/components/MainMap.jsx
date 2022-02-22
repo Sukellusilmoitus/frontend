@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import L from 'leaflet';
 import {
   MapContainer,
@@ -8,28 +8,17 @@ import {
   Marker,
 } from 'react-leaflet';
 import MarkerClusterGroup from 'react-leaflet-markercluster';
-import targetService from '../services/targets';
 import lightMarker from '../assets/images/marker-icon-light.png';
 import MapLegend from './MapLegend';
 
 require('react-leaflet-markercluster/dist/styles.min.css');
 
-function MainMap() {
-  const [targets, setTargets] = useState([]);
+function MainMap(props) {
+  const { targets } = props;
 
   const userCreatedMarker = L.icon({
     iconUrl: lightMarker,
   });
-
-  const getTargets = async () => {
-    const data = await targetService.getAllTargets();
-    data.features.sort((a, b) => (a.properties.name > b.properties.name ? 1 : -1));
-    setTargets(data.features);
-  };
-
-  useEffect(() => {
-    getTargets();
-  }, []);
 
   return (
     <div>
