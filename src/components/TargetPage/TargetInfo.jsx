@@ -11,7 +11,7 @@ function TargetInfo({ target }) {
       <Table bordered size="sm">
         <tbody>
           <tr>
-            <td>Kunta</td>
+            <td>Alue</td>
             <td>{target.properties.town}</td>
           </tr>
           <tr>
