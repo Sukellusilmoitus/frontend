@@ -3,6 +3,7 @@ import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import Header from './components/Navigation';
 import ListAndNotification from './components/ListAndNotification';
 import TargetPage from './components/TargetPage';
+import MainMap from './components/MainMap';
 import targetService from './services/targets';
 import NewTargetForm from './components/NewTargetForm';
 import './App.css';
@@ -33,6 +34,7 @@ function App() {
     <div className="container">
       <Header />
       <Switch>
+        <Route path="/" component={MainMap} />
         <Route path="/hylyt/:id">
           <TargetPage target={target} />
         </Route>
