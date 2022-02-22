@@ -27,9 +27,9 @@ function MainMap() {
   return (
     <div>
       <MapContainer
-        style={{ height: '480px', width: '100%', opacity: '0.9' }}
+        style={{ height: '480px', width: '100%' }}
         zoom={5}
-        maxZoom={20}
+        maxZoom={18}
         center={[64.1, 25.0]}
       >
         <LayersControl position="topright">
