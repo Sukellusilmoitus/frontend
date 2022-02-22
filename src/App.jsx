@@ -6,7 +6,7 @@ import TargetPage from './components/TargetPage';
 import Home from './components/Home';
 import targetService from './services/targets';
 import NewTargetForm from './components/NewTargetForm';
-import './App.css';
+import './assets/styles/App.css';
 
 function App() {
   const [targets, setTargets] = useState([]);
