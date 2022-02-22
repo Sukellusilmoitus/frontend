@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import L from 'leaflet';
 import {
   MapContainer,
   TileLayer,
@@ -8,11 +9,17 @@ import {
 } from 'react-leaflet';
 import MarkerClusterGroup from 'react-leaflet-markercluster';
 import targetService from '../services/targets';
+import lightMarker from '../assets/images/marker-icon-light.png';
+import MapLegend from './MapLegend';
 
 require('react-leaflet-markercluster/dist/styles.min.css');
 
 function MainMap() {
   const [targets, setTargets] = useState([]);
+
+  const userCreatedMarker = L.icon({
+    iconUrl: lightMarker,
+  });
 
   const getTargets = async () => {
     const data = await targetService.getAllTargets();
@@ -55,20 +62,38 @@ function MainMap() {
             spiderfyDistanceMultiplier={1}
             showCoverageOnHover={false}
           >
-            {targets.map((target) => (
-              <Marker
-                key={target.properties.id}
-                position={target.geometry.coordinates.reverse()}
-              >
-                <Popup direction="right" offset={[-8, -2]} opacity={1}>
-                  {target.properties.id}
-                  <br />
-                  {target.properties.name}
-                </Popup>
-              </Marker>
-            ))}
+            {targets.map((target) => {
+              if (target.properties.source === 'museovirasto') {
+                return (
+                  <Marker
+                    key={target.properties.id}
+                    position={target.geometry.coordinates.reverse()}
+                  >
+                    <Popup direction="right" offset={[-8, -2]} opacity={1}>
+                      {target.properties.id}
+                      <br />
+                      {target.properties.name}
+                    </Popup>
+                  </Marker>
+                );
+              }
+              return (
+                <Marker
+                  icon={userCreatedMarker}
+                  key={target.properties.id}
+                  position={target.geometry.coordinates.reverse()}
+                >
+                  <Popup direction="right" offset={[-8, -2]} opacity={1}>
+                    {target.properties.id}
+                    <br />
+                    {target.properties.name}
+                  </Popup>
+                </Marker>
+              );
+            })}
           </MarkerClusterGroup>
         </LayersControl>
+        <MapLegend position="bottomleft" />
       </MapContainer>
     </div>
   );
