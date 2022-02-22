@@ -52,3 +52,10 @@ describe('Test form fields', () => {
     cy.get('[id=newycoordinate]').then($x => expect($x[0].checkValidity()).to.be.false);
   });
 });
+
+describe('Diving history is displayed', () => {
+  it('history is not empty after posting notif', () => {
+    cy.get('[data-testid=dive-history-list]').find('div').last().should('contain', 'Sukeltaja: Test Tester');
+    cy.get('[data-testid=dive-history-list]').find('div').last().should('contain', 'Muutokset: ei muutoksia');
+  });
+});
