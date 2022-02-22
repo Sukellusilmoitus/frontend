@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Switch, Route, useRouteMatch } from 'react-router-dom';
+import {
+  Switch,
+  Route,
+  Redirect,
+  useRouteMatch,
+} from 'react-router-dom';
 import Header from './components/Navigation';
 import ListAndNotification from './components/ListAndNotification';
 import TargetPage from './components/TargetPage';
@@ -34,6 +39,9 @@ function App() {
     <div className="container">
       <Header />
       <Switch>
+        <Route exact path="/">
+          <Redirect to="/etusivu" />
+        </Route>
         <Route path="/etusivu" component={Home} />
         <Route path="/hylyt/:id">
           <TargetPage target={target} />
