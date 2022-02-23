@@ -28,7 +28,7 @@ describe('target info table tests', () => {
     expect(info).toHaveTextContent('testville')
 
     const tableRows = screen.getAllByRole('row')
-    expect(tableRows[0]).toHaveTextContent(/^Kuntatestville$/)
+    expect(tableRows[0]).toHaveTextContent(/^Aluetestville$/)
     expect(tableRows[1]).toHaveTextContent(/^Osoitehttp:\/\/testtarget.com$/)
     expect(tableRows[2]).toHaveTextContent(/^Lisätty02.02.2022$/)
     expect(tableRows[3]).toHaveTextContent(/^Tyyppialusten hylyt$/)
