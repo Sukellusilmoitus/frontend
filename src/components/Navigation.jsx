@@ -9,7 +9,7 @@ function Navigation() {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
         <Nav>
-          <LinkContainer to="/">
+          <LinkContainer to="/etusivu">
             <Nav.Link>Etusivu</Nav.Link>
           </LinkContainer>
           <LinkContainer to="/hylyt">

@@ -16,6 +16,7 @@
     "react-bootstrap": "^2.1.1",
     "react-dom": "^17.0.2",
     "react-leaflet": "^3.2.5",
+    "react-leaflet-markercluster": "^3.0.0-rc1",
     "react-router-bootstrap": "^0.25.0",
     "react-router-dom": "^5.3.0",
     "react-scripts": "5.0.0",
@@ -24,7 +25,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --setupFiles ./src/tests/setupTests.js",
     "eject": "react-scripts eject",
     "lint": "eslint .",
     "cypress:open": "cypress open",
