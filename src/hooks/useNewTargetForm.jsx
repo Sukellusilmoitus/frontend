@@ -4,8 +4,10 @@ import targets from '../services/targets';
 import REACT_APP_SERVER_URL from '../util/config';
 
 const useForm = (postTarget) => {
+  const [requiredValues, setRequiredValues] = useState({});
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
+  const [message, setMessage] = useState(null);
 
   const callback = async (event) => {
     event.preventDefault();
@@ -13,13 +15,13 @@ const useForm = (postTarget) => {
     const targetID = await targets.generateUniqueID();
     postTarget({
       id: targetID,
-      name: values.divername,
-      town: values.locationname || '',
-      type: values.targetdescription,
-      x_coordinate: values.xcoordinate,
-      y_coordinate: values.ycoordinate,
-      location_method: values.coordinateinfo || '',
-      location_accuracy: values.diverinfo || '',
+      name: requiredValues.divername,
+      town: requiredValues.locationname || '',
+      type: requiredValues.targetdescription,
+      x_coordinate: requiredValues.xcoordinate,
+      y_coordinate: requiredValues.ycoordinate,
+      location_method: requiredValues.coordinateinfo || '',
+      location_accuracy: requiredValues.diverinfo || '',
       is_ancient: false,
       created_at: Date.now() / 1000.0,
       url: REACT_APP_SERVER_URL === 'http://localhost:5000' ? 'http://localhost.com' : REACT_APP_SERVER_URL,
@@ -143,7 +145,7 @@ const useForm = (postTarget) => {
         if (!(/^[\S\s]{4,1000}$/).test(value)) {
           setErrors({
             ...errors,
-            diverinfo: 'Kirjoita pyydetyt tiedot',
+            diverinfo: 'Tulee olla enintään 1000 merkkiä pitkä',
           });
         } else {
           const newObj = omit(errors, 'diverinfo');
@@ -176,8 +178,15 @@ const useForm = (postTarget) => {
 
     validate(event, name, val);
 
-    setValues({
-      ...values,
+    if (name === 'phone' || name === 'email' || name === 'misctext') {
+      setValues({
+        ...values,
+        [name]: val,
+      });
+      return;
+    }
+    setRequiredValues({
+      ...requiredValues,
       [name]: val,
     });
   };
@@ -186,22 +195,30 @@ const useForm = (postTarget) => {
     if (event) event.preventDefault();
 
     if (values.phone === undefined && values.email === undefined) {
-      // eslint-disable-next-line no-alert
-      alert('Ilmoita puhelinnumero tai sähköpostiosoite!');
+      setMessage('Ilmoita puhelinnumero tai sähköpostiosoite!');
+      setTimeout(() => {
+        setMessage(null);
+      }, 5000);
       return;
     }
 
-    if (Object.keys(errors).length === 0 && Object.keys(values).length !== 0) {
+    if (Object.keys(errors).length === 0 && Object.keys(requiredValues).length === 7) {
       callback(event);
+      setMessage('Lomake lähetetty!');
+      setTimeout(() => {
+        setMessage(null);
+      }, 5000);
     } else {
-      // eslint-disable-next-line no-alert
-      alert('Lomakkeessa on virheitä tai sen tiedot ovat puutteellisia!');
+      setMessage('Lomakkeesta puuttui tietoja tai siinä on virheitä!');
+      setTimeout(() => {
+        setMessage(null);
+      }, 5000);
     }
   };
 
   return {
-    values,
     errors,
+    message,
     handleChange,
     handleSubmit,
   };
