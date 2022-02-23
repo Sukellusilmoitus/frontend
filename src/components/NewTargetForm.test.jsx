@@ -154,7 +154,7 @@ test('submit works with all accurate inputs', async () => {
   await wait(() => {
     fireEvent.submit(form);
     expect(postTarget).toHaveBeenCalledTimes(1);
-    console.log(postTarget.mock.calls);
+    // console.log(postTarget.mock.calls);
     
     expect(postTarget.mock.calls).toHaveLength(1);
     expect(postTarget.mock.calls[0][0].name).toBe('Sukeltajan Nimi');
