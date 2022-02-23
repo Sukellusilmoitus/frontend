@@ -3,16 +3,18 @@ import {
   Col, Form, Button, Row, Breadcrumb,
 } from 'react-bootstrap';
 import useForm from '../hooks/useNewTargetForm';
+import Submitmessage from './Submitmessage';
 
 function NewTargetForm(props) {
   const { postTarget } = props;
   const {
-    handleChange, errors, handleSubmit,
+    handleChange, errors, message, handleSubmit,
   } = useForm(postTarget);
 
   return (
     <div>
       <h2>Tee ilmoitus uudesta kohteesta</h2>
+      <Submitmessage message={message} />
       <h3>
         Suositteleme yksityiskohtaisemman ilmoituksen tekemistä museoviraston
         {' '}
@@ -34,7 +36,6 @@ function NewTargetForm(props) {
             id="newname"
             onChange={handleChange}
             isInvalid={!!errors.divername}
-            required
           />
           <Form.Control.Feedback type="invalid">
             { errors.divername }
@@ -90,7 +91,6 @@ function NewTargetForm(props) {
                 id="newdescription"
                 onChange={handleChange}
                 isInvalid={!!errors.targetdescription}
-                required
               />
               <Form.Text className="text-muted">
                 Hylky, hylyn osa, rakenne, esine, pintahylky, pohjaan vajonnut
@@ -110,7 +110,6 @@ function NewTargetForm(props) {
                 id="newlocationname"
                 onChange={handleChange}
                 isInvalid={!!errors.locationname}
-                required
               />
               <Form.Control.Feedback type="invalid">
                 { errors.locationname }
@@ -130,7 +129,6 @@ function NewTargetForm(props) {
                 id="newx"
                 onChange={handleChange}
                 isInvalid={!!errors.xcoordinate}
-                required
               />
               <Form.Control.Feedback type="invalid">
                 { errors.xcoordinate }
@@ -150,7 +148,6 @@ function NewTargetForm(props) {
                 id="newy"
                 onChange={handleChange}
                 isInvalid={!!errors.ycoordinate}
-                required
               />
               <Form.Control.Feedback type="invalid">
                 { errors.ycoordinate }
@@ -171,7 +168,6 @@ function NewTargetForm(props) {
             id="newcoordinateinfo"
             onChange={handleChange}
             isInvalid={!!errors.coordinateinfo}
-            required
           />
           <Form.Control.Feedback type="invalid">
             { errors.coordinateinfo }
@@ -190,7 +186,6 @@ function NewTargetForm(props) {
             id="newdiverinfo"
             onChange={handleChange}
             isInvalid={!!errors.diverinfo}
-            required
           />
           <Form.Control.Feedback type="invalid">
             { errors.diverinfo }

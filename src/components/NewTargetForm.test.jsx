@@ -5,8 +5,6 @@ import '@testing-library/jest-dom/extend-expect';
 import { wait } from '@testing-library/user-event/dist/utils';
 import NewTargetForm from './NewTargetForm';
 
-window.alert = jest.fn();
-
 const postTarget = jest.fn()
 let form, input, input2, input3, input4, input5, input6, input7, input8, input9, input10;
 
@@ -38,8 +36,6 @@ describe('new target tests', () => {
   });
 
   test('typo form does not get submitted', async () => {
-    window.alert.mockClear();
-
     fireEvent.change(input, {
       target: { value: 's' },
     });
@@ -79,7 +75,6 @@ describe('new target tests', () => {
   });
   
   test('empty form does not get submitted', async () => {
-    window.alert.mockClear();
     await wait(() => {
       fireEvent.submit(form);
       expect(postTarget).toHaveBeenCalledTimes(1);
