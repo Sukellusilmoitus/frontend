@@ -36,7 +36,9 @@ function App() {
         <Route path="/hylyt/:id">
           <TargetPage target={target} />
         </Route>
-        <Route path="/hylyt" component={ListAndNotification} />
+        <Route path="/hylyt">
+          <ListAndNotification targets={targets} />
+        </Route>
         <Route exact path="/uusi" render={() => <NewTargetForm postTarget={createNewTarget} />} />
       </Switch>
     </div>

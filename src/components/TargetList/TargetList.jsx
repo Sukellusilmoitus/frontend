@@ -1,9 +1,6 @@
-import React from 'react';
 import { Table, Spinner } from 'react-bootstrap';
 
-function TargetsList(props) {
-  const { onRowClick, targets } = props;
-
+function List({ onRowClick, targets }) {
   return (
     <div>
       {(targets.length === 0)
@@ -42,4 +39,4 @@ function TargetsList(props) {
     </div>
   );
 }
-export default TargetsList;
+export default List;

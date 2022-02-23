@@ -1,15 +1,15 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import TargetsList from './TargetsList';
+import TargetList from './TargetList';
 
-function ListAndNotification() {
+function ListAndNotification({ targets }) {
   const history = useHistory();
   const handleClick = (id) => {
     history.push(`/hylyt/${id}`);
   };
 
   return (
-    <TargetsList onRowClick={handleClick} />
+    <TargetList onRowClick={handleClick} targets={targets} />
   );
 }
 
