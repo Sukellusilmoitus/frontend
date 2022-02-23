@@ -2,8 +2,8 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import NewTargetForm from './NewTargetForm';
 import { wait } from '@testing-library/user-event/dist/utils';
+import NewTargetForm from './NewTargetForm';
 
 window.alert = jest.fn();
 
@@ -21,7 +21,7 @@ test('typo form does not get submitted', () => {
   const postTarget = jest.fn();
   const component = render(
     <NewTargetForm
-    postTarget={postTarget}
+      postTarget={postTarget}
     />,
   );
   const form = component.getByTestId('testform');
@@ -36,7 +36,6 @@ test('typo form does not get submitted', () => {
   const input6 = component.getByTestId('testxcoordinate');
   const input7 = component.getByTestId('testycoordinate');
   const input8 = component.getByTestId('testcoordinateinfo');
-
 
   const input9 = component.getByTestId('testdiverinfo');
 
@@ -76,7 +75,9 @@ test('typo form does not get submitted', () => {
   fireEvent.submit(form);
 
   expect(postTarget.mock.calls).toHaveLength(0);
-
+  expect(component.container).toHaveTextContent(
+    'Lomakkeesta puuttui tietoja tai siinä on virheitä!',
+  );
 });
 
 test('empty form does not get submitted', () => {
@@ -84,7 +85,7 @@ test('empty form does not get submitted', () => {
   const postTarget = jest.fn();
   const component = render(
     <NewTargetForm
-    postTarget={postTarget}
+      postTarget={postTarget}
     />,
   );
   const form = component.getByTestId('testform');
@@ -92,14 +93,16 @@ test('empty form does not get submitted', () => {
   fireEvent.submit(form);
 
   expect(postTarget.mock.calls).toHaveLength(0);
-
+  expect(component.container).toHaveTextContent(
+    'Ilmoita puhelinnumero tai sähköpostiosoite!',
+  );
 });
 
 test('submit works with all accurate inputs', async () => {
   const postTarget = jest.fn();
   const component = render(
     <NewTargetForm
-    postTarget={postTarget}
+      postTarget={postTarget}
     />,
   );
   const form = component.getByTestId('testform');
@@ -114,7 +117,6 @@ test('submit works with all accurate inputs', async () => {
   const input6 = component.getByTestId('testxcoordinate');
   const input7 = component.getByTestId('testycoordinate');
   const input8 = component.getByTestId('testcoordinateinfo');
-
 
   const input9 = component.getByTestId('testdiverinfo');
 
@@ -155,7 +157,6 @@ test('submit works with all accurate inputs', async () => {
     fireEvent.submit(form);
     expect(postTarget).toHaveBeenCalledTimes(1);
     // console.log(postTarget.mock.calls);
-    
     expect(postTarget.mock.calls).toHaveLength(1);
     expect(postTarget.mock.calls[0][0].name).toBe('Sukeltajan Nimi');
     expect(postTarget.mock.calls[0][0].phone).toBe('0415064545');
@@ -167,5 +168,6 @@ test('submit works with all accurate inputs', async () => {
     expect(postTarget.mock.calls[0][0].location_method).toBe('koordinaatit selvitetty');
     expect(postTarget.mock.calls[0][0].location_accuracy).toBe('the front fell off');
     expect(postTarget.mock.calls[0][0].miscText).toBe('a wave hit the ship');
-  })
+    expect(component.container).toHaveTextContent('Lomake lähetetty!');
+  });
 });
