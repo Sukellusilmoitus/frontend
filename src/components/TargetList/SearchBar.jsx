@@ -3,8 +3,8 @@ import { Form } from 'react-bootstrap';
 function SearchBar({ setFilter }) {
   return (
     <Form className="mb-3 d-flex">
-      <Form.Group controlId="search">
-        <Form.Label>Hae kohteista:</Form.Label>
+      <Form.Group controlId="search" className="d-flex flex-direction-column">
+        <Form.Label visuallyHidden>Hae kohteista:</Form.Label>
         <Form.Control
           type="text"
           onChange={(event) => setFilter(event.target.value)}

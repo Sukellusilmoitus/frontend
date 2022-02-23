@@ -1,4 +1,4 @@
-import { Table, Spinner } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 
 function List({ onRowClick, targets }) {
   return (
@@ -6,9 +6,7 @@ function List({ onRowClick, targets }) {
       {(targets.length === 0)
         ? (
           <div>
-            <Spinner animation="border" />
-            <p>Ladataan</p>
-
+            <p>Kohteita ei löytynyt</p>
           </div>
         )
         : (

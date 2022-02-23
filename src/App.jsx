@@ -8,7 +8,7 @@ import NewTargetForm from './components/NewTargetForm';
 import './App.css';
 
 function App() {
-  const [targets, setTargets] = useState([]);
+  const [targets, setTargets] = useState('loading...');
 
   const getTargets = async () => {
     const data = await targetService.getAllTargets();
