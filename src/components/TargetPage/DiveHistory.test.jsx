@@ -1,8 +1,9 @@
+/* eslint-disable no-undef */
 import React from 'react';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import DiveHistory from './DiveHistory';
 import dayjs from 'dayjs';
+import DiveHistory from './DiveHistory';
 
 const diveList = [
   {
@@ -10,7 +11,7 @@ const diveList = [
     created_at: new Date(),
     diver: {
       name: 'name',
-    }
+    },
   },
   {
     id: 1,
@@ -18,7 +19,7 @@ const diveList = [
     diver: {
       name: 'name2',
     },
-    change_text: 'paljon muutoksia'
+    change_text: 'paljon muutoksia',
   },
 ];
 
@@ -27,14 +28,14 @@ test('renders dives', () => {
     <DiveHistory diveList={diveList} />,
   );
   expect(component.container).toHaveTextContent(
-    'Sukellushistoria'
+    'Sukellushistoria',
   );
 
   expect(component.getByTestId('0')).toHaveTextContent(
-    `${dayjs(new Date()).format('DD.MM.YYYY')}Sukeltaja: nameMuutokset: ei muutoksia`
+    `${dayjs(new Date()).format('DD.MM.YYYY')}Sukeltaja: nameMuutokset: ei muutoksia`,
   );
   expect(component.getByTestId('1')).toHaveTextContent(
-    `${dayjs(new Date()).format('DD.MM.YYYY')}Sukeltaja: name2Muutokset: paljon muutoksia`
+    `${dayjs(new Date()).format('DD.MM.YYYY')}Sukeltaja: name2Muutokset: paljon muutoksia`,
   );
 });
 
@@ -43,6 +44,6 @@ test('do not try to render if no diving history', () => {
     <DiveHistory diveList={[]} />,
   );
   expect(component.container).toHaveTextContent(
-    'Ei rekisteröityjä sukelluksia'
+    'Ei rekisteröityjä sukelluksia',
   );
 });

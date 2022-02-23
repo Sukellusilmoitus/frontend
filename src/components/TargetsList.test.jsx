@@ -3,7 +3,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import '@testing-library/jest-dom/extend-expect';
-import TargetsList from './TargetsList'
+import TargetsList from './TargetsList';
 import targetService from '../services/targets';
 
 const data = {
