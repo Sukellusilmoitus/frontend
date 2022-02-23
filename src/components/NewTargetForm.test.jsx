@@ -1,19 +1,20 @@
-/* eslint-disable no-undef */
+/* eslint-disable */
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { wait } from '@testing-library/user-event/dist/utils';
 import NewTargetForm from './NewTargetForm';
 
-const postTarget = jest.fn()
-let form, input, input2, input3, input4, input5, input6, input7, input8, input9, input10;
+const postTarget = jest.fn();
+let form; let input; let input2; let input3; let input4; let input5; let input6; let input7; let input8; let input9; let
+  input10;
 
 describe('new target tests', () => {
   beforeEach(() => {
     const component = render(
       <NewTargetForm
         postTarget={postTarget}
-      />
+      />,
     );
     form = component.getByTestId('testform');
     input = component.getByTestId('testdivername');
@@ -66,14 +67,14 @@ describe('new target tests', () => {
     fireEvent.change(input10, {
       target: { value: 'a' },
     });
-  
+
     await wait(() => {
       fireEvent.submit(form);
       expect(postTarget).toHaveBeenCalledTimes(1);
       expect(postTarget.mock.calls).toHaveLength(0);
-    })
+    });
   });
-  
+
   test('empty form does not get submitted', async () => {
     await wait(() => {
       fireEvent.submit(form);
@@ -81,7 +82,7 @@ describe('new target tests', () => {
       expect(postTarget.mock.calls).toHaveLength(0);
     });
   });
-  
+
   test('submit works with all accurate inputs', async () => {
     fireEvent.change(input, {
       target: { value: 'Sukeltajan Nimi' },
@@ -113,11 +114,11 @@ describe('new target tests', () => {
     fireEvent.change(input10, {
       target: { value: 'a wave hit the ship' },
     });
-  
+
     await wait(() => {
       fireEvent.submit(form);
       expect(postTarget).toHaveBeenCalledTimes(1);
-  
+
       expect(postTarget.mock.calls).toHaveLength(1);
       expect(postTarget.mock.calls[0][0].name).toBe('Sukeltajan Nimi');
       expect(postTarget.mock.calls[0][0].phone).toBe('0415064545');
