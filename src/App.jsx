@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Switch, Route, useRouteMatch } from 'react-router-dom';
+import {
+  Switch,
+  Route,
+  Redirect,
+  useRouteMatch,
+} from 'react-router-dom';
 import Header from './components/Navigation';
 import ListAndNotification from './components/ListAndNotification';
 import TargetPage from './components/TargetPage';
+import Home from './components/Home';
 import targetService from './services/targets';
 import NewTargetForm from './components/NewTargetForm';
-import './App.css';
+import './assets/styles/App.css';
 
 function App() {
   const [targets, setTargets] = useState([]);
@@ -33,6 +39,10 @@ function App() {
     <div className="container">
       <Header />
       <Switch>
+        <Route exact path="/">
+          <Redirect to="/etusivu" />
+        </Route>
+        <Route path="/etusivu" component={Home} />
         <Route path="/hylyt/:id">
           <TargetPage target={target} />
         </Route>
