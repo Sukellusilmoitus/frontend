@@ -310,6 +310,7 @@ function NotificationForm(props) {
         <br />
         <Button variant="primary" type="submit">Lähetä</Button>
       </Form>
+      <br />
     </div>
   );
 }
