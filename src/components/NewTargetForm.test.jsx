@@ -72,6 +72,9 @@ describe('new target tests', () => {
       fireEvent.submit(form);
       expect(postTarget).toHaveBeenCalledTimes(1);
       expect(postTarget.mock.calls).toHaveLength(0);
+      expect(component.container).toHaveTextContent(
+        'Lomakkeesta puuttui tietoja tai siinä on virheitä!',
+      );
     });
   });
 
@@ -80,6 +83,9 @@ describe('new target tests', () => {
       fireEvent.submit(form);
       expect(postTarget).toHaveBeenCalledTimes(1);
       expect(postTarget.mock.calls).toHaveLength(0);
+      expect(component.container).toHaveTextContent(
+        'Lomakkeesta puuttui tietoja tai siinä on virheitä!',
+      );
     });
   });
 
@@ -130,6 +136,9 @@ describe('new target tests', () => {
       expect(postTarget.mock.calls[0][0].location_method).toBe('koordinaatit selvitetty');
       expect(postTarget.mock.calls[0][0].location_accuracy).toBe('the front fell off');
       expect(postTarget.mock.calls[0][0].miscText).toBe('a wave hit the ship');
+      expect(component.container).toHaveTextContent(
+        'Lomakkeesta puuttui tietoja tai siinä on virheitä!',
+      );
     });
   });
 });
