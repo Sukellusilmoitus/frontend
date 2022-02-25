@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 
 function TargetInfo({ target }) {
   return (
-    <Container style={{ paddingLeft: 0 }}>
+    <Container style={{ paddingLeft: 0, paddingRight: 0 }}>
       <h3>Tietoja</h3>
       <Table bordered size="sm">
         <tbody>
