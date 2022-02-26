@@ -52,6 +52,7 @@ describe('home page tests', () => {
         .and('contains', 'World_Imagery')
       })
     })
+    
     // Tämä testi toimii kun J-P:n tekemät muutokset popup:iin mergetään
     // it('marker popup has id and name strings', () => {
     //   const regex = new RegExp(`.+`)
