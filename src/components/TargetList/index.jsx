@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import List from './TargetList';
 import SearchBar from './SearchBar';
@@ -15,17 +15,24 @@ const initialSearchLimit = {
 function TargetList({ onRowClick, targets }) {
   const [search, setSearch] = useState('');
   const [searchLimit, setSearchLimit] = useState(initialSearchLimit);
+  const [filteredTargets, setFilteredTargets] = useState(targets);
 
-  if (targets === 'loading...') {
+  if (targets === 'loading...' || filteredTargets === 'loading...') {
     return <LoadingSpinner />;
   }
 
-  const filteredTargets = filter(targets, search, searchLimit);
+  useEffect(() => {
+    setFilteredTargets(filter(targets, search, searchLimit));
+  }, [search, searchLimit]);
+  // const filteredTargets = filter(targets, search, searchLimit);
 
   return (
     <Container fluid>
       <Row className="d-flex justify-content-end">
-        <SearchBar setFilter={setSearch} setSearchLimit={setSearchLimit} />
+        <SearchBar
+          setSearch={setSearch}
+          setSearchLimit={setSearchLimit}
+        />
       </Row>
       <List onRowClick={onRowClick} targets={filteredTargets} />
     </Container>

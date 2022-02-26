@@ -1,25 +1,14 @@
 import { useState } from 'react';
 import { Form } from 'react-bootstrap';
 
-function SearchBar({ setFilter, setSearchLimit }) {
+function SearchBar({ setSearch, setSearchLimit }) {
   const [nameSelected, setNameSelected] = useState(false);
   const [locationSelected, setLocationSelected] = useState(false);
   const [typeSelected, setTypeSelected] = useState(false);
   const [sourceSelected, setSourceSelected] = useState(false);
 
-  const handleSearchLimitChange = () => {
-    const searchLimit = {
-      name: nameSelected,
-      location: locationSelected,
-      type: typeSelected,
-      source: sourceSelected,
-    };
-    setSearchLimit(searchLimit);
-  };
-
   const handleChange = (value) => {
-    handleSearchLimitChange();
-    setFilter(value);
+    setSearch(value);
   };
 
   const handleCheck = (field) => {
@@ -39,7 +28,13 @@ function SearchBar({ setFilter, setSearchLimit }) {
       default:
         break;
     }
-    handleSearchLimitChange();
+    const searchLimit = {
+      name: nameSelected,
+      location: locationSelected,
+      type: typeSelected,
+      source: sourceSelected,
+    };
+    setSearchLimit(searchLimit);
   };
 
   return (
