@@ -25,7 +25,7 @@ describe('target page tests', () => {
 
   it('target page is reached by clicking a target from target list', () => {
     cy.visit('/hylyt')
-    cy.contains('Achill').click()
+    cy.contains('Achill').parent().find('button').click();
     cy.contains('Achill')
     cy.contains('Tietoja')
     cy.contains('Sijainti kartalla')

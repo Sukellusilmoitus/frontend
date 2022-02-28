@@ -1,7 +1,7 @@
 describe('Target can be clicked', () => {
   it('successfully loads', () => {
     cy.visit('/hylyt');
-    cy.get('table tbody').find('tr').first().click();
+    cy.get('table tbody').find('button').first().click();
     cy.contains('Tee uusi sukellusilmoitus');
   });
 });
