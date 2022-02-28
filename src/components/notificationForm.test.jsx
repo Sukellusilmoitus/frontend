@@ -4,6 +4,42 @@ import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import NoteForm from './NotificationForm';
 
+test('form can be submitted with just name and email', () => {
+  const createNotification = jest.fn();
+
+  const component = render(
+    <NoteForm
+      targetName="testihylky"
+      targetId="456"
+      createNotification={createNotification}
+    />,
+  );
+  const form = component.getByTestId('testform');
+  fireEvent.focus(form);
+
+  const input = component.getByTestId('testname');
+  const input2 = component.getByTestId('testemail');
+  const input3 = component.getByTestId('testradio');
+  const input4 = component.getByTestId('testradio2');
+  expect(input3.checked).toEqual(false);
+  expect(input4.checked).toEqual(false);
+
+  fireEvent.change(input, {
+    target: { value: 'Sukeltajan Nimi' },
+  });
+  fireEvent.change(input2, {
+    target: { value: 'sukeltaja@test.com' },
+  });
+
+  fireEvent.submit(form);
+
+  expect(createNotification.mock.calls).toHaveLength(1);
+  expect(createNotification.mock.calls[0][0].locationName).toBe('testihylky');
+  expect(createNotification.mock.calls[0][0].locationId).toBe('456');
+  expect(createNotification.mock.calls[0][0].name).toBe('Sukeltajan Nimi');
+  expect(createNotification.mock.calls[0][0].email).toBe('sukeltaja@test.com');
+});
+
 test('renders component', () => {
   const component = render(
     <NoteForm />,

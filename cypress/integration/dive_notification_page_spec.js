@@ -1,6 +1,6 @@
 describe('Target can be clicked', () => {
   it('successfully loads', () => {
-    cy.visit("/hylyt");
+    cy.visit('/hylyt');
     cy.get('table tbody').find('tr').first().click();
     cy.contains('Tee uusi sukellusilmoitus');
   });
@@ -50,5 +50,19 @@ describe('Test form fields', () => {
     cy.get('[data-testid=testradio]').click();
     cy.get('[id=newxcoordinate]').then($x => expect($x[0].checkValidity()).to.be.false);
     cy.get('[id=newycoordinate]').then($x => expect($x[0].checkValidity()).to.be.false);
+  });
+});
+
+describe('Diving history is displayed', () => {
+  it('history is not empty after posting notif', () => {
+    cy.reload();
+    cy.get('[id=newname]').type('Test Tester');
+    cy.get('[id=newemail]').type('Test@Tester.com');
+    cy.get('.btn').click();
+    cy.wait(2000);
+    cy.reload();
+    cy.wait(6000);
+    cy.get('[data-testid=dive-history-list]').find('div').last().should('contain', 'Sukeltaja: Test Tester');
+    cy.get('[data-testid=dive-history-list]').find('div').last().should('contain', 'Muutokset: ei muutoksia');
   });
 });
