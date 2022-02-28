@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Spinner } from 'react-bootstrap';
+import { Table, Spinner, Button } from 'react-bootstrap';
 import targetService from '../services/targets';
 
 function TargetsList(props) {
@@ -27,25 +27,26 @@ function TargetsList(props) {
           </div>
         )
         : (
-          <Table striped bordered hover responsive>
+          <Table striped bordered hover size="sm" responsive style={{ overflowWrap: 'break-word', tableLayout: 'fixed' }}>
             <thead>
               <tr>
                 <th>Nimi</th>
                 <th>Kaupunki</th>
-                <th>Tyyppi</th>
-                <th>Lähde</th>
+                <th>Lisätietoa</th>
               </tr>
             </thead>
             <tbody>
               {targets.map((target) => (
                 <tr
                   key={target.properties.id}
-                  onClick={() => onRowClick(target.properties.id)}
                 >
                   <td>{target.properties.name}</td>
                   <td>{target.properties.town}</td>
-                  <td>{target.properties.type}</td>
-                  <td><a href={target.properties.url}>{target.properties.source}</a></td>
+                  <td style={{ textAlign: 'center' }}>
+                    <Button onClick={() => onRowClick(target.properties.id)} style={{ minWidth: '100%' }}>
+                      Lisätietoa
+                    </Button>
+                  </td>
                 </tr>
               ))}
             </tbody>
