@@ -19,7 +19,7 @@ function MapLegend({ position }) {
           <img src={lightMarker} alt="user created marker" width="10px" />
           <span> Käyttäjän ilmoitus</span>
           <br />
-          <img src={darkMarker} alt="user created marker" width="10px" />
+          <img src={darkMarker} alt="agency confirmed marker" width="10px" />
           <span> Museovirasto</span>
         </div>
       </div>
