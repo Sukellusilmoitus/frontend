@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import L from 'leaflet';
 import {
   MapContainer,
@@ -8,6 +9,7 @@ import {
   Marker,
 } from 'react-leaflet';
 import MarkerClusterGroup from 'react-leaflet-markercluster';
+import { Button } from 'react-bootstrap';
 import lightMarker from '../assets/images/marker-icon-light.png';
 import MapLegend from './MapLegend';
 
@@ -15,6 +17,10 @@ require('react-leaflet-markercluster/dist/styles.min.css');
 
 function MainMap(props) {
   const { targets } = props;
+  const history = useHistory();
+  const handleClick = (id) => {
+    history.push(`/hylyt/${id}`);
+  };
 
   const userCreatedMarker = L.icon({
     iconUrl: lightMarker,
@@ -59,9 +65,14 @@ function MainMap(props) {
                     position={target.geometry.coordinates.reverse()}
                   >
                     <Popup direction="right" offset={[-8, -2]} opacity={1}>
-                      {target.properties.id}
-                      <br />
-                      {target.properties.name}
+                      <h6>
+                        ID:
+                        {target.properties.id}
+                      </h6>
+                      <h6>{target.properties.name}</h6>
+                      <Button onClick={() => handleClick(target.properties.id)}>
+                        Tee sukellusilmoitus
+                      </Button>
                     </Popup>
                   </Marker>
                 );

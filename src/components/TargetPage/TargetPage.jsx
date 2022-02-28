@@ -10,16 +10,16 @@ function TargetPage({ target, createNewNotification, dives }) {
     <Container>
       <h2>{target.properties.name}</h2>
       <Row>
-        <Col>
+        <Col lg>
           <TargetInfo target={target} />
         </Col>
-        <Col>
+        <Col lg>
           <h3>Sijainti kartalla</h3>
           <TargetLocationMap target={target} />
         </Col>
       </Row>
-      <Row style={{ marginTop: '40px' }}>
-        <Col>
+      <Row style={{ marginTop: '80px' }}>
+        <Col lg>
           <NotificationForm
             targetName={target.properties.name}
             targetId={target.properties.id}
@@ -28,7 +28,7 @@ function TargetPage({ target, createNewNotification, dives }) {
             createNotification={createNewNotification}
           />
         </Col>
-        <Col>
+        <Col lg>
           <DiveHistory diveList={dives} />
         </Col>
       </Row>

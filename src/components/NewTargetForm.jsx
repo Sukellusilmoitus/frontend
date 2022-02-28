@@ -46,7 +46,7 @@ function NewTargetForm(props) {
           <Breadcrumb.Item>Syötä puhelinnumero ja/tai sähköposti</Breadcrumb.Item>
         </Breadcrumb>
         <Row>
-          <Col>
+          <Col lg>
             <Form.Group>
               <Form.Label>Puhelinnumero:</Form.Label>
               <Form.Control
@@ -62,7 +62,7 @@ function NewTargetForm(props) {
               </Form.Control.Feedback>
             </Form.Group>
           </Col>
-          <Col>
+          <Col lg>
             <Form.Group>
               <Form.Label>Sähköpostiosoite:</Form.Label>
               <Form.Control
@@ -81,7 +81,7 @@ function NewTargetForm(props) {
         </Row>
         <br />
         <Row>
-          <Col>
+          <Col lg>
             <Form.Group>
               <Form.Label>Kuvaus kohteesta:</Form.Label>
               <Form.Control
@@ -100,7 +100,7 @@ function NewTargetForm(props) {
               </Form.Control.Feedback>
             </Form.Group>
           </Col>
-          <Col>
+          <Col lg>
             <Form.Group>
               <Form.Label>Vesialueen tai lähisaaren nimi:</Form.Label>
               <Form.Control
@@ -119,7 +119,7 @@ function NewTargetForm(props) {
         </Row>
         <br />
         <Row>
-          <Col>
+          <Col lg>
             <Form.Group>
               <Form.Label>Pituuspiiri desimaaliasteina:</Form.Label>
               <Form.Control
@@ -138,7 +138,7 @@ function NewTargetForm(props) {
               </Form.Text>
             </Form.Group>
           </Col>
-          <Col>
+          <Col lg>
             <Form.Group>
               <Form.Label>Leveyspiiri desimaaliasteina:</Form.Label>
               <Form.Control
