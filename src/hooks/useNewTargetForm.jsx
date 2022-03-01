@@ -15,7 +15,8 @@ const useForm = (postTarget) => {
     const targetID = await targets.generateUniqueID();
     postTarget({
       id: targetID,
-      name: requiredValues.divername,
+      targetname: requiredValues.targetname,
+      divername: requiredValues.divername,
       town: requiredValues.locationname || '',
       type: requiredValues.targetdescription,
       x_coordinate: requiredValues.xcoordinate,
@@ -26,22 +27,36 @@ const useForm = (postTarget) => {
       created_at: Date.now() / 1000.0,
       url: REACT_APP_SERVER_URL === 'http://localhost:5000' ? 'http://localhost.com' : REACT_APP_SERVER_URL,
       source: 'ilmoitus',
-      phone: values.phone,
-      email: values.email,
+      phone: values.phone || '',
+      email: values.email || '',
       miscText: values.misctext || '',
     });
   };
 
   const validate = (event, name, value) => {
     switch (name) {
-      case 'divername':
+      case 'targetname':
 
         if (
-          !(/(?!.*?\s{2})[ A-Za-zäöåÅÄÖ]{7,20}/).test(value)
+          !(/(?!.*?\s{2})[ A-Za-zäöåÅÄÖ]{4,30}/).test(value)
         ) {
           setErrors({
             ...errors,
-            divername: 'Tulee olla 7-20 merkkiä pitkä ja sisältää vain kirjaimia ja välilyöntejä',
+            divername: 'Tulee olla 4-30 merkkiä pitkä ja sisältää vain kirjaimia ja välilyöntejä',
+          });
+        } else {
+          const newObj = omit(errors, 'divername');
+          setErrors(newObj);
+        }
+        break;
+      case 'divername':
+
+        if (
+          !(/(?!.*?\s{2})[ A-Za-zäöåÅÄÖ]{4,30}/).test(value)
+        ) {
+          setErrors({
+            ...errors,
+            divername: 'Tulee olla 4-30 merkkiä pitkä ja sisältää vain kirjaimia ja välilyöntejä',
           });
         } else {
           const newObj = omit(errors, 'divername');
@@ -202,7 +217,7 @@ const useForm = (postTarget) => {
       return;
     }
 
-    if (Object.keys(errors).length === 0 && Object.keys(requiredValues).length === 7) {
+    if (Object.keys(errors).length === 0 && Object.keys(requiredValues).length === 8) {
       callback(event);
       setMessage('Lomake lähetetty!');
       setTimeout(() => {

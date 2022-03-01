@@ -6,7 +6,7 @@ import { wait } from '@testing-library/user-event/dist/utils';
 import NewTargetForm from './NewTargetForm';
 
 const postTarget = jest.fn();
-let form; let input; let input2; let input3; let input4; let input5; let input6; let input7; let input8; let input9; let
+let form; let input; let input1; let input2; let input3; let input4; let input5; let input6; let input7; let input8; let input9; let
   input10;
 
 describe('new target tests', () => {
@@ -17,6 +17,7 @@ describe('new target tests', () => {
       />,
     );
     form = component.getByTestId('testform');
+    input1 = component.getByTestId('testtargetname');
     input = component.getByTestId('testdivername');
     input2 = component.getByTestId('testphone');
     input3 = component.getByTestId('testemail');
@@ -39,6 +40,9 @@ describe('new target tests', () => {
   test('typo form does not get submitted', async () => {
     fireEvent.change(input, {
       target: { value: 's' },
+    });
+    fireEvent.change(input1, {
+      target: { value: 'h' },
     });
     fireEvent.change(input2, {
       target: { value: '0' },
@@ -90,6 +94,9 @@ describe('new target tests', () => {
   });
 
   test('submit works with all accurate inputs', async () => {
+    fireEvent.change(input1, {
+      target: { value: 'Hylyn Nimi' },
+    });
     fireEvent.change(input, {
       target: { value: 'Sukeltajan Nimi' },
     });
@@ -126,7 +133,8 @@ describe('new target tests', () => {
       expect(postTarget).toHaveBeenCalledTimes(1);
 
       expect(postTarget.mock.calls).toHaveLength(1);
-      expect(postTarget.mock.calls[0][0].name).toBe('Sukeltajan Nimi');
+      expect(postTarget.mock.calls[0][0].targetname).toBe('Hylyn Nimi');
+      expect(postTarget.mock.calls[0][0].divername).toBe('Sukeltajan Nimi');
       expect(postTarget.mock.calls[0][0].phone).toBe('0415064545');
       expect(postTarget.mock.calls[0][0].email).toBe('seppo@gmail.com');
       expect(postTarget.mock.calls[0][0].type).toBe('hylky');

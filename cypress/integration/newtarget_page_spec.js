@@ -25,6 +25,7 @@ describe('Test submit', () => {
   it('user can submit', () => {
     cy.visit("/uusi");
     cy.get('[id=newname]').type('Test Tester');
+    cy.get('[id=newdivername]').type('Test Tester');
     cy.get('[id=newemail]').type('tester@test.com');
     cy.get('[id=newphone]').type('0415063434');
     cy.get('[id=newdescription]').type('newdescription');
@@ -43,6 +44,7 @@ describe('Test email and phone fields', () => {
   it('user has to fill email or phone', () => {
     cy.visit("/uusi");
     cy.get('[id=newname]').type('Test Tester');
+    cy.get('[id=newdivername]').type('Test Tester');
     cy.get('[id=newdescription]').type('newdescription');
     cy.get('[id=newlocationname]').type('newlocationname');
     cy.get('[id=newx]').type('25.34234323');
