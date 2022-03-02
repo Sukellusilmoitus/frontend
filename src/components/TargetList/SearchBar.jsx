@@ -43,8 +43,12 @@ function SearchBar({ targets, setTargets }) {
   };
 
   return (
-    <Form className="mb-3" onSubmit={(e) => handleSubmit(e)}>
-      <Form.Group controlId="search">
+    <Form
+      id="search-form"
+      className="mb-3 d-flex align-items-center"
+      onSubmit={(e) => handleSubmit(e)}
+    >
+      <Form.Group controlId="search" className="mr-3">
         <Form.Label visuallyHidden>Hae kohteista:</Form.Label>
         <Form.Control
           type="text"
@@ -52,10 +56,11 @@ function SearchBar({ targets, setTargets }) {
           placeholder="Hae kohteista"
         />
       </Form.Group>
-      <Form.Group className="ml-2">
+      <Form.Group className="mx-3">
         <Form.Label>Rajaa hakua ominaisuuden mukaan:</Form.Label>
         <br />
         <Form.Check
+          id="name"
           type="checkbox"
           label="Nimi"
           inline
@@ -64,6 +69,7 @@ function SearchBar({ targets, setTargets }) {
           checked={nameSelected}
         />
         <Form.Check
+          id="location"
           type="checkbox"
           label="Sijainti"
           inline
@@ -72,6 +78,7 @@ function SearchBar({ targets, setTargets }) {
           checked={locationSelected}
         />
         <Form.Check
+          id="type"
           type="checkbox"
           label="Tyyppi"
           inline
@@ -80,6 +87,7 @@ function SearchBar({ targets, setTargets }) {
           checked={typeSelected}
         />
         <Form.Check
+          id="source"
           type="checkbox"
           label="Lähde"
           inline
@@ -89,8 +97,8 @@ function SearchBar({ targets, setTargets }) {
         />
         <Form.Text className="text-muted">Jos mitään ei valittuna, haetaan näillä kaikilla.</Form.Text>
       </Form.Group>
-      <Form.Group className="">
-        <Button type="submit" className="btn-success">Hae</Button>
+      <Form.Group className="mx-3">
+        <Button type="submit" className="btn-success px-5">Hae</Button>
       </Form.Group>
     </Form>
   );
