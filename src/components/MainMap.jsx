@@ -84,9 +84,14 @@ function MainMap(props) {
                   position={target.geometry.coordinates.reverse()}
                 >
                   <Popup direction="right" offset={[-8, -2]} opacity={1}>
-                    {target.properties.id}
-                    <br />
-                    {target.properties.name}
+                    <h6>
+                      ID:
+                      {target.properties.id}
+                    </h6>
+                    <h6>{target.properties.name}</h6>
+                    <Button onClick={() => handleClick(target.properties.id)}>
+                      Tee sukellusilmoitus
+                    </Button>
                   </Popup>
                 </Marker>
               );
