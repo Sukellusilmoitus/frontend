@@ -31,9 +31,24 @@ function NewTargetForm(props) {
           <Form.Label>Kohteen nimi:</Form.Label>
           <Form.Control
             type="text"
+            name="targetname"
+            data-testid="testtargetname"
+            id="newname"
+            onChange={handleChange}
+            isInvalid={!!errors.targetname}
+          />
+          <Form.Control.Feedback type="invalid">
+            { errors.targetname }
+          </Form.Control.Feedback>
+        </Form.Group>
+        <br />
+        <Form.Group>
+          <Form.Label>Ilmoittajan nimi:</Form.Label>
+          <Form.Control
+            type="text"
             name="divername"
             data-testid="testdivername"
-            id="newname"
+            id="newdivername"
             onChange={handleChange}
             isInvalid={!!errors.divername}
           />
