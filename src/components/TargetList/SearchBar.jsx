@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import { Form } from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
+import { filter } from '../../util/filter';
 
-function SearchBar({ setSearch, setSearchLimit }) {
+function SearchBar({ targets, setTargets }) {
+  const [search, setSearch] = useState('');
   const [nameSelected, setNameSelected] = useState(false);
   const [locationSelected, setLocationSelected] = useState(false);
   const [typeSelected, setTypeSelected] = useState(false);
@@ -28,17 +30,20 @@ function SearchBar({ setSearch, setSearchLimit }) {
       default:
         break;
     }
-    const searchLimit = {
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setTargets(filter(targets, search, {
       name: nameSelected,
       location: locationSelected,
       type: typeSelected,
       source: sourceSelected,
-    };
-    setSearchLimit(searchLimit);
+    }));
   };
 
   return (
-    <Form className="mb-3">
+    <Form className="mb-3" onSubmit={(e) => handleSubmit(e)}>
       <Form.Group controlId="search">
         <Form.Label visuallyHidden>Hae kohteista:</Form.Label>
         <Form.Control
@@ -83,6 +88,9 @@ function SearchBar({ setSearch, setSearchLimit }) {
           checked={sourceSelected}
         />
         <Form.Text className="text-muted">Jos mitään ei valittuna, haetaan näillä kaikilla.</Form.Text>
+      </Form.Group>
+      <Form.Group className="ml-5">
+        <Button type="submit" className="btn-success">Hae</Button>
       </Form.Group>
     </Form>
   );

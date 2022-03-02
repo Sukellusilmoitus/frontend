@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import Header from './components/Navigation';
-import ListAndNotification from './components/ListAndNotification';
 import TargetPage from './components/TargetPage';
 import targetService from './services/targets';
 import NewTargetForm from './components/NewTargetForm';
+import TargetList from './components/TargetList';
 import './App.css';
 
 function App() {
@@ -37,7 +37,7 @@ function App() {
           <TargetPage target={target} />
         </Route>
         <Route path="/hylyt">
-          <ListAndNotification targets={targets} />
+          <TargetList targets={targets} />
         </Route>
         <Route exact path="/uusi" render={() => <NewTargetForm postTarget={createNewTarget} />} />
       </Switch>
