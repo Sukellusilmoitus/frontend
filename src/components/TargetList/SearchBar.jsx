@@ -89,7 +89,7 @@ function SearchBar({ targets, setTargets }) {
         />
         <Form.Text className="text-muted">Jos mitään ei valittuna, haetaan näillä kaikilla.</Form.Text>
       </Form.Group>
-      <Form.Group className="ml-5">
+      <Form.Group className="">
         <Button type="submit" className="btn-success">Hae</Button>
       </Form.Group>
     </Form>

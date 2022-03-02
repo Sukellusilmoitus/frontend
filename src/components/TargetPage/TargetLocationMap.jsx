@@ -6,7 +6,7 @@ import {
 function TargetLocationMap({ target }) {
   const { coordinates } = target.geometry;
   return (
-    <MapContainer center={coordinates} zoom={8}>
+    <MapContainer center={coordinates} zoom={8} style={{ height: '250px', width: '100%' }}>
       <LayersControl position="topright">
         <LayersControl.BaseLayer checked name="OpenStreetMap">
           <TileLayer
