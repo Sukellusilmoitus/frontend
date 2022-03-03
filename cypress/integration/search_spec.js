@@ -34,19 +34,19 @@ describe('search works correctly', () => {
   })
 
   it('targets can be filtered by typing a search query and only applying it to location', () => {
-    cy.contains('Saittalampi')
-    cy.contains('Saimaa')
+    cy.contains('Hangon proomu')
+    cy.contains('Hanko')
     cy.get('#search-form').within(() => {
-      cy.get('input#search').type('sai')
+      cy.get('input#search').type('han')
       cy.get('button').click()
     })
-    cy.contains('Saittalampi')
-    cy.contains('Saimaa')
+    cy.contains('Hangon proomu')
+    cy.contains('Hanko')
     cy.get('#search-form').within(() => {
       cy.get('input#location').click()
       cy.get('button').click()
     })
-    cy.contains('Saittalampi').should('not.exist')
+    cy.contains('Hangon proomu').should('not.exist')
     cy.contains('Saimaa')
   })
 
