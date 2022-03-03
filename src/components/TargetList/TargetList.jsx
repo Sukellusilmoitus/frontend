@@ -2,7 +2,7 @@ import { Table } from 'react-bootstrap';
 
 function List({ onRowClick, targets }) {
   return (
-    <div>
+    <div data-testid="target-list">
       {(targets.length === 0)
         ? (
           <div>

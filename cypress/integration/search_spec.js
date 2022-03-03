@@ -103,7 +103,7 @@ describe('search works correctly', () => {
     cy.contains('A 37').should('not.exist')
   })
 
-  it('correct message is shown when no targets are found', () => {
+  it('correct message is shown when no matches are found', () => {
     cy.contains('Kohteita ei löytynyt').should('not.exist')
     cy.get('#search-form').within(() => {
       cy.get('input#search').type('isaquortfhaasdff')
