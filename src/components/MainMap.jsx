@@ -33,6 +33,7 @@ function MainMap(props) {
         zoom={5}
         maxZoom={18}
         center={[64.1, 25.0]}
+        tap={false}
       >
         <LayersControl position="topright">
           <LayersControl.BaseLayer checked name="OpenStreetMap">
@@ -64,7 +65,7 @@ function MainMap(props) {
                     key={target.properties.id}
                     position={target.geometry.coordinates.reverse()}
                   >
-                    <Popup direction="right" offset={[-8, -2]} opacity={1}>
+                    <Popup direction="right" offset={[0, 0]} opacity={1}>
                       <h6>
                         ID:
                         {target.properties.id}
@@ -83,7 +84,7 @@ function MainMap(props) {
                   key={target.properties.id}
                   position={target.geometry.coordinates.reverse()}
                 >
-                  <Popup direction="right" offset={[-8, -2]} opacity={1}>
+                  <Popup direction="right" offset={[0, 0]} opacity={1}>
                     <h6>
                       ID:
                       {target.properties.id}
