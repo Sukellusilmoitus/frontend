@@ -3,7 +3,7 @@ import { Container, Row } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import List from './TargetList';
 import SearchBar from './SearchBar';
-import LoadingSpinner from './LoadingSpinner';
+import LoadingSpinner from '../LoadingSpinner';
 
 function TargetList({ targets }) {
   const [filteredTargets, setFilteredTargets] = useState(targets);
