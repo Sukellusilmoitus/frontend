@@ -53,17 +53,28 @@ describe('home page tests', () => {
       })
     })
     
-    // Tämä testi toimii kun J-P:n tekemät muutokset popup:iin mergetään
-    // it('marker popup has id and name strings', () => {
-    //   const regex = new RegExp(`.+`)
-    //   cy.get('.leaflet-marker-pane').within(() => {
-    //     cy.get('.leaflet-marker-icon').first().click()
-    //   })
-    //   cy.get('.leaflet-marker-pane').find('img').first().click()
-    //   cy.get('.leaflet-popup-pane').within(() => {
-    //     cy.get('.leaflet-popup-content').find('h6').eq(0).contains(regex)
-    //     cy.get('.leaflet-popup-content').find('h6').eq(1).contains(regex)
-    //   })
-    // })
+    it('marker popup has id and name strings', () => {
+      const regex = new RegExp(`.+`)
+      cy.get('.leaflet-marker-pane').within(() => {
+        cy.get('.leaflet-marker-icon').first().click()
+      })
+      cy.get('.leaflet-marker-pane').find('img').first().click()
+      cy.get('.leaflet-popup-pane').within(() => {
+        cy.get('.leaflet-popup-content').find('h6').eq(0).contains(regex)
+        cy.get('.leaflet-popup-content').find('h6').eq(1).contains(regex)
+      })
+    })
+
+    it('marker popup has a button that redirects to the wreck page', () => {
+      cy.get('.leaflet-popup-pane').within(() => {
+        cy.get('.leaflet-popup-content').then(($text) => {
+          let id = $text.find('h6').eq(0).text();
+          //cy.log(_id.split(':')[1])
+          id = id.split(':')[1]
+          cy.get('.leaflet-popup-content').find('button').click({force: true});
+          cy.url().should('include', `/hylyt/${id}`)
+        })
+      })
+    });
   })
 })
