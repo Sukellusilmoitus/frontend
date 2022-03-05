@@ -6,15 +6,15 @@ import {
   useRouteMatch,
 } from 'react-router-dom';
 import Header from './components/Navigation';
-import ListAndNotification from './components/ListAndNotification';
 import TargetPage from './components/TargetPage';
 import Home from './components/Home';
 import targetService from './services/targets';
 import NewTargetForm from './components/NewTargetForm';
+import TargetList from './components/TargetList';
 import './assets/styles/App.css';
 
 function App() {
-  const [targets, setTargets] = useState([]);
+  const [targets, setTargets] = useState('loading...');
 
   const getTargets = async () => {
     const data = await targetService.getAllTargets();
@@ -31,7 +31,7 @@ function App() {
   }, []);
 
   const match = useRouteMatch('/hylyt/:id');
-  const target = match
+  const target = match && targets !== 'loading...'
     ? targets.find((t) => t.properties.id === match.params.id)
     : null;
 
@@ -46,7 +46,9 @@ function App() {
         <Route path="/hylyt/:id">
           <TargetPage target={target} />
         </Route>
-        <Route path="/hylyt" component={ListAndNotification} />
+        <Route path="/hylyt">
+          <TargetList targets={targets} />
+        </Route>
         <Route exact path="/uusi" render={() => <NewTargetForm postTarget={createNewTarget} />} />
       </Switch>
     </div>

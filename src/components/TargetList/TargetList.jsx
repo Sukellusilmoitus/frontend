@@ -1,33 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { Table, Spinner } from 'react-bootstrap';
-import targetService from '../services/targets';
+import { Table } from 'react-bootstrap';
 
-function TargetsList(props) {
-  const { onRowClick } = props;
-  const [targets, setTargets] = useState('loading...');
-
-  async function getTargetData() {
-    const data = await targetService.getAllTargets();
-    data.features.sort((a, b) => (a.properties.name > b.properties.name ? 1 : -1));
-    setTargets(data.features);
-  }
-
-  useEffect(() => {
-    getTargetData();
-  }, []);
-
+function List({ onRowClick, targets }) {
   return (
-    <div>
-      {(targets === 'loading...')
+    <div data-testid="target-list">
+      {(targets.length === 0)
         ? (
           <div>
-            <Spinner animation="border" />
-            <p>Ladataan</p>
-
+            <p>Kohteita ei löytynyt</p>
           </div>
         )
         : (
-          <Table striped bordered hover responsive>
+          <Table striped bordered hover>
             <thead>
               <tr>
                 <th>Nimi</th>
@@ -54,4 +37,4 @@ function TargetsList(props) {
     </div>
   );
 }
-export default TargetsList;
+export default List;

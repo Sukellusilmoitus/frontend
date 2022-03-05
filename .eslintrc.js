@@ -19,6 +19,7 @@ module.exports = {
   ],
   rules: {
     'no-console': 1,
-    'react/prop-types': "off",
+    'react/prop-types': 'off',
+    'react/react-in-jsx-scope': 'off' // not needed in React 17
   },
 };

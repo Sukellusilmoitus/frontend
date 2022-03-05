@@ -1,3 +1,7 @@
+Cypress.on('uncaught:exception', (err, runnable) => {
+  return false
+})
+
 describe('Target can be clicked', () => {
   it('successfully loads', () => {
     cy.visit('/hylyt');
