@@ -45,7 +45,7 @@ function SearchBar({ targets, setTargets }) {
   return (
     <Form
       id="search-form"
-      className="mb-3 d-flex align-items-center"
+      className="mb-3 d-flex align-items-center search-form"
       onSubmit={(e) => handleSubmit(e)}
     >
       <Form.Group controlId="search" className="mr-3">
