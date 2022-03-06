@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import diveService from '../../services/dives';
+import LoadingSpinner from '../LoadingSpinner';
 import TargetPage from './TargetPage';
 
 function Target({ target }) {
@@ -20,7 +21,13 @@ function Target({ target }) {
     getDives();
   }, [target]);
 
-  if (!target) {
+  if (target === null) {
+    return (
+      <LoadingSpinner />
+    );
+  }
+
+  if (target === undefined) {
     return (
       <div>
         Kyseisellä id:llä ei löytynyt yhtään kohdetta, onhan käyttämäsi osoite oikea?
