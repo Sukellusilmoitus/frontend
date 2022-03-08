@@ -24,6 +24,7 @@ const useForm = (postTarget) => {
       location_method: requiredValues.coordinateinfo || '',
       location_accuracy: requiredValues.diverinfo || '',
       is_ancient: false,
+      is_pending: true,
       created_at: Date.now() / 1000.0,
       url: REACT_APP_SERVER_URL === 'http://localhost:5000' ? 'http://localhost.com' : REACT_APP_SERVER_URL,
       source: 'ilmoitus',
