@@ -64,7 +64,11 @@ const useForm = (postTarget) => {
         }
         break;
       case 'phone':
-
+        if ((/^$/).test(value) && (!(/^$/).test(values.email))) {
+          const newObj = omit(errors, 'phone');
+          setErrors(newObj);
+          break;
+        }
         if (
           !(/\+?[0-9]{3}-?[0-9]{6,12}/).test(value)
         ) {
@@ -78,7 +82,11 @@ const useForm = (postTarget) => {
         }
         break;
       case 'email':
-
+        if ((/^$/).test(value) && (!(/^$/).test(values.phone))) {
+          const newObj = omit(errors, 'email');
+          setErrors(newObj);
+          break;
+        }
         if (
           !(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).test(value)
         ) {
@@ -209,13 +217,21 @@ const useForm = (postTarget) => {
   const handleSubmit = (event) => {
     if (event) event.preventDefault();
 
-    if (values.phone === undefined && values.email === undefined) {
+    if ((values.phone === undefined && values.email === undefined)
+    || (values.phone === '' && values.email === undefined)
+    || (values.phone === undefined && values.email === '')
+    || (values.phone === '' && values.email === '')) {
       setMessage('Ilmoita puhelinnumero tai sähköpostiosoite!');
       setTimeout(() => {
         setMessage(null);
       }, 5000);
       return;
     }
+
+    const newObj = omit(errors, 'email');
+    setErrors(newObj);
+    const neObj = omit(errors, 'phone');
+    setErrors(neObj);
 
     if (Object.keys(errors).length === 0 && Object.keys(requiredValues).length === 8) {
       callback(event);
