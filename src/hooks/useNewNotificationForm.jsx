@@ -53,10 +53,12 @@ const useNotificationForm = (props) => {
         }
         break;
       case 'phone':
-
-        if (
-          !(/\+?[0-9]{3}-?[0-9]{6,12}/).test(value)
-        ) {
+        if ((/^$/).test(value) && (!(/^$/).test(values.email))) {
+          const newObj = omit(errors, 'phone');
+          setErrors(newObj);
+          break;
+        }
+        if (!(/\+?[0-9]{3}-?[0-9]{6,12}/).test(value)) {
           setErrors({
             ...errors,
             phone: 'Virheellinen puhelinnumero',
@@ -67,7 +69,11 @@ const useNotificationForm = (props) => {
         }
         break;
       case 'email':
-
+        if ((/^$/).test(value) && (!(/^$/).test(values.phone))) {
+          const newObj = omit(errors, 'email');
+          setErrors(newObj);
+          break;
+        }
         if (
           !(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).test(value)
         ) {
@@ -206,7 +212,10 @@ const useNotificationForm = (props) => {
   const handleSubmit = (coordinateRadio, changeRadio) => (event) => {
     if (event) event.preventDefault();
 
-    if (values.phone === undefined && values.email === undefined) {
+    if ((values.phone === undefined && values.email === undefined)
+    || (values.phone === '' && values.email === undefined)
+    || (values.phone === undefined && values.email === '')
+    || (values.phone === '' && values.email === '')) {
       console.log(Object.keys(requiredValues).length);
       setMessage('Ilmoita puhelinnumero tai sähköpostiosoite!');
       setTimeout(() => {
@@ -276,7 +285,8 @@ const useNotificationForm = (props) => {
     message,
     handleChange,
     handleSubmit,
-    resetChangeText
+    resetChangeText,
+
   };
 };
 
