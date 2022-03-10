@@ -38,6 +38,11 @@ describe('Test submit', () => {
     cy.contains('Lomake lähetetty!');
   });
 
+  it('submitted target is not in list before accepted', () => {
+    cy.visit("/hylyt");
+    cy.contains('Test Tester').should('not.exist');
+  });
+
 });
 
 describe('Test email and phone fields', () => {
