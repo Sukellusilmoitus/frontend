@@ -15,7 +15,7 @@ function NewNotificationForm(props) {
   const [changeRadio, setChangeRadio] = useState('no');
 
   const {
-    handleChange, errors, message, handleSubmit, resetChangeText,
+    handleChange, errors, message, handleSubmit, resetChangeText, handleCoordinateChange,
   } = useForm(props);
 
   const handleChangeRadio = (value) => {
@@ -26,12 +26,17 @@ function NewNotificationForm(props) {
     }
   };
 
+  const handleCoordinateChangeClick = (value) => {
+    handleCoordinateChange(value);
+    setCoordinateRadio(value);
+  };
+
   return (
     <div>
       <h2>Tee uusi sukellusilmoitus</h2>
       <Submitmessage message={message} />
       <Form
-        onSubmit={handleSubmit(coordinateRadio, changeRadio)}
+        onSubmit={handleSubmit(changeRadio)}
         data-testid="testform"
         id="newtargetform"
       >
@@ -135,7 +140,7 @@ function NewNotificationForm(props) {
             data-testid="testradio1"
             value="yes"
             onChange={(c) => {
-              setCoordinateRadio(c.target.value);
+              handleCoordinateChangeClick(c.target.value);
             }}
           />
           <Form.Check
@@ -144,7 +149,7 @@ function NewNotificationForm(props) {
             checked={coordinateRadio === 'no'}
             data-testid="testradio2"
             value="no"
-            onChange={(c) => { setCoordinateRadio(c.target.value); }}
+            onChange={(c) => { handleCoordinateChangeClick(c.target.value); }}
           />
           {coordinateRadio === 'no' && (
           <p>

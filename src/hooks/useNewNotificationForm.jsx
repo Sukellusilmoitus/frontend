@@ -13,26 +13,28 @@ const useNotificationForm = (props) => {
   const [requiredValues, setRequiredValues] = useState({
     xcoordinate: targetXcoordinate,
     ycoordinate: targetYcoordinate,
+    coordinateinfo: '',
   });
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState(null);
+  const [locationCorrect, setLocationCorrect] = useState(true);
 
-  const callback = (event, coordinateRadio) => {
+  const callback = (event) => {
     event.preventDefault();
 
     createNotification({
       name: requiredValues.divername,
-      phone: values.phone,
-      email: values.email,
+      phone: values.phone || '',
+      email: values.email || '',
       locationName: targetName,
       locationId: targetId,
-      locationCorrect: coordinateRadio === 'yes',
+      locationCorrect,
       xCoordinate: requiredValues.xcoordinate,
       yCoordinate: requiredValues.ycoordinate,
       coordinateText: requiredValues.coordinateinfo,
-      changeText: requiredValues.changeText,
-      miscText: values.misctext,
+      changeText: requiredValues.changeText || '',
+      miscText: values.misctext || '',
     });
   };
 
@@ -209,13 +211,38 @@ const useNotificationForm = (props) => {
     setRequiredValues(newRequiredValues);
   };
 
-  const handleSubmit = (coordinateRadio, changeRadio) => (event) => {
+  const handleCoordinateChange = (value) => {
+    if (value === 'yes') {
+      setRequiredValues({
+        ...requiredValues,
+        xcoordinate: targetXcoordinate,
+        ycoordinate: targetYcoordinate,
+        coordinateinfo: '',
+      });
+      const newObj = omit(errors, ['xcoordinate', 'ycoordinate', 'coordinateinfo']);
+      setErrors(newObj);
+      setLocationCorrect(true);
+    }
+    if (value === 'no') {
+      setRequiredValues({
+        ...requiredValues,
+        xcoordinate: null,
+        ycoordinate: null,
+      });
+      setLocationCorrect(false);
+      setErrors({
+        ...errors,
+        xcoordinate: 'Anna koordinaatti muodossa xx.xxxxxxxx, esim. 25.34234323',
+        ycoordinate: 'Anna koordinaatti muodossa xx.xxxxxxxx, esim. 60.42342334',
+        coordinateinfo: 'Kerro miten paikannus on selvitetty',
+      });
+    }
+  };
+
+  const handleSubmit = (changeRadio) => (event) => {
     if (event) event.preventDefault();
 
-    if ((values.phone === undefined && values.email === undefined)
-    || (values.phone === '' && values.email === undefined)
-    || (values.phone === undefined && values.email === '')
-    || (values.phone === '' && values.email === '')) {
+    if (!values.phone && !values.email) {
       console.log(Object.keys(requiredValues).length);
       setMessage('Ilmoita puhelinnumero tai sähköpostiosoite!');
       setTimeout(() => {
@@ -224,55 +251,29 @@ const useNotificationForm = (props) => {
       return;
     }
 
-    if ((changeRadio === 'yes' && coordinateRadio === 'yes')
-    || (changeRadio === 'no' && coordinateRadio === 'no')) {
-      if (Object.keys(errors).length === 0 && Object.keys(requiredValues).length === 4) {
-        console.log(Object.keys(requiredValues).length);
-        callback(event, coordinateRadio);
-        setMessage('Lomake lähetetty!');
-        setTimeout(() => {
-          setMessage(null);
-        }, 5000);
-      } else {
-        console.log(Object.keys(requiredValues).length);
-        console.log(errors);
-        setMessage('Lomakkeesta puuttui tietoja tai siinä on virheitä!');
-        setTimeout(() => {
-          setMessage(null);
-        }, 5000);
-      }
+    // console.log('required obj', requiredValues, changeRadio, locationCorrect, errors);
+
+    if (Object.keys(errors).length > 0) {
+      setMessage('Lomakkeesta puuttui tietoja tai siinä on virheitä!');
+      setTimeout(() => {
+        setMessage(null);
+      }, 5000);
       return;
     }
 
-    if (changeRadio === 'yes' && coordinateRadio === 'no') {
-      if (Object.keys(errors).length === 0 && Object.keys(requiredValues).length === 5) {
-        console.log(Object.keys(requiredValues).length);
-        callback(event, coordinateRadio);
-        setMessage('Lomake lähetetty!');
-        setTimeout(() => {
-          setMessage(null);
-        }, 5000);
-      } else {
-        console.log(Object.keys(requiredValues).length);
-        console.log(errors);
-        setMessage('Lomakkeesta puuttui tietoja tai siinä on virheitä!');
-        setTimeout(() => {
-          setMessage(null);
-        }, 5000);
-      }
-      return;
-    }
-
-    if (Object.keys(errors).length === 0 && Object.keys(requiredValues).length === 3) {
-      console.log(Object.keys(requiredValues).length);
-      callback(event, coordinateRadio);
+    if (changeRadio === 'no' && Object.keys(requiredValues).length === 4) {
+      callback(event);
+      setMessage('Lomake lähetetty!');
+      setTimeout(() => {
+        setMessage(null);
+      }, 5000);
+    } else if (changeRadio === 'yes' && Object.keys(requiredValues).length === 5) {
+      callback(event);
       setMessage('Lomake lähetetty!');
       setTimeout(() => {
         setMessage(null);
       }, 5000);
     } else {
-      console.log(Object.keys(requiredValues).length);
-      console.log(errors);
       setMessage('Lomakkeesta puuttui tietoja tai siinä on virheitä!');
       setTimeout(() => {
         setMessage(null);
@@ -286,7 +287,7 @@ const useNotificationForm = (props) => {
     handleChange,
     handleSubmit,
     resetChangeText,
-
+    handleCoordinateChange,
   };
 };
 

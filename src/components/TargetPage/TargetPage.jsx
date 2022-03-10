@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import NotificationForm from '../NotificationForm';
+import NotificationForm from '../NewNotificationForm';
 import TargetInfo from './TargetInfo';
 import TargetLocationMap from './TargetLocationMap';
 import DiveHistory from './DiveHistory';
