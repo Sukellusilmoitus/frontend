@@ -7,40 +7,44 @@ import {
   Edit,
   SimpleForm,
   TextInput,
+  BooleanInput,
   EditButton,
 } from 'react-admin';
 
-const targetFilters = [
-  <TextInput source="name" label="Search" alwaysOn />,
-];
-
-function TargetListView(props) {
+function PendingListView(props) {
   return (
-    <List filters={targetFilters} {...props}>
+    <List {...props}>
       <Datagrid rowClick="edit">
         <TextField source="id" />
         <TextField source="name" />
         <TextField source="town" />
         <TextField source="source" />
+        <TextField source="created_at" />
         <EditButton />
       </Datagrid>
     </List>
   );
 }
-function TargetListEdit(props) {
+function PendingListEdit(props) {
   return (
     <Edit {...props}>
       <SimpleForm>
+        <TextInput source="user_id" />
         <TextInput source="name" />
         <TextInput source="town" />
+        <TextInput source="type" />
         <TextInput source="location_method" />
         <TextInput source="location_accuracy" />
         <TextInput source="url" />
+        <TextInput source="created_at" />
+        <TextInput source="is_ancient" />
         <TextInput source="source" />
         <TextInput source="coordinates" />
+        <BooleanInput source="is_pending" />
+        <TextInput source="miscellaneous" />
       </SimpleForm>
     </Edit>
   );
 }
 
-export { TargetListView, TargetListEdit };
+export { PendingListView, PendingListEdit };
