@@ -7,9 +7,11 @@ import {
   LayersControl,
   Popup,
   Marker,
+  useMapEvents,
 } from 'react-leaflet';
 import MarkerClusterGroup from 'react-leaflet-markercluster';
 import { Button } from 'react-bootstrap';
+import useLocalStorageState from 'use-local-storage-state';
 import lightMarker from '../assets/images/marker-icon-light.png';
 import MapLegend from './MapLegend';
 
@@ -22,17 +24,36 @@ function MainMap(props) {
     history.push(`/hylyt/${id}`);
   };
 
+  const [zoomLevel, setZoomLevel] = useLocalStorageState('zoom', {
+    defaultValue: [5],
+  });
+
+  const [center, setCenter] = useLocalStorageState('center', {
+    defaultValue: ['64.1', '25.0'],
+  });
+
   const userCreatedMarker = L.icon({
     iconUrl: lightMarker,
   });
+
+  function MapState() {
+    const mapEvents = useMapEvents({
+      zoomend: () => {
+        setZoomLevel(mapEvents.getZoom());
+        setCenter(mapEvents.getCenter());
+      },
+    });
+
+    return null;
+  }
 
   return (
     <div>
       <MapContainer
         style={{ height: '480px', width: '100%' }}
-        zoom={5}
+        zoom={zoomLevel}
         maxZoom={18}
-        center={[64.1, 25.0]}
+        center={center}
         tap={false}
       >
         <LayersControl position="topright">
@@ -100,6 +121,7 @@ function MainMap(props) {
           </MarkerClusterGroup>
         </LayersControl>
         <MapLegend position="bottomleft" />
+        <MapState />
       </MapContainer>
     </div>
   );
