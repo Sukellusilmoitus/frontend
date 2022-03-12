@@ -32,6 +32,14 @@ function MainMap(props) {
     defaultValue: ['64.1', '25.0'],
   });
 
+  const [layerName, setLayerName] = useLocalStorageState('layername', {
+    defaultValue: ['OpenStreetMap'],
+  });
+
+  const [layerMarks, setLayerMarks] = useLocalStorageState('layermarks', {
+    defaultValue: ['false'],
+  });
+
   const userCreatedMarker = L.icon({
     iconUrl: lightMarker,
   });
@@ -57,22 +65,40 @@ function MainMap(props) {
         tap={false}
       >
         <LayersControl position="topright">
-          <LayersControl.BaseLayer checked name="OpenStreetMap">
+          <LayersControl.BaseLayer checked={layerName === 'OpenStreetMap'} name="OpenStreetMap">
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              eventHandlers={{
+                add: () => {
+                  setLayerName('OpenStreetMap');
+                },
+              }}
             />
           </LayersControl.BaseLayer>
-          <LayersControl.BaseLayer name="Satelliitti">
+          <LayersControl.BaseLayer checked={layerName === 'Satelliitti'} name="Satelliitti">
             <TileLayer
               attribution='&copy; <a href="https://www.esri.com/en-us/legal/overview">Esri</a> contributors'
               url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+              eventHandlers={{
+                add: () => {
+                  setLayerName('Satelliitti');
+                },
+              }}
             />
           </LayersControl.BaseLayer>
-          <LayersControl.Overlay name="Merimerkit">
+          <LayersControl.Overlay checked={layerMarks === 'true'} name="Merimerkit">
             <TileLayer
               attribution='&copy; <a href="https://openseamap.org/index.php?id=imprint&L=1">OpenSeaMap</a> contributors'
               url="https://tiles.openseamap.org/seamark/{z}/{x}/{y}.png"
+              eventHandlers={{
+                add: () => {
+                  setLayerMarks('true');
+                },
+                remove: () => {
+                  setLayerMarks('false');
+                },
+              }}
             />
           </LayersControl.Overlay>
           <MarkerClusterGroup
