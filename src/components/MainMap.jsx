@@ -65,7 +65,7 @@ function MainMap(props) {
         tap={false}
       >
         <LayersControl position="topright">
-          <LayersControl.BaseLayer checked={layerName === 'OpenStreetMap'} name="OpenStreetMap">
+          <LayersControl.BaseLayer checked name="OpenStreetMap">
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
