@@ -4,7 +4,7 @@ import LoadingSpinner from '../LoadingSpinner';
 import TargetPage from './TargetPage';
 
 function Target({ target }) {
-  const [dives, setDives] = useState([]);
+  const [dives, setDives] = useState('loading...');
 
   const getDives = async () => {
     if (target) {
