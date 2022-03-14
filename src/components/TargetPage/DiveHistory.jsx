@@ -1,7 +1,16 @@
 import React from 'react';
 import dayjs from 'dayjs';
+import LoadingSpinner from '../LoadingSpinner';
 
 function DiveHistory({ diveList }) {
+  if (diveList === 'loading...') {
+    return (
+      <section data-testid="dive-history-list">
+        <h3>Sukellushistoria</h3>
+        <LoadingSpinner />
+      </section>
+    );
+  }
   return (
     <section data-testid="dive-history-list">
       <h3>Sukellushistoria</h3>
