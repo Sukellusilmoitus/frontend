@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { omit } from 'lodash';
+import validator from 'validator';
 
 const useNotificationForm = (props) => {
   const {
@@ -77,7 +78,7 @@ const useNotificationForm = (props) => {
           break;
         }
         if (
-          !(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).test(value)
+          !validator.isEmail(value)
         ) {
           setErrors({
             ...errors,
@@ -115,7 +116,7 @@ const useNotificationForm = (props) => {
       case 'xcoordinate':
 
         if (
-          !(/^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)/).test(value)
+          !(/^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)$/).test(value)
         ) {
           setErrors({
             ...errors,
@@ -129,7 +130,7 @@ const useNotificationForm = (props) => {
       case 'ycoordinate':
 
         if (
-          !(/^[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)/).test(value)
+          !(/^[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/).test(value)
         ) {
           setErrors({
             ...errors,
@@ -242,16 +243,13 @@ const useNotificationForm = (props) => {
   const handleSubmit = (changeRadio) => (event) => {
     if (event) event.preventDefault();
 
-    if (!values.phone && !values.email) {
-      console.log(Object.keys(requiredValues).length);
-      setMessage('Ilmoita puhelinnumero tai sähköpostiosoite!');
+    if (!Object.keys(requiredValues).includes('divername')) {
+      setMessage('Ilmoita sukeltajan nimi!');
       setTimeout(() => {
         setMessage(null);
       }, 5000);
       return;
     }
-
-    // console.log('required obj', requiredValues, changeRadio, locationCorrect, errors);
 
     if (Object.keys(errors).length > 0) {
       setMessage('Lomakkeesta puuttui tietoja tai siinä on virheitä!');
@@ -261,13 +259,16 @@ const useNotificationForm = (props) => {
       return;
     }
 
-    if (changeRadio === 'no' && Object.keys(requiredValues).length === 4) {
-      callback(event);
-      setMessage('Lomake lähetetty!');
+    if (!values.phone && !values.email) {
+      setMessage('Ilmoita puhelinnumero tai sähköpostiosoite!');
       setTimeout(() => {
         setMessage(null);
       }, 5000);
-    } else if (changeRadio === 'yes' && Object.keys(requiredValues).length === 5) {
+      return;
+    }
+
+    if ((changeRadio === 'no' && Object.keys(requiredValues).length === 4)
+        || (changeRadio === 'yes' && Object.keys(requiredValues).length === 5)) {
       callback(event);
       setMessage('Lomake lähetetty!');
       setTimeout(() => {

@@ -2,7 +2,6 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import { wait } from '@testing-library/user-event/dist/utils';
 import NewNotificationForm from './NewNotificationForm';
 
 window.alert = jest.fn();
@@ -254,6 +253,6 @@ test('empty form does not get submitted', () => {
 
   expect(createNotification.mock.calls).toHaveLength(0);
   expect(component.container).toHaveTextContent(
-    'Ilmoita puhelinnumero tai sähköpostiosoite!',
+    'Ilmoita sukeltajan nimi!',
   );
 });
