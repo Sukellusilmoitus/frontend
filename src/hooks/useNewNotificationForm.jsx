@@ -1,63 +1,54 @@
 import { useState } from 'react';
 import { omit } from 'lodash';
-import targets from '../services/targets';
-import REACT_APP_SERVER_URL from '../util/config';
+import validator from 'validator';
 
-const useForm = (postTarget) => {
-  const [requiredValues, setRequiredValues] = useState({});
+const useNotificationForm = (props) => {
+  const {
+    targetName,
+    targetId,
+    targetXcoordinate,
+    targetYcoordinate,
+    createNotification,
+  } = props;
+
+  const [requiredValues, setRequiredValues] = useState({
+    xcoordinate: targetXcoordinate,
+    ycoordinate: targetYcoordinate,
+    coordinateinfo: '',
+  });
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState(null);
+  const [locationCorrect, setLocationCorrect] = useState(true);
 
-  const callback = async (event) => {
+  const callback = (event) => {
     event.preventDefault();
-    // Try to generate target id until free one is found
-    const targetID = await targets.generateUniqueID();
-    postTarget({
-      id: targetID,
-      targetname: requiredValues.targetname,
-      divername: requiredValues.divername,
-      town: requiredValues.locationname || '',
-      type: requiredValues.targetdescription,
-      x_coordinate: requiredValues.xcoordinate,
-      y_coordinate: requiredValues.ycoordinate,
-      location_method: requiredValues.coordinateinfo || '',
-      location_accuracy: requiredValues.diverinfo || '',
-      is_ancient: false,
-      is_pending: true,
-      created_at: Date.now() / 1000.0,
-      url: REACT_APP_SERVER_URL === 'http://localhost:5000' ? 'http://localhost.com' : REACT_APP_SERVER_URL,
-      source: 'ilmoitus',
+
+    createNotification({
+      name: requiredValues.divername,
       phone: values.phone || '',
       email: values.email || '',
+      locationName: targetName,
+      locationId: targetId,
+      locationCorrect,
+      xCoordinate: requiredValues.xcoordinate,
+      yCoordinate: requiredValues.ycoordinate,
+      coordinateText: requiredValues.coordinateinfo,
+      changeText: requiredValues.changeText || '',
       miscText: values.misctext || '',
     });
   };
 
   const validate = (event, name, value) => {
     switch (name) {
-      case 'targetname':
-
-        if (
-          !(/(?!.*?\s{2})[ A-Za-zäöåÅÄÖ]{4,30}/).test(value)
-        ) {
-          setErrors({
-            ...errors,
-            divername: 'Tulee olla 4-30 merkkiä pitkä ja sisältää vain kirjaimia ja välilyöntejä',
-          });
-        } else {
-          const newObj = omit(errors, 'divername');
-          setErrors(newObj);
-        }
-        break;
       case 'divername':
 
         if (
-          !(/(?!.*?\s{2})[ A-Za-zäöåÅÄÖ]{4,30}/).test(value)
+          !(/(?!.*?\s{2})[ A-Za-zäöåÅÄÖ]{7,20}/).test(value)
         ) {
           setErrors({
             ...errors,
-            divername: 'Tulee olla 4-30 merkkiä pitkä ja sisältää vain kirjaimia ja välilyöntejä',
+            divername: 'Tulee olla 7-20 merkkiä pitkä ja sisältää vain kirjaimia ja välilyöntejä',
           });
         } else {
           const newObj = omit(errors, 'divername');
@@ -70,9 +61,7 @@ const useForm = (postTarget) => {
           setErrors(newObj);
           break;
         }
-        if (
-          !(/\+?[0-9]{3}-?[0-9]{6,12}/).test(value)
-        ) {
+        if (!(/\+?[0-9]{3}-?[0-9]{6,12}/).test(value)) {
           setErrors({
             ...errors,
             phone: 'Virheellinen puhelinnumero',
@@ -89,7 +78,7 @@ const useForm = (postTarget) => {
           break;
         }
         if (
-          !(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).test(value)
+          !validator.isEmail(value)
         ) {
           setErrors({
             ...errors,
@@ -127,7 +116,7 @@ const useForm = (postTarget) => {
       case 'xcoordinate':
 
         if (
-          !(/^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)/).test(value)
+          !(/^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)$/).test(value)
         ) {
           setErrors({
             ...errors,
@@ -141,7 +130,7 @@ const useForm = (postTarget) => {
       case 'ycoordinate':
 
         if (
-          !(/^[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)/).test(value)
+          !(/^[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/).test(value)
         ) {
           setErrors({
             ...errors,
@@ -164,15 +153,15 @@ const useForm = (postTarget) => {
           setErrors(newObj);
         }
         break;
-      case 'diverinfo':
+      case 'changeText':
 
         if (!(/^[\S\s]{4,1000}$/).test(value)) {
           setErrors({
             ...errors,
-            diverinfo: 'Tulee olla enintään 1000 merkkiä pitkä',
+            changeText: 'Tulee olla enintään 1000 merkkiä pitkä',
           });
         } else {
-          const newObj = omit(errors, 'diverinfo');
+          const newObj = omit(errors, 'changeText');
           setErrors(newObj);
         }
         break;
@@ -215,13 +204,62 @@ const useForm = (postTarget) => {
     });
   };
 
-  const handleSubmit = (event) => {
+  const resetChangeText = () => {
+    const newErrors = omit(errors, 'changeText');
+    setErrors(newErrors);
+
+    const newRequiredValues = omit(requiredValues, 'changeText');
+    setRequiredValues(newRequiredValues);
+  };
+
+  const handleCoordinateChange = (value) => {
+    if (value === 'yes') {
+      setRequiredValues({
+        ...requiredValues,
+        xcoordinate: targetXcoordinate,
+        ycoordinate: targetYcoordinate,
+        coordinateinfo: '',
+      });
+      const newObj = omit(errors, ['xcoordinate', 'ycoordinate', 'coordinateinfo']);
+      setErrors(newObj);
+      setLocationCorrect(true);
+    }
+    if (value === 'no') {
+      setRequiredValues({
+        ...requiredValues,
+        xcoordinate: null,
+        ycoordinate: null,
+      });
+      setLocationCorrect(false);
+      setErrors({
+        ...errors,
+        xcoordinate: 'Anna koordinaatti muodossa xx.xxxxxxxx, esim. 25.34234323',
+        ycoordinate: 'Anna koordinaatti muodossa xx.xxxxxxxx, esim. 60.42342334',
+        coordinateinfo: 'Kerro miten paikannus on selvitetty',
+      });
+    }
+  };
+
+  const handleSubmit = (changeRadio) => (event) => {
     if (event) event.preventDefault();
 
-    if ((values.phone === undefined && values.email === undefined)
-    || (values.phone === '' && values.email === undefined)
-    || (values.phone === undefined && values.email === '')
-    || (values.phone === '' && values.email === '')) {
+    if (!Object.keys(requiredValues).includes('divername')) {
+      setMessage('Ilmoita sukeltajan nimi!');
+      setTimeout(() => {
+        setMessage(null);
+      }, 5000);
+      return;
+    }
+
+    if (Object.keys(errors).length > 0) {
+      setMessage('Lomakkeesta puuttui tietoja tai siinä on virheitä!');
+      setTimeout(() => {
+        setMessage(null);
+      }, 5000);
+      return;
+    }
+
+    if (!values.phone && !values.email) {
       setMessage('Ilmoita puhelinnumero tai sähköpostiosoite!');
       setTimeout(() => {
         setMessage(null);
@@ -229,12 +267,8 @@ const useForm = (postTarget) => {
       return;
     }
 
-    const newObj = omit(errors, 'email');
-    setErrors(newObj);
-    const neObj = omit(errors, 'phone');
-    setErrors(neObj);
-
-    if (Object.keys(errors).length === 0 && Object.keys(requiredValues).length === 8) {
+    if ((changeRadio === 'no' && Object.keys(requiredValues).length === 4)
+        || (changeRadio === 'yes' && Object.keys(requiredValues).length === 5)) {
       callback(event);
       setMessage('Lomake lähetetty!');
       setTimeout(() => {
@@ -253,7 +287,9 @@ const useForm = (postTarget) => {
     message,
     handleChange,
     handleSubmit,
+    resetChangeText,
+    handleCoordinateChange,
   };
 };
 
-export default useForm;
+export default useNotificationForm;
