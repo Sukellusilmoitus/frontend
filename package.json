@@ -29,12 +29,17 @@
     "eject": "react-scripts eject",
     "lint": "eslint .",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "cypress:run": "cypress run",
+    "test:coverages": "CI=true npm test -- --coverage"
   },
   "jest": {
     "collectCoverageFrom": [
       "src/components/*.{js,jsx}",
       "src/*.{js,jsx}"
+    ],
+    "coveragePathIgnorePatterns": [
+      "src/App.jsx",
+      "src/index.jsx"
     ]
   },
   "eslintConfig": {
