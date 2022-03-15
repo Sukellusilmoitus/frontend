@@ -55,10 +55,6 @@ function MainMap(props) {
     return null;
   }
 
-  console.log('Merimerkit:');
-  console.log(layerMarks);
-  console.log(layerMarks === 'true');
-
   return (
     <div>
       <MapContainer
