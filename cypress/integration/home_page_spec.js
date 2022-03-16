@@ -52,6 +52,28 @@ describe('home page tests', () => {
         .and('contains', 'World_Imagery')
       })
     })
+
+    it('base layer can be changed to satellite map and it persists', () => {
+      cy.get('.leaflet-container').within(() => {
+        cy.get('.leaflet-control-layers').trigger('mouseover')
+        cy.get('.leaflet-control-layers-list').contains('Satelliitti').click()
+        cy.get('.leaflet-tile-container')
+        .find('img')
+        .should('have.attr', 'src')
+        .and('contains', 'World_Imagery')
+      })
+      cy.wait(1000);
+      cy.visit("/hylyt")
+      cy.wait(1000);
+      cy.visit("/")
+      cy.get('.leaflet-container').within(() => {
+        cy.get('.leaflet-tile-container')
+        .find('img')
+        .should('have.attr', 'src')
+        .and('contains', 'World_Imagery')
+      })
+      
+    })
     
     it('marker popup has id and name strings', () => {
       const regex = new RegExp(`.+`)
