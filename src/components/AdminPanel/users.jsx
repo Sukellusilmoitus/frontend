@@ -11,9 +11,13 @@ import {
   EditButton,
 } from 'react-admin';
 
+const userFilters = [
+  <TextInput source="name" label="Search" alwaysOn />,
+];
+
 function UserListView(props) {
   return (
-    <List {...props}>
+    <List filters={userFilters} {...props}>
       <Datagrid rowClick="edit">
         <TextField source="id" />
         <TextField source="name" />

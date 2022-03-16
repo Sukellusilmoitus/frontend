@@ -15,8 +15,8 @@ function DiveListView(props) {
     <List {...props}>
       <Datagrid rowClick="edit">
         <TextField source="id" />
-        <TextField source="diver" />
-        <TextField source="target" />
+        <TextField source="diver_id" />
+        <TextField source="target_id" />
         <TextField source="created_at" />
         <TextField source="location_correct" />
         <TextField source="new_x_coordinate" />
