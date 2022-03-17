@@ -2,7 +2,7 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import NewNotificationForm from './NewNotificationForm';
+import NewNotificationForm from './NotificationForm';
 
 window.alert = jest.fn();
 
