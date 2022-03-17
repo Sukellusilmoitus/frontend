@@ -136,12 +136,13 @@ function NewTargetForm(props) {
         <Row>
           <Col lg>
             <Form.Group>
-              <Form.Label>Pituuspiiri desimaaliasteina:</Form.Label>
+              <Form.Label>Pituuspiiri:</Form.Label>
               <Form.Control
                 type="text"
                 name="xcoordinate"
                 data-testid="testxcoordinate"
                 id="newx"
+                placeholder="59° 46′ 56.93160″ N"
                 onChange={handleChange}
                 isInvalid={!!errors.xcoordinate}
               />
@@ -149,18 +150,19 @@ function NewTargetForm(props) {
                 { errors.xcoordinate }
               </Form.Control.Feedback>
               <Form.Text className="text-muted">
-                esim. 25.34234323
+                esim. 25.3423432359° 46′ 56.93160″ N
               </Form.Text>
             </Form.Group>
           </Col>
           <Col lg>
             <Form.Group>
-              <Form.Label>Leveyspiiri desimaaliasteina:</Form.Label>
+              <Form.Label>Leveyspiiri:</Form.Label>
               <Form.Control
                 type="text"
                 name="ycoordinate"
                 data-testid="testycoordinate"
                 id="newy"
+                placeholder="22° 56′ 43.41120″ E"
                 onChange={handleChange}
                 isInvalid={!!errors.ycoordinate}
               />
@@ -168,7 +170,7 @@ function NewTargetForm(props) {
                 { errors.ycoordinate }
               </Form.Control.Feedback>
               <Form.Text className="text-muted">
-                esim. 60.42342334
+                esim. 22° 56′ 43.41120″ E
               </Form.Text>
             </Form.Group>
           </Col>

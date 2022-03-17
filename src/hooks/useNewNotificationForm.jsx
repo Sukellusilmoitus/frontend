@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { omit } from 'lodash';
 import validator from 'validator';
+import parseDMS from 'parse-dms';
 
 const useNotificationForm = (props) => {
   const {
@@ -114,13 +115,12 @@ const useNotificationForm = (props) => {
         }
         break;
       case 'xcoordinate':
-
         if (
           !(/^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)$/).test(value)
         ) {
           setErrors({
             ...errors,
-            xcoordinate: 'Anna koordinaatti muodossa xx.xxxxxxxx, esim. 25.34234323',
+            xcoordinate: 'Syötä muodossa asteet, minuutit, sekunnit, esim 59° 46′ 56.93160″ N tai 59 46 56',
           });
         } else {
           const newObj = omit(errors, 'xcoordinate');
@@ -128,13 +128,12 @@ const useNotificationForm = (props) => {
         }
         break;
       case 'ycoordinate':
-
         if (
           !(/^[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/).test(value)
         ) {
           setErrors({
             ...errors,
-            ycoordinate: 'Anna koordinaatti muodossa xx.xxxxxxxx, esim. 60.42342334',
+            ycoordinate: 'Syötä muodossa asteet, minuutit, sekunnit, esim 59° 46′ 56.93160″ N tai 59 46 56',
           });
         } else {
           const newObj = omit(errors, 'ycoordinate');
@@ -187,7 +186,20 @@ const useNotificationForm = (props) => {
     event.persist();
 
     const { name } = event.target;
-    const val = event.target.value;
+    let val = event.target.value;
+
+    if (name === 'xcoordinate' || name === 'ycoordinate') {
+      try {
+        const parsed = parseDMS(val);
+        if (typeof parsed === 'object') {
+          val = parsed[Object.keys(parsed)[0]];
+        } else {
+          val = parsed;
+        }
+      } catch (err) {
+        val = 'error';
+      }
+    }
 
     validate(event, name, val);
 
@@ -233,8 +245,8 @@ const useNotificationForm = (props) => {
       setLocationCorrect(false);
       setErrors({
         ...errors,
-        xcoordinate: 'Anna koordinaatti muodossa xx.xxxxxxxx, esim. 25.34234323',
-        ycoordinate: 'Anna koordinaatti muodossa xx.xxxxxxxx, esim. 60.42342334',
+        xcoordinate: 'Syötä muodossa asteet, minuutit, sekunnit, esim 59° 46′ 56.93160″ N tai 59 46 56',
+        ycoordinate: 'Syötä muodossa asteet, minuutit, sekunnit, esim 59° 46′ 56.93160″ N tai 59 46 56',
         coordinateinfo: 'Kerro miten paikannus on selvitetty',
       });
     }

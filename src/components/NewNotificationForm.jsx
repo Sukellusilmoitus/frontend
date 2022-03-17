@@ -35,7 +35,13 @@ function NewNotificationForm(props) {
   const coordinates = formatcoords(
     targetXcoordinate,
     targetYcoordinate,
-  ).format();
+  ).format({ latLonSeparator: ', ' });
+
+  const coordinatesSplit = coordinates.split(',');
+
+  const coordinatesX = coordinatesSplit[0];
+
+  const coordinatesY = coordinatesSplit[1];
 
   return (
     <div>
@@ -155,13 +161,14 @@ function NewNotificationForm(props) {
           {coordinateRadio === 'no' && (
           <p>
             {' '}
-            <Form.Label>Uusi pituuspiiri desimaaliasteina:</Form.Label>
+            <Form.Label>Uusi pituuspiiri:</Form.Label>
             <Form.Control
               type="text"
               id="newxcoordinate"
               data-testid="testxcoordinate"
               name="xcoordinate"
               onChange={handleChange}
+              placeholder={coordinatesX}
               isInvalid={!!errors.xcoordinate}
             />
             <Form.Text className="text-muted">
@@ -171,12 +178,13 @@ function NewNotificationForm(props) {
               { errors.xcoordinate }
             </Form.Control.Feedback>
             <br />
-            <Form.Label>Uusi leveyspiiri desimaaliasteina:</Form.Label>
+            <Form.Label>Uusi leveyspiiri:</Form.Label>
             <Form.Control
               type="text"
               id="newycoordinate"
               data-testid="testycoordinate"
               name="ycoordinate"
+              placeholder={coordinatesY}
               onChange={handleChange}
               isInvalid={!!errors.ycoordinate}
             />
