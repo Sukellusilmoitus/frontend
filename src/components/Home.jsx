@@ -17,7 +17,9 @@ function Home() {
   return (
     <div>
       <MainMap targets={targets} />
-      <p>Tällä sivulla voit tehdä ilmoituksen sukelluksestasi ja kertoa havaintosi.</p>
+      <p data-testid="homepage-info">
+        Tällä sivulla voit tehdä ilmoituksen sukelluksestasi ja kertoa havaintosi.
+      </p>
       {/* Muuta etusivukamaa kuten "Viimeisimmät sukellukset:" tms. */}
     </div>
   );
