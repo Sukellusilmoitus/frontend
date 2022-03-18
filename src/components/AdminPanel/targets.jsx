@@ -9,9 +9,22 @@ import {
   TextInput,
   EditButton,
 } from 'react-admin';
+import { makeStyles, Chip } from '@material-ui/core';
+
+const useQuickFilterStyles = makeStyles((theme) => ({
+  chip: {
+    marginBottom: theme.spacing(1),
+  },
+}));
+
+function QuickFilter({ label }) {
+  const classes = useQuickFilterStyles();
+  return <Chip className={classes.chip} label={label} />;
+}
 
 const targetFilters = [
   <TextInput source="name" label="Search" alwaysOn />,
+  <QuickFilter source="usertarget" label="Ilmoitus" defaultValue />,
 ];
 
 function TargetListView(props) {
