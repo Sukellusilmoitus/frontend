@@ -1,4 +1,4 @@
-/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable */
 import * as React from 'react';
 import {
   List,
@@ -9,6 +9,8 @@ import {
   SimpleForm,
   TextInput,
   EditButton,
+  Toolbar,
+  SaveButton,
 } from 'react-admin';
 
 const userFilters = [
@@ -17,7 +19,7 @@ const userFilters = [
 
 function UserListView(props) {
   return (
-    <List filters={userFilters} {...props}>
+    <List filters={userFilters} {...props} bulkActionButtons={false}>
       <Datagrid rowClick="edit">
         <TextField source="id" />
         <TextField source="name" />
@@ -29,12 +31,17 @@ function UserListView(props) {
   );
 }
 
+const UserEditToolbar = props => (
+  <Toolbar {...props} >
+    <SaveButton />
+  </Toolbar>
+);
+
 function UserListEdit(props) {
   return (
     <Edit {...props}>
-      <SimpleForm>
+      <SimpleForm toolbar={<UserEditToolbar />}>
         <TextInput source="name" />
-        <TextInput source="town" />
         <TextInput source="email" />
         <TextInput source="phone" />
       </SimpleForm>
