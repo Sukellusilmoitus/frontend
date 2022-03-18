@@ -7,7 +7,6 @@ import TargetLocationMap from './TargetLocationMap';
 import DiveHistory from './DiveHistory';
 
 function TargetPage({ target, createNewNotification, dives }) {
-  
   const coordinatesDMS = formatcoords(
     target.geometry.coordinates[0],
     target.geometry.coordinates[1],
@@ -18,10 +17,10 @@ function TargetPage({ target, createNewNotification, dives }) {
       <h2>{target.properties.name}</h2>
       <Row>
         <Col lg>
-          <TargetInfo 
-          target={target}
-          coordinatesDMS={coordinatesDMS}
-           />
+          <TargetInfo
+            target={target}
+            coordinatesDMS={coordinatesDMS}
+          />
         </Col>
         <Col lg>
           <h3>Sijainti kartalla</h3>
