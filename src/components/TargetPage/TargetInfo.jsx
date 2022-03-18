@@ -3,8 +3,14 @@ import {
   Container, Table,
 } from 'react-bootstrap';
 import dayjs from 'dayjs';
+import formatcoords from 'formatcoords';
 
 function TargetInfo({ target }) {
+  const coordinates = formatcoords(
+    target.geometry.coordinates[0],
+    target.geometry.coordinates[1],
+  ).format();
+
   return (
     <Container style={{ paddingLeft: 0, paddingRight: 0 }}>
       <h3>Tietoja</h3>
@@ -27,11 +33,17 @@ function TargetInfo({ target }) {
             <td>{target.properties.type}</td>
           </tr>
           <tr>
-            <td>Koordinaatit</td>
+            <td>Koordinaatit desimaali</td>
             <td>
               {target.geometry.coordinates[0]}
               {', '}
               {target.geometry.coordinates[1]}
+            </td>
+          </tr>
+          <tr>
+            <td>Koordinaatit dms</td>
+            <td>
+              {coordinates}
             </td>
           </tr>
           <tr>
