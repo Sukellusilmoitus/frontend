@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
-import formatcoords from 'formatcoords';
 import useForm from '../hooks/useNewNotificationForm';
 import Submitmessage from './Submitmessage';
 
@@ -10,6 +9,7 @@ function NewNotificationForm(props) {
     targetId,
     targetXcoordinate,
     targetYcoordinate,
+    coordinatesDMS,
   } = props;
 
   const [coordinateRadio, setCoordinateRadio] = useState('yes');
@@ -31,11 +31,6 @@ function NewNotificationForm(props) {
     handleCoordinateChange(value);
     setCoordinateRadio(value);
   };
-
-  const coordinates = formatcoords(
-    targetXcoordinate,
-    targetYcoordinate,
-  ).format();
 
   return (
     <div>
@@ -138,7 +133,7 @@ function NewNotificationForm(props) {
             {' '}
             {targetXcoordinate}
             <br />
-            {coordinates}
+            {coordinatesDMS}
           </Form.Label>
           <br />
           <Form.Label>Olivatko koordinaatit oikein:</Form.Label>

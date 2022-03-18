@@ -1,17 +1,27 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
+import formatcoords from 'formatcoords';
 import NotificationForm from '../NewNotificationForm';
 import TargetInfo from './TargetInfo';
 import TargetLocationMap from './TargetLocationMap';
 import DiveHistory from './DiveHistory';
 
 function TargetPage({ target, createNewNotification, dives }) {
+  
+  const coordinatesDMS = formatcoords(
+    target.geometry.coordinates[0],
+    target.geometry.coordinates[1],
+  ).format();
+
   return (
     <Container>
       <h2>{target.properties.name}</h2>
       <Row>
         <Col lg>
-          <TargetInfo target={target} />
+          <TargetInfo 
+          target={target}
+          coordinatesDMS={coordinatesDMS}
+           />
         </Col>
         <Col lg>
           <h3>Sijainti kartalla</h3>
@@ -25,6 +35,7 @@ function TargetPage({ target, createNewNotification, dives }) {
             targetId={target.properties.id}
             targetXcoordinate={target.geometry.coordinates[0]}
             targetYcoordinate={target.geometry.coordinates[1]}
+            coordinatesDMS={coordinatesDMS}
             createNotification={createNewNotification}
           />
         </Col>
