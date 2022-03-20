@@ -1,143 +1,97 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
+import useForm from '../hooks/useNewNotificationForm';
+import Submitmessage from './Submitmessage';
 
-function NotificationForm(props) {
+function NewNotificationForm(props) {
   const {
     targetName,
     targetId,
     targetXcoordinate,
     targetYcoordinate,
-    createNotification,
   } = props;
 
-  const [newName, setNewName] = useState('');
-  const [newPhone, setNewPhone] = useState('');
-  const [newEmail, setNewEmail] = useState('');
-  const [newLocationName, setNewLocationName] = useState('');
-  const [newLocationId, setNewLocationId] = useState('');
   const [coordinateRadio, setCoordinateRadio] = useState('yes');
-  const [newXCoordinate, setNewXCoordinate] = useState('');
-  const [newYCoordinate, setNewYCoordinate] = useState('');
-  const [newCoordinateText, setNewCoordinateText] = useState('');
   const [changeRadio, setChangeRadio] = useState('no');
-  const [newChangeText, setNewChangeText] = useState('');
-  const [newMiscText, setNewMiscText] = useState('');
 
-  const addNotification = (event) => {
-    event.preventDefault();
-    createNotification({
-      name: newName,
-      phone: newPhone,
-      email: newEmail,
-      locationName: newLocationName,
-      locationId: newLocationId,
-      locationCorrect: coordinateRadio === 'yes',
-      xCoordinate: newXCoordinate,
-      yCoordinate: newYCoordinate,
-      coordinateText: newCoordinateText,
-      changeText: newChangeText,
-      miscText: newMiscText,
-    });
+  const {
+    handleChange, errors, message, handleSubmit, resetChangeText, handleCoordinateChange,
+  } = useForm(props);
 
-    setNewName('');
-    setNewPhone('');
-    setNewEmail('');
-    setNewLocationName('');
-    setNewLocationId('');
-    setNewXCoordinate('');
-    setNewYCoordinate('');
-    setNewCoordinateText('');
-    setNewChangeText('');
-    setNewMiscText('');
-  };
+  const handleChangeRadio = (value) => {
+    setChangeRadio(value);
 
-  const update = () => {
-    setNewLocationName(targetName);
-    setNewLocationId(targetId);
-  };
-
-  // event listeners to detect if either phonenumber or email is given
-
-  const changeRequiredTel = (elm) => {
-    if (elm.value !== '') {
-      document.querySelector('input[id=newphone]').required = false;
-    } else if (elm.value === '') {
-      document.querySelector('input[id=newphone]').required = true;
+    if (value === 'no') {
+      resetChangeText();
     }
   };
 
-  const changeRequiredEmail = (elm) => {
-    if (elm.value !== '') {
-      document.querySelector('input[id=newemail]').required = false;
-    } else if (elm.value === '') {
-      document.querySelector('input[id=newemail]').required = true;
-    }
-  };
-
-  const resetRequired = () => {
-    document.querySelector('input[id=newemail]').required = true;
-    document.querySelector('input[id=newphone]').required = true;
+  const handleCoordinateChangeClick = (value) => {
+    handleCoordinateChange(value);
+    setCoordinateRadio(value);
   };
 
   return (
     <div>
       <h2>Tee uusi sukellusilmoitus</h2>
-
+      <Submitmessage message={message} />
       <Form
-        onSubmit={(event) => { addNotification(event); resetRequired(); }}
-        onFocus={() => update()}
+        onSubmit={handleSubmit(changeRadio)}
         data-testid="testform"
-        validated
+        id="newtargetform"
       >
         <Form.Group>
           <Form.Label>Sukeltajan etu- ja sukunimi:</Form.Label>
           <Form.Control
             type="text"
+            name="divername"
+            data-testid="testdivername"
             id="newname"
-            data-testid="testname"
-            value={newName}
-            onChange={({ target }) => setNewName(target.value)}
-            pattern="(?!.*?\s{2})[ A-Za-zäöåÅÄÖ]{4,30}"
-            onInvalid={(e) => { e.target.setCustomValidity('Tulee olla 4-30 merkkiä pitkä ja sisältää vain kirjaimia ja välilyöntejä'); }}
-            onInput={(e) => { e.target.setCustomValidity(''); }}
-            required
+            onChange={handleChange}
+            isInvalid={!!errors.divername}
           />
           <Form.Text className="text-muted">
             Pakollinen kenttä
           </Form.Text>
+          <Form.Control.Feedback type="invalid">
+            { errors.divername }
+          </Form.Control.Feedback>
         </Form.Group>
         <Form.Group>
           <br />
           <Form.Label>Puhelinnumero:</Form.Label>
           <Form.Control
-            type="tel"
-            id="newphone"
+            type="text"
+            name="phone"
             data-testid="testphone"
-            value={newPhone}
-            onChange={({ target }) => { setNewPhone(target.value); changeRequiredEmail(target); }}
-            pattern="\+?[0-9]{3}-?[0-9]{6,12}"
-            onInvalid={(e) => { e.target.setCustomValidity('Virheellinen puhelinnumero'); }}
-            onInput={(e) => { e.target.setCustomValidity(''); }}
-            required
+            id="newphone"
+            onChange={handleChange}
+            isInvalid={!!errors.phone}
           />
           <Form.Text className="text-muted">
             Anna joko puhelinnumero tai sähköposti
           </Form.Text>
+          <Form.Control.Feedback type="invalid">
+            { errors.phone }
+          </Form.Control.Feedback>
         </Form.Group>
         <Form.Group>
           <br />
           <Form.Label>Sähköpostiosoite:</Form.Label>
           <Form.Control
-            type="email"
-            id="newemail"
+            type="text"
+            name="email"
             data-testid="testemail"
-            value={newEmail}
-            onChange={({ target }) => { setNewEmail(target.value); changeRequiredTel(target); }}
-            required
+            id="newemail"
+            onChange={handleChange}
+            isInvalid={!!errors.email}
           />
           <Form.Text className="text-muted">
             Anna joko puhelinnumero tai sähköposti
           </Form.Text>
+          <Form.Control.Feedback type="invalid">
+            { errors.email }
+          </Form.Control.Feedback>
         </Form.Group>
         <Form.Group>
           <br />
@@ -146,9 +100,7 @@ function NotificationForm(props) {
             type="text"
             id="newlocationname"
             value={targetName}
-            onChange={({ target }) => setNewLocationName(target.value)}
             readOnly
-            required
           />
           <Form.Text className="text-muted">
             Automaattinen täyttö (klikkaa kohdetta)
@@ -161,9 +113,7 @@ function NotificationForm(props) {
             type="text"
             id="newlocationid"
             value={targetId}
-            onChange={({ target }) => setNewLocationId(target.value)}
             readOnly
-            required
           />
           <Form.Text className="text-muted">
             Automaattinen täyttö (klikkaa kohdetta)
@@ -187,16 +137,19 @@ function NotificationForm(props) {
             type="radio"
             label="Kyllä"
             checked={coordinateRadio === 'yes'}
+            data-testid="testradio1"
             value="yes"
-            onChange={(c) => { setCoordinateRadio(c.target.value); }}
+            onChange={(c) => {
+              handleCoordinateChangeClick(c.target.value);
+            }}
           />
           <Form.Check
             type="radio"
             label="Ei"
-            data-testid="testradio"
             checked={coordinateRadio === 'no'}
+            data-testid="testradio2"
             value="no"
-            onChange={(c) => { setCoordinateRadio(c.target.value); }}
+            onChange={(c) => { handleCoordinateChangeClick(c.target.value); }}
           />
           {coordinateRadio === 'no' && (
           <p>
@@ -206,32 +159,32 @@ function NotificationForm(props) {
               type="text"
               id="newxcoordinate"
               data-testid="testxcoordinate"
-              value={newXCoordinate}
-              onChange={({ target }) => setNewXCoordinate(target.value)}
-              pattern="^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)"
-              onInvalid={(e) => { e.target.setCustomValidity('Anna koordinaatti muodossa xx.xxxxxxxx, esim. 25.34234323'); }}
-              onInput={(e) => { e.target.setCustomValidity(''); }}
-              required
+              name="xcoordinate"
+              onChange={handleChange}
+              isInvalid={!!errors.xcoordinate}
             />
             <Form.Text className="text-muted">
               Pakollinen kenttä
             </Form.Text>
+            <Form.Control.Feedback type="invalid">
+              { errors.xcoordinate }
+            </Form.Control.Feedback>
             <br />
             <Form.Label>Uusi leveyspiiri desimaaliasteina:</Form.Label>
             <Form.Control
               type="text"
               id="newycoordinate"
               data-testid="testycoordinate"
-              value={newYCoordinate}
-              onChange={({ target }) => setNewYCoordinate(target.value)}
-              pattern="^[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)"
-              onInvalid={(e) => { e.target.setCustomValidity('Anna koordinaatti muodossa xx.xxxxxxxx, esim. 60.42342334'); }}
-              onInput={(e) => { e.target.setCustomValidity(''); }}
-              required
+              name="ycoordinate"
+              onChange={handleChange}
+              isInvalid={!!errors.ycoordinate}
             />
             <Form.Text className="text-muted">
               Pakollinen kenttä
             </Form.Text>
+            <Form.Control.Feedback type="invalid">
+              { errors.ycoordinate }
+            </Form.Control.Feedback>
             <br />
             <Form.Label>
               Mikä vanhoissa koordinaateissa oli pielessä ja miten uudet koordinaatit on mitattu:
@@ -241,12 +194,13 @@ function NotificationForm(props) {
               rows="5"
               id="newcoordinatetext"
               data-testid="testcoordinateinfo"
-              value={newCoordinateText}
-              onChange={({ target }) => setNewCoordinateText(target.value)}
-              pattern=".{10,1000}"
-              onInvalid={(e) => { e.target.setCustomValidity('Tulee olla 10-1000 merkkiä pitkä'); }}
-              onInput={(e) => { e.target.setCustomValidity(''); }}
+              name="coordinateinfo"
+              onChange={handleChange}
+              isInvalid={!!errors.coordinateinfo}
             />
+            <Form.Control.Feedback type="invalid">
+              { errors.coordinateinfo }
+            </Form.Control.Feedback>
           </p>
           )}
         </Form.Group>
@@ -256,17 +210,18 @@ function NotificationForm(props) {
           <Form.Check
             type="radio"
             label="Kyllä"
-            data-testid="testradio2"
+            data-testid="testradio3"
             checked={changeRadio === 'yes'}
             value="yes"
-            onChange={(c) => { setChangeRadio(c.target.value); }}
+            onChange={(c) => { handleChangeRadio(c.target.value); }}
           />
           <Form.Check
             type="radio"
             label="Ei"
+            data-testid="testradio4"
             checked={changeRadio === 'no'}
             value="no"
-            onChange={(c) => { setChangeRadio(c.target.value); }}
+            onChange={(c) => { handleChangeRadio(c.target.value); }}
           />
           {changeRadio === 'yes' && (
           <p>
@@ -276,17 +231,17 @@ function NotificationForm(props) {
               as="textarea"
               rows="5"
               id="newchange"
+              name="changeText"
               data-testid="testchange"
-              value={newChangeText}
-              onChange={({ target }) => setNewChangeText(target.value)}
-              pattern=".{10,1000}"
-              onInvalid={(e) => { e.target.setCustomValidity('Tulee olla 10-1000 merkkiä pitkä'); }}
-              onInput={(e) => { e.target.setCustomValidity(''); }}
-              required
+              onChange={handleChange}
+              isInvalid={!!errors.changeText}
             />
             <Form.Text className="text-muted">
               Pakollinen kenttä
             </Form.Text>
+            <Form.Control.Feedback type="invalid">
+              { errors.changeText }
+            </Form.Control.Feedback>
           </p>
           )}
         </Form.Group>
@@ -297,21 +252,21 @@ function NotificationForm(props) {
             as="textarea"
             id="newmisctext"
             data-testid="testmisc"
-            value={newMiscText}
-            onChange={({ target }) => setNewMiscText(target.value)}
-            pattern=".{0,1000}"
-            onInvalid={(e) => { e.target.setCustomValidity('Tulee olla enintään 1000 merkkiä pitkä'); }}
-            onInput={(e) => { e.target.setCustomValidity(''); }}
+            name="misctext"
+            onChange={handleChange}
+            isInvalid={!!errors.misctext}
           />
           <Form.Text className="text-muted">
             Enintään 1000 merkkiä pitkä
           </Form.Text>
+          <Form.Control.Feedback type="invalid">
+            { errors.misctext }
+          </Form.Control.Feedback>
         </Form.Group>
         <br />
         <Button variant="primary" type="submit">Lähetä</Button>
       </Form>
-      <br />
     </div>
   );
 }
-export default NotificationForm;
+export default NewNotificationForm;

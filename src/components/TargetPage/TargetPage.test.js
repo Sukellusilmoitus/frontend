@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import TargetPage from '../../components/TargetPage/TargetPage'
+import TargetPage from './TargetPage'
 
 const mockTarget = {
   properties: {

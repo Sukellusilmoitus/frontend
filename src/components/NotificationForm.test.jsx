@@ -2,7 +2,7 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import NewNotificationForm from './NewNotificationForm';
+import NewNotificationForm from './NotificationForm';
 
 window.alert = jest.fn();
 
@@ -256,3 +256,38 @@ test('empty form does not get submitted', () => {
     'Ilmoita sukeltajan nimi!',
   );
 });
+
+test('checking coordinates were wrong and then checking they were correct again allows to submit the form without entering new coordinates', () => {
+  const createNotification = jest.fn();
+  const component = render(
+    <NewNotificationForm
+      targetName="testihylky"
+      targetId="456"
+      createNotification={createNotification}
+    />,
+  );
+
+  const input = component.getByTestId('testdivername');
+  const input2 = component.getByTestId('testphone');
+
+  fireEvent.change(input, {
+    target: { value: 'Seppo Myrskyranta' },
+  });
+  fireEvent.change(input2, {
+    target: { value: '0455705656' },
+  });
+
+  const coordinatesCorrectRadio = component.getByTestId('testradio1')
+  const coordinatesIncorrectRadio = component.getByTestId('testradio2')
+  const form = component.getByTestId('testform')
+
+  fireEvent.click(coordinatesIncorrectRadio)
+  fireEvent.submit(form)
+
+  expect(createNotification).toHaveBeenCalledTimes(0)
+
+  fireEvent.click(coordinatesCorrectRadio)
+  fireEvent.submit(form)
+
+  expect(createNotification).toHaveBeenCalledTimes(1)
+})
