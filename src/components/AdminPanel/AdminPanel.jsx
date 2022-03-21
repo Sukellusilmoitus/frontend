@@ -7,8 +7,10 @@ import { UserListView, UserListEdit } from './users';
 import { DiveListView, DiveListEdit } from './dives';
 import { PendingListView, PendingListEdit } from './pending';
 import DuplicatesListView from './duplicates';
+import REACT_APP_SERVER_URL from '../../util/config';
 
-const dataProvider = jsonServerProvider('http://127.0.0.1:5000/api/admin');
+const dataProvider = jsonServerProvider(`${REACT_APP_SERVER_URL}/api/admin`);
+
 export default function AdminPanel() {
   return (
     <Admin dataProvider={dataProvider}>
