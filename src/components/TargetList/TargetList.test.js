@@ -38,7 +38,6 @@ describe('target list tests', () => {
     expect(headers[0]).toHaveTextContent('Nimi')
     expect(headers[1]).toHaveTextContent('Kaupunki')
     expect(headers[2]).toHaveTextContent('Tyyppi')
-    expect(headers[3]).toHaveTextContent('Lähde')
     const cells = screen.getAllByRole('cell')
     expect(cells[0]).toHaveTextContent('test target')
     expect(cells[1]).toHaveTextContent('testville')

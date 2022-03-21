@@ -16,7 +16,6 @@ function List({ onRowClick, targets }) {
                 <th>Nimi</th>
                 <th>Kaupunki</th>
                 <th>Tyyppi</th>
-                <th>Lähde</th>
               </tr>
             </thead>
             <tbody>
@@ -25,10 +24,9 @@ function List({ onRowClick, targets }) {
                   key={target.properties.id}
                   onClick={() => onRowClick(target.properties.id)}
                 >
-                  <td>{target.properties.name}</td>
+                  <td><button type="button" className="btn btn-link p-0">{target.properties.name}</button></td>
                   <td>{target.properties.town}</td>
                   <td>{target.properties.type}</td>
-                  <td><a href={target.properties.url}>{target.properties.source}</a></td>
                 </tr>
               ))}
             </tbody>
