@@ -50,8 +50,8 @@ describe('target info table tests', () => {
     expect(tableRows[1]).toHaveTextContent(/^Osoitehttp:\/\/testtarget.com$/)
     expect(tableRows[2]).toHaveTextContent(/^Lisätty02.02.2022$/)
     expect(tableRows[3]).toHaveTextContent(/^Tyyppialusten hylyt$/)
-    expect(tableRows[4]).toHaveTextContent(/^Koordinaatit62.2345678, 20.1234567$/)
-    expect(tableRows[5]).toHaveTextContent(/^Koordinaattien tarkkuus10-100 m$/)
+    expect(tableRows[4]).toHaveTextContent(/^Koordinaatit desimaali62.2345678, 20.1234567$/)
+    expect(tableRows[6]).toHaveTextContent(/^Koordinaattien tarkkuus10-100 m$/)
   })
 
   it('if accuracy is not defined, the components fallbacks correctly', () => {
@@ -61,7 +61,7 @@ describe('target info table tests', () => {
     expect(accuracy).toBeDefined()
 
     const tableRows = screen.getAllByRole('row')
-    expect(tableRows[5]).toHaveTextContent(/^Koordinaattien tarkkuusei määritelty$/)
+    expect(tableRows[6]).toHaveTextContent(/^Koordinaattien tarkkuusei määritelty$/)
 
   })
 })
