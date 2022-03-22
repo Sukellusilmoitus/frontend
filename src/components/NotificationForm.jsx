@@ -9,6 +9,7 @@ function NewNotificationForm(props) {
     targetId,
     targetXcoordinate,
     targetYcoordinate,
+    coordinatesDMS,
   } = props;
 
   const [coordinateRadio, setCoordinateRadio] = useState('yes');
@@ -123,6 +124,7 @@ function NewNotificationForm(props) {
           <br />
           <Form.Label>
             Nykyiset koordinaatit
+            <br />
             Lat:
             {' '}
             {targetYcoordinate}
@@ -130,6 +132,8 @@ function NewNotificationForm(props) {
             Lon:
             {' '}
             {targetXcoordinate}
+            <br />
+            {coordinatesDMS}
           </Form.Label>
           <br />
           <Form.Label>Olivatko koordinaatit oikein:</Form.Label>
