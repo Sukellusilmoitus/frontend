@@ -14,6 +14,7 @@ import TargetList from './components/TargetList';
 import './assets/styles/App.css';
 import AdminPanel from './components/AdminPanel/AdminPanel';
 import Login from './components/Login';
+import Register from './components/Register';
 
 function App() {
   const [targets, setTargets] = useState('loading...');
@@ -53,6 +54,9 @@ function App() {
         </Route>
         <Route path="/login">
           <Login />
+        </Route>
+        <Route path="/register">
+          <Register />
         </Route>
         <Route path="/admin">
           <AdminPanel />
