@@ -25,13 +25,13 @@ describe('Test form fields', () => {
   });
     
   it('user has to fill in their name', () => {
-    cy.get('.btn').click();
+    cy.get('[id=formbtn]').click();
     cy.contains('Ilmoita sukeltajan nimi!');
   });
     
   it('user has to fill in their phone number if email is empty', () => {
     cy.get('[id=newname]').type('Test Tester');
-    cy.get('.btn').click();
+    cy.get('[id=formbtn]').click();
     cy.contains('Ilmoita puhelinnumero tai sähköpostiosoite!');
     cy.get('[id=newphone]').type('0001234567');
     cy.get('[id=newemail]').then($x => expect($x[0].checkValidity()).to.be.true);
@@ -41,7 +41,7 @@ describe('Test form fields', () => {
   it('user has to fill in their email if phone number is not given', () => {
     cy.get('[id=newphone]').clear();
     cy.get('[id=newname]').type('Test Tester');
-    cy.get('.btn').click();
+    cy.get('[id=formbtn]').click();
     cy.contains('Ilmoita puhelinnumero tai sähköpostiosoite!');
     cy.get('[id=newemail]').type('Test@Tester.com');
     cy.get('[id=newemail]').then($x => expect($x[0].checkValidity()).to.be.true);
@@ -77,7 +77,7 @@ describe('Diving history is displayed', () => {
     cy.reload();
     cy.get('[id=newname]').type('Test Tester');
     cy.get('[id=newemail]').type('Test@Tester.com');
-    cy.get('.btn').click();
+    cy.get('[id=formbtn]').click();
     cy.wait(2000);
     cy.reload();
     cy.wait(15000);
