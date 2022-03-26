@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import useForm from '../hooks/useNewNotificationForm';
 import Submitmessage from './Submitmessage';
+import CoordinatesMap from './CoordinatesMap';
 
 function NewNotificationForm(props) {
   const {
@@ -16,7 +17,7 @@ function NewNotificationForm(props) {
   const [changeRadio, setChangeRadio] = useState('no');
 
   const {
-    handleChange, errors, message, handleSubmit, resetChangeText, handleCoordinateChange,
+    handleChange, errors, message, handleSubmit, resetChangeText, handleCoordinateChange, center,
   } = useForm(props);
 
   const handleChangeRadio = (value) => {
@@ -189,6 +190,8 @@ function NewNotificationForm(props) {
             <Form.Control.Feedback type="invalid">
               { errors.ycoordinate }
             </Form.Control.Feedback>
+            <br />
+            <CoordinatesMap center={center} />
             <br />
             <Form.Label>
               Mikä vanhoissa koordinaateissa oli pielessä ja miten uudet koordinaatit on mitattu:
