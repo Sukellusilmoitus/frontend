@@ -81,7 +81,7 @@ describe('Diving history is displayed', () => {
     cy.wait(2000);
     cy.reload();
     cy.wait(15000);
-    cy.get('[data-testid=dive-history-list]').find('div').last().should('contain', 'Sukeltaja: Test Tester');
-    cy.get('[data-testid=dive-history-list]').find('div').last().should('contain', 'Muutokset: ei muutoksia');
+    cy.contains('Sukeltaja: Test Tester');
+    cy.contains('Muutokset: ei muutoksia');
   });
 });
