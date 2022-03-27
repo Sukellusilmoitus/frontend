@@ -1,5 +1,6 @@
 import { Container, Row } from 'react-bootstrap';
 import FeedbackForm from './FeedbackForm';
+import PageTitle from '../PageTitle';
 import feedbackService from '../../services/feedbacks';
 
 function Feedback() {
@@ -15,9 +16,7 @@ function Feedback() {
 
   return (
     <Container fluid style={{ width: '100%' }}>
-      <Row className="bg-light p-1 text-muted" style={{ borderRadius: '10px' }}>
-        <p className="m-1" style={{ fontSize: 18 }}>Anna palautetta</p>
-      </Row>
+      <PageTitle text="Anna palautetta" />
       <Row className="mx-5 justify-content-center" style={{ textAlign: 'center' }}>
         <FeedbackForm onSubmit={onSubmit} />
       </Row>
