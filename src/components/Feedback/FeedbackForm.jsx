@@ -1,10 +1,15 @@
-import { Form, Button } from 'react-bootstrap';
+import {
+  Form,
+  Button,
+  Row,
+  Col,
+} from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 const validationSchema = Yup.object().shape({
-  feedback: Yup.string().required('Palaute on pakollinen'),
-  name: Yup.string().required('Nimi on pakollinen'),
+  feedback: Yup.string().required('Palaute on pakollinen kenttä'),
+  name: Yup.string().required('Nimi on pakollinen kenttä'),
   email: Yup.string().when('phone', {
     is: (phone) => !phone,
     then: Yup.string().email('Syötä kelvollinen sähköpostiosoite').required('Syötä sähköposti tai puhelinnumero'),
@@ -38,7 +43,12 @@ function FeedbackForm({ onSubmit }) {
         touched,
         errors,
       }) => (
-        <Form noValidate onSubmit={handleSubmit}>
+        <Form
+          noValidate
+          onSubmit={handleSubmit}
+          className="mx-5 my-2"
+          data-testid="feedback-form"
+        >
           <Form.Group>
             <Form.Label>Palaute</Form.Label>
             <Form.Control
@@ -48,6 +58,7 @@ function FeedbackForm({ onSubmit }) {
               value={values.feedback}
               onChange={handleChange}
               isInvalid={touched.feedback && errors.feedback}
+              data-testid="feedback-text"
             />
             <Form.Control.Feedback type="invalid">
               { errors.feedback }
@@ -61,38 +72,47 @@ function FeedbackForm({ onSubmit }) {
               value={values.name}
               onChange={handleChange}
               isInvalid={touched.name && errors.name}
+              data-testid="feedback-name"
             />
             <Form.Control.Feedback type="invalid">
               { errors.name }
             </Form.Control.Feedback>
           </Form.Group>
-          <Form.Group>
-            <Form.Label>Sähköposti</Form.Label>
-            <Form.Control
-              type="text"
-              name="email"
-              value={values.email}
-              onChange={handleChange}
-              isInvalid={touched.email && errors.email}
-            />
-            <Form.Control.Feedback type="invalid">
-              { errors.email }
-            </Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Puhelinnumero</Form.Label>
-            <Form.Control
-              type="text"
-              name="phone"
-              value={values.phone}
-              onChange={handleChange}
-              isInvalid={touched.phone && errors.phone}
-            />
-            <Form.Control.Feedback type="invalid">
-              { errors.phone }
-            </Form.Control.Feedback>
-          </Form.Group>
-          <Button type="submit">Lähetä</Button>
+          <Row>
+            <Col>
+              <Form.Group>
+                <Form.Label>Sähköposti</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="email"
+                  value={values.email}
+                  onChange={handleChange}
+                  isInvalid={touched.email && errors.email}
+                  data-testid="feedback-email"
+                />
+                <Form.Control.Feedback type="invalid">
+                  { errors.email }
+                </Form.Control.Feedback>
+              </Form.Group>
+            </Col>
+            <Col>
+              <Form.Group>
+                <Form.Label>Puhelinnumero</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="phone"
+                  value={values.phone}
+                  onChange={handleChange}
+                  isInvalid={touched.phone && errors.phone}
+                  data-testid="feedback-phone"
+                />
+                <Form.Control.Feedback type="invalid">
+                  { errors.phone }
+                </Form.Control.Feedback>
+              </Form.Group>
+            </Col>
+          </Row>
+          <Button type="submit" className="btn-success my-3">Lähetä</Button>
         </Form>
       )}
     </Formik>

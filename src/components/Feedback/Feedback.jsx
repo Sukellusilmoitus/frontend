@@ -1,4 +1,4 @@
-import { Container, Row } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import FeedbackForm from './FeedbackForm';
 import PageTitle from '../PageTitle';
 import feedbackService from '../../services/feedbacks';
@@ -15,11 +15,9 @@ function Feedback() {
   };
 
   return (
-    <Container fluid style={{ width: '100%' }}>
+    <Container fluid>
       <PageTitle text="Anna palautetta" />
-      <Row className="mx-5 justify-content-center" style={{ textAlign: 'center' }}>
-        <FeedbackForm onSubmit={onSubmit} />
-      </Row>
+      <FeedbackForm onSubmit={onSubmit} />
     </Container>
   );
 }
