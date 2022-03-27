@@ -49,8 +49,8 @@ function FeedbackForm({ onSubmit }) {
           className="mx-5 my-2"
           data-testid="feedback-form"
         >
-          <Form.Group>
-            <Form.Label>Palaute</Form.Label>
+          <Form.Group style={{ marginTop: '10px' }}>
+            <Form.Label>Palaute sovelluksesta:</Form.Label>
             <Form.Control
               as="textarea"
               type="text"
@@ -59,13 +59,15 @@ function FeedbackForm({ onSubmit }) {
               onChange={handleChange}
               isInvalid={touched.feedback && errors.feedback}
               data-testid="feedback-text"
+              style={{ height: '250px' }}
+              placeholder="Mikä sovelluksessa toimi hyvin? Mitä pitäisi parantaa?"
             />
             <Form.Control.Feedback type="invalid">
               { errors.feedback }
             </Form.Control.Feedback>
           </Form.Group>
-          <Form.Group>
-            <Form.Label>Nimi</Form.Label>
+          <Form.Group style={{ marginTop: '10px' }}>
+            <Form.Label>Nimi:</Form.Label>
             <Form.Control
               type="text"
               name="name"
@@ -78,10 +80,10 @@ function FeedbackForm({ onSubmit }) {
               { errors.name }
             </Form.Control.Feedback>
           </Form.Group>
-          <Row>
+          <Row style={{ marginTop: '10px' }}>
             <Col>
               <Form.Group>
-                <Form.Label>Sähköposti</Form.Label>
+                <Form.Label>Sähköposti:</Form.Label>
                 <Form.Control
                   type="text"
                   name="email"
@@ -97,7 +99,7 @@ function FeedbackForm({ onSubmit }) {
             </Col>
             <Col>
               <Form.Group>
-                <Form.Label>Puhelinnumero</Form.Label>
+                <Form.Label>Puhelinnumero:</Form.Label>
                 <Form.Control
                   type="text"
                   name="phone"
