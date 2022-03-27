@@ -52,10 +52,10 @@ function App() {
         <Route path="/hylyt">
           <TargetList targets={targets} />
         </Route>
-        <Route path="/login">
+        <Route path="/kirjaudu">
           <Login />
         </Route>
-        <Route path="/register">
+        <Route path="/rekisteroidy">
           <Register />
         </Route>
         <Route path="/admin">

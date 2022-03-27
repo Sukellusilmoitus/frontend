@@ -67,6 +67,7 @@ function Login() {
         </Form.Group>
         <Button variant="primary" type="submit">Kirjaudu</Button>
       </Form>
+      <a href="/rekisteroidy">Rekisteröidy</a>
     </>
   );
 }
