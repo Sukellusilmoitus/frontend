@@ -1,15 +1,23 @@
-import { Form } from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 const validationSchema = Yup.object().shape({
   feedback: Yup.string().required('Palaute on pakollinen'),
   name: Yup.string().required('Nimi on pakollinen'),
-  email: Yup.string().email('Anna kelvollinen sähköpostiosoite').required('Sähköposti on pakollinen'),
-  phone: Yup.string().required(),
-});
+  email: Yup.string().when('phone', {
+    is: (phone) => !phone,
+    then: Yup.string().email('Syötä kelvollinen sähköpostiosoite').required('Syötä sähköposti tai puhelinnumero'),
+    otherwise: Yup.string().email('Syötä kelvollinen sähköpostiosoite'),
+  }),
+  phone: Yup.string().when('email', {
+    is: (email) => !email,
+    then: Yup.string().required('Syötä sähköposti tai puhelinnumero'),
+    otherwise: Yup.string(),
+  }),
+}, [['phone', 'email']]);
 
-function FeedbackForm() {
+function FeedbackForm({ onSubmit }) {
   const initialValues = {
     feedback: '',
     name: '',
@@ -21,7 +29,7 @@ function FeedbackForm() {
     <Formik
       validationSchema={validationSchema}
       initialValues={initialValues}
-      onSubmit={console.log}
+      onSubmit={(values) => onSubmit(values)}
     >
       {({
         handleSubmit,
@@ -38,9 +46,12 @@ function FeedbackForm() {
               type="text"
               name="feedback"
               value={values.feedback}
-              onchange={handleChange}
-              isValid={touched.feedback && errors.feedback}
+              onChange={handleChange}
+              isInvalid={touched.feedback && errors.feedback}
             />
+            <Form.Control.Feedback type="invalid">
+              { errors.feedback }
+            </Form.Control.Feedback>
           </Form.Group>
           <Form.Group>
             <Form.Label>Nimi</Form.Label>
@@ -48,9 +59,12 @@ function FeedbackForm() {
               type="text"
               name="name"
               value={values.name}
-              onchange={handleChange}
-              isValid={touched.name && errors.name}
+              onChange={handleChange}
+              isInvalid={touched.name && errors.name}
             />
+            <Form.Control.Feedback type="invalid">
+              { errors.name }
+            </Form.Control.Feedback>
           </Form.Group>
           <Form.Group>
             <Form.Label>Sähköposti</Form.Label>
@@ -58,9 +72,12 @@ function FeedbackForm() {
               type="text"
               name="email"
               value={values.email}
-              onchange={handleChange}
-              isValid={touched.email && errors.email}
+              onChange={handleChange}
+              isInvalid={touched.email && errors.email}
             />
+            <Form.Control.Feedback type="invalid">
+              { errors.email }
+            </Form.Control.Feedback>
           </Form.Group>
           <Form.Group>
             <Form.Label>Puhelinnumero</Form.Label>
@@ -68,10 +85,14 @@ function FeedbackForm() {
               type="text"
               name="phone"
               value={values.phone}
-              onchange={handleChange}
-              isValid={touched.phone && errors.phone}
+              onChange={handleChange}
+              isInvalid={touched.phone && errors.phone}
             />
+            <Form.Control.Feedback type="invalid">
+              { errors.phone }
+            </Form.Control.Feedback>
           </Form.Group>
+          <Button type="submit">Lähetä</Button>
         </Form>
       )}
     </Formik>
