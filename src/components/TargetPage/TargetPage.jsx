@@ -35,6 +35,7 @@ function TargetPage({ target, createNewNotification, dives }) {
             targetYcoordinate={target.geometry.coordinates[1]}
             coordinatesDMS={coordinatesDMS}
             createNotification={createNewNotification}
+            target={target}
           />
         </Col>
         <Col lg>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import useForm from '../hooks/useNewNotificationForm';
 import Submitmessage from './Submitmessage';
@@ -15,6 +15,11 @@ function NewNotificationForm(props) {
 
   const [coordinateRadio, setCoordinateRadio] = useState('yes');
   const [changeRadio, setChangeRadio] = useState('no');
+  const [defaultCenter, setDefaultCenter] = useState([64.1, 25.0]);
+
+  useEffect(() => {
+    setDefaultCenter([64.1, 25.0]);
+  }, defaultCenter);
 
   const {
     handleChange, errors, message, handleSubmit, resetChangeText, handleCoordinateChange, center,
@@ -191,7 +196,12 @@ function NewNotificationForm(props) {
               { errors.ycoordinate }
             </Form.Control.Feedback>
             <br />
-            <CoordinatesMap center={center} />
+            {(center[0] === undefined || center[1] === undefined) && (
+              <CoordinatesMap center={defaultCenter} />
+            )}
+            {(center[0] !== undefined && center[1] !== undefined) && (
+              <CoordinatesMap center={center} />
+            )}
             <br />
             <Form.Label>
               Mikä vanhoissa koordinaateissa oli pielessä ja miten uudet koordinaatit on mitattu:
