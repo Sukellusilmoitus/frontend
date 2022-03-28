@@ -13,6 +13,7 @@ function change_amount_of_rows_per_page (amount) {
 }
 
 function sort_table_by (title,sortby_data,td_col,order) {
+  cy.viewport(2048,1080)
   cy.get('table').within(() => {
     if (order == 'Asc') {
       cy.get("th").contains(title).click()
@@ -51,65 +52,142 @@ describe('Admin panel', () => {
     beforeEach(() => {
       cy.visit('/admin#/targets');
     });
-    it('deault 10 targets per page', () => {
-      cy.wait(1000);
-      cy.get('table').within(() => {
-        cy.get("td:nth-child(2)").should('have.length',10)
-        
-      })})
-      it('5 target per page', () => {
-        change_amount_of_rows_per_page(5)
+    context('Rows per page', () => {
+      it('deault 10 targets per page', () => {
+        cy.wait(3000);
+        cy.get('table').within(() => {
+          cy.get("td:nth-child(2)").should('have.length',10)
+          
+        })})
+        it('5 target per page', () => {
+          change_amount_of_rows_per_page(5)
+        })
+      it('25 target per page', () => {
+        change_amount_of_rows_per_page(25)
       })
-    it('25 target per page', () => {
-      change_amount_of_rows_per_page(25)
     })
-    it('sorts by id Asc', () => {
-      sort_table_by('Id','id','td:nth-child(2)','Asc')
-    })
-    it('sorts by id Desc', () => {
-      sort_table_by('Id','id','td:nth-child(2)','Desc')
-    })
-    it('sorts by name Asc', () => {
-      sort_table_by('Name','name','td:nth-child(3)','Asc')
-    })
-    it('sorts by name Desc', () => {
-      sort_table_by('Name','name','td:nth-child(3)','Desc')
-    })
-    it('sorts by town Asc', () => {
-      sort_table_by('Town','town','td:nth-child(4)','Asc')
-    })
-    it('sorts by town Desc', () => {
-      sort_table_by('Town','town','td:nth-child(4)','Desc')
-    })
-    it('sorts by source Asc', () => {
-      sort_table_by('Source','source','td:nth-child(5)','Asc')
-    })
-    it('sorts by source Desc', () => {
-      sort_table_by('Source','source','td:nth-child(5)','Desc')
+    context('Sorting', () => {
+      it('sort by id Asc', () => {
+        sort_table_by('Id','id','td:nth-child(2)','Asc')
+      })
+      it('sort by id Desc', () => {
+        sort_table_by('Id','id','td:nth-child(2)','Desc')
+      })
+      it('sort by name Asc', () => {
+        sort_table_by('Name','name','td:nth-child(3)','Asc')
+      })
+      it('sort by name Desc', () => {
+        sort_table_by('Name','name','td:nth-child(3)','Desc')
+      })
+      it('sort by town Asc', () => {
+        sort_table_by('Town','town','td:nth-child(4)','Asc')
+      })
+      it('sort by town Desc', () => {
+        sort_table_by('Town','town','td:nth-child(4)','Desc')
+      })
+      it('sort by source Asc', () => {
+        sort_table_by('Source','source','td:nth-child(5)','Asc')
+      })
+      it('sort by source Desc', () => {
+        sort_table_by('Source','source','td:nth-child(5)','Desc')
+      })
     })
   })
   context('User page', () => {
     beforeEach(() => {
       cy.visit('/admin#/users');
     });
+    context('Rows per page', () => {
 
+    })
+    context('Sorting', () => {
+
+    })
   })
   context('dives page', () => {
     beforeEach(() => {
       cy.visit('/admin#/dives');
     });
+    context('Rows per page', () => {
 
+    })
+    context('Sorting', () => {
+      it('sort by id Asc', () => {
+        sort_table_by('Id','id','td:nth-child(2)','Asc')
+      })
+      it('sort by id Desc', () => {
+        sort_table_by('Id','id','td:nth-child(2)','Desc')
+      })
+      it('sort by diver Asc', () => {
+        sort_table_by('Diver','diver','td:nth-child(3)','Asc')
+      })
+      it('sort by diver Desc', () => {
+        sort_table_by('Diver','diver','td:nth-child(3)','Desc')
+      })
+      it('sort by target Asc', () => {
+        sort_table_by('Target','target','td:nth-child(4)','Asc')
+      })
+      it('sort by target Desc', () => {
+        sort_table_by('Target','target','td:nth-child(4)','Desc')
+      })
+      it('sort by created at ASC', () => {
+        sort_table_by('Created at','created at','td:nth-child(5)','Asc')
+      })
+      it('sort by created at Desc', () => {
+        sort_table_by('Created at','created at','td:nth-child(5)','Desc')
+      })
+      it('sort by location correct Asc', () => {
+        sort_table_by('Location correct','location correct','td:nth-child(6)','Asc')
+      })
+      it('sort by location correct Desc', () => {
+        sort_table_by('Location correct','location correct','td:nth-child(6)','Desc')
+      })
+      it('sort by new x coordinates Asc', () => {
+        sort_table_by('New x coordinate','new x coordinate','td:nth-child(7)','Asc')
+      })
+      it('sort by new x coordinate Desc', () => {
+        sort_table_by('New x coordinate','new x coordinate','td:nth-child(7)','Desc')
+      })
+      it('sort by new y coordinate Asc', () => {
+        sort_table_by('New y coordinate','new y coordinate','td:nth-child(8)','Asc')
+      })
+      it('sort by new y coordinate Desc', () => {
+        sort_table_by('New y coordinate','new y coordinate','td:nth-child(8)','Desc')
+      })
+      it('sort by change text Asc', () => {
+        sort_table_by('Change text','change text','td:nth-child(9)','Asc')
+      })
+      it('sort by change text Desc', () => {
+        sort_table_by('Change text','change text','td:nth-child(9)','Desc')
+      })
+      it('sort by miscellaneous Asc', () => {
+        sort_table_by('Miscellaneous','miscellaneous','td:nth-child(10)','Asc')
+      })
+      it('sort by miscellaneous Desc', () => {
+        sort_table_by('Miscellaneous','miscellaneous','td:nth-child(10)','Desc')
+      })
+    })
   })
   context('pending targets page', () => {
     beforeEach(() => {
       cy.visit('/admin#/pending');
     });
+    context('Rows per page', () => {
 
+    })
+    context('Sorting', () => {
+      
+    })
   })
   context('duplicates targets page', () => {
     beforeEach(() => {
       cy.visit('/admin#/duplicates');
     });
+    context('Rows per page', () => {
 
+    })
+    context('Sorting', () => {
+      
+    })
   })
 })
