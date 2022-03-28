@@ -39,7 +39,7 @@ function Register() {
       if (res) {
         history.push('/login');
       } else {
-        addAlert('Käyttäjätunnut on jo käytössä');
+        addAlert('Käyttäjätunnus on jo käytössä');
       }
     } catch (e) {
       addAlert('Käyttäjätunnut on jo käytössä');
