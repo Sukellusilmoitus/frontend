@@ -42,7 +42,7 @@ function Register() {
         addAlert('Käyttäjätunnus on jo käytössä');
       }
     } catch (e) {
-      addAlert('Käyttäjätunnut on jo käytössä');
+      addAlert('Käyttäjätunnus on jo käytössä');
     }
   };
 
