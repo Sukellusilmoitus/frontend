@@ -13,6 +13,7 @@ import NewTargetForm from './components/NewTargetForm';
 import TargetList from './components/TargetList';
 import './assets/styles/App.css';
 import AdminPanel from './components/AdminPanel/AdminPanel';
+import Login from './components/Login';
 
 function App() {
   const [targets, setTargets] = useState('loading...');
@@ -49,6 +50,9 @@ function App() {
         </Route>
         <Route path="/hylyt">
           <TargetList targets={targets} />
+        </Route>
+        <Route path="/login">
+          <Login />
         </Route>
         <Route path="/admin">
           <AdminPanel />
