@@ -133,7 +133,6 @@ const useNotificationForm = (props) => {
           const newObj = omit(errors, 'xcoordinate');
           setErrors(newObj);
           setNewMapX(value);
-          console.log('juuri astetettu uusi X: ', newMapX);
           setCenter([newMapY, newMapX]);
         }
         break;
