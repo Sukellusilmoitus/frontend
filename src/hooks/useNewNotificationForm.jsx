@@ -22,7 +22,7 @@ const useNotificationForm = (props) => {
   const [locationCorrect, setLocationCorrect] = useState(true);
   const [newMapX, setNewMapX] = useState(targetXcoordinate);
   const [newMapY, setNewMapY] = useState(targetYcoordinate);
-  const [center, setCenter] = useState([newMapX, newMapY]);
+  const [center, setCenter] = useState([newMapY, newMapX]);
 
   const callback = (event) => {
     event.preventDefault();
@@ -43,8 +43,8 @@ const useNotificationForm = (props) => {
   };
 
   useEffect(() => {
-    setCenter([newMapX, newMapY]);
-  }, [newMapX, newMapY]);
+    setCenter([newMapY, newMapX]);
+  }, [newMapY, newMapX]);
 
   const validate = (event, name, value) => {
     switch (name) {
@@ -133,7 +133,8 @@ const useNotificationForm = (props) => {
           const newObj = omit(errors, 'xcoordinate');
           setErrors(newObj);
           setNewMapX(value);
-          setCenter([newMapX, newMapY]);
+          console.log('juuri astetettu uusi X: ', newMapX);
+          setCenter([newMapY, newMapX]);
         }
         break;
       case 'ycoordinate':
@@ -149,7 +150,7 @@ const useNotificationForm = (props) => {
           const newObj = omit(errors, 'ycoordinate');
           setErrors(newObj);
           setNewMapY(value);
-          setCenter([newMapX, newMapY]);
+          setCenter([newMapY, newMapX]);
         }
         break;
       case 'coordinateinfo':
