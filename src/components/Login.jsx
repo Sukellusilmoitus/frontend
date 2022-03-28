@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Alert, Button, Form } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
-import loginRequest from '../services/users';
+import { loginRequest } from '../services/users';
 
 function Login() {
   const [username, setUsername] = useState('');
@@ -67,6 +67,7 @@ function Login() {
         </Form.Group>
         <Button variant="primary" type="submit">Kirjaudu</Button>
       </Form>
+      <a href="/rekisteroidy">Rekisteröidy</a>
     </>
   );
 }
