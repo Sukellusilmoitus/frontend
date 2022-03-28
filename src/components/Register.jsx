@@ -28,9 +28,8 @@ function Register() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (name === '' || username === '' || password === '') {
-      addAlert('Lisää puuttuvat tiedot')
-    }
-    else if (email === '' && phone === '') {
+      addAlert('Lisää puuttuvat tiedot');
+    } else if (email === '' && phone === '') {
       addAlert('Syötä sähköposti tai puhelinnumero');
       return;
     }
