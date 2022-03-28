@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { omit } from 'lodash';
 import validator from 'validator';
 
@@ -20,6 +20,9 @@ const useNotificationForm = (props) => {
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState(null);
   const [locationCorrect, setLocationCorrect] = useState(true);
+  const [newMapX, setNewMapX] = useState(targetXcoordinate);
+  const [newMapY, setNewMapY] = useState(targetYcoordinate);
+  const [center, setCenter] = useState([newMapX, newMapY]);
 
   const callback = (event) => {
     event.preventDefault();
@@ -38,6 +41,10 @@ const useNotificationForm = (props) => {
       miscText: values.misctext || '',
     });
   };
+
+  useEffect(() => {
+    setCenter([newMapX, newMapY]);
+  }, [newMapX, newMapY]);
 
   const validate = (event, name, value) => {
     switch (name) {
@@ -125,6 +132,8 @@ const useNotificationForm = (props) => {
         } else {
           const newObj = omit(errors, 'xcoordinate');
           setErrors(newObj);
+          setNewMapX(value);
+          setCenter([newMapX, newMapY]);
         }
         break;
       case 'ycoordinate':
@@ -139,6 +148,8 @@ const useNotificationForm = (props) => {
         } else {
           const newObj = omit(errors, 'ycoordinate');
           setErrors(newObj);
+          setNewMapY(value);
+          setCenter([newMapX, newMapY]);
         }
         break;
       case 'coordinateinfo':
@@ -289,6 +300,7 @@ const useNotificationForm = (props) => {
     handleSubmit,
     resetChangeText,
     handleCoordinateChange,
+    center,
   };
 };
 
