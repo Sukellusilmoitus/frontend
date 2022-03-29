@@ -20,7 +20,6 @@ function User({ user }) {
       const data = await targetService.getAllByUser(user.username);
       data.data.sort((a, b) => (a.target.properties.is_pending
         > b.target.properties.is_pending ? 1 : -1));
-      console.log(data.data);
       setTargetnotes(data.data);
     }
   };

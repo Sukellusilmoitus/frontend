@@ -25,13 +25,11 @@ function App() {
   const getTargets = async () => {
     const data = await targetService.getAllTargets();
     data.features.sort((a, b) => (a.properties.name > b.properties.name ? 1 : -1));
-    // console.log(data.features);
     setTargets(data.features);
   };
 
   const getUsers = async () => {
     const data = await getAllUsers();
-    // console.log(data.data);
     setUsers(data.data);
   };
 
