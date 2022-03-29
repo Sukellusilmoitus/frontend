@@ -18,8 +18,14 @@ const getAllByTarget = async (targetId) => {
   return response.data;
 };
 
+const getAllByUser = async (username) => {
+  const response = await axios.get(`${baseUrl}/api/dives/user/${username}`);
+  return response.data;
+};
+
 export default {
   getAll,
   create,
   getAllByTarget,
+  getAllByUser,
 };
