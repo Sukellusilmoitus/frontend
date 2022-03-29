@@ -14,6 +14,7 @@ import TargetList from './components/TargetList';
 import './assets/styles/App.css';
 import AdminPanel from './components/AdminPanel/AdminPanel';
 import Login from './components/Login';
+import Register from './components/Register';
 
 function App() {
   const [targets, setTargets] = useState('loading...');
@@ -51,8 +52,11 @@ function App() {
         <Route path="/hylyt">
           <TargetList targets={targets} />
         </Route>
-        <Route path="/login">
+        <Route path="/kirjaudu">
           <Login />
+        </Route>
+        <Route path="/rekisteroidy">
+          <Register />
         </Route>
         <Route path="/admin">
           <AdminPanel />
