@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { omit } from 'lodash';
 import targets from '../services/targets';
 import REACT_APP_SERVER_URL from '../util/config';
@@ -8,6 +8,9 @@ const useForm = (postTarget) => {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState(null);
+  const [newMapX, setNewMapX] = useState(64.1);
+  const [newMapY, setNewMapY] = useState(25.0);
+  const [center, setCenter] = useState([newMapY, newMapX]);
 
   const callback = async (event) => {
     event.preventDefault();
@@ -33,6 +36,10 @@ const useForm = (postTarget) => {
       miscText: values.misctext || '',
     });
   };
+
+  useEffect(() => {
+    setCenter([newMapY, newMapX]);
+  }, [newMapY, newMapX]);
 
   const validate = (event, name, value) => {
     switch (name) {
@@ -136,6 +143,8 @@ const useForm = (postTarget) => {
         } else {
           const newObj = omit(errors, 'xcoordinate');
           setErrors(newObj);
+          setNewMapX(value);
+          setCenter([newMapY, newMapX]);
         }
         break;
       case 'ycoordinate':
@@ -150,6 +159,8 @@ const useForm = (postTarget) => {
         } else {
           const newObj = omit(errors, 'ycoordinate');
           setErrors(newObj);
+          setNewMapY(value);
+          setCenter([newMapY, newMapX]);
         }
         break;
       case 'coordinateinfo':
@@ -253,6 +264,7 @@ const useForm = (postTarget) => {
     message,
     handleChange,
     handleSubmit,
+    center,
   };
 };
 

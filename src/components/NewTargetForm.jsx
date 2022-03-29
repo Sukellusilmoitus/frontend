@@ -1,14 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Col, Form, Button, Row, Breadcrumb,
 } from 'react-bootstrap';
 import useForm from '../hooks/useNewTargetForm';
 import Submitmessage from './Submitmessage';
+import CoordinatesMap from './CoordinatesMap';
 
 function NewTargetForm(props) {
   const { postTarget } = props;
+  const [defaultCenter, setDefaultCenter] = useState([64.1, 25.0]);
+
+  useEffect(() => {
+    setDefaultCenter([64.1, 25.0]);
+  }, defaultCenter);
+
   const {
-    handleChange, errors, message, handleSubmit,
+    handleChange, errors, message, handleSubmit, center,
   } = useForm(postTarget);
 
   return (
@@ -173,6 +180,13 @@ function NewTargetForm(props) {
             </Form.Group>
           </Col>
         </Row>
+        <br />
+        {(center[0] === undefined || center[1] === undefined) && (
+        <CoordinatesMap center={defaultCenter} />
+        )}
+        {(center[0] !== undefined && center[1] !== undefined) && (
+        <CoordinatesMap center={center} />
+        )}
         <br />
         <Form.Group>
           <Form.Label>Koordinaattien määrittelytapa:</Form.Label>
