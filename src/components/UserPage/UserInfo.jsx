@@ -9,7 +9,7 @@ function UserInfo(props) {
   } = props;
   return (
     <Container style={{ paddingLeft: 0, paddingRight: 0 }}>
-      <Table bordered size="sm">
+      <Table data-testid="testinfotable" bordered size="sm">
         <tbody>
           <tr>
             <td>Käyttäjänimi</td>
