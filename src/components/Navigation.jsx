@@ -26,7 +26,7 @@ function Navigation() {
           <LinkContainer to="/kirjaudu">
             <Nav.Link>Kirjaudu</Nav.Link>
           </LinkContainer>
-          <LinkContainer to="/sukeltaja/jamppa">
+          <LinkContainer to="/omasivu">
             <Nav.Link>Oma sivu</Nav.Link>
           </LinkContainer>
         </Nav>

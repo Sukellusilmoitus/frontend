@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import diveService from '../../services/dives';
 import targetService from '../../services/targets';
-import LoadingSpinner from '../LoadingSpinner';
 import UserPage from './UserPage';
+import UserContext from '../../UserContext';
 
-function User({ user }) {
+function User() {
   const [dives, setDives] = useState('loading...');
   const [targetnotes, setTargetnotes] = useState('loading...');
+  const { user } = useContext(UserContext);
 
   const getDives = async () => {
     if (user) {
@@ -31,7 +32,9 @@ function User({ user }) {
 
   if (user === null) {
     return (
-      <LoadingSpinner />
+      <div>
+        Kirjaudu sisään ensin
+      </div>
     );
   }
 

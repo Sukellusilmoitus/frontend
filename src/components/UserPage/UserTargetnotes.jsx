@@ -1,5 +1,5 @@
 /* eslint-disable react/no-array-index-key, react/jsx-one-expression-per-line */
-import { React, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Container, Table,
 } from 'react-bootstrap';
