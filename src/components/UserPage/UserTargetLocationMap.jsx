@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import React from 'react';
 import {
   MapContainer, LayersControl, TileLayer, Marker, Popup,
@@ -35,9 +36,15 @@ function UserTargetLocationMap({ dives }) {
           />
         </LayersControl.Overlay>
         {(dives.length > 0)
-          && dives.map((dive) => (
-            <Marker position={dive.target.geometry.coordinates.reverse()}>
-              <Popup>
+          && dives.map((dive, idx) => (
+            <Marker
+              key={`marker-${idx}`}
+              position={
+                [dive.target.geometry.coordinates[1],
+                  dive.target.geometry.coordinates[0]]
+              }
+            >
+              <Popup key={`popup-${idx}`}>
                 {dive.target.properties.name}
               </Popup>
             </Marker>

@@ -51,10 +51,14 @@ function UserDiveHistory({ dives }) {
               {' '}
               <i>{!dive.location_correct || 'Ei muutoksia koordinaatteihin'}</i>
               <i>
-                {(!dive.location_correct && dive.new_x_coordinate) || ''} {(!dive.location_correct && dive.new_y_coordinate) || ''}
+                {(!dive.location_correct && dive.new_x_coordinate) || ''}
+                {' '}
+                {(!dive.location_correct && dive.new_y_coordinate) || ''}
               </i>
               <br />
-              <i>{(!dive.location_correct && dive.new_location_explanation) || ''}</i>
+              {!dive.location_correct ? 'Määrittelytapa:' : '' }
+              {' '}
+              <i>{dive.new_location_explanation || ''}</i>
               <br />
             </div>
           ))

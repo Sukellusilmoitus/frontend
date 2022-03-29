@@ -2,9 +2,10 @@ import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import UserInfo from './UserInfo';
 import UserTargetLocationMap from './UserTargetLocationMap';
-import DiveHistory from './UserDiveHistory';
+import UserDiveHistory from './UserDiveHistory';
+import UserTargetnotes from './UserTargetnotes';
 
-function UserPage({ user, dives }) {
+function UserPage({ user, dives, targetnotes }) {
   return (
     <Container>
       <h2>{user.name}</h2>
@@ -21,10 +22,11 @@ function UserPage({ user, dives }) {
       </Row>
       <Row style={{ marginTop: '80px' }}>
         <Col lg>
-          <p>ILMOlomake</p>
+          <h3>Ilmoitetut hylyt</h3>
+          <UserTargetnotes targetnotes={targetnotes} />
         </Col>
         <Col lg>
-          <DiveHistory dives={dives} />
+          <UserDiveHistory dives={dives} />
         </Col>
       </Row>
     </Container>
