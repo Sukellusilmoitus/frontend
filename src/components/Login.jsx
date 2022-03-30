@@ -44,10 +44,10 @@ function Login() {
         <Form.Group>
           <Form.Label>Käyttäjätunnus:</Form.Label>
           <Form.Control
+            data-testid="username"
             type="text"
             name="username"
             onChange={(e) => setUsername(e.target.value)}
-            required
           />
           <Form.Text className="text-muted">
             Pakollinen kenttä
@@ -56,16 +56,22 @@ function Login() {
         <Form.Group>
           <Form.Label>Salasana:</Form.Label>
           <Form.Control
+            data-testid="password"
             type="password"
             name="password"
             onChange={(e) => setPassword(e.target.value)}
-            required
           />
           <Form.Text className="text-muted">
             Pakollinen kenttä
           </Form.Text>
         </Form.Group>
-        <Button variant="primary" type="submit">Kirjaudu</Button>
+        <Button
+          data-testid="kirjaudu"
+          variant="primary"
+          type="submit"
+        >
+          Kirjaudu
+        </Button>
       </Form>
       <a href="/rekisteroidy">Rekisteröidy</a>
     </>

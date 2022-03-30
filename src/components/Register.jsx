@@ -52,6 +52,7 @@ function Register() {
         <Form.Group>
           <Form.Label>Etu- ja sukunimi:</Form.Label>
           <Form.Control
+            data-testid="name"
             type="text"
             name="name"
             onChange={(e) => setName(e.target.value)}
@@ -64,6 +65,7 @@ function Register() {
         <Form.Group>
           <Form.Label>Puhelinnumero:</Form.Label>
           <Form.Control
+            data-testid="phone"
             type="number"
             name="phone"
             onChange={(e) => setPhone(e.target.value)}
@@ -72,6 +74,7 @@ function Register() {
         <Form.Group>
           <Form.Label>Sähköposti:</Form.Label>
           <Form.Control
+            data-testid="email"
             type="text"
             name="email"
             onChange={(e) => setEmail(e.target.value)}
@@ -80,6 +83,7 @@ function Register() {
         <Form.Group>
           <Form.Label>Käyttäjätunnus:</Form.Label>
           <Form.Control
+            data-testid="username"
             type="text"
             name="username"
             onChange={(e) => setUsername(e.target.value)}
@@ -92,6 +96,7 @@ function Register() {
         <Form.Group>
           <Form.Label>Salasana:</Form.Label>
           <Form.Control
+            data-testid="password"
             type="password"
             name="password"
             onChange={(e) => setPassword(e.target.value)}
