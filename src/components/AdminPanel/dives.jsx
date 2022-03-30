@@ -12,7 +12,7 @@ import {
 
 function DiveListView(props) {
   return (
-    <List {...props}>
+    <List {...props} sort={{ field: 'Id', order: 'DESC' }}>
       <Datagrid rowClick="edit">
         <TextField source="id" />
         <TextField source="diver_id" />

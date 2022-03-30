@@ -29,7 +29,7 @@ const targetFilters = [
 
 function TargetListView(props) {
   return (
-    <List filters={targetFilters} {...props}>
+    <List filters={targetFilters} {...props} sort={{ field: 'Id', order: 'DESC' }}>
       <Datagrid rowClick="edit">
         <TextField source="id" />
         <TextField source="name" />
