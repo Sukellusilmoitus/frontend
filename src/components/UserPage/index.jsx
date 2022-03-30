@@ -28,7 +28,7 @@ function User() {
   useEffect(() => {
     getDives();
     getTargetnotes();
-  }, [user]);
+  }, []);
 
   if (user === null) {
     return (
