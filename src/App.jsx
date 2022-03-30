@@ -19,6 +19,7 @@ import Register from './components/Register';
 
 function App() {
   const [targets, setTargets] = useState('loading...');
+  const [user, setUser] = useState(null);
 
   const getTargets = async () => {
     const data = await targetService.getAllTargets();
@@ -51,13 +52,13 @@ function App() {
           <TargetPage target={target} />
         </Route>
         <Route path="/omasivu">
-          <UserPage />
+          <UserPage user={user} />
         </Route>
         <Route path="/hylyt">
           <TargetList targets={targets} />
         </Route>
         <Route path="/kirjaudu">
-          <Login />
+          <Login setUser={setUser} />
         </Route>
         <Route path="/rekisteroidy">
           <Register />
