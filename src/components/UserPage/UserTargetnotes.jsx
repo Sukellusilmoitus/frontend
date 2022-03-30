@@ -9,6 +9,11 @@ import LoadingSpinner from '../LoadingSpinner';
 
 function UserTargetnotes({ targetnotes }) {
   const [btnText, setBtnText] = useState();
+  const history = useHistory();
+
+  const handleClick = (id) => {
+    history.push(`/hylyt/${id}`);
+  };
 
   if (targetnotes === 'loading...') {
     return (
@@ -17,11 +22,6 @@ function UserTargetnotes({ targetnotes }) {
       </section>
     );
   }
-
-  const history = useHistory();
-  const handleClick = (id) => {
-    history.push(`/hylyt/${id}`);
-  };
 
   return (
     <Container data-testid="targetnote-list" style={{ paddingLeft: 0, paddingRight: 0 }}>
