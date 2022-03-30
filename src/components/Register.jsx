@@ -36,7 +36,7 @@ function Register() {
     try {
       const res = await registerRequest(username, password, name, email, phone);
       if (res) {
-        history.push('/login');
+        history.push('/kirjaudu');
       } else {
         addAlert('Käyttäjätunnus on jo käytössä');
       }
@@ -56,7 +56,6 @@ function Register() {
             type="text"
             name="name"
             onChange={(e) => setName(e.target.value)}
-            required
           />
           <Form.Text className="text-muted">
             Pakollinen kenttä
@@ -87,7 +86,6 @@ function Register() {
             type="text"
             name="username"
             onChange={(e) => setUsername(e.target.value)}
-            required
           />
           <Form.Text className="text-muted">
             Pakollinen kenttä
@@ -100,7 +98,6 @@ function Register() {
             type="password"
             name="password"
             onChange={(e) => setPassword(e.target.value)}
-            required
           />
           <Form.Text className="text-muted">
             Pakollinen kenttä
