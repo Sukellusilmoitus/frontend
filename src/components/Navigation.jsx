@@ -7,7 +7,6 @@ function Navigation() {
   if (useLocation().pathname.match(/admin/)) {
     return null;
   }
-
   return (
     <Navbar bg="white" expand="lg" sticky="top" className="py-3" collapseOnSelect>
       <Navbar.Brand href="/">Hylkysukellusilmoituspalvelu</Navbar.Brand>
@@ -25,6 +24,9 @@ function Navigation() {
           </LinkContainer>
           <LinkContainer to="/kirjaudu">
             <Nav.Link>Kirjaudu</Nav.Link>
+          </LinkContainer>
+          <LinkContainer to="/omasivu">
+            <Nav.Link>Oma sivu</Nav.Link>
           </LinkContainer>
         </Nav>
       </Navbar.Collapse>
