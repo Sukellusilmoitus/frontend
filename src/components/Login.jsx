@@ -1,15 +1,13 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Alert, Button, Form } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { loginRequest } from '../services/users';
-import UserContext from '../UserContext';
 
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [alert, setAlert] = useState(null);
   const history = useHistory();
-  const { setUser } = useContext(UserContext);
 
   useEffect(() => {
     if (localStorage.getItem('auth')) {
@@ -30,7 +28,6 @@ function Login() {
       const res = await loginRequest(username, password);
       if (res.auth) {
         localStorage.setItem('auth', res.auth);
-        setUser(res.user);
         history.push('/');
       } else {
         addAlert('Väärä käyttäjätunnus tai salasana');

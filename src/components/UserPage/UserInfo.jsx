@@ -3,10 +3,7 @@ import {
   Container, Table,
 } from 'react-bootstrap';
 
-function UserInfo(props) {
-  const {
-    user,
-  } = props;
+function UserInfo({ user }) {
   return (
     <Container style={{ paddingLeft: 0, paddingRight: 0 }}>
       <Table data-testid="testinfotable" bordered size="sm">
