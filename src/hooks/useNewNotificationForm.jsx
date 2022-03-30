@@ -215,6 +215,17 @@ const useNotificationForm = (props) => {
     });
   };
 
+  const handleCoordinateClick = (coordinate, name) => {
+    if (name !== 'xcoordinate' && name !== 'ycoordinate') {
+      return;
+    }
+    validate(null, name, coordinate);
+    setRequiredValues({
+      ...requiredValues,
+      [name]: coordinate,
+    });
+  };
+
   const resetChangeText = () => {
     const newErrors = omit(errors, 'changeText');
     setErrors(newErrors);
@@ -301,6 +312,7 @@ const useNotificationForm = (props) => {
     resetChangeText,
     handleCoordinateChange,
     center,
+    handleCoordinateClick,
   };
 };
 

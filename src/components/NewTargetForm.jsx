@@ -9,14 +9,36 @@ import CoordinatesMap from './CoordinatesMap';
 function NewTargetForm(props) {
   const { postTarget } = props;
   const [defaultCenter, setDefaultCenter] = useState([64.1, 25.0]);
+  const [formX, setFormX] = useState();
+  const [formY, setFormY] = useState();
 
   useEffect(() => {
     setDefaultCenter([64.1, 25.0]);
   }, defaultCenter);
 
   const {
-    handleChange, errors, message, handleSubmit, center,
+    handleChange, errors, message, handleSubmit, center, handleCoordinateClick,
   } = useForm(postTarget);
+
+  const handleXCoordinateChange = (event, coordinate, name) => {
+    if (event === null) {
+      handleCoordinateClick(coordinate, name);
+      setFormX(coordinate);
+    } else {
+      handleChange(event);
+      setFormX(event.target.value);
+    }
+  };
+
+  const handleYCoordinateChange = (event, coordinate, name) => {
+    if (event === null) {
+      handleCoordinateClick(coordinate, name);
+      setFormY(coordinate);
+    } else {
+      handleChange(event);
+      setFormY(event.target.value);
+    }
+  };
 
   return (
     <div>
@@ -149,7 +171,8 @@ function NewTargetForm(props) {
                 name="xcoordinate"
                 data-testid="testxcoordinate"
                 id="newx"
-                onChange={handleChange}
+                value={formX}
+                onChange={handleXCoordinateChange}
                 isInvalid={!!errors.xcoordinate}
               />
               <Form.Control.Feedback type="invalid">
@@ -168,7 +191,8 @@ function NewTargetForm(props) {
                 name="ycoordinate"
                 data-testid="testycoordinate"
                 id="newy"
-                onChange={handleChange}
+                value={formY}
+                onChange={handleYCoordinateChange}
                 isInvalid={!!errors.ycoordinate}
               />
               <Form.Control.Feedback type="invalid">
@@ -182,10 +206,18 @@ function NewTargetForm(props) {
         </Row>
         <br />
         {(center[0] === undefined || center[1] === undefined) && (
-        <CoordinatesMap center={defaultCenter} />
+        <CoordinatesMap
+          center={defaultCenter}
+          handleXCoordinateChange={handleXCoordinateChange}
+          handleYCoordinateChange={handleYCoordinateChange}
+        />
         )}
         {(center[0] !== undefined && center[1] !== undefined) && (
-        <CoordinatesMap center={center} />
+        <CoordinatesMap
+          center={center}
+          handleXCoordinateChange={handleXCoordinateChange}
+          handleYCoordinateChange={handleYCoordinateChange}
+        />
         )}
         <br />
         <Form.Group>

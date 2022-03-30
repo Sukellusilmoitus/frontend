@@ -8,8 +8,8 @@ const useForm = (postTarget) => {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState(null);
-  const [newMapX, setNewMapX] = useState(64.1);
-  const [newMapY, setNewMapY] = useState(25.0);
+  const [newMapX, setNewMapX] = useState(25.0);
+  const [newMapY, setNewMapY] = useState(60.1);
   const [center, setCenter] = useState([newMapY, newMapX]);
 
   const callback = async (event) => {
@@ -226,6 +226,17 @@ const useForm = (postTarget) => {
     });
   };
 
+  const handleCoordinateClick = (coordinate, name) => {
+    if (name !== 'xcoordinate' && name !== 'ycoordinate') {
+      return;
+    }
+    validate(null, name, coordinate);
+    setRequiredValues({
+      ...requiredValues,
+      [name]: coordinate,
+    });
+  };
+
   const handleSubmit = (event) => {
     if (event) event.preventDefault();
 
@@ -265,6 +276,7 @@ const useForm = (postTarget) => {
     handleChange,
     handleSubmit,
     center,
+    handleCoordinateClick,
   };
 };
 

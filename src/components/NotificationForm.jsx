@@ -16,13 +16,16 @@ function NewNotificationForm(props) {
   const [coordinateRadio, setCoordinateRadio] = useState('yes');
   const [changeRadio, setChangeRadio] = useState('no');
   const [defaultCenter, setDefaultCenter] = useState([64.1, 25.0]);
+  const [formX, setFormX] = useState(targetXcoordinate);
+  const [formY, setFormY] = useState(targetYcoordinate);
 
   useEffect(() => {
     setDefaultCenter([64.1, 25.0]);
   }, defaultCenter);
 
   const {
-    handleChange, errors, message, handleSubmit, resetChangeText, handleCoordinateChange, center,
+    handleChange, errors, message, handleSubmit, resetChangeText,
+    handleCoordinateChange, center, handleCoordinateClick,
   } = useForm(props);
 
   const handleChangeRadio = (value) => {
@@ -36,6 +39,26 @@ function NewNotificationForm(props) {
   const handleCoordinateChangeClick = (value) => {
     handleCoordinateChange(value);
     setCoordinateRadio(value);
+  };
+
+  const handleXCoordinateChange = (event, coordinate, name) => {
+    if (event === null) {
+      handleCoordinateClick(coordinate, name);
+      setFormX(coordinate);
+    } else {
+      handleChange(event);
+      setFormX(event.target.value);
+    }
+  };
+
+  const handleYCoordinateChange = (event, coordinate, name) => {
+    if (event === null) {
+      handleCoordinateClick(coordinate, name);
+      setFormY(coordinate);
+    } else {
+      handleChange(event);
+      setFormY(event.target.value);
+    }
   };
 
   return (
@@ -170,7 +193,8 @@ function NewNotificationForm(props) {
               id="newxcoordinate"
               data-testid="testxcoordinate"
               name="xcoordinate"
-              onChange={handleChange}
+              value={formX}
+              onChange={handleXCoordinateChange}
               isInvalid={!!errors.xcoordinate}
             />
             <Form.Text className="text-muted">
@@ -186,7 +210,8 @@ function NewNotificationForm(props) {
               id="newycoordinate"
               data-testid="testycoordinate"
               name="ycoordinate"
-              onChange={handleChange}
+              value={formY}
+              onChange={handleYCoordinateChange}
               isInvalid={!!errors.ycoordinate}
             />
             <Form.Text className="text-muted">
@@ -197,10 +222,18 @@ function NewNotificationForm(props) {
             </Form.Control.Feedback>
             <br />
             {(center[0] === undefined || center[1] === undefined) && (
-              <CoordinatesMap center={defaultCenter} />
+              <CoordinatesMap
+                center={defaultCenter}
+                handleXCoordinateChange={handleXCoordinateChange}
+                handleYCoordinateChange={handleYCoordinateChange}
+              />
             )}
             {(center[0] !== undefined && center[1] !== undefined) && (
-              <CoordinatesMap center={center} />
+              <CoordinatesMap
+                center={center}
+                handleXCoordinateChange={handleXCoordinateChange}
+                handleYCoordinateChange={handleYCoordinateChange}
+              />
             )}
             <br />
             <Form.Label>
