@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import diveService from '../../services/dives';
 import targetService from '../../services/targets';
 import UserPage from './UserPage';
+import { loggedUser } from '../../services/users';
 
-function User({ user }) {
+function User() {
   const [dives, setDives] = useState('loading...');
   const [targetnotes, setTargetnotes] = useState('loading...');
+  const user = loggedUser();
 
   const getDives = async () => {
     if (user) {

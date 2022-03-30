@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Alert, Button, Form } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
-import { loginRequest, loggedUser } from '../services/users';
+import { loginRequest } from '../services/users';
 
-function Login({ setUser }) {
+function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [alert, setAlert] = useState(null);
@@ -28,8 +28,6 @@ function Login({ setUser }) {
       const res = await loginRequest(username, password);
       if (res.auth) {
         localStorage.setItem('auth', res.auth);
-        const user = loggedUser();
-        setUser(user);
         history.push('/');
       } else {
         addAlert('Väärä käyttäjätunnus tai salasana');
