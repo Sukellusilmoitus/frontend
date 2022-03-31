@@ -134,7 +134,7 @@ const useForm = (postTarget) => {
       case 'xcoordinate':
 
         if (
-          !(/^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)/).test(value)
+          !(/^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)$/).test(value)
         ) {
           setErrors({
             ...errors,
@@ -150,7 +150,7 @@ const useForm = (postTarget) => {
       case 'ycoordinate':
 
         if (
-          !(/^[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)/).test(value)
+          !(/^[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/).test(value)
         ) {
           setErrors({
             ...errors,

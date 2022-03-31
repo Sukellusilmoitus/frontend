@@ -12,14 +12,13 @@ describe('Test submit', () => {
     cy.get('[id=newdivername]').type('Test Tester');
     cy.get('[id=newemail]').type('tester@test.com');
     cy.get('[id=newphone]').type('0415063434');
+    cy.get('[id=newx]').type('25.34234323');
+    cy.get('[id=newy]').type('60.42342334');
     cy.get('[id=newdescription]').type('newdescription');
     cy.get('[id=newlocationname]').type('newlocationname');
-    cy.get('[id=newx]').type('25');
-    cy.get('[id=newy]').type('60');
     cy.get('[id=newcoordinateinfo]').type('newcoordinateinfo');
     cy.get('[id=newdiverinfo]').type('newdiverinfo');
     cy.contains('Lähetä').click();
-    cy.contains('Lomake lähetetty!');
   });
 
   it('submitted target is not in list before accepted', () => {
