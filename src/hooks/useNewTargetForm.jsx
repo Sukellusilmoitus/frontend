@@ -134,14 +134,13 @@ const useForm = (postTarget) => {
       case 'xcoordinate':
 
         if (
-          !(/^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)$/).test(value)
+          !(/^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)/).test(value)
         ) {
           setErrors({
             ...errors,
             xcoordinate: 'Anna koordinaatti muodossa xx.xxxxxxxx, esim. 25.34234323',
           });
         } else {
-          console.log(value);
           const newObj = omit(errors, 'xcoordinate');
           setErrors(newObj);
           setNewMapX(value);
@@ -151,14 +150,13 @@ const useForm = (postTarget) => {
       case 'ycoordinate':
 
         if (
-          !(/^[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/).test(value)
+          !(/^[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)/).test(value)
         ) {
           setErrors({
             ...errors,
             ycoordinate: 'Anna koordinaatti muodossa xx.xxxxxxxx, esim. 60.42342334',
           });
         } else {
-          console.log(value);
           const newObj = omit(errors, 'ycoordinate');
           setErrors(newObj);
           setNewMapY(value);
