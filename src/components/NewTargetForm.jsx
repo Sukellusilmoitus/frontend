@@ -9,8 +9,8 @@ import CoordinatesMap from './CoordinatesMap';
 function NewTargetForm(props) {
   const { postTarget } = props;
   const [defaultCenter, setDefaultCenter] = useState([64.1, 25.0]);
-  const [formX, setFormX] = useState();
-  const [formY, setFormY] = useState();
+  const [formX, setFormX] = useState(25.0);
+  const [formY, setFormY] = useState(64.1);
 
   useEffect(() => {
     setDefaultCenter([64.1, 25.0]);

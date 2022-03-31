@@ -37,6 +37,10 @@ function NewNotificationForm(props) {
   };
 
   const handleCoordinateChangeClick = (value) => {
+    if (value === 'yes') {
+      setFormX(targetXcoordinate);
+      setFormY(targetYcoordinate);
+    }
     handleCoordinateChange(value);
     setCoordinateRadio(value);
   };

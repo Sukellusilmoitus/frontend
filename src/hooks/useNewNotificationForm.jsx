@@ -249,14 +249,12 @@ const useNotificationForm = (props) => {
     if (value === 'no') {
       setRequiredValues({
         ...requiredValues,
-        xcoordinate: null,
-        ycoordinate: null,
+        xcoordinate: targetXcoordinate,
+        ycoordinate: targetYcoordinate,
       });
       setLocationCorrect(false);
       setErrors({
         ...errors,
-        xcoordinate: 'Anna koordinaatti muodossa xx.xxxxxxxx, esim. 25.34234323',
-        ycoordinate: 'Anna koordinaatti muodossa xx.xxxxxxxx, esim. 60.42342334',
         coordinateinfo: 'Kerro miten paikannus on selvitetty',
       });
     }
