@@ -36,15 +36,6 @@ function NewNotificationForm(props) {
     }
   };
 
-  const handleCoordinateChangeClick = (value) => {
-    if (value === 'yes') {
-      setFormX(targetXcoordinate);
-      setFormY(targetYcoordinate);
-    }
-    handleCoordinateChange(value);
-    setCoordinateRadio(value);
-  };
-
   const handleXCoordinateChange = (event, coordinate, name) => {
     if (event === null) {
       handleCoordinateClick(coordinate, name);
@@ -63,6 +54,15 @@ function NewNotificationForm(props) {
       handleChange(event);
       setFormY(event.target.value);
     }
+  };
+
+  const handleCoordinateChangeClick = (value) => {
+    if (value === 'yes') {
+      handleYCoordinateChange(null, targetYcoordinate, 'ycoordinate');
+      handleXCoordinateChange(null, targetXcoordinate, 'xcoordinate');
+    }
+    handleCoordinateChange(value);
+    setCoordinateRadio(value);
   };
 
   return (

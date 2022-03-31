@@ -63,8 +63,10 @@ describe('Test form fields', () => {
     cy.get('[id=newphone]').then($x => expect($x[0].checkValidity()).to.be.true);
   });
 
-  it('new coordinates are required if answered they were not correct', () => {
+  it('faulty new coordinates get validated', () => {
     cy.get('[data-testid=testradio2]').click();
+    cy.get('[id=newxcoordinate]').type('kissa');
+    cy.get('[id=newycoordinate]').type('koira');
     cy.contains('Anna koordinaatti muodossa xx.xxxxxxxx, esim. 25.34234323');
     cy.contains('Anna koordinaatti muodossa xx.xxxxxxxx, esim. 60.42342334');
     cy.get('[id=newxcoordinate]').type('25.1234567');
