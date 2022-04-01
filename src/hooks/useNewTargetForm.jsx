@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { omit } from 'lodash';
 import targets from '../services/targets';
 import REACT_APP_SERVER_URL from '../util/config';
@@ -8,6 +8,9 @@ const useForm = (postTarget) => {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState(null);
+  const [newMapX, setNewMapX] = useState(25.0);
+  const [newMapY, setNewMapY] = useState(60.1);
+  const [center, setCenter] = useState([newMapY, newMapX]);
 
   const callback = async (event) => {
     event.preventDefault();
@@ -33,6 +36,10 @@ const useForm = (postTarget) => {
       miscText: values.misctext || '',
     });
   };
+
+  useEffect(() => {
+    setCenter([newMapY, newMapX]);
+  }, [newMapY, newMapX]);
 
   const validate = (event, name, value) => {
     switch (name) {
@@ -127,7 +134,7 @@ const useForm = (postTarget) => {
       case 'xcoordinate':
 
         if (
-          !(/^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)/).test(value)
+          !(/^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)$/).test(value)
         ) {
           setErrors({
             ...errors,
@@ -136,12 +143,14 @@ const useForm = (postTarget) => {
         } else {
           const newObj = omit(errors, 'xcoordinate');
           setErrors(newObj);
+          setNewMapX(value);
+          setCenter([newMapY, newMapX]);
         }
         break;
       case 'ycoordinate':
 
         if (
-          !(/^[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)/).test(value)
+          !(/^[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/).test(value)
         ) {
           setErrors({
             ...errors,
@@ -150,6 +159,8 @@ const useForm = (postTarget) => {
         } else {
           const newObj = omit(errors, 'ycoordinate');
           setErrors(newObj);
+          setNewMapY(value);
+          setCenter([newMapY, newMapX]);
         }
         break;
       case 'coordinateinfo':
@@ -215,6 +226,17 @@ const useForm = (postTarget) => {
     });
   };
 
+  const handleCoordinateClick = (coordinate, name) => {
+    if (name !== 'xcoordinate' && name !== 'ycoordinate') {
+      return;
+    }
+    validate(null, name, coordinate);
+    setRequiredValues({
+      ...requiredValues,
+      [name]: coordinate,
+    });
+  };
+
   const handleSubmit = (event) => {
     if (event) event.preventDefault();
 
@@ -253,6 +275,8 @@ const useForm = (postTarget) => {
     message,
     handleChange,
     handleSubmit,
+    center,
+    handleCoordinateClick,
   };
 };
 

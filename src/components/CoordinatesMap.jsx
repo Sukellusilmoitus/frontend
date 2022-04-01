@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  MapContainer, LayersControl, TileLayer, Marker, useMap,
+  MapContainer, LayersControl, TileLayer, Marker, useMap, useMapEvents,
 } from 'react-leaflet';
 
 function ChangeMapView({ coords }) {
@@ -10,7 +10,18 @@ function ChangeMapView({ coords }) {
   return null;
 }
 
-function CoordinatesMap({ center }) {
+function CoordinatesMap({ center, handleXCoordinateChange, handleYCoordinateChange }) {
+  function LocationOnClick() {
+    const mapEvent = useMapEvents({
+      click(e) {
+        handleYCoordinateChange(null, e.latlng.lat, 'ycoordinate');
+        handleXCoordinateChange(null, e.latlng.lng, 'xcoordinate');
+        mapEvent.setView(e.latlng);
+      },
+    });
+    return null;
+  }
+
   return (
     <MapContainer center={center} zoom={8} style={{ height: '250px', width: '100%' }}>
       <LayersControl position="topright">
@@ -35,6 +46,7 @@ function CoordinatesMap({ center }) {
         <Marker position={center} />
       </LayersControl>
       <ChangeMapView coords={center} />
+      <LocationOnClick />
     </MapContainer>
   );
 }
