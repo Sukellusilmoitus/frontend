@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { omit } from 'lodash';
 import targets from '../services/targets';
-import REACT_APP_SERVER_URL from '../util/config';
 
 const useForm = (postTarget) => {
   const [requiredValues, setRequiredValues] = useState({});
@@ -13,6 +12,9 @@ const useForm = (postTarget) => {
     event.preventDefault();
     // Try to generate target id until free one is found
     const targetID = await targets.generateUniqueID();
+    const baseUrl = 'https://sukellusilmo-front-staging.herokuapp.com';
+    const targetUrl = `${baseUrl}/hylyt/${targetID}`;
+
     postTarget({
       id: targetID,
       targetname: requiredValues.targetname,
@@ -26,7 +28,7 @@ const useForm = (postTarget) => {
       is_ancient: false,
       is_pending: true,
       created_at: Date.now() / 1000.0,
-      url: REACT_APP_SERVER_URL === 'http://localhost:5000' ? 'http://localhost.com' : REACT_APP_SERVER_URL,
+      url: targetUrl,
       source: 'ilmoitus',
       phone: values.phone || '',
       email: values.email || '',
