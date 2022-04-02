@@ -26,8 +26,6 @@ function Register() {
   };
 
   const handleSubmit = async (event) => {
-
-    console.log(name)
     event.preventDefault();
     if (!name.length || !username.length || !password.length) {
       addAlert('Lisää puuttuvat tiedot');
