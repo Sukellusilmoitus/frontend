@@ -26,10 +26,14 @@ function Register() {
   };
 
   const handleSubmit = async (event) => {
+
+    console.log(name)
     event.preventDefault();
-    if (name === '' || username === '' || password === '') {
+    if (!name.length || !username.length || !password.length) {
       addAlert('Lisää puuttuvat tiedot');
-    } else if (email === '' && phone === '') {
+      return;
+    }
+    if (!email.length && !phone.length) {
       addAlert('Syötä sähköposti tai puhelinnumero');
       return;
     }
@@ -103,7 +107,13 @@ function Register() {
             Pakollinen kenttä
           </Form.Text>
         </Form.Group>
-        <Button variant="primary" type="submit">Rekisteröidy</Button>
+        <Button
+          variant="primary"
+          type="submit"
+          data-testid="submit"
+        >
+          Rekisteröidy
+        </Button>
       </Form>
     </>
   );
