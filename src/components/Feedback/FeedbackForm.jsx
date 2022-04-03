@@ -34,7 +34,10 @@ function FeedbackForm({ onSubmit }) {
     <Formik
       validationSchema={validationSchema}
       initialValues={initialValues}
-      onSubmit={(values) => onSubmit(values)}
+      onSubmit={(values, { resetForm }) => {
+        onSubmit(values);
+        resetForm({ values: '' });
+      }}
     >
       {({
         handleSubmit,
