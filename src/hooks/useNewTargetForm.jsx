@@ -12,6 +12,10 @@ const useForm = (postTarget) => {
   const [newMapY, setNewMapY] = useState(60.1);
   const [center, setCenter] = useState([newMapY, newMapX]);
 
+  useEffect(() => {
+    setCenter([newMapY, newMapX]);
+  }, [newMapY, newMapX]);
+
   const callback = async (event) => {
     event.preventDefault();
     // Try to generate target id until free one is found
@@ -36,10 +40,6 @@ const useForm = (postTarget) => {
       miscText: values.misctext || '',
     });
   };
-
-  useEffect(() => {
-    setCenter([newMapY, newMapX]);
-  }, [newMapY, newMapX]);
 
   const validate = (event, name, value) => {
     switch (name) {

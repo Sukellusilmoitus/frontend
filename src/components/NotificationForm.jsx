@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
+import formatcoords from 'formatcoords';
 import useForm from '../hooks/useNewNotificationForm';
 import Submitmessage from './Submitmessage';
 import CoordinatesMap from './CoordinatesMap';
@@ -22,6 +23,18 @@ function NewNotificationForm(props) {
   useEffect(() => {
     setDefaultCenter([64.1, 25.0]);
   }, defaultCenter);
+
+  const [DMS, setDMS] = useState(formatcoords(
+    Number(formX),
+    Number(formY),
+  ).format());
+
+  useEffect(() => {
+    setDMS(formatcoords(
+      Number(formX),
+      Number(formY),
+    ).format());
+  }, [formX, formY]);
 
   const {
     handleChange, errors, message, handleSubmit, resetChangeText,
@@ -225,6 +238,7 @@ function NewNotificationForm(props) {
               { errors.ycoordinate }
             </Form.Control.Feedback>
             <br />
+            {DMS}
             {(center[0] === undefined || center[1] === undefined) && (
               <CoordinatesMap
                 center={defaultCenter}
