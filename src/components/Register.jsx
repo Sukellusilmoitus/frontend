@@ -27,16 +27,18 @@ function Register() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (name === '' || username === '' || password === '') {
+    if (!name.length || !username.length || !password.length) {
       addAlert('Lisää puuttuvat tiedot');
-    } else if (email === '' && phone === '') {
+      return;
+    }
+    if (!email.length && !phone.length) {
       addAlert('Syötä sähköposti tai puhelinnumero');
       return;
     }
     try {
       const res = await registerRequest(username, password, name, email, phone);
       if (res) {
-        history.push('/login');
+        history.push('/kirjaudu');
       } else {
         addAlert('Käyttäjätunnus on jo käytössä');
       }
@@ -52,10 +54,10 @@ function Register() {
         <Form.Group>
           <Form.Label>Etu- ja sukunimi:</Form.Label>
           <Form.Control
+            data-testid="name"
             type="text"
             name="name"
             onChange={(e) => setName(e.target.value)}
-            required
           />
           <Form.Text className="text-muted">
             Pakollinen kenttä
@@ -64,6 +66,7 @@ function Register() {
         <Form.Group>
           <Form.Label>Puhelinnumero:</Form.Label>
           <Form.Control
+            data-testid="phone"
             type="number"
             name="phone"
             onChange={(e) => setPhone(e.target.value)}
@@ -72,6 +75,7 @@ function Register() {
         <Form.Group>
           <Form.Label>Sähköposti:</Form.Label>
           <Form.Control
+            data-testid="email"
             type="text"
             name="email"
             onChange={(e) => setEmail(e.target.value)}
@@ -80,10 +84,10 @@ function Register() {
         <Form.Group>
           <Form.Label>Käyttäjätunnus:</Form.Label>
           <Form.Control
+            data-testid="username"
             type="text"
             name="username"
             onChange={(e) => setUsername(e.target.value)}
-            required
           />
           <Form.Text className="text-muted">
             Pakollinen kenttä
@@ -92,16 +96,22 @@ function Register() {
         <Form.Group>
           <Form.Label>Salasana:</Form.Label>
           <Form.Control
+            data-testid="password"
             type="password"
             name="password"
             onChange={(e) => setPassword(e.target.value)}
-            required
           />
           <Form.Text className="text-muted">
             Pakollinen kenttä
           </Form.Text>
         </Form.Group>
-        <Button variant="primary" type="submit">Rekisteröidy</Button>
+        <Button
+          variant="primary"
+          type="submit"
+          data-testid="submit"
+        >
+          Rekisteröidy
+        </Button>
       </Form>
     </>
   );
