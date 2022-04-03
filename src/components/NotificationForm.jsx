@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import useForm from '../hooks/useNewNotificationForm';
 import Submitmessage from './Submitmessage';
+import CoordinatesMap from './CoordinatesMap';
 
 function NewNotificationForm(props) {
   const {
@@ -14,9 +15,17 @@ function NewNotificationForm(props) {
 
   const [coordinateRadio, setCoordinateRadio] = useState('yes');
   const [changeRadio, setChangeRadio] = useState('no');
+  const [defaultCenter, setDefaultCenter] = useState([64.1, 25.0]);
+  const [formX, setFormX] = useState(targetXcoordinate);
+  const [formY, setFormY] = useState(targetYcoordinate);
+
+  useEffect(() => {
+    setDefaultCenter([64.1, 25.0]);
+  }, defaultCenter);
 
   const {
-    handleChange, errors, message, handleSubmit, resetChangeText, handleCoordinateChange,
+    handleChange, errors, message, handleSubmit, resetChangeText,
+    handleCoordinateChange, center, handleCoordinateClick,
   } = useForm(props);
 
   const handleChangeRadio = (value) => {
@@ -27,7 +36,31 @@ function NewNotificationForm(props) {
     }
   };
 
+  const handleXCoordinateChange = (event, coordinate, name) => {
+    if (event === null) {
+      handleCoordinateClick(coordinate, name);
+      setFormX(coordinate);
+    } else {
+      handleChange(event);
+      setFormX(event.target.value);
+    }
+  };
+
+  const handleYCoordinateChange = (event, coordinate, name) => {
+    if (event === null) {
+      handleCoordinateClick(coordinate, name);
+      setFormY(coordinate);
+    } else {
+      handleChange(event);
+      setFormY(event.target.value);
+    }
+  };
+
   const handleCoordinateChangeClick = (value) => {
+    if (value === 'yes') {
+      handleYCoordinateChange(null, targetYcoordinate, 'ycoordinate');
+      handleXCoordinateChange(null, targetXcoordinate, 'xcoordinate');
+    }
     handleCoordinateChange(value);
     setCoordinateRadio(value);
   };
@@ -164,7 +197,8 @@ function NewNotificationForm(props) {
               id="newxcoordinate"
               data-testid="testxcoordinate"
               name="xcoordinate"
-              onChange={handleChange}
+              value={formX}
+              onChange={handleXCoordinateChange}
               isInvalid={!!errors.xcoordinate}
             />
             <Form.Text className="text-muted">
@@ -180,7 +214,8 @@ function NewNotificationForm(props) {
               id="newycoordinate"
               data-testid="testycoordinate"
               name="ycoordinate"
-              onChange={handleChange}
+              value={formY}
+              onChange={handleYCoordinateChange}
               isInvalid={!!errors.ycoordinate}
             />
             <Form.Text className="text-muted">
@@ -189,6 +224,21 @@ function NewNotificationForm(props) {
             <Form.Control.Feedback type="invalid">
               { errors.ycoordinate }
             </Form.Control.Feedback>
+            <br />
+            {(center[0] === undefined || center[1] === undefined) && (
+              <CoordinatesMap
+                center={defaultCenter}
+                handleXCoordinateChange={handleXCoordinateChange}
+                handleYCoordinateChange={handleYCoordinateChange}
+              />
+            )}
+            {(center[0] !== undefined && center[1] !== undefined) && (
+              <CoordinatesMap
+                center={center}
+                handleXCoordinateChange={handleXCoordinateChange}
+                handleYCoordinateChange={handleYCoordinateChange}
+              />
+            )}
             <br />
             <Form.Label>
               Mikä vanhoissa koordinaateissa oli pielessä ja miten uudet koordinaatit on mitattu:
@@ -268,7 +318,7 @@ function NewNotificationForm(props) {
           </Form.Control.Feedback>
         </Form.Group>
         <br />
-        <Button variant="primary" type="submit">Lähetä</Button>
+        <Button id="formbtn" variant="primary" type="submit">Lähetä</Button>
       </Form>
     </div>
   );

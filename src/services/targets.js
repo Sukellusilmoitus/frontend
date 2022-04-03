@@ -3,6 +3,11 @@ import REACT_APP_SERVER_URL from '../util/config';
 
 const baseUrl = REACT_APP_SERVER_URL;
 
+const getAllByUser = async (username) => {
+  const response = await axios.get(`${baseUrl}/api/targets/user/${username}`);
+  return response.data;
+};
+
 const getAllTargets = () => {
   const request = axios.get(`${baseUrl}/api/targets`);
   return request.then((response) => response.data);
@@ -28,5 +33,5 @@ const generateUniqueID = async () => {
 };
 
 export default {
-  getAllTargets, getTarget, postTarget, generateUniqueID,
+  getAllByUser, getAllTargets, getTarget, postTarget, generateUniqueID,
 };

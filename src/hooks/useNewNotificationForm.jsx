@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { omit } from 'lodash';
 import validator from 'validator';
 
@@ -20,6 +20,9 @@ const useNotificationForm = (props) => {
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState(null);
   const [locationCorrect, setLocationCorrect] = useState(true);
+  const [newMapX, setNewMapX] = useState(targetXcoordinate);
+  const [newMapY, setNewMapY] = useState(targetYcoordinate);
+  const [center, setCenter] = useState([newMapY, newMapX]);
 
   const callback = (event) => {
     event.preventDefault();
@@ -38,6 +41,10 @@ const useNotificationForm = (props) => {
       miscText: values.misctext || '',
     });
   };
+
+  useEffect(() => {
+    setCenter([newMapY, newMapX]);
+  }, [newMapY, newMapX]);
 
   const validate = (event, name, value) => {
     switch (name) {
@@ -125,6 +132,8 @@ const useNotificationForm = (props) => {
         } else {
           const newObj = omit(errors, 'xcoordinate');
           setErrors(newObj);
+          setNewMapX(value);
+          setCenter([newMapY, newMapX]);
         }
         break;
       case 'ycoordinate':
@@ -139,6 +148,8 @@ const useNotificationForm = (props) => {
         } else {
           const newObj = omit(errors, 'ycoordinate');
           setErrors(newObj);
+          setNewMapY(value);
+          setCenter([newMapY, newMapX]);
         }
         break;
       case 'coordinateinfo':
@@ -204,6 +215,17 @@ const useNotificationForm = (props) => {
     });
   };
 
+  const handleCoordinateClick = (coordinate, name) => {
+    if (name !== 'xcoordinate' && name !== 'ycoordinate') {
+      return;
+    }
+    validate(null, name, coordinate);
+    setRequiredValues({
+      ...requiredValues,
+      [name]: coordinate,
+    });
+  };
+
   const resetChangeText = () => {
     const newErrors = omit(errors, 'changeText');
     setErrors(newErrors);
@@ -227,14 +249,12 @@ const useNotificationForm = (props) => {
     if (value === 'no') {
       setRequiredValues({
         ...requiredValues,
-        xcoordinate: null,
-        ycoordinate: null,
+        xcoordinate: targetXcoordinate,
+        ycoordinate: targetYcoordinate,
       });
       setLocationCorrect(false);
       setErrors({
         ...errors,
-        xcoordinate: 'Anna koordinaatti muodossa xx.xxxxxxxx, esim. 25.34234323',
-        ycoordinate: 'Anna koordinaatti muodossa xx.xxxxxxxx, esim. 60.42342334',
         coordinateinfo: 'Kerro miten paikannus on selvitetty',
       });
     }
@@ -289,6 +309,8 @@ const useNotificationForm = (props) => {
     handleSubmit,
     resetChangeText,
     handleCoordinateChange,
+    center,
+    handleCoordinateClick,
   };
 };
 

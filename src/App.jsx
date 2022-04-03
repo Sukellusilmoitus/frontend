@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 import Header from './components/Navigation';
 import TargetPage from './components/TargetPage';
+import UserPage from './components/UserPage';
 import Home from './components/Home';
 import targetService from './services/targets';
 import NewTargetForm from './components/NewTargetForm';
@@ -14,6 +15,8 @@ import TargetList from './components/TargetList';
 import './assets/styles/App.css';
 import AdminPanel from './components/AdminPanel/AdminPanel';
 import Feedback from './components/Feedback';
+import Login from './components/Login';
+import Register from './components/Register';
 
 function App() {
   const [targets, setTargets] = useState('loading...');
@@ -48,8 +51,17 @@ function App() {
         <Route path="/hylyt/:id">
           <TargetPage target={target} />
         </Route>
+        <Route path="/omasivu">
+          <UserPage />
+        </Route>
         <Route path="/hylyt">
           <TargetList targets={targets} />
+        </Route>
+        <Route path="/kirjaudu">
+          <Login />
+        </Route>
+        <Route path="/rekisteroidy">
+          <Register />
         </Route>
         <Route path="/admin">
           <AdminPanel />

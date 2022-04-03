@@ -1,12 +1,29 @@
 import React from 'react';
 import {
-  MapContainer, LayersControl, TileLayer, Marker, Popup,
+  MapContainer, LayersControl, TileLayer, Marker, useMap, useMapEvents,
 } from 'react-leaflet';
 
-function TargetLocationMap({ target }) {
-  const coordinates = [target.geometry.coordinates[1], target.geometry.coordinates[0]];
+function ChangeMapView({ coords }) {
+  const map = useMap();
+  map.setView(coords, map.getZoom());
+
+  return null;
+}
+
+function CoordinatesMap({ center, handleXCoordinateChange, handleYCoordinateChange }) {
+  function LocationOnClick() {
+    const mapEvent = useMapEvents({
+      click(e) {
+        handleYCoordinateChange(null, e.latlng.lat, 'ycoordinate');
+        handleXCoordinateChange(null, e.latlng.lng, 'xcoordinate');
+        mapEvent.setView(e.latlng);
+      },
+    });
+    return null;
+  }
+
   return (
-    <MapContainer center={coordinates} zoom={8} style={{ height: '250px', width: '100%' }}>
+    <MapContainer center={center} zoom={8} style={{ height: '250px', width: '100%' }}>
       <LayersControl position="topright">
         <LayersControl.BaseLayer checked name="OpenStreetMap">
           <TileLayer
@@ -26,14 +43,12 @@ function TargetLocationMap({ target }) {
             url="https://tiles.openseamap.org/seamark/{z}/{x}/{y}.png"
           />
         </LayersControl.Overlay>
-        <Marker position={coordinates}>
-          <Popup>
-            {target.properties.name}
-          </Popup>
-        </Marker>
+        <Marker position={center} />
       </LayersControl>
+      <ChangeMapView coords={center} />
+      <LocationOnClick />
     </MapContainer>
   );
 }
 
-export default TargetLocationMap;
+export default CoordinatesMap;
