@@ -14,13 +14,13 @@ const loggedUser = () => {
 };
 
 const loginRequest = async (username, password) => {
-  const request = await axios.post(`${baseUrl}/api/login`, { username, password });
+  const request = await axios.post(`${baseUrl}/api/login/`, { username, password });
   return request.data;
 };
 
 const registerRequest = async (username, password, name, email, phone) => {
   const request = await axios.post(
-    `${baseUrl}/api/register`,
+    `${baseUrl}/api/register/`,
     {
       username, password, name, email, phone,
     },
