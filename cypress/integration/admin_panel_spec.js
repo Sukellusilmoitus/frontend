@@ -72,7 +72,7 @@ function add_dive (
     })
 }
 
-function setupDb () {
+function setup_db () {
   add_dive('sami sukeltaa','sami@gmail.com','34362728354','1000028223','True','','','','masto rikki','')
   add_dive('matti sukeltaa','sami@gmail.com','04003725583','1957','True','','','','','')
   add_dive('matti mallikas','','04437594752','1091','True','','','','masto poikki','')
@@ -88,7 +88,7 @@ function setupDb () {
 }
 describe('Admin panel', () => {
   // it('setup database', () => {
-  //   setupDb()
+  //   setup_db()
   // })
   context('Target page', () => {
     beforeEach(() => {
@@ -134,19 +134,75 @@ describe('Admin panel', () => {
         sort_table_by('Lähde','source','td:nth-child(5)','Desc')
       })
     })
+    context('Editing', () => {
+      it('Edit page opens', () => {
+        cy.wait(2000)
+        cy.get('table').within(() => {
+          cy.get('tr:nth-child(2)').within(() => {
+            cy.get('.RaButton-button-6').click()
+            cy.url().should('include','admin#/targets/')
+          })
+        })
+      })
+    })
   })
   context('User page', () => {
     beforeEach(() => {
       cy.visit('/admin#/users');
     });
     context('Rows per page', () => {
-
+      it('deault 10 targets per page', () => {
+        cy.wait(3000);
+        cy.get('table').within(() => {
+          cy.get("td:nth-child(2)").should('have.length',10)
+          
+        })})
+        it('5 target per page', () => {
+          change_amount_of_rows_per_page(5)
+        })
+      it('25 target per page', () => {
+        change_amount_of_rows_per_page(25)
+      })
     })
     context('Sorting', () => {
-
+      it('sort by Id Asc', () => {
+        sort_table_by('Id','id','td:nth-child(2)','Asc')
+      })
+      it('sort by Id Desc', () => {
+        sort_table_by('Id','id','td:nth-child(2)','Desc')
+      })
+      it('sort by Name Asc', () => {
+        sort_table_by('Nimi','name','td:nth-child(3)','Asc')
+      })
+      it('sort by Name Desc', () => {
+        sort_table_by('Nimi','name','td:nth-child(3)','Desc')
+      })
+      it('sort by Email Asc', () => {
+        sort_table_by('Sähköposti','email','td:nth-child(4)','Asc')
+      })
+      it('sort by Email Desc', () => {
+        sort_table_by('Sähköposti','email','td:nth-child(4)','Desc')
+      })
+      it('sort by Phone Asc', () => {
+        sort_table_by('Puhelin nro','phone','td:nth-child(5)','Asc')
+      })
+      it('sort by Phone Desc', () => {
+        sort_table_by('Puhelin nro','phone','td:nth-child(5)','Desc')
+      })
+    })
+    context('Editing', () => {
+      it('Edit page opens', () => {
+        cy.wait(3000)
+        cy.get('table').within(() => {
+          cy.get('tr:nth-child(2)').within(() => {
+            cy.get('.RaButton-button-6').click()
+            cy.url().should('include','admin#/users/')
+          })
+        })
+      })
     })
   })
-  context.only('dives page', () => {
+  context('dives page', () => {
     beforeEach(() => {
       cy.visit('/admin#/dives');
     });
@@ -209,6 +265,17 @@ describe('Admin panel', () => {
         sort_table_by('Lisätietoja','miscellaneous','td:nth-child(10)','Desc')
       })
     })
+    context('Editing', () => {
+      it('Edit page opens', () => {
+        cy.wait(3000)
+        cy.get('table').within(() => {
+          cy.get('tr:nth-child(2)').within(() => {
+            cy.get('.RaButton-button-6').click()
+            cy.url().should('include','admin#/dives/')
+          })
+        })
+      })
+    })
   })
   context('pending targets page', () => {
     beforeEach(() => {
@@ -218,7 +285,36 @@ describe('Admin panel', () => {
 
     })
     context('Sorting', () => {
-      
+      it('sort by Id Asc', () => {
+        sort_table_by('Id','id','td:nth-child(2)','Asc')
+      })
+      it('sort by Id Desc', () => {
+        sort_table_by('Id','id','td:nth-child(2)','Desc')
+      })
+      it('sort by Name Asc', () => {
+        sort_table_by('Nimi','name','td:nth-child(3)','Asc')
+      })
+      it('sort by Name Desc', () => {
+        sort_table_by('Nimi','name','td:nth-child(3)','Desc')
+      })
+      it('sort by Town Asc', () => {
+        sort_table_by('Kaupunki','town','td:nth-child(4)','Asc')
+      })
+      it('sort by Town Desc', () => {
+        sort_table_by('Kaupunki','town','td:nth-child(4)','Desc')
+      })
+      it('sort by Source Asc', () => {
+        sort_table_by('Lähde','source','td:nth-child(5)','Asc')
+      })
+      it('sort by Source Desc', () => {
+        sort_table_by('Lähde','source','td:nth-child(5)','Desc')
+      })
+      it('sort by created at Asc', () => {
+        sort_table_by('Päiväys','created at','td:nth-child(6)','Asc')
+      })
+      it('sort by created at Desc', () => {
+        sort_table_by('Päiväys','created at','td:nth-child(6)','Desc')
+      })
     })
   })
   context('duplicates targets page', () => {
@@ -229,7 +325,30 @@ describe('Admin panel', () => {
 
     })
     context('Sorting', () => {
-      
+      it('sort by Id Asc', () => {
+        sort_table_by('Id','id','td:nth-child(2)','Asc')
+      })
+      it('sort by Id Desc', () => {
+        sort_table_by('Id','id','td:nth-child(2)','Desc')
+      })
+      it('sort by Name Asc', () => {
+        sort_table_by('Nimi','name','td:nth-child(3)','Asc')
+      })
+      it('sort by Name Desc', () => {
+        sort_table_by('Nimi','name','td:nth-child(3)','Desc')
+      })
+      it('sort by Coordinates Asc', () => {
+        sort_table_by('Koordinaatit','coordinates','td:nth-child(4)','Asc')
+      })
+      it('sort by Coordinates Desc', () => {
+        sort_table_by('Koordinaatit','coordinates','td:nth-child(4)','Desc')
+      })
+      it('sort by Source Asc', () => {
+        sort_table_by('Lähde','source','td:nth-child(5)','Asc')
+      })
+      it('sort by Source Desc', () => {
+        sort_table_by('Lähde','source','td:nth-child(5)','Desc')
+      })
     })
   })
 })

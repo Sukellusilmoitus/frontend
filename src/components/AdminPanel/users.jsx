@@ -19,8 +19,8 @@ const userFilters = [
 
 function UserListView(props) {
   return (
-    <List filters={userFilters} {...props} bulkActionButtons={false}>
-      <Datagrid rowClick="edit">
+    <List filters={userFilters} {...props} bulkActionButtons={false} sort={{ field: 'Id', order: 'DESC' }}>
+      <Datagrid>
         <TextField source="id" />
         <TextField source="name" label="Nimi" />
         <EmailField source="email" label="Sähköposti" />
@@ -41,9 +41,9 @@ function UserListEdit(props) {
   return (
     <Edit {...props}>
       <SimpleForm toolbar={<UserEditToolbar />}>
-        <TextInput source="name" />
-        <TextInput source="email" />
-        <TextInput source="phone" />
+        <TextInput source="name" label="Nimi" />
+        <TextInput source="email" label="Sähköposti" />
+        <TextInput source="phone" label="Puhlin nro" />
       </SimpleForm>
     </Edit>
   );

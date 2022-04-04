@@ -9,12 +9,12 @@ import {
 
 export default function DuplicatesListView(props) {
   return (
-    <List {...props}>
+    <List {...props} sort={{ field: 'Id', order: 'DESC' }}>
       <Datagrid>
         <TextField source="id" />
-        <TextField source="name" />
-        <TextField source="coordinates" />
-        <TextField source="source" />
+        <TextField source="name" label="Nimi" />
+        <TextField source="coordinates" label="Koordinaatit" />
+        <TextField source="source" label="Lähde" />
         <DeleteButton />
       </Datagrid>
     </List>

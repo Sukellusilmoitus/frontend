@@ -30,7 +30,7 @@ const targetFilters = [
 function TargetListView(props) {
   return (
     <List filters={targetFilters} {...props} sort={{ field: 'Id', order: 'DESC' }}>
-      <Datagrid rowClick="edit">
+      <Datagrid>
         <TextField source="id" />
         <TextField source="name" label="Nimi" />
         <TextField source="town" label="Kaupunki" />
@@ -44,13 +44,13 @@ function TargetListEdit(props) {
   return (
     <Edit {...props}>
       <SimpleForm>
-        <TextInput source="name" />
-        <TextInput source="town" />
-        <TextInput source="location_method" />
-        <TextInput source="location_accuracy" />
+        <TextInput source="name" label="Nimi" />
+        <TextInput source="town" label="Kaupunki" />
+        <TextInput source="location_method" label="Paikauus tapa" />
+        <TextInput source="location_accuracy" label="Paikannus tarkkuus" />
         <TextInput source="url" />
-        <TextInput source="source" />
-        <TextInput source="coordinates" />
+        <TextInput source="source" label="Lähde" />
+        <TextInput source="coordinates" label="Koordinaatit" />
       </SimpleForm>
     </Edit>
   );
