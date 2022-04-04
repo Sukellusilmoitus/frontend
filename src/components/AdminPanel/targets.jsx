@@ -32,9 +32,9 @@ function TargetListView(props) {
     <List filters={targetFilters} {...props} sort={{ field: 'Id', order: 'DESC' }}>
       <Datagrid rowClick="edit">
         <TextField source="id" />
-        <TextField source="name" />
-        <TextField source="town" />
-        <TextField source="source" />
+        <TextField source="name" label="Nimi" />
+        <TextField source="town" label="Kaupunki" />
+        <TextField source="source" label="Lähde" />
         <EditButton />
       </Datagrid>
     </List>

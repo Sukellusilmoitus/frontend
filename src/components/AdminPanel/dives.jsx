@@ -8,21 +8,25 @@ import {
   SimpleForm,
   TextInput,
   EditButton,
+  UrlField,
+  FunctionField,
+  DateField,
+  BooleanField,
 } from 'react-admin';
 
 function DiveListView(props) {
   return (
     <List {...props} sort={{ field: 'Id', order: 'DESC' }}>
-      <Datagrid rowClick="edit">
+      <Datagrid>
         <TextField source="id" />
-        <TextField source="diver_id" />
-        <TextField source="target_id" />
-        <TextField source="created_at" />
-        <TextField source="location_correct" />
-        <TextField source="new_x_coordinate" />
-        <TextField source="new_y_coordinate" />
-        <TextField source="change_text" />
-        <TextField source="miscellaneous" />
+        <TextField source="diver_name" label="Sukeltaja" />
+        <FunctionField source="target_name" label="Hylky" render={(targetId) => <UrlField source="target_name" href={`/hylyt/${targetId.id}`} />} />
+        <DateField source="created_at" label="Päiväys" />
+        <BooleanField source="location_correct" label="Sijainti oikein" />
+        <TextField source="new_x_coordinate" label="Uusi x koordinaatti" />
+        <TextField source="new_y_coordinate" label="Uusi y koordinaatti" />
+        <TextField source="change_text" label="Muutokset" />
+        <TextField source="miscellaneous" label="Lisätietoja" />
         <EditButton />
       </Datagrid>
     </List>

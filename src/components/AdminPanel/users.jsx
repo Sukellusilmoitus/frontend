@@ -22,9 +22,9 @@ function UserListView(props) {
     <List filters={userFilters} {...props} bulkActionButtons={false}>
       <Datagrid rowClick="edit">
         <TextField source="id" />
-        <TextField source="name" />
-        <EmailField source="email" />
-        <TextField source="phone" />
+        <TextField source="name" label="Nimi" />
+        <EmailField source="email" label="Sähköposti" />
+        <TextField source="phone" label="Puhelin nro" />
         <EditButton />
       </Datagrid>
     </List>
