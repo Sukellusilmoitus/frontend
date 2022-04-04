@@ -46,8 +46,49 @@ function sort_table_by (title,sortby_data,td_col,order) {
 
   })
 }
+function add_dive (
+  name,
+  diver_email,
+  diver_phone,
+  target_id,
+  location_correct,
+  new_x_coordinate,
+  new_y_coordinate,
+  new_location_explanation,
+  change_text,
+  miscellaneous) {
+    cy.request('POST','http://127.0.0.1:5000/api/dives', {
+      name:name,
+      email:diver_email,
+      phone:diver_phone,
+      locationId:target_id,
+      locationCorrect:location_correct,
+      xCoordinate:new_x_coordinate,
+      yCoordinate:new_y_coordinate,
+      coordinateText:new_location_explanation,
+      changeText:change_text,
+      miscText:miscellaneous,
+    })
+}
 
+function setupDb () {
+  add_dive('sami sukeltaa','sami@gmail.com','34362728354','1000028223','True','','','','masto rikki','')
+  add_dive('matti sukeltaa','sami@gmail.com','04003725583','1957','True','','','','','')
+  add_dive('matti mallikas','','04437594752','1091','True','','','','masto poikki','')
+  add_dive('sami sukeltaa','sami@gmail.com','045274356583','1388','True','','','','hylkyyn tullut reikä','hieno hylky')
+  add_dive('sami sukeltaa','sami@gmail.com','34362728354','1000028223','True','','','','masto rikki','')
+  add_dive('mikko sukeltaa','mikko@gmail.com','04003725583','1957','True','','','','','')
+  add_dive('sari saari','','033859363','1091','True','','','','masto poikki','')
+  add_dive('testi testaaja','','045274356583','1388','True','','','','hylkyyn tullut reikä','hieno hylky')
+  add_dive('testi testaaja2','','34362728354','1000028223','True','','','','masto rikki','')
+  add_dive('testi sukeltaa','testi@gmail.com','','1957','True','','','','','')
+  add_dive('matti mallikas','','045382956382','1091','True','','','','masto poikki','')
+  add_dive('sami sukeltaa','sami@gmail.com','045274356583','1388','True','','','','','hieno keli oli sukeltaa')
+}
 describe('Admin panel', () => {
+  // it('setup database', () => {
+  //   setupDb()
+  // })
   context('Target page', () => {
     beforeEach(() => {
       cy.visit('/admin#/targets');
