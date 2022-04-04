@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
   Col, Form, Button, Row, Breadcrumb,
 } from 'react-bootstrap';
+import formatcoords from 'formatcoords';
 import useForm from '../hooks/useNewTargetForm';
 import Submitmessage from './Submitmessage';
 import CoordinatesMap from './CoordinatesMap';
@@ -15,6 +16,18 @@ function NewTargetForm(props) {
   useEffect(() => {
     setDefaultCenter([64.1, 25.0]);
   }, defaultCenter);
+
+  const [DMS, setDMS] = useState(formatcoords(
+    Number(formX),
+    Number(formY),
+  ).format());
+
+  useEffect(() => {
+    setDMS(formatcoords(
+      Number(formX),
+      Number(formY),
+    ).format());
+  }, [formX, formY]);
 
   const {
     handleChange, errors, message, handleSubmit, center, handleCoordinateClick,
@@ -205,6 +218,7 @@ function NewTargetForm(props) {
           </Col>
         </Row>
         <br />
+        {DMS}
         {(center[0] === undefined || center[1] === undefined) && (
         <CoordinatesMap
           center={defaultCenter}
