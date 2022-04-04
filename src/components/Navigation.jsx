@@ -22,6 +22,9 @@ function Navigation() {
           <LinkContainer to="/uusi">
             <Nav.Link>Uusi hylky</Nav.Link>
           </LinkContainer>
+          <LinkContainer to="/palaute">
+            <Nav.Link>Anna palautetta</Nav.Link>
+          </LinkContainer>
           <LinkContainer to="/kirjaudu">
             <Nav.Link>Kirjaudu</Nav.Link>
           </LinkContainer>
