@@ -14,6 +14,7 @@ import NewTargetForm from './components/NewTargetForm';
 import TargetList from './components/TargetList';
 import './assets/styles/App.css';
 import AdminPanel from './components/AdminPanel/AdminPanel';
+import Feedback from './components/Feedback';
 import Login from './components/Login';
 import Register from './components/Register';
 
@@ -66,6 +67,9 @@ function App() {
           <AdminPanel />
         </Route>
         <Route exact path="/uusi" render={() => <NewTargetForm postTarget={createNewTarget} />} />
+        <Route exact path="/palaute">
+          <Feedback />
+        </Route>
       </Switch>
     </div>
   );
