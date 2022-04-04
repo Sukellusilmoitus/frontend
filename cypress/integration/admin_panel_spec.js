@@ -14,6 +14,7 @@ function change_amount_of_rows_per_page (amount) {
 
 function sort_table_by (title,sortby_data,td_col,order) {
   cy.viewport(2048,1080)
+  cy.wait(3000)
   cy.get('table').within(() => {
     if (order == 'Asc') {
       cy.get("th").contains(title).click()
@@ -115,22 +116,22 @@ describe('Admin panel', () => {
         sort_table_by('Id','id','td:nth-child(2)','Desc')
       })
       it('sort by name Asc', () => {
-        sort_table_by('Name','name','td:nth-child(3)','Asc')
+        sort_table_by('Nimi','name','td:nth-child(3)','Asc')
       })
       it('sort by name Desc', () => {
-        sort_table_by('Name','name','td:nth-child(3)','Desc')
+        sort_table_by('Nimi','name','td:nth-child(3)','Desc')
       })
       it('sort by town Asc', () => {
-        sort_table_by('Town','town','td:nth-child(4)','Asc')
+        sort_table_by('Kaupunki','town','td:nth-child(4)','Asc')
       })
       it('sort by town Desc', () => {
-        sort_table_by('Town','town','td:nth-child(4)','Desc')
+        sort_table_by('Kaupunki','town','td:nth-child(4)','Desc')
       })
       it('sort by source Asc', () => {
-        sort_table_by('Source','source','td:nth-child(5)','Asc')
+        sort_table_by('Lähde','source','td:nth-child(5)','Asc')
       })
       it('sort by source Desc', () => {
-        sort_table_by('Source','source','td:nth-child(5)','Desc')
+        sort_table_by('Lähde','source','td:nth-child(5)','Desc')
       })
     })
   })
@@ -145,7 +146,7 @@ describe('Admin panel', () => {
 
     })
   })
-  context('dives page', () => {
+  context.only('dives page', () => {
     beforeEach(() => {
       cy.visit('/admin#/dives');
     });
@@ -160,52 +161,52 @@ describe('Admin panel', () => {
         sort_table_by('Id','id','td:nth-child(2)','Desc')
       })
       it('sort by diver Asc', () => {
-        sort_table_by('Diver','diver','td:nth-child(3)','Asc')
+        sort_table_by('Sukeltaja','diver','td:nth-child(3)','Asc')
       })
       it('sort by diver Desc', () => {
-        sort_table_by('Diver','diver','td:nth-child(3)','Desc')
+        sort_table_by('Sukeltaja','diver','td:nth-child(3)','Desc')
       })
       it('sort by target Asc', () => {
-        sort_table_by('Target','target','td:nth-child(4)','Asc')
+        sort_table_by('Hylky','target','td:nth-child(4)','Asc')
       })
       it('sort by target Desc', () => {
-        sort_table_by('Target','target','td:nth-child(4)','Desc')
+        sort_table_by('Hylky','target','td:nth-child(4)','Desc')
       })
       it('sort by created at ASC', () => {
-        sort_table_by('Created at','created at','td:nth-child(5)','Asc')
+        sort_table_by('Päiväys','created at','td:nth-child(5)','Asc')
       })
       it('sort by created at Desc', () => {
-        sort_table_by('Created at','created at','td:nth-child(5)','Desc')
+        sort_table_by('Päiväys','created at','td:nth-child(5)','Desc')
       })
       it('sort by location correct Asc', () => {
-        sort_table_by('Location correct','location correct','td:nth-child(6)','Asc')
+        sort_table_by('Sijainti oikein','location correct','td:nth-child(6)','Asc')
       })
       it('sort by location correct Desc', () => {
-        sort_table_by('Location correct','location correct','td:nth-child(6)','Desc')
+        sort_table_by('Sijainti oikein','location correct','td:nth-child(6)','Desc')
       })
       it('sort by new x coordinates Asc', () => {
-        sort_table_by('New x coordinate','new x coordinate','td:nth-child(7)','Asc')
+        sort_table_by('Uusi x koordinaatti','new x coordinate','td:nth-child(7)','Asc')
       })
       it('sort by new x coordinate Desc', () => {
-        sort_table_by('New x coordinate','new x coordinate','td:nth-child(7)','Desc')
+        sort_table_by('Uusi x koordinaatti','new x coordinate','td:nth-child(7)','Desc')
       })
       it('sort by new y coordinate Asc', () => {
-        sort_table_by('New y coordinate','new y coordinate','td:nth-child(8)','Asc')
+        sort_table_by('Uusi y koordinaatti','new y coordinate','td:nth-child(8)','Asc')
       })
       it('sort by new y coordinate Desc', () => {
-        sort_table_by('New y coordinate','new y coordinate','td:nth-child(8)','Desc')
+        sort_table_by('Uusi y koordinaatti','new y coordinate','td:nth-child(8)','Desc')
       })
       it('sort by change text Asc', () => {
-        sort_table_by('Change text','change text','td:nth-child(9)','Asc')
+        sort_table_by('Muutokset','change text','td:nth-child(9)','Asc')
       })
       it('sort by change text Desc', () => {
-        sort_table_by('Change text','change text','td:nth-child(9)','Desc')
+        sort_table_by('Muutokset','change text','td:nth-child(9)','Desc')
       })
       it('sort by miscellaneous Asc', () => {
-        sort_table_by('Miscellaneous','miscellaneous','td:nth-child(10)','Asc')
+        sort_table_by('Lisätietoja','miscellaneous','td:nth-child(10)','Asc')
       })
       it('sort by miscellaneous Desc', () => {
-        sort_table_by('Miscellaneous','miscellaneous','td:nth-child(10)','Desc')
+        sort_table_by('Lisätietoja','miscellaneous','td:nth-child(10)','Desc')
       })
     })
   })
