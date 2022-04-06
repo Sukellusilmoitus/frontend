@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { omit } from 'lodash';
 import validator from 'validator';
 
-const useNotificationForm = (props) => {
+const useNotificationForm = ({ props, date }) => {
   const {
     targetName,
     targetId,
@@ -37,6 +37,7 @@ const useNotificationForm = (props) => {
       email: values.email || '',
       locationName: targetName,
       locationId: targetId,
+      diveDate: new Intl.DateTimeFormat('fi-FI').format(date),
       locationCorrect,
       xCoordinate: requiredValues.xcoordinate,
       yCoordinate: requiredValues.ycoordinate,
@@ -196,7 +197,6 @@ const useNotificationForm = (props) => {
 
   const handleChange = (event) => {
     event.persist();
-
     const { name } = event.target;
     const val = event.target.value;
 
