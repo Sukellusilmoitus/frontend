@@ -1,9 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
+  Button,
   Container, Table,
 } from 'react-bootstrap';
+import { updateUser } from '../../services/users';
 
 function UserInfo({ user }) {
+  const [email, setEmail] = useState(user.email);
+
+  const saveChanges = async () => {
+    const updatedUser = {
+      name: user.name,
+      username: user.username,
+      email,
+      phone: user.phone,
+    };
+    const res = await updateUser(updatedUser);
+    if (res.auth) {
+      localStorage.setItem('auth', res.auth);
+    }
+  };
+
   return (
     <Container style={{ paddingLeft: 0, paddingRight: 0 }}>
       <Table data-testid="testinfotable" bordered size="sm">
@@ -14,10 +31,11 @@ function UserInfo({ user }) {
           </tr>
           <tr>
             <td>Email</td>
-            <td>{user.email}</td>
+            <td><input type="text" value={email} onChange={(e) => setEmail(e.target.value)} /></td>
           </tr>
         </tbody>
       </Table>
+      <Button onClick={() => saveChanges()}>Tallenna muutokset</Button>
     </Container>
   );
 }
