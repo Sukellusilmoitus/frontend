@@ -19,5 +19,6 @@ describe('user info table tests', () => {
     const tableRows = screen.getAllByRole('row')
     expect(tableRows[0]).toHaveTextContent(/^Käyttäjänimidoer$/)
     expect(tableRows[1]).toHaveTextContent(/^Emaildoer@test.com$/)
+    expect(tableRows[2]).toHaveTextContent(/^Puhelinnumero000001111$/)
   })
 })
