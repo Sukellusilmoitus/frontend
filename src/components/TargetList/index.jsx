@@ -1,12 +1,23 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import List from './TargetList';
 import SearchBar from './SearchBar';
 import LoadingSpinner from '../LoadingSpinner';
+import targetService from '../../services/targets';
 
-function TargetList({ targets }) {
+function TargetList() {
+  const [targets, setTargets] = useState('loading...');
   const [filteredTargets, setFilteredTargets] = useState(targets);
+
+  const getTargets = async () => {
+    const data = await targetService.getAllTargets();
+    data.features.sort((a, b) => (a.properties.name > b.properties.name ? 1 : -1));
+    setTargets(data.features);
+  };
+  useEffect(() => {
+    getTargets();
+  }, []);
 
   const history = useHistory();
   const handleClick = (id) => {

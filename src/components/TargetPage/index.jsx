@@ -2,24 +2,29 @@ import React, { useState, useEffect } from 'react';
 import diveService from '../../services/dives';
 import LoadingSpinner from '../LoadingSpinner';
 import TargetPage from './TargetPage';
+import targetservice from '../../services/targets';
 
-function Target({ target }) {
+function Target(props) {
   const [dives, setDives] = useState([]);
+  const [target, setTarget] = useState(null);
 
-  const getDives = async () => {
-    if (target) {
-      const data = await diveService.getAllByTarget(target.properties.id);
-      setDives(data.data);
+  const getTarget = async () => {
+    const data = await targetservice.getTarget(props.match.params.id);
+    if (data.data === null) {
+      setTarget(undefined);
+    } else {
+      setTarget(data.data.target);
+      setDives(data.data.dives);
     }
   };
+
+  useEffect(() => {
+    getTarget();
+  }, []);
 
   const createNewNotification = (notification) => {
     diveService.create(notification);
   };
-
-  useEffect(() => {
-    getDives();
-  }, [target]);
 
   if (target === null) {
     return (
