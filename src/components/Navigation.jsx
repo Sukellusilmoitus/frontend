@@ -2,11 +2,15 @@ import React from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useLocation } from 'react-router-dom';
+import { loggedUser } from '../services/users';
 
 function Navigation() {
   if (useLocation().pathname.match(/admin/)) {
     return null;
   }
+
+  const loggedIn = loggedUser() !== null;
+
   return (
     <Navbar bg="white" expand="lg" sticky="top" className="py-3" collapseOnSelect>
       <Navbar.Brand href="/">Hylkysukellusilmoituspalvelu</Navbar.Brand>
@@ -25,12 +29,23 @@ function Navigation() {
           <LinkContainer to="/palaute">
             <Nav.Link>Anna palautetta</Nav.Link>
           </LinkContainer>
-          <LinkContainer to="/kirjaudu">
-            <Nav.Link>Kirjaudu</Nav.Link>
-          </LinkContainer>
-          <LinkContainer to="/omasivu">
-            <Nav.Link>Oma sivu</Nav.Link>
-          </LinkContainer>
+          {loggedIn
+          && (
+            <>
+              <LinkContainer to="/omasivu">
+                <Nav.Link>Oma sivu</Nav.Link>
+              </LinkContainer>
+              <LinkContainer to="/uloskirjautuminen">
+                <Nav.Link>Kirjaudu Ulos</Nav.Link>
+              </LinkContainer>
+            </>
+          )}
+          {!loggedIn
+          && (
+            <LinkContainer to="/kirjaudu">
+              <Nav.Link>Kirjaudu</Nav.Link>
+            </LinkContainer>
+          )}
         </Nav>
       </Navbar.Collapse>
     </Navbar>
