@@ -2,14 +2,13 @@ import React from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useLocation } from 'react-router-dom';
-import { loggedUser } from '../services/users';
 
 function Navigation() {
   if (useLocation().pathname.match(/admin/)) {
     return null;
   }
 
-  const loggedIn = loggedUser() !== null;
+  const loggedIn = localStorage.getItem('auth') !== null;
 
   return (
     <Navbar bg="white" expand="lg" sticky="top" className="py-3" collapseOnSelect>
