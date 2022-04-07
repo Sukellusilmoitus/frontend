@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {
+  Alert,
   Button,
   Container, Table,
 } from 'react-bootstrap';
@@ -8,22 +9,48 @@ import { updateUser } from '../../services/users';
 function UserInfo({ user }) {
   const [email, setEmail] = useState(user.email);
   const [phone, setPhone] = useState(user.phone);
+  const [alert, setAlert] = useState(null);
+  const [alertVariant, setAlertVariant] = useState('danger');
+
+  const addAlert = (text, success) => {
+    setAlertVariant(success ? 'success' : 'danger');
+    setAlert(text);
+    setTimeout(() => {
+      setAlert(null);
+    }, 5000);
+  };
 
   const saveChanges = async () => {
+    if (phone.length === 0 && email.length < 5) {
+      addAlert('Virheellinen sähköposti');
+      return;
+    }
+    if (email.length === 0 && phone.length < 5) {
+      addAlert('Virheellinen puhelinnumero');
+      return;
+    }
     const updatedUser = {
       name: user.name,
       username: user.username,
       email,
       phone,
     };
-    const res = await updateUser(updatedUser);
-    if (res.auth) {
-      localStorage.setItem('auth', res.auth);
+    try {
+      const res = await updateUser(updatedUser);
+      if (res.auth) {
+        localStorage.setItem('auth', res.auth);
+        addAlert('Tiedot tallennettu onnistuneesti', true);
+        return;
+      }
+      addAlert('Tapahtui virhe');
+    } catch (e) {
+      addAlert('Tapahtui virhe');
     }
   };
 
   return (
     <Container style={{ paddingLeft: 0, paddingRight: 0 }}>
+      {alert && <Alert variant={alertVariant}>{alert}</Alert>}
       <Table data-testid="testinfotable" bordered size="sm">
         <tbody>
           <tr>
@@ -32,11 +59,27 @@ function UserInfo({ user }) {
           </tr>
           <tr>
             <td>Email</td>
-            <td><input type="text" data-testid="email" value={email} onChange={(e) => setEmail(e.target.value)} /></td>
+            <td>
+              <input
+                style={{ width: '100%' }}
+                type="text"
+                data-testid="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </td>
           </tr>
           <tr>
             <td>Puhelinnumero</td>
-            <td><input type="text" data-testid="phone" value={phone} onChange={(e) => setPhone(e.target.value)} /></td>
+            <td>
+              <input
+                style={{ width: '100%' }}
+                type="text"
+                data-testid="phone"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+              />
+            </td>
           </tr>
         </tbody>
       </Table>

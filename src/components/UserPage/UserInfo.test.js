@@ -3,14 +3,20 @@ import '@testing-library/jest-dom/extend-expect'
 import UserInfo from './UserInfo'
 import * as service from '../../services/users';
 
-const mockUser = 
-  {
-    name: 'Do Doer',
-    username: 'doer',
-    password: 'verydifficultHash123',
-    email: 'doer@test.com',
-    phone: '000001111'
-  }
+const mockUser = {
+  name: 'Do Doer',
+  username: 'doer',
+  password: 'verydifficultHash123',
+  email: 'doer@test.com',
+  phone: '000001111'
+}
+
+const mockUserNoEmail = {
+  name: 'Do Doer',
+  username: 'doer',
+  password: 'verydifficultHash123',
+  phone: '000001111'
+}
 
 describe('user info table tests', () => {
   it('correct information is rendered', () => {
