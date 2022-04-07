@@ -7,6 +7,7 @@ import {
 import { updateUser } from '../../services/users';
 
 function UserInfo({ user }) {
+  const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
   const [phone, setPhone] = useState(user.phone);
   const [alert, setAlert] = useState(null);
@@ -21,6 +22,10 @@ function UserInfo({ user }) {
   };
 
   const saveChanges = async () => {
+    if (name.length < 1) {
+      addAlert('Nimi liian lyhyt');
+      return;
+    }
     if (phone.length === 0 && email.length < 5) {
       addAlert('Virheellinen sähköposti');
       return;
@@ -30,7 +35,7 @@ function UserInfo({ user }) {
       return;
     }
     const updatedUser = {
-      name: user.name,
+      name,
       username: user.username,
       email,
       phone,
@@ -56,6 +61,18 @@ function UserInfo({ user }) {
           <tr>
             <td>Käyttäjänimi</td>
             <td>{user.username}</td>
+          </tr>
+          <tr>
+            <td>Nimi</td>
+            <td>
+              <input
+                style={{ width: '100%' }}
+                type="text"
+                data-testid="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </td>
           </tr>
           <tr>
             <td>Email</td>

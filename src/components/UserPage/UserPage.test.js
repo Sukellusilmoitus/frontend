@@ -36,7 +36,7 @@ describe('user page tests', () => {
   it('info section is rendered with correct data', () => {
     const info = screen.getByTestId('testinfotable')
 
-    expect(info).toHaveTextContent('doer')
+    expect(info).toHaveTextContent('KäyttäjänimidoerNimiEmailPuhelinnumero')
   })
 
   it('map is rendered', () => {

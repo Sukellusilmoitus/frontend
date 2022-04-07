@@ -11,21 +11,46 @@ const mockUser = {
   phone: '000001111'
 }
 
-const mockUserNoEmail = {
+const mockUserNoEmailNoPhone = {
   name: 'Do Doer',
   username: 'doer',
   password: 'verydifficultHash123',
-  phone: '000001111'
+  email: '',
+  phone: ''
+}
+
+const mockUserNoName = {
+  name: '',
+  username: 'doer',
+  password: 'verydifficultHash123',
+  email: '',
+  phone: ''
 }
 
 describe('user info table tests', () => {
   it('correct information is rendered', () => {
-    render(<UserInfo user={mockUser} />)
-
-    const tableRows = screen.getAllByRole('row')
-    expect(tableRows[0]).toHaveTextContent(/^Käyttäjänimidoer$/)
+    render(<UserInfo user={mockUser} />);
+    expect(screen.getByTestId('name').value).toBe(mockUser.name);
     expect(screen.getByTestId('email').value).toBe(mockUser.email);
     expect(screen.getByTestId('phone').value).toBe(mockUser.phone);
+  });
+
+  it('error message when no email nor phone', async () => {
+    jest.spyOn(service, 'updateUser').mockImplementation(() => new Object({auth: 1234}));
+    render(<UserInfo user={mockUserNoEmailNoPhone} />);
+    fireEvent.click(screen.getByTestId('save'));
+    await waitFor(() => {
+      expect(screen.getByText('Virheellinen sähköposti'));
+    });
+  });
+
+  it('error message when no name', async () => {
+    jest.spyOn(service, 'updateUser').mockImplementation(() => new Object({auth: 1234}));
+    render(<UserInfo user={mockUserNoName} />);
+    fireEvent.click(screen.getByTestId('save'));
+    await waitFor(() => {
+      expect(screen.getByText('Nimi liian lyhyt'));
+    });
   });
 
   it('sends updated user data and saves auth', async () => {
