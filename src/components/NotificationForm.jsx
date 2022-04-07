@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
+import { Parser } from 'html-to-react';
 import useForm from '../hooks/useNewNotificationForm';
 import Submitmessage from './Submitmessage';
 import CoordinatesMap from './CoordinatesMap';
+import Modal from './Modal';
+import privacyText from '../assets/tietosuoja';
 
 function NewNotificationForm(props) {
   const {
@@ -18,6 +21,8 @@ function NewNotificationForm(props) {
   const [defaultCenter, setDefaultCenter] = useState([64.1, 25.0]);
   const [formX, setFormX] = useState(targetXcoordinate);
   const [formY, setFormY] = useState(targetYcoordinate);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [termsAccepted, setTermsAccepted] = useState(false);
 
   useEffect(() => {
     setDefaultCenter([64.1, 25.0]);
@@ -318,8 +323,35 @@ function NewNotificationForm(props) {
           </Form.Control.Feedback>
         </Form.Group>
         <br />
-        <Button id="formbtn" variant="primary" type="submit">Lähetä</Button>
+        <Form.Check
+          type="checkbox"
+          id="privacy-checkbox"
+          inline
+          onChange={(e) => setTermsAccepted(e.currentTarget.checked)}
+        />
+        Hyväksyn
+        <Button
+          variant="link"
+          onClick={() => setModalOpen(true)}
+        >
+          tietosuojaehdot
+        </Button>
+        <br />
+        <Button
+          id="formbtn"
+          variant="primary"
+          type="submit"
+          disabeld={!termsAccepted}
+        >
+          Lähetä
+        </Button>
       </Form>
+      <Modal modalOpen={modalOpen} closeModal={() => setModalOpen(false)}>
+        <>
+          {Parser().parse(privacyText)}
+          <Button onClick={() => setModalOpen(false)}>Sulje</Button>
+        </>
+      </Modal>
     </div>
   );
 }

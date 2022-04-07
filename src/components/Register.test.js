@@ -4,7 +4,7 @@ import Register from './Register';
 import { wait } from '@testing-library/user-event/dist/utils';
 
 describe('Register page', () => {
-  let component, name, email, phone, username, password, submit;
+  let component, name, email, phone, username, password, submit, privacyCheck;
   beforeEach(() => {
     component = render(<Register />);
     name = component.getByTestId('name');
@@ -13,9 +13,11 @@ describe('Register page', () => {
     username = component.getByTestId('username');
     password = component.getByTestId('password');
     submit = component.getByTestId('submit');
+    privacyCheck = component.getByRole('checkbox')
   });
 
   it('requires name', () => {
+    fireEvent.click(privacyCheck);
     fireEvent.click(submit);
     expect(component.getByText('Lisää puuttuvat tiedot')).toBeInTheDocument();
   });
@@ -23,13 +25,13 @@ describe('Register page', () => {
   it('requires email or phone', async () => {
     await wait(() => {
       fireEvent.change(name, {
-        taget: { value: 'name'}
+        target: { value: 'name'}
       });
       fireEvent.change(username, {
-        taget: { value: 'username'}
+        target: { value: 'username'}
       });
       fireEvent.change(password, {
-        taget: { value: 'password'}
+        target: { value: 'password'}
       });
       fireEvent.click(submit);
       expect(component.getByText('Syötä sähköposti tai puhelinnumero')).toBeInTheDocument();
@@ -39,16 +41,16 @@ describe('Register page', () => {
   it('notificies when username is already in use', async () => {
     await wait(() => {
       fireEvent.change(name, {
-        taget: { value: 'name'}
+        target: { value: 'name'}
       });
       fireEvent.change(email, {
-        taget: { value: 'test@test.com'}
+        target: { value: 'test@test.com'}
       });
       fireEvent.change(username, {
-        taget: { value: 'username'}
+        target: { value: 'username'}
       });
       fireEvent.change(password, {
-        taget: { value: 'password'}
+        target: { value: 'password'}
       });
       fireEvent.click(submit);
       expect(component.getByText('Käyttäjätunnus on jo käytössä')).toBeInTheDocument();
