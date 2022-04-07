@@ -10,10 +10,21 @@ import {
   BooleanInput,
   EditButton,
 } from 'react-admin';
+import { Box, Typography } from '@mui/material';
+
+function Empty() {
+  return (
+    <Box textAlign="center" m={1}>
+      <Typography variant="h4" paragraph>
+        Ei Hyväksyttäviä hylkyjä
+      </Typography>
+    </Box>
+  );
+}
 
 function PendingListView(props) {
   return (
-    <List {...props} sort={{ field: 'Id', order: 'DESC' }}>
+    <List {...props} sort={{ field: 'Id', order: 'DESC' }} empty={<Empty />}>
       <Datagrid>
         <TextField source="id" label="Id" />
         <TextField source="name" label="Nimi" />

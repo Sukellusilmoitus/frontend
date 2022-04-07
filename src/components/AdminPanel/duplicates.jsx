@@ -6,10 +6,21 @@ import {
   TextField,
   DeleteButton,
 } from 'react-admin';
+import { Box, Typography } from '@mui/material';
+
+function Empty() {
+  return (
+    <Box textAlign="center" m={1}>
+      <Typography variant="h4" paragraph>
+        Ei päällekkäisiä ilmoituksia
+      </Typography>
+    </Box>
+  );
+}
 
 export default function DuplicatesListView(props) {
   return (
-    <List {...props} sort={{ field: 'Id', order: 'DESC' }}>
+    <List {...props} sort={{ field: 'Id', order: 'DESC' }} empty={<Empty />}>
       <Datagrid>
         <TextField source="id" />
         <TextField source="name" label="Nimi" />

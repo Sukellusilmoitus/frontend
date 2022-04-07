@@ -4,7 +4,6 @@ import LoadingSpinner from '../LoadingSpinner';
 import TargetPage from './TargetPage';
 import targetservice from '../../services/targets';
 
-
 function Target(props) {
   const [dives, setDives] = useState([]);
   const [target, setTarget] = useState(null);
@@ -16,7 +15,6 @@ function Target(props) {
     } else {
       setTarget(data.data.target);
       setDives(data.data.dives);
-
     }
   };
 

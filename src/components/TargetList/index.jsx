@@ -7,7 +7,6 @@ import LoadingSpinner from '../LoadingSpinner';
 import targetService from '../../services/targets';
 import PageTitle from '../PageTitle';
 
-
 function TargetList() {
   const [targets, setTargets] = useState('loading...');
   const [filteredTargets, setFilteredTargets] = useState(targets);
