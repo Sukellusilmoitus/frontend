@@ -3,6 +3,7 @@ const sort_arrow_asc = '.MuiTableSortLabel-root.MuiTableSortLabel-active.MuiTabl
 const sort_arrow_desc = '.MuiTableSortLabel-root.MuiTableSortLabel-active.MuiTableSortLabel-root.MuiTableSortLabel-active .MuiTableSortLabel-iconDirectionDesc'
 const toString = (cells$) => _.map(cells$, 'textContent')
 const toNumbers = (id) => _.map(id,Number)
+const BACKEND_URL = 'http://127.0.0.1:5000'
 
 function change_amount_of_rows_per_page (amount) {
   cy.get('.MuiTablePagination-input').click()
@@ -14,7 +15,10 @@ function change_amount_of_rows_per_page (amount) {
 
 function sort_table_by (title,sortby_data,td_col,order) {
   cy.viewport(2048,1080)
-  cy.wait(3000)
+  // cy.wait(3000)
+  while (!cy.contains('Rows per page')){
+    cy.wait(300);
+  }
   cy.get('table').within(() => {
     if (order == 'Asc') {
       cy.get("th").contains(title).click()
@@ -58,7 +62,7 @@ function add_dive (
   new_location_explanation,
   change_text,
   miscellaneous) {
-    cy.request('POST','http://127.0.0.1:5000/api/dives', {
+    cy.request('POST',`${BACKEND_URL}/api/dives`, {
       name:name,
       email:diver_email,
       phone:diver_phone,
@@ -70,6 +74,47 @@ function add_dive (
       changeText:change_text,
       miscText:miscellaneous,
     })
+}
+
+function add_target (
+  divername,
+  email,
+  phone,
+  targetname,
+  town,
+  type,
+  x_coordinate,
+  y_coordinate,
+  location_method,
+  location_accuracy,
+  url,
+  is_ancient,
+  source,
+  miscText,
+  is_pending
+) {
+  const random_id = (Math.random() * 1e16).toString(36);
+  const today = new Date()
+  const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+  cy.request('POST', `${BACKEND_URL}/api/targets`, {
+    id:random_id,
+    divername:divername,
+    email:email,
+    phone:phone,
+    targetname:targetname,
+    town:town,
+    type:type,
+    x_coordinate:x_coordinate,
+    y_coordinate:y_coordinate,
+    location_method:location_method,
+    location_accuracy:location_accuracy,
+    url:url,
+    created_at:date,
+    is_ancient: is_ancient,
+    source:source,
+    miscText:miscText,
+    is_pending: is_pending
+  })
 }
 
 function setup_db () {
@@ -85,18 +130,22 @@ function setup_db () {
   add_dive('testi sukeltaa','testi@gmail.com','','1957','True','','','','','')
   add_dive('matti mallikas','','045382956382','1091','True','','','','masto poikki','')
   add_dive('sami sukeltaa','sami@gmail.com','045274356583','1388','True','','','','','hieno keli oli sukeltaa')
+
+  add_target('matti sukeltaja','matti@gmail.com','04566342728','e2etestihylky','Helsinki','hylky','25.34234320','60.42342342','arvaus','arvio',BACKEND_URL,'False','ilmoitus','lisätietoja hylystä','True')
+  add_target('sami sukeltaja','','0456634527489','e2eduplicatetest1','Espoo','hylky','28.810887','64.962023','gps','gps tarkkuus',BACKEND_URL,'False','ilmoitus','ei lisättävää','True')
+  
 }
 describe('Admin panel', () => {
-  // it('setup database', () => {
-  //   setup_db()
-  // })
+  it('setup database', () => {
+    setup_db()
+  })
   context('Target page', () => {
     beforeEach(() => {
       cy.visit('/admin#/targets');
     });
     context('Rows per page', () => {
       it('deault 10 targets per page', () => {
-        cy.wait(3000);
+        // cy.wait(3000);
         cy.get('table').within(() => {
           cy.get("td:nth-child(2)").should('have.length',10)
           
@@ -136,9 +185,10 @@ describe('Admin panel', () => {
     })
     context('Editing', () => {
       it('Edit page opens', () => {
+        cy.get('.MuiFilledInput-inputMarginDense').type('e2etestihylky')
         cy.wait(2000)
         cy.get('table').within(() => {
-          cy.get('tr:nth-child(2)').within(() => {
+          cy.get('tr:nth-child(1)').within(() => {
             cy.get('.RaButton-button-6').click()
             cy.url().should('include','admin#/targets/')
           })
@@ -152,7 +202,7 @@ describe('Admin panel', () => {
     });
     context('Rows per page', () => {
       it('deault 10 targets per page', () => {
-        cy.wait(3000);
+        // cy.wait(3000);
         cy.get('table').within(() => {
           cy.get("td:nth-child(2)").should('have.length',10)
           

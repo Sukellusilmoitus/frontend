@@ -15,7 +15,7 @@ function PendingListView(props) {
   return (
     <List {...props} sort={{ field: 'Id', order: 'DESC' }}>
       <Datagrid>
-        <TextField source="id" />
+        <TextField source="id" label="Id" />
         <TextField source="name" label="Nimi" />
         <TextField source="town" label="Kaupunki" />
         <TextField source="source" label="Lähde" />
