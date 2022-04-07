@@ -21,12 +21,12 @@ describe('Login', () => {
 
   it('returns auth token when correct credentials', () => {
     cy.clearLocalStorage();
-    cy.get('[id=privacy-checkbox]').click();
     cy.contains('Rekisteröidy').click();
     cy.get('[data-testid=username]').type('usernametest');
     cy.get('[data-testid=password]').type('passwordtest');
     cy.get('[data-testid=name]').type('name');
     cy.get('[data-testid=email]').type('email@email.com');
+    cy.get('[id=privacy-checkbox]').click();
     cy.contains('Rekisteröidy').click();
     cy.visit('/kirjaudu');
     cy.get('[data-testid=username]').type('usernametest');
