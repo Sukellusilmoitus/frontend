@@ -59,10 +59,6 @@ function UserInfo({ user }) {
       <Table data-testid="testinfotable" bordered size="sm">
         <tbody>
           <tr>
-            <td>Käyttäjänimi</td>
-            <td>{user.username}</td>
-          </tr>
-          <tr>
             <td>Nimi</td>
             <td>
               <input
@@ -75,7 +71,7 @@ function UserInfo({ user }) {
             </td>
           </tr>
           <tr>
-            <td>Email</td>
+            <td>Sähköposti</td>
             <td>
               <input
                 style={{ width: '100%' }}
