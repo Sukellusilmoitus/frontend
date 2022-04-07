@@ -16,6 +16,10 @@ function UserInfo({ user }) {
             <td>Email</td>
             <td>{user.email}</td>
           </tr>
+          <tr>
+            <td>Puhelinnumero</td>
+            <td>{user.phone}</td>
+          </tr>
         </tbody>
       </Table>
     </Container>

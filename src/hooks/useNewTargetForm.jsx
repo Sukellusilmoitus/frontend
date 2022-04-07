@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { omit } from 'lodash';
 import targets from '../services/targets';
-import REACT_APP_SERVER_URL from '../util/config';
 
 const useForm = (postTarget) => {
   const [requiredValues, setRequiredValues] = useState({});
@@ -12,10 +11,17 @@ const useForm = (postTarget) => {
   const [newMapY, setNewMapY] = useState(60.1);
   const [center, setCenter] = useState([newMapY, newMapX]);
 
+  useEffect(() => {
+    setCenter([newMapY, newMapX]);
+  }, [newMapY, newMapX]);
+
   const callback = async (event) => {
     event.preventDefault();
     // Try to generate target id until free one is found
     const targetID = await targets.generateUniqueID();
+    const baseUrl = 'https://sukellusilmo-front-staging.herokuapp.com';
+    const targetUrl = `${baseUrl}/hylyt/${targetID}`;
+
     postTarget({
       id: targetID,
       targetname: requiredValues.targetname,
@@ -29,17 +35,13 @@ const useForm = (postTarget) => {
       is_ancient: false,
       is_pending: true,
       created_at: Date.now() / 1000.0,
-      url: REACT_APP_SERVER_URL === 'http://localhost:5000' ? 'http://localhost.com' : REACT_APP_SERVER_URL,
+      url: targetUrl,
       source: 'ilmoitus',
       phone: values.phone || '',
       email: values.email || '',
       miscText: values.misctext || '',
     });
   };
-
-  useEffect(() => {
-    setCenter([newMapY, newMapX]);
-  }, [newMapY, newMapX]);
 
   const validate = (event, name, value) => {
     switch (name) {

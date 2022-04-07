@@ -40,6 +40,7 @@
     "yup": "^0.32.11"
   },
   "scripts": {
+    "heroku-prebuild": "npm install -g serve",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --setupFiles ./src/tests/setupTests.js",

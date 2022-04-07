@@ -24,6 +24,10 @@ const useNotificationForm = (props) => {
   const [newMapY, setNewMapY] = useState(targetYcoordinate);
   const [center, setCenter] = useState([newMapY, newMapX]);
 
+  useEffect(() => {
+    setCenter([newMapY, newMapX]);
+  }, [newMapY, newMapX]);
+
   const callback = (event) => {
     event.preventDefault();
 
@@ -41,10 +45,6 @@ const useNotificationForm = (props) => {
       miscText: values.misctext || '',
     });
   };
-
-  useEffect(() => {
-    setCenter([newMapY, newMapX]);
-  }, [newMapY, newMapX]);
 
   const validate = (event, name, value) => {
     switch (name) {
