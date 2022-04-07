@@ -4,6 +4,7 @@ import LoadingSpinner from '../LoadingSpinner';
 import TargetPage from './TargetPage';
 import targetservice from '../../services/targets';
 
+
 function Target(props) {
   const [dives, setDives] = useState([]);
   const [target, setTarget] = useState(null);
@@ -15,6 +16,7 @@ function Target(props) {
     } else {
       setTarget(data.data.target);
       setDives(data.data.dives);
+
     }
   };
 
@@ -39,9 +41,6 @@ function Target(props) {
       </div>
     );
   }
-
-  // this flips the coordinates because map takes them in order y, x
-  target.geometry.coordinates.reverse();
 
   return (
     <TargetPage

@@ -47,6 +47,7 @@ function SearchBar({ targets, setTargets }) {
       id="search-form"
       className="mb-3 d-flex align-items-center search-form"
       onSubmit={(e) => handleSubmit(e)}
+      data-testid="search-form"
     >
       <Form.Group controlId="search" className="mr-3">
         <Form.Label visuallyHidden>Hae kohteista:</Form.Label>

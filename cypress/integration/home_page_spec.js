@@ -52,13 +52,13 @@ describe('home page tests', () => {
         .and('contains', 'World_Imagery')
       })
     })
-    
+
     it('marker popup has id and name strings', () => {
       const regex = new RegExp(`.+`)
       cy.get('.leaflet-marker-pane').within(() => {
-        cy.get('.leaflet-marker-icon').first().click()
+        cy.get('.leaflet-marker-icon').eq(1).click()
       })
-      cy.get('.leaflet-marker-pane').find('img').first().click()
+      cy.get('.leaflet-marker-pane').find('img').eq(1).click()
       cy.get('.leaflet-popup-pane').within(() => {
         cy.get('.leaflet-popup-content').find('h6').eq(0).contains(regex)
         cy.get('.leaflet-popup-content').find('h6').eq(1).contains(regex)
@@ -69,12 +69,34 @@ describe('home page tests', () => {
       cy.get('.leaflet-popup-pane').within(() => {
         cy.get('.leaflet-popup-content').then(($text) => {
           let id = $text.find('h6').eq(0).text();
-          //cy.log(_id.split(':')[1])
           id = id.split(':')[1]
           cy.get('.leaflet-popup-content').find('button').click({force: true});
           cy.url().should('include', `/hylyt/${id}`)
         })
       })
-    });
+    })
+
+    it('base layer can be changed to satellite map and it persists', () => {
+      cy.visit("/")
+      cy.get('.leaflet-container').within(() => {
+        cy.get('.leaflet-control-layers').trigger('mouseover')
+        cy.get('.leaflet-control-layers-list').contains('Satelliitti').click()
+        cy.get('.leaflet-tile-container')
+        .find('img')
+        .should('have.attr', 'src')
+        .and('contains', 'World_Imagery')
+      })
+      cy.wait(1000);
+      cy.visit("/hylyt")
+      cy.wait(1000);
+      cy.visit("/")
+      cy.get('.leaflet-container').within(() => {
+        cy.get('.leaflet-tile-container')
+        .find('img')
+        .should('have.attr', 'src')
+        .and('contains', 'World_Imagery')
+      })
+    })
+    
   })
 })

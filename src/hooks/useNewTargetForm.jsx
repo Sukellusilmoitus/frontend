@@ -1,18 +1,27 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { omit } from 'lodash';
 import targets from '../services/targets';
-import REACT_APP_SERVER_URL from '../util/config';
 
 const useForm = (postTarget) => {
   const [requiredValues, setRequiredValues] = useState({});
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState(null);
+  const [newMapX, setNewMapX] = useState(25.0);
+  const [newMapY, setNewMapY] = useState(60.1);
+  const [center, setCenter] = useState([newMapY, newMapX]);
+
+  useEffect(() => {
+    setCenter([newMapY, newMapX]);
+  }, [newMapY, newMapX]);
 
   const callback = async (event) => {
     event.preventDefault();
     // Try to generate target id until free one is found
     const targetID = await targets.generateUniqueID();
+    const baseUrl = 'https://sukellusilmo-front-staging.herokuapp.com';
+    const targetUrl = `${baseUrl}/hylyt/${targetID}`;
+
     postTarget({
       id: targetID,
       targetname: requiredValues.targetname,
@@ -24,8 +33,9 @@ const useForm = (postTarget) => {
       location_method: requiredValues.coordinateinfo || '',
       location_accuracy: requiredValues.diverinfo || '',
       is_ancient: false,
+      is_pending: true,
       created_at: Date.now() / 1000.0,
-      url: REACT_APP_SERVER_URL === 'http://localhost:5000' ? 'http://localhost.com' : REACT_APP_SERVER_URL,
+      url: targetUrl,
       source: 'ilmoitus',
       phone: values.phone || '',
       email: values.email || '',
@@ -64,7 +74,11 @@ const useForm = (postTarget) => {
         }
         break;
       case 'phone':
-
+        if ((/^$/).test(value) && (!(/^$/).test(values.email))) {
+          const newObj = omit(errors, 'phone');
+          setErrors(newObj);
+          break;
+        }
         if (
           !(/\+?[0-9]{3}-?[0-9]{6,12}/).test(value)
         ) {
@@ -78,7 +92,11 @@ const useForm = (postTarget) => {
         }
         break;
       case 'email':
-
+        if ((/^$/).test(value) && (!(/^$/).test(values.phone))) {
+          const newObj = omit(errors, 'email');
+          setErrors(newObj);
+          break;
+        }
         if (
           !(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).test(value)
         ) {
@@ -118,7 +136,7 @@ const useForm = (postTarget) => {
       case 'xcoordinate':
 
         if (
-          !(/^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)/).test(value)
+          !(/^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)$/).test(value)
         ) {
           setErrors({
             ...errors,
@@ -127,12 +145,14 @@ const useForm = (postTarget) => {
         } else {
           const newObj = omit(errors, 'xcoordinate');
           setErrors(newObj);
+          setNewMapX(value);
+          setCenter([newMapY, newMapX]);
         }
         break;
       case 'ycoordinate':
 
         if (
-          !(/^[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)/).test(value)
+          !(/^[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/).test(value)
         ) {
           setErrors({
             ...errors,
@@ -141,6 +161,8 @@ const useForm = (postTarget) => {
         } else {
           const newObj = omit(errors, 'ycoordinate');
           setErrors(newObj);
+          setNewMapY(value);
+          setCenter([newMapY, newMapX]);
         }
         break;
       case 'coordinateinfo':
@@ -206,16 +228,35 @@ const useForm = (postTarget) => {
     });
   };
 
+  const handleCoordinateClick = (coordinate, name) => {
+    if (name !== 'xcoordinate' && name !== 'ycoordinate') {
+      return;
+    }
+    validate(null, name, coordinate);
+    setRequiredValues({
+      ...requiredValues,
+      [name]: coordinate,
+    });
+  };
+
   const handleSubmit = (event) => {
     if (event) event.preventDefault();
 
-    if (values.phone === undefined && values.email === undefined) {
+    if ((values.phone === undefined && values.email === undefined)
+    || (values.phone === '' && values.email === undefined)
+    || (values.phone === undefined && values.email === '')
+    || (values.phone === '' && values.email === '')) {
       setMessage('Ilmoita puhelinnumero tai sähköpostiosoite!');
       setTimeout(() => {
         setMessage(null);
       }, 5000);
       return;
     }
+
+    const newObj = omit(errors, 'email');
+    setErrors(newObj);
+    const neObj = omit(errors, 'phone');
+    setErrors(neObj);
 
     if (Object.keys(errors).length === 0 && Object.keys(requiredValues).length === 8) {
       callback(event);
@@ -236,6 +277,8 @@ const useForm = (postTarget) => {
     message,
     handleChange,
     handleSubmit,
+    center,
+    handleCoordinateClick,
   };
 };
 

@@ -7,7 +7,6 @@ describe('UI is correct', () => {
     cy.get('table').contains('Nimi');
     cy.get('table').contains('Kaupunki');
     cy.get('table').contains('Tyyppi');
-    cy.get('table').contains('Lähde');
   });
   it('source contains a link', () => {
     cy.get('table tbody tr')

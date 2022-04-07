@@ -1,15 +1,57 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Col, Form, Button, Row, Breadcrumb,
 } from 'react-bootstrap';
+import formatcoords from 'formatcoords';
 import useForm from '../hooks/useNewTargetForm';
 import Submitmessage from './Submitmessage';
+import CoordinatesMap from './CoordinatesMap';
 
 function NewTargetForm(props) {
   const { postTarget } = props;
+  const [defaultCenter, setDefaultCenter] = useState([64.1, 25.0]);
+  const [formX, setFormX] = useState(25.0);
+  const [formY, setFormY] = useState(64.1);
+
+  useEffect(() => {
+    setDefaultCenter([64.1, 25.0]);
+  }, defaultCenter);
+
+  const [DMS, setDMS] = useState(formatcoords(
+    Number(formX),
+    Number(formY),
+  ).format());
+
+  useEffect(() => {
+    setDMS(formatcoords(
+      Number(formX),
+      Number(formY),
+    ).format());
+  }, [formX, formY]);
+
   const {
-    handleChange, errors, message, handleSubmit,
+    handleChange, errors, message, handleSubmit, center, handleCoordinateClick,
   } = useForm(postTarget);
+
+  const handleXCoordinateChange = (event, coordinate, name) => {
+    if (event === null) {
+      handleCoordinateClick(coordinate, name);
+      setFormX(coordinate);
+    } else {
+      handleChange(event);
+      setFormX(event.target.value);
+    }
+  };
+
+  const handleYCoordinateChange = (event, coordinate, name) => {
+    if (event === null) {
+      handleCoordinateClick(coordinate, name);
+      setFormY(coordinate);
+    } else {
+      handleChange(event);
+      setFormY(event.target.value);
+    }
+  };
 
   return (
     <div>
@@ -142,7 +184,8 @@ function NewTargetForm(props) {
                 name="xcoordinate"
                 data-testid="testxcoordinate"
                 id="newx"
-                onChange={handleChange}
+                value={formX}
+                onChange={handleXCoordinateChange}
                 isInvalid={!!errors.xcoordinate}
               />
               <Form.Control.Feedback type="invalid">
@@ -161,7 +204,8 @@ function NewTargetForm(props) {
                 name="ycoordinate"
                 data-testid="testycoordinate"
                 id="newy"
-                onChange={handleChange}
+                value={formY}
+                onChange={handleYCoordinateChange}
                 isInvalid={!!errors.ycoordinate}
               />
               <Form.Control.Feedback type="invalid">
@@ -173,6 +217,22 @@ function NewTargetForm(props) {
             </Form.Group>
           </Col>
         </Row>
+        <br />
+        {DMS}
+        {(center[0] === undefined || center[1] === undefined) && (
+        <CoordinatesMap
+          center={defaultCenter}
+          handleXCoordinateChange={handleXCoordinateChange}
+          handleYCoordinateChange={handleYCoordinateChange}
+        />
+        )}
+        {(center[0] !== undefined && center[1] !== undefined) && (
+        <CoordinatesMap
+          center={center}
+          handleXCoordinateChange={handleXCoordinateChange}
+          handleYCoordinateChange={handleYCoordinateChange}
+        />
+        )}
         <br />
         <Form.Group>
           <Form.Label>Koordinaattien määrittelytapa:</Form.Label>

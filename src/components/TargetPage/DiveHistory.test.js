@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import DiveHistory from '../../components/TargetPage/DiveHistory'
+import DiveHistory from './DiveHistory'
 
 const mockDiveList = [
   {
@@ -95,5 +95,12 @@ describe('dive history list tests', () => {
 
     const secondDive = screen.getByTestId('1234')
     expect(secondDive).toHaveTextContent('Muutokset: ei muutoksia')
+  })
+
+  it('information about loading is rendered during loading of data', () => {
+    render(<DiveHistory diveList={'loading...'} />)
+
+    const loading = screen.getByTestId('dive-history-list')
+    expect(loading).toHaveTextContent('Ladataan')
   })
 })

@@ -5,6 +5,8 @@ import List from './TargetList';
 import SearchBar from './SearchBar';
 import LoadingSpinner from '../LoadingSpinner';
 import targetService from '../../services/targets';
+import PageTitle from '../PageTitle';
+
 
 function TargetList() {
   const [targets, setTargets] = useState('loading...');
@@ -33,9 +35,7 @@ function TargetList() {
 
   return (
     <Container fluid>
-      <Row className="bg-light p-1 text-muted" style={{ borderRadius: '10px' }}>
-        <p className="m-1" style={{ fontSize: 18 }}>Hylkylistaus</p>
-      </Row>
+      <PageTitle text="Hylkylistaus" />
       <Row className="d-flex">
         <SearchBar targets={targets} setTargets={setFilteredTargets} />
       </Row>
