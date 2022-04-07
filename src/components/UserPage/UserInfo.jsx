@@ -7,13 +7,14 @@ import { updateUser } from '../../services/users';
 
 function UserInfo({ user }) {
   const [email, setEmail] = useState(user.email);
+  const [phone, setPhone] = useState(user.phone);
 
   const saveChanges = async () => {
     const updatedUser = {
       name: user.name,
       username: user.username,
       email,
-      phone: user.phone,
+      phone,
     };
     const res = await updateUser(updatedUser);
     if (res.auth) {
@@ -35,7 +36,7 @@ function UserInfo({ user }) {
           </tr>
           <tr>
             <td>Puhelinnumero</td>
-            <td>{user.phone}</td>
+            <td><input type="text" data-testid="phone" value={phone} onChange={(e) => setPhone(e.target.value)} /></td>
           </tr>
         </tbody>
       </Table>

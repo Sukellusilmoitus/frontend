@@ -19,6 +19,7 @@ describe('user info table tests', () => {
     const tableRows = screen.getAllByRole('row')
     expect(tableRows[0]).toHaveTextContent(/^Käyttäjänimidoer$/)
     expect(screen.getByTestId('email').value).toBe(mockUser.email);
+    expect(screen.getByTestId('phone').value).toBe(mockUser.phone);
   });
 
   it('sends updated user data and saves auth', async () => {
