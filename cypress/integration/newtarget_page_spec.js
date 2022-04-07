@@ -1,3 +1,7 @@
+Cypress.on('uncaught:exception', (err, runnable) => {
+  return false
+})
+
 describe('Page can be accessed', () => {
   it('successfully loads', () => {
     cy.visit("/uusi");
@@ -18,6 +22,7 @@ describe('Test submit', () => {
     cy.get('[id=newlocationname]').type('newlocationname');
     cy.get('[id=newcoordinateinfo]').type('newcoordinateinfo');
     cy.get('[id=newdiverinfo]').type('newdiverinfo');
+    cy.get('[id=privacy-checkbox]').click();
     cy.contains('Lähetä').click();
   });
 
@@ -26,6 +31,12 @@ describe('Test submit', () => {
     cy.contains('Test Tester').should('not.exist');
   });
 
+  it('privacy terms have to be accepted', () => {
+    cy.visit("/uusi");
+    cy.contains('Lähetä').should('be.disabled');
+    cy.get('[id=privacy-checkbox]').click();
+    cy.contains('Lähetä').should('not.be.disabled');
+  })
 });
 
 describe('Test form fields', () => {
@@ -38,10 +49,10 @@ describe('Test form fields', () => {
     cy.get('[id=newy]').type('60.42342334');
     cy.get('[id=newcoordinateinfo]').type('newcoordinateinfo');
     cy.get('[id=newdiverinfo]').type('newdiverinfo');
+    cy.get('[id=privacy-checkbox]').click();
     cy.contains('Lähetä').click();
     cy.contains('Lomakkeesta puuttui tietoja tai siinä on virheitä!');
   });
-
 });
 
 describe('Test email and phone fields', () => {
@@ -55,8 +66,8 @@ describe('Test email and phone fields', () => {
     cy.get('[id=newy]').type('60.42342334');
     cy.get('[id=newcoordinateinfo]').type('newcoordinateinfo');
     cy.get('[id=newdiverinfo]').type('newdiverinfo');
+    cy.get('[id=privacy-checkbox]').click();
     cy.contains('Lähetä').click();
     cy.contains('Ilmoita puhelinnumero tai sähköpostiosoite!');
   });
-
 });

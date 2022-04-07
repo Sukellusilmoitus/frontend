@@ -21,6 +21,7 @@ describe('Login', () => {
 
   it('returns auth token when correct credentials', () => {
     cy.clearLocalStorage();
+    cy.get('[id=privacy-checkbox]').click();
     cy.contains('Rekisteröidy').click();
     cy.get('[data-testid=username]').type('usernametest');
     cy.get('[data-testid=password]').type('passwordtest');

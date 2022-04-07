@@ -341,7 +341,7 @@ function NewNotificationForm(props) {
           id="formbtn"
           variant="primary"
           type="submit"
-          disabeld={!termsAccepted}
+          disabled={!termsAccepted}
         >
           Lähetä
         </Button>
