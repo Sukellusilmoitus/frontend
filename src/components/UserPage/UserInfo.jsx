@@ -31,11 +31,11 @@ function UserInfo({ user }) {
           </tr>
           <tr>
             <td>Email</td>
-            <td><input type="text" value={email} onChange={(e) => setEmail(e.target.value)} /></td>
+            <td><input type="text" data-testid="email" value={email} onChange={(e) => setEmail(e.target.value)} /></td>
           </tr>
         </tbody>
       </Table>
-      <Button onClick={() => saveChanges()}>Tallenna muutokset</Button>
+      <Button data-testid="save" onClick={() => saveChanges()}>Tallenna muutokset</Button>
     </Container>
   );
 }
