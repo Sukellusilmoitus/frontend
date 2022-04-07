@@ -33,6 +33,10 @@ function UserInfo({ user }) {
             <td>Email</td>
             <td><input type="text" data-testid="email" value={email} onChange={(e) => setEmail(e.target.value)} /></td>
           </tr>
+          <tr>
+            <td>Puhelinnumero</td>
+            <td>{user.phone}</td>
+          </tr>
         </tbody>
       </Table>
       <Button data-testid="save" onClick={() => saveChanges()}>Tallenna muutokset</Button>
