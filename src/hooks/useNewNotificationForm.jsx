@@ -276,7 +276,7 @@ const useNotificationForm = ({ props, date }) => {
     }
   };
 
-  const handleSubmit = (changeRadio) => async (event) => {
+  const handleSubmit = (changeRadio) => (event) => {
     if (event) event.preventDefault();
 
     if (!Object.keys(requiredValues).includes('divername')) {
