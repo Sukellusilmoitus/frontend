@@ -9,7 +9,11 @@ describe('home page tests', () => {
     const mapComponent = screen.getByRole('presentation')
     expect(mapComponent).toBeDefined()
 
+    const title = screen.getAllByRole('heading')[0]
+    expect(title).toHaveTextContent('Hylyt kartalla')
+
     const infoText = screen.getByTestId('homepage-info')
     expect(infoText).toBeDefined()
+    expect(infoText).toHaveTextContent('Tällä sivulla voit tehdä ilmoituksen sukelluksestasi ja kertoa havaintosi.')
   })
 })

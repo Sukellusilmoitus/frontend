@@ -30,7 +30,7 @@ describe('user page tests', () => {
   it('the component is rendered', () => {
     const title = screen.getAllByRole('heading')[0]
 
-    expect(title).toHaveTextContent('Do Doer')
+    expect(title).toHaveTextContent('Omat tietosi')
   })
 
   it('info section is rendered with correct data', () => {
@@ -45,7 +45,7 @@ describe('user page tests', () => {
   })
 
   it('divehistory is rendered', () => {
-    const history = screen.getAllByRole('heading')[3]
+    const history = screen.getAllByRole('heading')[4]
     expect(history).toHaveTextContent('Sukellushistoria')
   })
 })

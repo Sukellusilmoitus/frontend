@@ -4,10 +4,12 @@ import UserInfo from './UserInfo';
 import UserTargetLocationMap from './UserTargetLocationMap';
 import UserDiveHistory from './UserDiveHistory';
 import UserTargetnotes from './UserTargetnotes';
+import PageTitle from '../PageTitle';
 
 function UserPage({ user, dives, targetnotes }) {
   return (
     <Container>
+      <PageTitle text="Omat tietosi" />
       <h2>{user.name}</h2>
       <Row>
         <Col lg>
