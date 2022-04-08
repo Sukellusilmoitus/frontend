@@ -26,11 +26,15 @@ function UserInfo({ user }) {
       addAlert('Nimi liian lyhyt');
       return;
     }
-    if (phone.length === 0 && email.length < 5) {
+    if (phone.length === 0 && email.length === 0) {
+      addAlert('Puhelinnumero tai sähköposti annettava');
+      return;
+    }
+    if ((phone.length === 0 && email.length < 5) || email.length > 25) {
       addAlert('Virheellinen sähköposti');
       return;
     }
-    if (email.length === 0 && phone.length < 5) {
+    if ((email.length === 0 && phone.length < 5) || phone.length > 20) {
       addAlert('Virheellinen puhelinnumero');
       return;
     }
