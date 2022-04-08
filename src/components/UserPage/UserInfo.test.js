@@ -40,7 +40,7 @@ describe('user info table tests', () => {
     render(<UserInfo user={mockUserNoEmailNoPhone} />);
     fireEvent.click(screen.getByTestId('save'));
     await waitFor(() => {
-      expect(screen.getByText('Virheellinen sähköposti'));
+      expect(screen.getByText('Puhelinnumero tai sähköposti annettava'));
     });
   });
 
