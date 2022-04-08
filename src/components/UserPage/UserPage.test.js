@@ -30,13 +30,13 @@ describe('user page tests', () => {
   it('the component is rendered', () => {
     const title = screen.getAllByRole('heading')[0]
 
-    expect(title).toHaveTextContent('Do Doer')
+    expect(title).toHaveTextContent('doer')
   })
 
   it('info section is rendered with correct data', () => {
     const info = screen.getByTestId('testinfotable')
 
-    expect(info).toHaveTextContent('doer')
+    expect(info).toHaveTextContent('NimiSähköpostiPuhelinnumero')
   })
 
   it('map is rendered', () => {

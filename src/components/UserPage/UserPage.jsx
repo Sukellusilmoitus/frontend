@@ -8,9 +8,9 @@ import UserTargetnotes from './UserTargetnotes';
 function UserPage({ user, dives, targetnotes }) {
   return (
     <Container>
-      <h2>{user.name}</h2>
       <Row>
         <Col lg>
+          <h3>{user.username}</h3>
           <UserInfo
             user={user}
           />
