@@ -6,6 +6,7 @@ import 'react-calendar/dist/Calendar.css';
 import useForm from '../hooks/useNewNotificationForm';
 import Submitmessage from './Submitmessage';
 import CoordinatesMap from './CoordinatesMap';
+import { loggedUser } from '../services/users';
 
 function NewNotificationForm(props) {
   const {
@@ -22,6 +23,7 @@ function NewNotificationForm(props) {
   const [formX, setFormX] = useState(targetXcoordinate);
   const [formY, setFormY] = useState(targetYcoordinate);
   const [date, setDate] = useState(new Date());
+  const user = loggedUser();
 
   useEffect(() => {
     setDefaultCenter([64.1, 25.0]);
@@ -42,7 +44,7 @@ function NewNotificationForm(props) {
   const {
     handleChange, errors, message, handleSubmit, resetChangeText,
     handleCoordinateChange, center, handleCoordinateClick,
-  } = useForm({ props, date });
+  } = useForm({ props, date, user });
 
   const handleChangeRadio = (value) => {
     setChangeRadio(value);
@@ -90,59 +92,104 @@ function NewNotificationForm(props) {
         data-testid="testform"
         id="newtargetform"
       >
-        <Form.Group>
-          <Form.Label>Sukeltajan etu- ja sukunimi:</Form.Label>
-          <Form.Control
-            type="text"
-            name="divername"
-            data-testid="testdivername"
-            id="newname"
-            onChange={handleChange}
-            isInvalid={!!errors.divername}
-          />
-          <Form.Text className="text-muted">
-            Pakollinen kenttä
-          </Form.Text>
-          <Form.Control.Feedback type="invalid">
-            { errors.divername }
-          </Form.Control.Feedback>
-        </Form.Group>
-        <Form.Group>
-          <br />
-          <Form.Label>Puhelinnumero:</Form.Label>
-          <Form.Control
-            type="text"
-            name="phone"
-            data-testid="testphone"
-            id="newphone"
-            onChange={handleChange}
-            isInvalid={!!errors.phone}
-          />
-          <Form.Text className="text-muted">
-            Anna joko puhelinnumero tai sähköposti
-          </Form.Text>
-          <Form.Control.Feedback type="invalid">
-            { errors.phone }
-          </Form.Control.Feedback>
-        </Form.Group>
-        <Form.Group>
-          <br />
-          <Form.Label>Sähköpostiosoite:</Form.Label>
-          <Form.Control
-            type="text"
-            name="email"
-            data-testid="testemail"
-            id="newemail"
-            onChange={handleChange}
-            isInvalid={!!errors.email}
-          />
-          <Form.Text className="text-muted">
-            Anna joko puhelinnumero tai sähköposti
-          </Form.Text>
-          <Form.Control.Feedback type="invalid">
-            { errors.email }
-          </Form.Control.Feedback>
-        </Form.Group>
+        {user !== null && (
+        <p>
+          {' '}
+          <Form.Group>
+            <Form.Label>Sukeltajan etu- ja sukunimi:</Form.Label>
+            <Form.Control
+              type="text"
+              name="username"
+              data-testid="testusername"
+              id="username"
+              value={user.name}
+              readOnly
+            />
+          </Form.Group>
+          <Form.Group>
+            <br />
+            <Form.Label>Puhelinnumero:</Form.Label>
+            <Form.Control
+              type="text"
+              name="userphone"
+              data-testid="testuserphone"
+              id="userphone"
+              value={user.phone}
+              readOnly
+            />
+          </Form.Group>
+          <Form.Group>
+            <br />
+            <Form.Label>Sähköpostiosoite:</Form.Label>
+            <Form.Control
+              type="text"
+              name="useremail"
+              data-testid="testuseremail"
+              id="useremail"
+              value={user.email}
+              readOnly
+            />
+          </Form.Group>
+        </p>
+        )}
+        {user === null && (
+        <p>
+          {' '}
+          <Form.Group>
+            <Form.Label>Sukeltajan etu- ja sukunimi:</Form.Label>
+            <Form.Control
+              type="text"
+              name="divername"
+              data-testid="testdivername"
+              id="newname"
+              onChange={handleChange}
+              isInvalid={!!errors.divername}
+            />
+            <Form.Text className="text-muted">
+              Pakollinen kenttä
+            </Form.Text>
+            <Form.Control.Feedback type="invalid">
+              { errors.divername }
+            </Form.Control.Feedback>
+          </Form.Group>
+          <Form.Group>
+            <br />
+            <Form.Label>Puhelinnumero:</Form.Label>
+            <Form.Control
+              type="text"
+              name="phone"
+              data-testid="testphone"
+              id="newphone"
+              onChange={handleChange}
+              isInvalid={!!errors.phone}
+            />
+            <Form.Text className="text-muted">
+              Anna joko puhelinnumero tai sähköposti
+            </Form.Text>
+            <Form.Control.Feedback type="invalid">
+              { errors.phone }
+            </Form.Control.Feedback>
+          </Form.Group>
+          <Form.Group>
+            <br />
+            <Form.Label>Sähköpostiosoite:</Form.Label>
+            <Form.Control
+              type="text"
+              name="email"
+              data-testid="testemail"
+              id="newemail"
+              onChange={handleChange}
+              isInvalid={!!errors.email}
+            />
+            <Form.Text className="text-muted">
+              Anna joko puhelinnumero tai sähköposti
+            </Form.Text>
+            <Form.Control.Feedback type="invalid">
+              { errors.email }
+            </Form.Control.Feedback>
+          </Form.Group>
+        </p>
+        )}
         <Form.Group>
           <br />
           <Form.Label>Hylyn nimi:</Form.Label>

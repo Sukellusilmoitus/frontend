@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { omit } from 'lodash';
 import targets from '../services/targets';
+import { loggedUser } from '../services/users';
 
 const useForm = (postTarget) => {
   const [requiredValues, setRequiredValues] = useState({});
@@ -10,10 +11,25 @@ const useForm = (postTarget) => {
   const [newMapX, setNewMapX] = useState(25.0);
   const [newMapY, setNewMapY] = useState(60.1);
   const [center, setCenter] = useState([newMapY, newMapX]);
+  const user = loggedUser();
 
   useEffect(() => {
     setCenter([newMapY, newMapX]);
   }, [newMapY, newMapX]);
+
+  useEffect(() => {
+    if (user !== null) {
+      setRequiredValues({
+        ...requiredValues,
+        divername: user.name,
+      });
+      setValues({
+        ...values,
+        email: user.email,
+        phone: user.phone,
+      });
+    }
+  }, [newMapX]);
 
   const callback = async (event) => {
     event.preventDefault();
@@ -265,7 +281,6 @@ const useForm = (postTarget) => {
         setMessage(null);
       }, 5000);
     } else {
-      setMessage('Lomakkeesta puuttui tietoja tai siinä on virheitä!');
       setTimeout(() => {
         setMessage(null);
       }, 5000);
