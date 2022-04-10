@@ -29,10 +29,6 @@ const useForm = (postTarget) => {
         phone: user.phone,
       });
     }
-    return () => {
-      setRequiredValues({});
-      setValues({});
-    };
   }, [newMapX]);
 
   const callback = async (event) => {
