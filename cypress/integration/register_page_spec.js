@@ -69,8 +69,8 @@ describe('Register', () => {
   });
 
   it('privacy terms have to accepted', () => {
-    cy.contains('Rekisteröidy').should('be.disabled')
+    cy.get('[data-testid=submit]').should('be.disabled')
     cy.get('[id=privacy-checkbox]').click();
-    cy.contains('Rekisteröidy').should('not.be.disabled')
+    cy.get('[data-testid=submit]').should('not.be.disabled')
   })
 });
