@@ -68,7 +68,7 @@ function NewTargetForm(props) {
         {' '}
         <a href="https://www.kyppi.fi/ilppari">sivuilla.</a>
       </p>
-      <h5>Kohteen tiedot</h5>
+      <strong>Kohteen tiedot</strong>
       <Form
         onSubmit={handleSubmit}
         data-testid="testform"
@@ -297,6 +297,7 @@ function NewTargetForm(props) {
         <Form.Check
           type="checkbox"
           id="privacy-checkbox"
+          data-testid="privacy-checkbox"
           inline
           onChange={(e) => setTermsAccepted(e.currentTarget.checked)}
         />

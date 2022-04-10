@@ -63,23 +63,26 @@ describe('Register page', () => {
   });
 
   it('privacy terms are opened when clicking the link', () => {
-    const header = screen.queryByRole('heading')
-    expect(header).toBeNull()
+    const header = screen.getAllByRole('heading')
+    expect(header).toHaveLength(1)
+    expect(header[0]).toHaveTextContent('Rekisteröidy')
     const privacyLink = screen.getByText('tietosuojaehdot')
     fireEvent.click(privacyLink)
-    const privacyHeader = screen.getByRole('heading')
-    expect(privacyHeader).toHaveTextContent('Tietosuoja')
+    const headers = screen.getAllByRole('heading')
+    expect(headers).toHaveLength(2)
+    expect(headers[1]).toHaveTextContent('Tietosuoja')
   })
 
   it('privacy terms close from close button', () => {
     const privacyLink = screen.getByText('tietosuojaehdot')
     fireEvent.click(privacyLink)
-    const privacyHeader = screen.getByRole('heading')
-    expect(privacyHeader).toHaveTextContent('Tietosuoja')
+    const headers = screen.getAllByRole('heading')
+    expect(headers[1]).toHaveTextContent('Tietosuoja')
     const closeButton = screen.getByText('Sulje')
     fireEvent.click(closeButton)
-    const header = screen.queryByRole('heading')
-    expect(header).toBeNull()
+    const header = screen.getAllByRole('heading')
+    expect(header).toHaveLength(1)
+    expect(header[0]).toHaveTextContent('Rekisteröidy')
   })
 
   it('terms have to be accepted to submit the form', () => {
