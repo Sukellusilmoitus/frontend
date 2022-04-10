@@ -36,7 +36,7 @@ describe('user page tests', () => {
   it('info section is rendered with correct data', () => {
     const info = screen.getByTestId('testinfotable')
 
-    expect(info).toHaveTextContent('doer')
+    expect(info).toHaveTextContent('NimiSähköpostiPuhelinnumero')
   })
 
   it('map is rendered', () => {
@@ -46,6 +46,6 @@ describe('user page tests', () => {
 
   it('divehistory is rendered', () => {
     const history = screen.getAllByRole('heading')[4]
-    expect(history).toHaveTextContent('Sukellushistoria')
+    expect(history).toHaveTextContent('Ilmoitetut hylyt')
   })
 })
