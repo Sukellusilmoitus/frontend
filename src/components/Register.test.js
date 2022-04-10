@@ -1,4 +1,4 @@
-import { fireEvent, render, waitFor } from '@testing-library/react';
+import { fireEvent, render, waitFor, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import Register from './Register';
 import { wait } from '@testing-library/user-event/dist/utils';
@@ -14,6 +14,11 @@ describe('Register page', () => {
     password = component.getByTestId('password');
     submit = component.getByTestId('submit');
   });
+
+  it('page has correct title', () => {
+    const title = screen.getByRole('heading')
+    expect(title).toHaveTextContent('Rekisteröidy')
+  })
 
   it('requires name', () => {
     fireEvent.click(submit);
