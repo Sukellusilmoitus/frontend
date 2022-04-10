@@ -231,14 +231,13 @@ const useNotificationForm = ({ props, date }) => {
     });
   };
 
-  const handleCoordinateClick = (coordinate, name) => {
-    if (name !== 'xcoordinate' && name !== 'ycoordinate') {
-      return;
-    }
-    validate(null, name, coordinate);
+  const handleCoordinatesClick = (xcoordinate, ycoordinate) => {
+    validate(null, 'xcoordinate', xcoordinate);
+    validate(null, 'ycoordinate', ycoordinate);
     setRequiredValues({
       ...requiredValues,
-      [name]: coordinate,
+      xcoordinate,
+      ycoordinate,
     });
   };
 
@@ -326,7 +325,7 @@ const useNotificationForm = ({ props, date }) => {
     resetChangeText,
     handleCoordinateChange,
     center,
-    handleCoordinateClick,
+    handleCoordinatesClick,
   };
 };
 

@@ -29,6 +29,10 @@ const useForm = (postTarget) => {
         phone: user.phone,
       });
     }
+    return () => {
+      setRequiredValues({});
+      setValues({});
+    };
   }, [newMapX]);
 
   const callback = async (event) => {
@@ -244,14 +248,13 @@ const useForm = (postTarget) => {
     });
   };
 
-  const handleCoordinateClick = (coordinate, name) => {
-    if (name !== 'xcoordinate' && name !== 'ycoordinate') {
-      return;
-    }
-    validate(null, name, coordinate);
+  const handleCoordinatesClick = (latlng) => {
+    validate(null, 'xcoordinate', latlng.lng);
+    validate(null, 'ycoordinate', latlng.lat);
     setRequiredValues({
       ...requiredValues,
-      [name]: coordinate,
+      xcoordinate: latlng.lng,
+      ycoordinate: latlng.lat,
     });
   };
 
@@ -281,6 +284,7 @@ const useForm = (postTarget) => {
         setMessage(null);
       }, 5000);
     } else {
+      setMessage('Lomakkeesta puuttui tietoja tai siinä on virheitä!');
       setTimeout(() => {
         setMessage(null);
       }, 5000);
@@ -293,7 +297,7 @@ const useForm = (postTarget) => {
     handleChange,
     handleSubmit,
     center,
-    handleCoordinateClick,
+    handleCoordinatesClick,
   };
 };
 

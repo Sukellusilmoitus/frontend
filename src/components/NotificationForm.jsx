@@ -43,7 +43,7 @@ function NewNotificationForm(props) {
 
   const {
     handleChange, errors, message, handleSubmit, resetChangeText,
-    handleCoordinateChange, center, handleCoordinateClick,
+    handleCoordinateChange, center, handleCoordinatesClick,
   } = useForm({ props, date, user });
 
   const handleChangeRadio = (value) => {
@@ -54,30 +54,25 @@ function NewNotificationForm(props) {
     }
   };
 
-  const handleXCoordinateChange = (event, coordinate, name) => {
-    if (event === null) {
-      handleCoordinateClick(coordinate, name);
-      setFormX(coordinate);
-    } else {
-      handleChange(event);
-      setFormX(event.target.value);
-    }
+  const handleXCoordinateChange = (event) => {
+    handleChange(event);
+    setFormX(event.target.value);
   };
 
-  const handleYCoordinateChange = (event, coordinate, name) => {
-    if (event === null) {
-      handleCoordinateClick(coordinate, name);
-      setFormY(coordinate);
-    } else {
-      handleChange(event);
-      setFormY(event.target.value);
-    }
+  const handleYCoordinateChange = (event) => {
+    handleChange(event);
+    setFormY(event.target.value);
+  };
+
+  const handleCoordinatesChange = (event) => {
+    handleCoordinatesClick(event.latlng.lng, event.latlng.lat);
+    setFormY(event.latlng.lat);
+    setFormX(event.latlng.lng);
   };
 
   const handleCoordinateChangeClick = (value) => {
     if (value === 'yes') {
-      handleYCoordinateChange(null, targetYcoordinate, 'ycoordinate');
-      handleXCoordinateChange(null, targetXcoordinate, 'xcoordinate');
+      handleCoordinatesClick(targetXcoordinate, targetYcoordinate);
     }
     handleCoordinateChange(value);
     setCoordinateRadio(value);
@@ -311,15 +306,13 @@ function NewNotificationForm(props) {
             {(center[0] === undefined || center[1] === undefined) && (
               <CoordinatesMap
                 center={defaultCenter}
-                handleXCoordinateChange={handleXCoordinateChange}
-                handleYCoordinateChange={handleYCoordinateChange}
+                handleCoordinatesChange={handleCoordinatesChange}
               />
             )}
             {(center[0] !== undefined && center[1] !== undefined) && (
               <CoordinatesMap
                 center={center}
-                handleXCoordinateChange={handleXCoordinateChange}
-                handleYCoordinateChange={handleYCoordinateChange}
+                handleCoordinatesChange={handleCoordinatesChange}
               />
             )}
             <br />
