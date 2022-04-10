@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { Parser } from 'html-to-react';
 import formatcoords from 'formatcoords';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 import useForm from '../hooks/useNewNotificationForm';
 import Submitmessage from './Submitmessage';
 import CoordinatesMap from './CoordinatesMap';
@@ -24,6 +26,7 @@ function NewNotificationForm(props) {
   const [formY, setFormY] = useState(targetYcoordinate);
   const [modalOpen, setModalOpen] = useState(false);
   const [termsAccepted, setTermsAccepted] = useState(false);
+  const [date, setDate] = useState(new Date());
 
   useEffect(() => {
     setDefaultCenter([64.1, 25.0]);
@@ -44,7 +47,7 @@ function NewNotificationForm(props) {
   const {
     handleChange, errors, message, handleSubmit, resetChangeText,
     handleCoordinateChange, center, handleCoordinateClick,
-  } = useForm(props);
+  } = useForm({ props, date });
 
   const handleChangeRadio = (value) => {
     setChangeRadio(value);
@@ -170,6 +173,25 @@ function NewNotificationForm(props) {
           <Form.Text className="text-muted">
             Automaattinen täyttö (klikkaa kohdetta)
           </Form.Text>
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Sukelluksen päivämäärä:</Form.Label>
+          <Form.Control
+            type="text"
+            name="divedate"
+            data-testid="testdate"
+            id="newdate"
+            value={new Intl.DateTimeFormat('fi-FI', {
+              year: 'numeric',
+              month: 'long',
+              day: '2-digit',
+            }).format(date)}
+            readOnly
+          />
+          <Form.Text className="text-muted">
+            Valitse kalenterista
+          </Form.Text>
+          <Calendar onChange={setDate} value={date} locale="fi-FI" />
         </Form.Group>
         <Form.Group>
           <br />

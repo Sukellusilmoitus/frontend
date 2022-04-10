@@ -49,6 +49,10 @@ function TargetInfo(props) {
             <td>{target.properties.location_accuracy || 'ei määritelty'}</td>
           </tr>
           <tr>
+            <td>Muinaisjäännös</td>
+            <td>{target.properties.is_ancient ? 'kyllä' : 'ei'}</td>
+          </tr>
+          <tr>
             <td>Tietolähde</td>
             <td>{target.properties.source}</td>
           </tr>

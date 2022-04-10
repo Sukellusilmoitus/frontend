@@ -9,14 +9,14 @@ describe('Register', () => {
 
   it('requires name', () => {
     cy.get('[id=privacy-checkbox]').click();
-    cy.contains('Rekisteröidy').click();
+    cy.get('[data-testid=submit]').click();
     cy.contains('Lisää puuttuvat tiedot');
   });
 
   it('requires phone or email', () => {
     cy.get('[data-testid=name]').type('name');
     cy.get('[id=privacy-checkbox]').click();
-    cy.contains('Rekisteröidy').click();
+    cy.get('[data-testid=submit]').click();
     cy.contains('Lisää puuttuvat tiedot');
   });
 
@@ -24,7 +24,7 @@ describe('Register', () => {
     cy.get('[data-testid=name]').type('name');
     cy.get('[data-testid=email]').type('email@email.com');
     cy.get('[id=privacy-checkbox]').click();
-    cy.contains('Rekisteröidy').click();
+    cy.get('[data-testid=submit]').click();
     cy.contains('Lisää puuttuvat tiedot');
   });
 
@@ -33,7 +33,7 @@ describe('Register', () => {
     cy.get('[data-testid=email]').type('email@email.com');
     cy.get('[data-testid=username]').type('usernametest1234');
     cy.get('[id=privacy-checkbox]').click();
-    cy.contains('Rekisteröidy').click();
+    cy.get('[data-testid=submit]').click();
     cy.contains('Lisää puuttuvat tiedot');
   });
 
@@ -43,7 +43,7 @@ describe('Register', () => {
     cy.get('[data-testid=username]').type('usernametest1234');
     cy.get('[data-testid=password]').type('password');
     cy.get('[id=privacy-checkbox]').click();
-    cy.contains('Rekisteröidy').click();
+    cy.get('[data-testid=submit]').click();
     cy.url().should('include', '/kirjaudu');
   });
 
@@ -53,7 +53,7 @@ describe('Register', () => {
     cy.get('[data-testid=username]').type('usernametest1234');
     cy.get('[data-testid=password]').type('password');
     cy.get('[id=privacy-checkbox]').click();
-    cy.contains('Rekisteröidy').click();
+    cy.get('[data-testid=submit]').click();
     cy.url().should('include', '/kirjaudu');
   });
 
@@ -63,8 +63,8 @@ describe('Register', () => {
     cy.get('[data-testid=email]').type('email@email.com');
     cy.get('[data-testid=username]').type('usernametest1234');
     cy.get('[data-testid=password]').type('password');
-    cy.get('[id=privacy-checkbox]').click();
-    cy.contains('Rekisteröidy').click();
+    cy.get('[id=privacy-checkbox]').click(),
+    cy.get('[data-testid=submit]').click();
     cy.url().should('include', '/kirjaudu');
   });
 

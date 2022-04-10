@@ -52,6 +52,8 @@ describe('target info table tests', () => {
     expect(tableRows[3]).toHaveTextContent(/^Tyyppialusten hylyt$/)
     expect(tableRows[4]).toHaveTextContent(/^Koordinaatit desimaali62.2345678, 20.1234567$/)
     expect(tableRows[6]).toHaveTextContent(/^Koordinaattien tarkkuus10-100 m$/)
+    expect(tableRows[7]).toHaveTextContent(/^Muinaisjäännöskyllä$/)
+    expect(tableRows[8]).toHaveTextContent(/^Tietolähdemuseovirasto$/)
   })
 
   it('if accuracy is not defined, the components fallbacks correctly', () => {

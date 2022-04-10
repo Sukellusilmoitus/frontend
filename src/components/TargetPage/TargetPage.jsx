@@ -5,6 +5,7 @@ import NotificationForm from '../NotificationForm';
 import TargetInfo from './TargetInfo';
 import TargetLocationMap from './TargetLocationMap';
 import DiveHistory from './DiveHistory';
+import PageTitle from '../PageTitle';
 
 function TargetPage({ target, createNewNotification, dives }) {
   const coordinatesDMS = formatcoords(
@@ -13,7 +14,7 @@ function TargetPage({ target, createNewNotification, dives }) {
   ).format();
   return (
     <Container>
-      <h2>{target.properties.name}</h2>
+      <PageTitle text={target.properties.name} />
       <Row>
         <Col lg>
           <TargetInfo

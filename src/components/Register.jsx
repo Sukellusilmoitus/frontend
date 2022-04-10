@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Alert, Button, Form } from 'react-bootstrap';
+import {
+  Alert, Button, Container, Form,
+} from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { Parser } from 'html-to-react';
 import { registerRequest } from '../services/users';
 import Modal from './Modal';
 import privacyText from '../assets/tietosuoja';
+import PageTitle from './PageTitle';
 
 function Register() {
   const [username, setUsername] = useState('');
@@ -53,7 +56,8 @@ function Register() {
   };
 
   return (
-    <>
+    <Container>
+      <PageTitle text="Rekisteröidy" />
       {alert && <Alert variant="danger">{alert}</Alert>}
       <Form onSubmit={handleSubmit}>
         <Form.Group>
@@ -139,7 +143,7 @@ function Register() {
           <Button onClick={() => setModalOpen(false)}>Sulje</Button>
         </>
       </Modal>
-    </>
+    </Container>
   );
 }
 

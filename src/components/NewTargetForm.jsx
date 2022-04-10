@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Col, Form, Button, Row, Breadcrumb,
+  Col, Form, Button, Row, Breadcrumb, Container,
 } from 'react-bootstrap';
 import { Parser } from 'html-to-react';
 import formatcoords from 'formatcoords';
@@ -9,6 +9,7 @@ import Submitmessage from './Submitmessage';
 import CoordinatesMap from './CoordinatesMap';
 import Modal from './Modal';
 import privacyText from '../assets/tietosuoja';
+import PageTitle from './PageTitle';
 
 function NewTargetForm(props) {
   const { postTarget } = props;
@@ -59,21 +60,23 @@ function NewTargetForm(props) {
   };
 
   return (
-    <div>
-      <h2>Tee ilmoitus uudesta kohteesta</h2>
+    <Container>
+      <PageTitle text="Tee ilmoitus uudesta kohteesta" />
       <Submitmessage message={message} />
-      <h3>
-        Suositteleme yksityiskohtaisemman ilmoituksen tekemistä museoviraston
+      <p>
+        Suosittelemme yksityiskohtaisemman ilmoituksen tekemistä Museoviraston
         {' '}
-        <a href="https://www.kyppi.fi/ilppari">sivuilla</a>
-        {' '}
-      </h3>
-      <h5>Kaikki paitsi lisäinfoa-kenttä ovat pakollisia</h5>
+        <a href="https://www.kyppi.fi/ilppari">sivuilla.</a>
+      </p>
+      <h5>Kohteen tiedot</h5>
       <Form
         onSubmit={handleSubmit}
         data-testid="testform"
         id="newtargetform"
       >
+        <Form.Text muted>
+          Kaikki paitsi lisäinfoa-kenttä ovat pakollisia
+        </Form.Text>
         <Form.Group>
           <Form.Label>Kohteen nimi:</Form.Label>
           <Form.Control
@@ -322,7 +325,7 @@ function NewTargetForm(props) {
         </>
       </Modal>
       <br />
-    </div>
+    </Container>
   );
 }
 export default NewTargetForm;

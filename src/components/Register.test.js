@@ -16,6 +16,11 @@ describe('Register page', () => {
     privacyCheck = component.getByRole('checkbox')
   });
 
+  it('page has correct title', () => {
+    const title = screen.getByRole('heading')
+    expect(title).toHaveTextContent('Rekisteröidy')
+  })
+
   it('requires name', () => {
     fireEvent.click(privacyCheck);
     fireEvent.click(submit);
