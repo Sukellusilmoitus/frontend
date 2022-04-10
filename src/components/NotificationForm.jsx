@@ -340,6 +340,7 @@ function NewNotificationForm(props) {
         <Form.Check
           type="checkbox"
           id="privacy-checkbox"
+          data-testid="privacy-checkbox"
           inline
           onChange={(e) => setTermsAccepted(e.currentTarget.checked)}
         />

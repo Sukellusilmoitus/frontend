@@ -1,32 +1,51 @@
 const text = `
-<h1>Tietosuoja</h1>
-<h2>Tietosuoja ja henkilötietojen käsittely Museovirastossa</h2>
-<p>Henkilötietoja tallennetaan Museovirastossa vain perustellusta syystä. Pääsääntöisesti tietoja tarvitaan Museoviraston lakisääteisten tehtävien hoitamiseen, palveluiden toteuttamiseksi ja yhteydenpitoon. Tietoa Museoviraston järjestelmissään käsittelemistä henkilötiedoista on koottu tämän sivun loppuun, josta löytyvät eri rekisterien ja järjestelmien tietosuojaselosteet.</p>
-<h3>Käsiteltävät henkilötiedot</h3>
-<p>Museovirasto kertoo tietoja kerätessään, mihin tietoja tarvitaan ja miten niitä käytetään. Tyypillisiä Museoviraston keräämiä henkilötietoja ovat esimerkiksi henkilön nimi ja yhteystiedot, kuten osoite ja sähköpostiosoite. Lisätietoja kerättävistä henkilötiedoista on saatavilla Museoviraston tietosuojaselosteista.</p>
-<h3>Henkilötietojen käsittelyperusteet</h3>
-<p>Henkilötietojen käsittelylle on aina oltava laillinen peruste. Museovirasto käsittelee henkilötietoja</p>
-<ul>
-<li>yleistä etua koskevan tehtävän suorittamiseksi</li>
-<li>lakisääteisten velvoitteiden täyttämiseksi</li>
-<li>julkisen vallan käyttämiseksi</li>
-<li>sopimusten täytäntöön panemiseksi</li>
-<li>rekisteröidyn antaman suostumuksen perusteella.</li>
-</ul>
-<h3>Henkilötietojen käsittelijätahot ja tietojen säilytysaika</h3>
-<p>Tietoja käsittelevät Museoviraston työntekijät sekä tahot, joiden kanssa Museovirasto on sopinut henkilötietojen käsittelystä tietosuoja-asetuksen vaatimusten mukaisesti. Henkilötietoja säilytetään niin kauan kuin käsittelyn peruste on olemassa. Käsittelyn peruste on usein lainsäädäntö, joka määrää viranomaisen tiedonhallinnasta, esimerkiksi asiakirjojen säilytysajasta.</p>
-<h3>Henkilötietojen luovuttaminen kolmansille osapuolille</h3>
-<p>Museovirasto ei lähtökohtaisesti luovuta tietoja kolmansille osapuolille. Tietyissä tilanteissa tietoja luovutetaan esimerkiksi toisille viranomaisille. Tällöin luovutus perustuu lakiin.</p>
-<p>Museovirasto siirtää henkilötietoja tietojen käsittelijöinä toimiville sopimuskumppaneilleen.</p>
-<p>Lisätietoja tietojen luovutuksesta ja siirrosta on saatavilla Museoviraston tietosuojaselosteista.</p>
-<h3>Mahdollisuudet vaikuttaa omien henkilötietojen käsittelyyn</h3>
-<p>Sinulla on oikeus saada selville, mitä tietoja sinusta tallennamme ja kuka käsittelee tietojasi. Lisäksi voit tarkistaa sinusta keräämämme tiedot ja tarvittaessa päivittää ne ajan tasalle.</p>
-<p>Jos huomaat, että tiedoissasi on virheitä tai puutteita, voit pyytää niihin korjausta. Kerro korjauspyynnössäsi, millainen virhe tiedoissasi on, ja miten tietoja tulisi muuttaa.</p>
-<p>Jos ilmoitat virheistä tiedoissasi, sinulla on oikeus pyytää niiden käsittelyn rajoittamista siihen asti, että tietojen paikkansapitävyys on varmistettu.</p>
-<p>Joissain tapauksissa sinulla on myös oikeus pyytää tietojesi poistamista. Emme voi kuitenkaan poistaa sellaisia tietoja, joiden käsittelyyn Museovirastolla on lainsäädännöstä johtuva velvoite.</p>
-<p>Mikäli käsittely perustuu suostumukseen, rekisteröity voi milloin tahansa peruuttaa suostumuksensa tietojensa käsittelyyn.</p>
-<p>Jos haluat lisätietoja henkilötietojesi käsittelystä, pyydämme sinua ottamaan yhteyttä Museoviraston tietosuojavastaavaan: tietosuoja@museovirasto.fi.</p>
-<p>Tarvittaessa voit valittaa tai tehdä kantelun tietojesi käsittelystä tietosuojavaltuutetulle.</p>
+<h1>Tietosuojaseloste</h1>
+<p>Suomen meriarkeologinen seura ry (jatkossa MAS)</p>
+<p>Kotipaikka: Helsinki</p>
+<p>Yhdistysrekisterin numero 165271 ja Y-tunnus 1532406-7</p>
+<p>Yhteyshenkilö tietosuojaa ja henkilötietojen käsittelyä koskevissa asioissa:  MAS:n hallitus sekä jäsenrekisterivastaava <a href="mailto:rahastonhoitaja@mas.fi">rahastonhoitaja@mas.fi</a>.</p>
+<p><strong>MITÄ HENKILÖTIETOJA YHDISTYKSEN TOIMINNASSA KÄSITELLÄÄN JA MIHIN TARKOITUKSIIN? </strong></p>
+<p>MAS käsittelee henkilötietoja sääntöjensä mukaisen toiminnan edistämiseksi. Toimintaa  edistetään muun muassa koulutuksin, seminaarein, tutkimusmatkoin sekä kenttätyö- ja muiden vastaavien tapahtumien avulla. MAS käsittelee henkilötietoja jäsenasioiden hoitamiseksi, toimintansa organisoimiseksi, viestintään jäsentensä kanssa sekä lainsäädännön ja muiden vastaavien määräysten noudattamiseksi. NASkoulutusta koskevat CMAS-, NAS- ja ISO-standardit vaativat kurssin järjestäjää säilyttämään oppilasta ja hänen kurssisuorituksiaan koskevia tietoja seitsemän vuoden ajan ja sen lisäksi niin pitkään kuin hän on MAS:n jäsen. Lisäksi MAS:n verkkopalveluja hyödyntävien jäsenten tietoja säilytetään niin kauan kuin heillä on pääsy ko. tietojärjestelmään.</p>
+<p>MAS käsittelee muun muassa seuraavia jäsentensä tietoja:</p>
+<ul><li>Jäsenten perustiedot (nimi, osoite, puhelinnumero, sähköposti, ikä, kotikunta, syntymäaika)</li>
+<li>Kansalaisuus (suoja-alue-, Sotamuseo- ja sotilasalueen lähestymisluvat)</li>
+<li>Jäsenhakemus</li>
+<li>Jäsenluokka, äänioikeus yhdistyksen kokouksissa</li>
+<li>Laskutusta ja laskuja koskevat tiedot (jäsenmaksun tiedot, tila ja maksutapa, kaasujen täytöt, varustevuokrat, kurssit ja –retket, matkat)</li>
+<li>Tieto siitä, että terveysselvitys on tehty (ISO-standardi 24803:2017)</li>
+<li>Kurssin aikana hyväksytysti suoritetut opintosuoritteet (ISO-standardi 24803:2017)</li>
+<li>Kortitustiedot kurssin hyväksytyn suorittamisen jälkeen (ISO-standardi 24803:2017)</li>
+<li>Kiinnostuksen kohteet (osallistuminen, toiminnan järjestäminen ja kehittäminen, sukelluskokemus)</li>
+<li>Henkilötiedot mahdollisista jäsenen erityisistä oikeuksista (esim. veneen kipparointiin oikeutetut, avainten haltijat yhdistyksen tiloihin)</li>
+<li>Sukelluskaasutäyttöjen kirjanpito (kaasun täyttäjä ja käyttäjä, jäsenen täytettävien pullojen tiedot) (TUKES)</li>
+<li>Sukupuoli (Sukeltajaliitto, viranomaiset)</li>
+<li>Jäsenen toimenpiteet tietojärjestelmissä</li>
+<li>Jäsenen alaan liittyvät julkaisut eri medioissa tai tutkimuksissa</li>
+<li>Jäsenen toiminta ja aktiivisuus kunniamerkkien myöntöperusteiden täyttämiseksi.</li>
+</ul><p>MAS saa käsittelemänsä henkilötiedot jäseniltään ja toimintatiedot tietojärjestelmistään tai julkisista lähteistä kuten mediasta ja sosiaalisista medioista.</p>
+<p><strong>MIKÄ ON HENKILÖTIETOJEN KÄSITTELYN OIKEUSPERUSTE?</strong></p>
+<p>MAS käsittelee jäsentensä henkilötietoja usealla tietosuojalainsäädännön edellyttämällä perusteella:</p>
+<ul><li>Lakisääteisten velvoitteiden noudattaminen (esim. yhdistyslain mukainen jäsenluettelo, jossa jäsenen nimi ja kotikunta)</li>
+<li>Oikeutetun edun perusteella (jäsenhakemus ja jäsenasioiden hoitaminen)</li>
+<li>Suostumukseen perustuen (esim. jäsentietojen luovutukset, jäsenen toiminnan seuranta).</li>
+</ul><p><strong>KUINKA KAUAN HENKILÖTIETOJA SÄILYTETÄÄN?</strong></p>
+<p>MAS säilyttää henkilötietoja niin pitkään, kun jäsenyyteen liittyvien asioiden ja lakisääteisten velvoitteiden hoitamiseksi on tarpeellista. Jäsenyyden päätyttyä henkilötiedot poistetaan pääsääntöisesti seuraavan kalenteri vuoden aikana. Kirjanpitomateriaalia säilytetään kirjanpitolain määrittelemä aika. Yhteistyösopimusten vaatimat tiedot esim. NAS-kortituksista säilytetään sopimuksen edellyttämä aika (7v.). Jäsenen henkilötietoa voidaan tallentaa pysyvästi seuran arkistossa oleviin dokumentteihin, joita voidaan luovuttaa Suomessa oleviin julkisiin arkistoihin kuten Kansallis-, kaupungin- tai Museoviraston arkistoon.</p>
+<p><strong>MIHIN TIETOJA LUOVUTETAAN?</strong></p>
+<p>Jäsenen pyynnöstä tai suostumuksella (suoja-aluelupahakemus, Sotamuseon lupahakemus, Museoviraston tutkimuslupa) MAS luovuttaa ko. viranomaiselle tiedon jäsenen nimestä, syntymäajasta, kansalaisuudesta sekä sukelluskokemuksesta ja meriarkeologisesta koulutuksesta.</p>
+<p>MAS voi hyödyntää toiminnassaan ulkopuolisten ylläpitämiä sivustoja, (kuten Nimenhuuto.com), jolloin palveluntarjoaja toimii henkilötietojen käsittelijänä.</p>
+<p><strong>TIETOJEN SIIRTO EU:N TAI ETA:N ULKOPUOLELLE</strong></p>
+<p>Tietoja ei siirretä EU:n tai ETA:n ulkopuolelle.</p>
+<p><strong>JÄSENEN OIKEUDET</strong></p>
+<p>Jäsenellä on tietosuojalainsäädännön määrittelemin edellytyksin seuraavat rekisteröidyn oikeudet:</p>
+<ul><li>Oikeus saada pääsy henkilötietoihinsa (tarkastusoikeus)</li>
+<li>Oikeus tietojensa oikaisemiseen</li>
+<li>Oikeus tietojen poistamiseen</li>
+<li>Oikeus käsittelyn rajoittamiseen</li>
+<li>Vastustamisoikeus</li>
+<li>Oikeus siirtää tiedot järjestelmästä toiseen</li>
+<li>Oikeus peruuttaa antamansa suostumus – suostumuksen peruuttaminen ei vaikuta ennen suostumuksen peruuttamista tehdyn käsittelyn lainmukaisuuteen</li>
+</ul><p>Oikeuksien käyttämiseen liittyvät pyynnöt voi toimittaa MAS:n jäsenrekisterivastaavalle osoitteeseen <a href="mailto:rahastonhoitaja@mas.fi">rahastonhoitaja@mas.fi</a>.</p>
+<p>Lisäksi jäsenellä on oikeus valittaa tietosuojaviranomaiselle MAS:n henkilötietojen käsittelystä (<a href="http://www.tietosuoja.fi" rel="noopener noreferrer" target="_blank">www.tietosuoja.fi</a>).</p>
 `;
 
 export default text;

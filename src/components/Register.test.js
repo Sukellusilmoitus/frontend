@@ -1,4 +1,4 @@
-import { fireEvent, render, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import Register from './Register';
 import { wait } from '@testing-library/user-event/dist/utils';
@@ -56,4 +56,30 @@ describe('Register page', () => {
       expect(component.getByText('Käyttäjätunnus on jo käytössä')).toBeInTheDocument();
     });
   });
+
+  it('privacy terms are opened when clicking the link', () => {
+    const header = screen.queryByRole('heading')
+    expect(header).toBeNull()
+    const privacyLink = screen.getByText('tietosuojaehdot')
+    fireEvent.click(privacyLink)
+    const privacyHeader = screen.getByRole('heading')
+    expect(privacyHeader).toHaveTextContent('Tietosuoja')
+  })
+
+  it('privacy terms close from close button', () => {
+    const privacyLink = screen.getByText('tietosuojaehdot')
+    fireEvent.click(privacyLink)
+    const privacyHeader = screen.getByRole('heading')
+    expect(privacyHeader).toHaveTextContent('Tietosuoja')
+    const closeButton = screen.getByText('Sulje')
+    fireEvent.click(closeButton)
+    const header = screen.queryByRole('heading')
+    expect(header).toBeNull()
+  })
+
+  it('terms have to be accepted to submit the form', () => {
+    expect(submit).toBeDisabled()
+    fireEvent.click(privacyCheck);
+    expect(submit).not.toBeDisabled()
+  })
 });

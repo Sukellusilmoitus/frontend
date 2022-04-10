@@ -149,4 +149,33 @@ describe('new target tests', () => {
       );
     });
   });
+
+  it('privacy terms are opened when clicking the link', () => {
+    const header = screen.getAllByRole('heading')
+    expect(header).toHaveLength(1)
+    const privacyLink = screen.getByText('tietosuojaehdot')
+    fireEvent.click(privacyLink)
+    const headers = screen.getAllByRole('heading')
+    expect(headers).toHaveLength(2)
+    expect(headers[1]).toHaveTextContent('Tietosuoja')
+  })
+
+  it('privacy terms close from close button', () => {
+    const privacyLink = screen.getByText('tietosuojaehdot')
+    fireEvent.click(privacyLink)
+    const privacyHeader = screen.getAllByRole('heading')[1]
+    expect(privacyHeader).toHaveTextContent('Tietosuoja')
+    const closeButton = screen.getByText('Sulje')
+    fireEvent.click(closeButton)
+    const header = screen.getAllByRole('heading')
+    expect(header).toHaveLength(1)
+  })
+
+  it('terms have to be accepted to submit the form', () => {
+    const submit = screen.getByText('Lähetä')
+    const privacyCheck = screen.getByTestId('privacy-checkbox')
+    expect(submit).toBeDisabled()
+    fireEvent.click(privacyCheck);
+    expect(submit).not.toBeDisabled()
+  })
 });
