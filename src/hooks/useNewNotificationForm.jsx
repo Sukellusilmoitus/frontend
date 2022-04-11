@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { omit } from 'lodash';
 import validator from 'validator';
+import { loggedUser } from '../services/users';
 
 const useNotificationForm = ({ props, date }) => {
   const {
@@ -23,10 +24,25 @@ const useNotificationForm = ({ props, date }) => {
   const [newMapX, setNewMapX] = useState(targetXcoordinate);
   const [newMapY, setNewMapY] = useState(targetYcoordinate);
   const [center, setCenter] = useState([newMapY, newMapX]);
+  const user = loggedUser();
 
   useEffect(() => {
     setCenter([newMapY, newMapX]);
   }, [newMapY, newMapX]);
+
+  useEffect(() => {
+    if (user !== null) {
+      setRequiredValues({
+        ...requiredValues,
+        divername: user.name,
+      });
+      setValues({
+        ...values,
+        email: user.email,
+        phone: user.phone,
+      });
+    }
+  }, [newMapX]);
 
   const callback = (event) => {
     event.preventDefault();
@@ -215,14 +231,13 @@ const useNotificationForm = ({ props, date }) => {
     });
   };
 
-  const handleCoordinateClick = (coordinate, name) => {
-    if (name !== 'xcoordinate' && name !== 'ycoordinate') {
-      return;
-    }
-    validate(null, name, coordinate);
+  const handleCoordinatesClick = (xcoordinate, ycoordinate) => {
+    validate(null, 'xcoordinate', xcoordinate);
+    validate(null, 'ycoordinate', ycoordinate);
     setRequiredValues({
       ...requiredValues,
-      [name]: coordinate,
+      xcoordinate,
+      ycoordinate,
     });
   };
 
@@ -310,7 +325,7 @@ const useNotificationForm = ({ props, date }) => {
     resetChangeText,
     handleCoordinateChange,
     center,
-    handleCoordinateClick,
+    handleCoordinatesClick,
   };
 };
 
