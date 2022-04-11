@@ -20,7 +20,7 @@ function DiveListView(props) {
       <Datagrid>
         <TextField source="id" />
         <TextField source="diver_name" label="Sukeltaja" />
-        <FunctionField source="target_name" label="Hylky" render={(targetId) => <UrlField source="target_name" href={`/hylyt/${targetId.id}`} />} />
+        <FunctionField source="target_name" label="Hylky" render={(dive) => <UrlField source="target_name" href={`/hylyt/${dive.target_id}`} />} />
         <DateField source="created_at" label="Päiväys" />
         <BooleanField source="location_correct" label="Sijainti oikein" />
         <TextField source="new_x_coordinate" label="Uusi x koordinaatti" />
