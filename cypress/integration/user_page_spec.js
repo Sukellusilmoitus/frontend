@@ -1,3 +1,5 @@
+const REACT_APP_SERVER_URL = 'https://sukellusilmo-back-staging.herokuapp.com/';
+
 Cypress.on('uncaught:exception', (err, runnable) => {
   return false
 });
@@ -5,7 +7,7 @@ Cypress.on('uncaught:exception', (err, runnable) => {
 let auth;
 
 before(function fetchUser () {
-  cy.request('POST', 'http://localhost:5000/api/login', {
+  cy.request('POST', `${REACT_APP_SERVER_URL}/api/login`, {
     username: 'usernametest',
     password: 'passwordtest',
   })
