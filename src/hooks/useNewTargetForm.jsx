@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { omit } from 'lodash';
 import targets from '../services/targets';
+import { loggedUser } from '../services/users';
 
 const useForm = (postTarget) => {
   const [requiredValues, setRequiredValues] = useState({});
@@ -10,10 +11,25 @@ const useForm = (postTarget) => {
   const [newMapX, setNewMapX] = useState(25.0);
   const [newMapY, setNewMapY] = useState(60.1);
   const [center, setCenter] = useState([newMapY, newMapX]);
+  const user = loggedUser();
 
   useEffect(() => {
     setCenter([newMapY, newMapX]);
   }, [newMapY, newMapX]);
+
+  useEffect(() => {
+    if (user !== null) {
+      setRequiredValues({
+        ...requiredValues,
+        divername: user.name,
+      });
+      setValues({
+        ...values,
+        email: user.email,
+        phone: user.phone,
+      });
+    }
+  }, [newMapX]);
 
   const callback = async (event) => {
     event.preventDefault();
@@ -228,14 +244,13 @@ const useForm = (postTarget) => {
     });
   };
 
-  const handleCoordinateClick = (coordinate, name) => {
-    if (name !== 'xcoordinate' && name !== 'ycoordinate') {
-      return;
-    }
-    validate(null, name, coordinate);
+  const handleCoordinatesClick = (latlng) => {
+    validate(null, 'xcoordinate', latlng.lng);
+    validate(null, 'ycoordinate', latlng.lat);
     setRequiredValues({
       ...requiredValues,
-      [name]: coordinate,
+      xcoordinate: latlng.lng,
+      ycoordinate: latlng.lat,
     });
   };
 
@@ -278,7 +293,7 @@ const useForm = (postTarget) => {
     handleChange,
     handleSubmit,
     center,
-    handleCoordinateClick,
+    handleCoordinatesClick,
   };
 };
 
