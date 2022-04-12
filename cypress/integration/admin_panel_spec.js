@@ -3,12 +3,13 @@ const sort_arrow_asc = '.MuiTableSortLabel-root.MuiTableSortLabel-active.MuiTabl
 const sort_arrow_desc = '.MuiTableSortLabel-root.MuiTableSortLabel-active.MuiTableSortLabel-root.MuiTableSortLabel-active .MuiTableSortLabel-iconDirectionDesc'
 const toString = (cells$) => _.map(cells$, 'textContent')
 const toNumbers = (id) => _.map(id,Number)
-const BACKEND_URL = 'http://127.0.0.1:5000'
+const BACKEND_URL = Cypress.env('react_app_server_url')
 
 function change_amount_of_rows_per_page (amount) {
   cy.get('.MuiTablePagination-input').click()
   cy.get('.MuiMenu-list').find(`[data-value=${amount}]`).click()
   cy.get('table').within(() => {
+    cy.wait(200)
     cy.get("td:nth-child(2)").should('have.length',amount)
   })
 }
@@ -61,7 +62,8 @@ function add_dive (
   new_y_coordinate,
   new_location_explanation,
   change_text,
-  miscellaneous) {
+  miscellaneous,
+  diveDate) {
     cy.request('POST',`${BACKEND_URL}/api/dives`, {
       name:name,
       email:diver_email,
@@ -73,6 +75,7 @@ function add_dive (
       coordinateText:new_location_explanation,
       changeText:change_text,
       miscText:miscellaneous,
+      diveDate: diveDate
     })
 }
 
@@ -117,28 +120,48 @@ function add_target (
   })
 }
 
+
 function setup_db () {
-  add_dive('sami sukeltaa','sami@gmail.com','34362728354','1000028223','True','','','','masto rikki','')
-  add_dive('matti sukeltaa','sami@gmail.com','04003725583','1957','True','','','','','')
-  add_dive('matti mallikas','','04437594752','1091','True','','','','masto poikki','')
-  add_dive('sami sukeltaa','sami@gmail.com','045274356583','1388','True','','','','hylkyyn tullut reikä','hieno hylky')
-  add_dive('sami sukeltaa','sami@gmail.com','34362728354','1000028223','True','','','','masto rikki','')
-  add_dive('mikko sukeltaa','mikko@gmail.com','04003725583','1957','True','','','','','')
-  add_dive('sari saari','','033859363','1091','True','','','','masto poikki','')
-  add_dive('testi testaaja','','045274356583','1388','True','','','','hylkyyn tullut reikä','hieno hylky')
-  add_dive('testi testaaja2','','34362728354','1000028223','True','','','','masto rikki','')
-  add_dive('testi sukeltaa','testi@gmail.com','','1957','True','','','','','')
-  add_dive('matti mallikas','','045382956382','1091','True','','','','masto poikki','')
-  add_dive('sami sukeltaa','sami@gmail.com','045274356583','1388','True','','','','','hieno keli oli sukeltaa')
+  add_dive('sami sukeltaa','sami@gmail.com','34362728354','1000028223','True','','','','masto rikki','','12.4.2022')
+  add_dive('matti sukeltaa','sami@gmail.com','04003725583','1957','True','','','','','','10.4.2022')
+  add_dive('matti mallikas','','04437594752','1091','True','','','','masto poikki','','12.4.2022')
+  add_dive('sami sukeltaa','sami@gmail.com','045274356583','1388','True','','','','hylkyyn tullut reikä','hieno hylky','12.3.2022')
+  add_dive('sami sukeltaa','sami@gmail.com','34362728354','1000028223','True','','','','masto rikki','','25.3.2022')
+  add_dive('mikko sukeltaa','mikko@gmail.com','04003725583','1957','True','','','','','','10.4.2022')
+  add_dive('sari saari','','033859363','1091','True','','','','masto poikki','','1.4.2022')
+  add_dive('testi testaaja','','045274356583','1388','True','','','','hylkyyn tullut reikä','hieno hylky','11.3.2022')
+  add_dive('testi testaaja2','','34362728354','1000028223','True','','','','masto rikki','','12.1.2022')
+  add_dive('testi sukeltaa','testi@gmail.com','','1957','True','','','','','','12.4.2022')
+  add_dive('matti mallikas','','045382956382','1091','True','','','','masto poikki','','23.3.2022')
+  add_dive('sami sukeltaa','sami@gmail.com','045274356583','1388','True','','','','','hieno keli oli sukeltaa','22.2.2022')
 
   add_target('matti sukeltaja','matti@gmail.com','04566342728','e2etestihylky','Helsinki','hylky','25.34234320','60.42342342','arvaus','arvio',BACKEND_URL,'False','ilmoitus','lisätietoja hylystä','True')
   add_target('sami sukeltaja','','0456634527489','e2eduplicatetest1','Espoo','hylky','28.810887','64.962023','gps','gps tarkkuus',BACKEND_URL,'False','ilmoitus','ei lisättävää','True')
   
 }
+let user
+console.log(Cypress.env('username'),Cypress.env('password'))
+before(function fetchUser () {
+  cy.request('POST', `${BACKEND_URL}/api/login`, {
+    username: 'sam',
+    password: 'salasana',
+  })
+  .its('body')
+  .then((res) => {
+    user = res
+  })
+})
+
 describe('Admin panel', () => {
   it('setup database', () => {
     setup_db()
   })
+  beforeEach(function setUser () {
+    cy.visit('/admin', {
+      onBeforeLoad (win) {
+        win.localStorage.setItem('auth', JSON.stringify(user))
+      },
+    })
   context('Target page', () => {
     beforeEach(() => {
       cy.visit('/admin#/targets');
@@ -153,8 +176,9 @@ describe('Admin panel', () => {
         it('5 target per page', () => {
           change_amount_of_rows_per_page(5)
         })
-      it('25 target per page', () => {
-        change_amount_of_rows_per_page(25)
+        it('25 target per page', () => {
+          change_amount_of_rows_per_page(25)
+        })
       })
     })
     context('Sorting', () => {
@@ -210,9 +234,6 @@ describe('Admin panel', () => {
         it('5 target per page', () => {
           change_amount_of_rows_per_page(5)
         })
-      it('25 target per page', () => {
-        change_amount_of_rows_per_page(25)
-      })
     })
     context('Sorting', () => {
       it('sort by Id Asc', () => {

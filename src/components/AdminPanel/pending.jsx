@@ -51,7 +51,7 @@ function PendingListEdit(props) {
         <TextInput source="is_ancient" />
         <TextInput source="source" label="Lähde" />
         <TextInput source="coordinates" label="Koordinaatit" />
-        <BooleanInput source="is_pending" label="Tarkistettu" />
+        <BooleanInput source="is_pending" label="odottaa tarkistusta" />
         <TextInput source="miscellaneous" label="Lisätietoja" />
       </SimpleForm>
     </Edit>

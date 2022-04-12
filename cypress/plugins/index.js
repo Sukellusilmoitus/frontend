@@ -16,7 +16,14 @@
  * @type {Cypress.PluginConfig}
  */
 // eslint-disable-next-line no-unused-vars
+require('dotenv').config()
+
 module.exports = (on, config) => {
-  // `on` is used to hook into various events Cypress emits
-  // `config` is the resolved Cypress config
-};
+  // copy any needed variables from process.env to config.env
+  config.env.react_app_server_url = process.env.REACT_APP_SERVER_URL
+  config.env.username = process.env.ADMINPANEL_USERNAME
+  config.env.password = process.env.ADMINPANEL_PASSWORD
+
+  // do not forget to return the changed config object!
+  return config
+}
