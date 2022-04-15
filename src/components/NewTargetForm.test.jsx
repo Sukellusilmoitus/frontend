@@ -4,13 +4,23 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { wait } from '@testing-library/user-event/dist/utils';
 import NewTargetForm from './NewTargetForm';
+import { loggedUser } from '../services/users';
 
 const postTarget = jest.fn();
 let form; let input; let input1; let input2; let input3; let input4; let input5; let input6; let input7; let input8; let input9; let
   input10;
 
+jest.mock('../services/users')
+
+const mockUser = {
+  name: 'Mock user',
+  email: 'mock@email.jest',
+  phone: '000-000-000'
+}
+
 describe('new target tests', () => {
   beforeEach(() => {
+    loggedUser.mockReturnValue(null);
     const component = render(
       <NewTargetForm
         postTarget={postTarget}
@@ -149,4 +159,17 @@ describe('new target tests', () => {
       );
     });
   });
+
+  test('user logged renders', () => {
+
+    loggedUser.mockReturnValue(mockUser);
+  
+    const component = render(
+      <NewTargetForm
+        postTarget={postTarget}
+      />,
+    );
+    const username = component.getByTestId('testusername');
+    expect(username.value).toEqual(mockUser.name)
+  })
 });

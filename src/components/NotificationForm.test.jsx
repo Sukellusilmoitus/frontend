@@ -3,8 +3,20 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import NewNotificationForm from './NotificationForm';
+import { loggedUser } from '../services/users';
 
 window.alert = jest.fn();
+jest.mock('../services/users')
+
+const mockUser = {
+  name: 'Mock user',
+  email: 'mock@email.jest',
+  phone: '000-000-000'
+}
+
+beforeEach(() => {
+  loggedUser.mockReturnValue(null);
+});
 
 test('renders component', () => {
   const component = render(
@@ -13,6 +25,7 @@ test('renders component', () => {
   expect(component.container).toHaveTextContent(
     'Tee uusi sukellusilmoitus',
   );
+  const divername = component.getByTestId('testdivername');
 });
 
 test('no change accurate coordinates required filled gets submitted', () => {
@@ -290,4 +303,19 @@ test('checking coordinates were wrong and then checking they were correct again 
   fireEvent.submit(form)
 
   expect(createNotification).toHaveBeenCalledTimes(1)
+})
+
+test('user logged renders', () => {
+
+  loggedUser.mockReturnValue(mockUser);
+
+  const component = render(
+    <NewNotificationForm />,
+  );
+  expect(component.container).toHaveTextContent(
+    'Tee uusi sukellusilmoitus',
+  );
+
+  const username = component.getByTestId('testusername');
+  expect(username.value).toEqual(mockUser.name)
 })
