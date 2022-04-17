@@ -76,6 +76,9 @@ describe('Test form fields', () => {
 
 describe('Diving history is displayed', () => {
   it('history is not empty after posting notif', () => {
+    cy.visit('/hylyt');
+    cy.get('table tbody').find('tr').first().click();
+    cy.contains('Tee uusi sukellusilmoitus');
     cy.reload();
     cy.get('[id=newname]').type('Test Tester');
     cy.get('[id=newemail]').type('Test@Tester.com');
@@ -84,6 +87,42 @@ describe('Diving history is displayed', () => {
     cy.reload();
     cy.wait(19000);
     cy.get('[data-testid=dive-history-list]').find('div').eq(2).should('contain', 'Sukeltaja: Test Tester');
+    cy.get('[data-testid=dive-history-list]').find('div').eq(2).should('contain', 'Muutokset: ei muutoksia');
+  });
+});
+
+
+describe('logged and unglogged user tests', () => {
+  it('form does not autofill with unlogged user', () => {
+    cy.clearLocalStorage();
+    cy.visit('/hylyt');
+    cy.get('table tbody').find('tr').first().click();
+    cy.contains('Tee uusi sukellusilmoitus');
+    cy.get('[id=newname]').should("be.visible");
+    cy.get('[id=newname]').should('have.value', '');
+  });
+  it('form autofills when logged in', () => {
+    cy.clearLocalStorage();
+    cy.visit('/kirjaudu');
+    cy.contains('Rekisteröidy').click();
+    cy.get('[data-testid=username]').type('usernametest');
+    cy.get('[data-testid=password]').type('passwordtest');
+    cy.get('[data-testid=name]').type('name');
+    cy.get('[data-testid=email]').type('email@email.com');
+    cy.contains('Rekisteröidy').click();
+    cy.visit('/kirjaudu');
+    cy.get('[data-testid=username]').type('usernametest');
+    cy.get('[data-testid=password]').type('passwordtest');
+    cy.get('[data-testid=kirjaudu]').click();
+    expect(localStorage.getItem('auth'));
+    cy.visit('/hylyt');
+    cy.get('table tbody').find('tr').first().click();
+    cy.contains('Tee uusi sukellusilmoitus');
+    cy.get('[id=formbtn]').click();
+    cy.wait(2000);
+    cy.reload();
+    cy.wait(19000);
+    cy.get('[data-testid=dive-history-list]').find('div').eq(2).should('contain', 'Sukeltaja: usernametest');
     cy.get('[data-testid=dive-history-list]').find('div').eq(2).should('contain', 'Muutokset: ei muutoksia');
   });
 });
