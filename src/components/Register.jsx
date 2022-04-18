@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Helmet from 'react-helmet';
 import {
   Alert, Button, Container, Form,
 } from 'react-bootstrap';
@@ -52,6 +53,9 @@ function Register() {
 
   return (
     <Container>
+      <Helmet>
+        <title>Rekisteröityminen</title>
+      </Helmet>
       <PageTitle text="Rekisteröidy" />
       {alert && <Alert variant="danger">{alert}</Alert>}
       <Form onSubmit={handleSubmit}>

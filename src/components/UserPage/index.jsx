@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Helmet from 'react-helmet';
 import diveService from '../../services/dives';
 import targetService from '../../services/targets';
 import UserPage from './UserPage';
@@ -47,11 +48,16 @@ function User() {
   }
 
   return (
-    <UserPage
-      user={user}
-      dives={dives}
-      targetnotes={targetnotes}
-    />
+    <>
+      <Helmet>
+        <title>Oma sivu</title>
+      </Helmet>
+      <UserPage
+        user={user}
+        dives={dives}
+        targetnotes={targetnotes}
+      />
+    </>
   );
 }
 

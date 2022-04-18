@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Helmet from 'react-helmet';
 import { Container, Row } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import List from './TargetList';
@@ -23,6 +24,9 @@ function TargetList({ targets }) {
 
   return (
     <Container fluid>
+      <Helmet>
+        <title>Hylkylistaus</title>
+      </Helmet>
       <PageTitle text="Hylkylistaus" />
       <Row className="d-flex">
         <SearchBar targets={targets} setTargets={setFilteredTargets} />
