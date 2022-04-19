@@ -18,6 +18,7 @@ import Feedback from './components/Feedback';
 import Login from './components/Login';
 import Register from './components/Register';
 import Logout from './components/Logout';
+import { AuthVerify } from './services/users';
 
 function App() {
   const [targets, setTargets] = useState('loading...');
@@ -35,6 +36,7 @@ function App() {
   useEffect(() => {
     getTargets();
   }, []);
+  AuthVerify();
 
   const match = useRouteMatch('/hylyt/:id');
   const target = match && targets !== 'loading...'
