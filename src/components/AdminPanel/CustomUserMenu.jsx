@@ -1,26 +1,24 @@
 /* eslint-disable react/jsx-props-no-spreading */
+import React from 'react';
 import { UserMenu } from 'react-admin';
-import homeIcon from '../../assets/images/home-icon.svg';
+import MenuItem from '@mui/material/MenuItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 
-// the classnames are used to achieve mui look and feel for the custom menu item
-// this way we don't need to actually install mui package
-
-function CustomUserMenu(props) {
-  return (
-    <UserMenu {...props}>
-      <div className="MuiListItem-root MuiListItem-gutters MuiListItem-button">
-        <div className="MuiListItemIcon-root">
-          <img src={homeIcon} alt="Home" />
-        </div>
-        <a
-          href="/"
-          style={{ color: 'grey' }}
-        >
+const CustomUserMenu = React.forwardRef((props, ref) => (
+  <UserMenu {...props}>
+    <a style={{ textDecoration: 'none', color: 'grey' }} href="/">
+      <MenuItem ref={ref} {...props}>
+        <ListItemIcon>
+          <HomeOutlinedIcon />
+        </ListItemIcon>
+        <ListItemText>
           Etusivu
-        </a>
-      </div>
-    </UserMenu>
-  );
-}
+        </ListItemText>
+      </MenuItem>
+    </a>
+  </UserMenu>
+));
 
 export default CustomUserMenu;

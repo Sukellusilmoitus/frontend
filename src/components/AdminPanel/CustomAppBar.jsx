@@ -6,14 +6,6 @@ import CustomUserMenu from './CustomUserMenu';
 function CustomAppBar(props) {
   return (
     <AppBar
-      sx={{
-        '& .RaAppBar-title': {
-          flex: 1,
-          textOverflow: 'ellipsis',
-          whiteSpace: 'nowrap',
-          overflow: 'hidden',
-        },
-      }}
       {...props}
       userMenu={<CustomUserMenu />}
     />

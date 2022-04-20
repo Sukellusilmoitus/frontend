@@ -2,3 +2,5 @@
 *.test.jsx
 .eslintrc.js
 cypress/*
+node_modules
+coverage
