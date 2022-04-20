@@ -29,6 +29,7 @@ function Feedback() {
     <Container fluid>
       <Helmet>
         <title>Anna palautetta</title>
+        <meta name="description" content="Lue lisää tai anna palautetta palvelusta" />
       </Helmet>
       <PageTitle text="Anna palautetta" />
       {message && <Alert variant="success">{message}</Alert>}

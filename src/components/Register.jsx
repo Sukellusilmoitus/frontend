@@ -55,6 +55,7 @@ function Register() {
     <Container>
       <Helmet>
         <title>Rekisteröityminen</title>
+        <meta name="description" content="Rekisteröidy palveluun" />
       </Helmet>
       <PageTitle text="Rekisteröidy" />
       {alert && <Alert variant="danger">{alert}</Alert>}

@@ -51,6 +51,7 @@ function User() {
     <>
       <Helmet>
         <title>Oma sivu</title>
+        <meta name="description" content="Tarkastele tai muokkaa omia tietojasi" />
       </Helmet>
       <UserPage
         user={user}

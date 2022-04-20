@@ -45,6 +45,7 @@ function Login() {
     <Container>
       <Helmet>
         <title>Kirjaudu sisään</title>
+        <meta name="description" content="Kirjaudu sisään" />
       </Helmet>
       <PageTitle text="Kirjaudu sisään" />
       {alert && <Alert variant="danger">{alert}</Alert>}

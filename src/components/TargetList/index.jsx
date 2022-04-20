@@ -26,6 +26,7 @@ function TargetList({ targets }) {
     <Container fluid>
       <Helmet>
         <title>Hylkylistaus</title>
+        <meta name="description" content="Lista kohteista, joille sukeltaa" />
       </Helmet>
       <PageTitle text="Hylkylistaus" />
       <Row className="d-flex">

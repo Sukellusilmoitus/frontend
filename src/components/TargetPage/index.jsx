@@ -40,6 +40,7 @@ function Target({ target }) {
     <>
       <Helmet>
         <title>{target.properties.name}</title>
+        <meta name="description" content={`Tarkempia tietoja kohteesta ${target.properties.name}`} />
       </Helmet>
       <TargetPage
         target={target}

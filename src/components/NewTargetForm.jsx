@@ -57,6 +57,7 @@ function NewTargetForm(props) {
     <Container>
       <Helmet>
         <title>Uusi kohde</title>
+        <meta name="description" content="Ilmoita uudesta sukelluskohteesta" />
       </Helmet>
       <PageTitle text="Tee ilmoitus uudesta kohteesta" />
       <Submitmessage message={message} />
