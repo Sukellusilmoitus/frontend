@@ -23,7 +23,7 @@ function NewNotificationForm(props) {
   const [formX, setFormX] = useState(targetXcoordinate);
   const [formY, setFormY] = useState(targetYcoordinate);
   const [date, setDate] = useState(new Date());
-  const user = loggedUser();
+  const loggeduser = loggedUser();
 
   useEffect(() => {
     setDefaultCenter([64.1, 25.0]);
@@ -44,7 +44,7 @@ function NewNotificationForm(props) {
   const {
     handleChange, errors, message, handleSubmit, resetChangeText,
     handleCoordinateChange, center, handleCoordinatesClick,
-  } = useForm({ props, date, user });
+  } = useForm({ props, date, loggeduser });
 
   const handleChangeRadio = (value) => {
     setChangeRadio(value);
@@ -87,7 +87,7 @@ function NewNotificationForm(props) {
         data-testid="testform"
         id="newtargetform"
       >
-        {user !== null && (
+        {loggeduser !== null && (
         <p>
           {' '}
           <Form.Group>
@@ -97,7 +97,7 @@ function NewNotificationForm(props) {
               name="username"
               data-testid="testusername"
               id="username"
-              value={user.name}
+              value={loggeduser.name}
               readOnly
             />
           </Form.Group>
@@ -109,7 +109,7 @@ function NewNotificationForm(props) {
               name="userphone"
               data-testid="testuserphone"
               id="userphone"
-              value={user.phone}
+              value={loggeduser.phone}
               readOnly
             />
           </Form.Group>
@@ -121,13 +121,13 @@ function NewNotificationForm(props) {
               name="useremail"
               data-testid="testuseremail"
               id="useremail"
-              value={user.email}
+              value={loggeduser.email}
               readOnly
             />
           </Form.Group>
         </p>
         )}
-        {user === null && (
+        {loggeduser === null && (
         <p>
           {' '}
           <Form.Group>
