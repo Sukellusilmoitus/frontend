@@ -1,3 +1,4 @@
+
 Cypress.on('uncaught:exception', (err, runnable) => {
   return false
 })
@@ -87,3 +88,30 @@ describe('Diving history is displayed', () => {
     cy.get('[data-testid=dive-history-list]').find('div').eq(2).should('contain', 'Muutokset: ei muutoksia');
   });
 });
+
+
+describe('logged and unglogged user tests', () => {
+  it('form does not autofill with unlogged user', () => {
+    cy.clearLocalStorage();
+    cy.visit('/hylyt');
+    cy.get('table tbody').find('tr').first().click();
+    cy.contains('Tee uusi sukellusilmoitus');
+    cy.get('[id=newname]').should("be.visible");
+    cy.get('[id=newname]').should('have.value', '');
+  });
+  it('form autofills when logged in', () => {
+    cy.clearLocalStorage();
+    cy.visit('/kirjaudu');
+    cy.get('[data-testid=username]').type('usernametest');
+    cy.get('[data-testid=password]').type('passwordtest');
+    cy.get('[data-testid=kirjaudu]').click();
+    cy.wait(3000);
+    expect(localStorage.getItem('auth'));
+    cy.visit('/hylyt');
+    cy.get('table tbody').find('tr').first().click();
+    cy.contains('Tee uusi sukellusilmoitus');
+    cy.get('[id=username]');
+    
+  });
+}); 
+
