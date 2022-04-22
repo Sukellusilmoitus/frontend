@@ -7,7 +7,7 @@ import LoadingSpinner from '../LoadingSpinner';
 import targetService from '../../services/targets';
 import PageTitle from '../PageTitle';
 
-function TargetList() {
+function TargetList({ listTargets }) {
   const [targets, setTargets] = useState('loading...');
   const [filteredTargets, setFilteredTargets] = useState(targets);
 
@@ -17,7 +17,11 @@ function TargetList() {
     setTargets(data.features);
   };
   useEffect(() => {
-    getTargets();
+    if (listTargets === undefined) {
+      getTargets();
+    } else {
+      setTargets(listTargets);
+    }
   }, []);
 
   const history = useHistory();
