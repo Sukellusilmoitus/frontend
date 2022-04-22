@@ -120,7 +120,6 @@ describe('logged and unglogged user tests', () => {
       },
     });
     expect(localStorage.getItem('auth'));
-    cy.visit('/hylyt');
     cy.get('table tbody').find('tr').first().click();
     cy.contains('Tee uusi sukellusilmoitus');
     cy.get('[id=username]');
