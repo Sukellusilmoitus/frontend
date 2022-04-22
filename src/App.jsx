@@ -30,9 +30,13 @@ function App() {
           <Redirect to="/etusivu" />
         </Route>
         <Route path="/etusivu" component={Home} />
-        <Route path="/hylyt/:id" component={Target}>
-          {/* <TargetPage /> */}
-        </Route>
+        <Route
+          exact
+          path="/hylyt/:id"
+          render={(props) => (
+            <Target id={props.match.params.id} />
+          )}
+        />
         <Route path="/omasivu">
           <UserPage />
         </Route>

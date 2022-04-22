@@ -4,12 +4,12 @@ import LoadingSpinner from '../LoadingSpinner';
 import TargetPage from './TargetPage';
 import targetservice from '../../services/targets';
 
-function Target(props) {
+function Target({ id }) {
   const [dives, setDives] = useState([]);
   const [target, setTarget] = useState(null);
 
   const getTarget = async () => {
-    const data = await targetservice.getTarget(props.match.params.id);
+    const data = await targetservice.getTarget(id);
     if (data.data === null) {
       setTarget(undefined);
     } else {
