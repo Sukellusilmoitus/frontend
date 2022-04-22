@@ -114,11 +114,11 @@ describe('logged and unglogged user tests', () => {
   });
   it('form autofills when logged in', () => {
     cy.clearLocalStorage();
-    cy.visit('/kirjaudu');
-    cy.get('[data-testid=username]').type('usernametest');
-    cy.get('[data-testid=password]').type('passwordtest');
-    cy.get('[data-testid=kirjaudu]').click();
-    cy.wait(3000);
+    cy.visit('/hylyt', {
+      onBeforeLoad (win) {
+        win.localStorage.setItem('auth', auth);
+      },
+    });
     expect(localStorage.getItem('auth'));
     cy.visit('/hylyt');
     cy.get('table tbody').find('tr').first().click();
