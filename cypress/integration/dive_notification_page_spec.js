@@ -3,6 +3,19 @@ Cypress.on('uncaught:exception', (err, runnable) => {
   return false
 })
 
+let auth;
+
+before(function fetchUser () {
+  cy.request('POST', `${REACT_APP_SERVER_URL}/api/login`, {
+    username: 'usernametest',
+    password: 'passwordtest',
+  })
+  .its('body')
+  .then((res) => {
+    auth = res.auth;
+  });
+});
+
 describe('Target can be clicked', () => {
   it('successfully loads', () => {
     cy.visit('/hylyt');
