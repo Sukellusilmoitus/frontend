@@ -9,12 +9,18 @@ function Target({ id }) {
   const [target, setTarget] = useState(null);
 
   const getTarget = async () => {
-    const data = await targetservice.getTarget(id);
-    if (data.data === null) {
+    if (id === undefined) {
       setTarget(undefined);
+    } else if (id === null) {
+      setTarget(null);
     } else {
-      setTarget(data.data.target);
-      setDives(data.data.dives);
+      const data = await targetservice.getTarget(id);
+      if (data.data === null) {
+        setTarget(undefined);
+      } else {
+        setTarget(data.data.target);
+        setDives(data.data.dives);
+      }
     }
   };
 
@@ -25,7 +31,6 @@ function Target({ id }) {
   const createNewNotification = (notification) => {
     diveService.create(notification);
   };
-
   if (target === null) {
     return (
       <LoadingSpinner />

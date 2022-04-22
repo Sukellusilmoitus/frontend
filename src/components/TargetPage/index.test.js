@@ -4,14 +4,14 @@ import Target from './index'
 
 describe('target page integration tests', () => {
   it('correct info shown during loading', () => {
-    render(<Target target={null} />)
+    render(<Target id={null} />)
     
     const page = screen.getByText('Ladataan')
     expect(page).toBeDefined()
   })
 
   it('correct info shown when no target was found', () => {
-    render(<Target target={undefined} />)
+    render(<Target id={undefined} />)
     
     const page = screen.getByText('Kyseisellä id:llä ei löytynyt yhtään kohdetta, onhan käyttämäsi osoite oikea?')
     expect(page).toBeDefined()
