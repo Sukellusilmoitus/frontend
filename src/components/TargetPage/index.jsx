@@ -19,6 +19,7 @@ function Target({ target }) {
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     getDives();
   }, [target]);
 
