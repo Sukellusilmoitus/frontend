@@ -14,7 +14,7 @@ function NewTargetForm(props) {
   const [defaultCenter, setDefaultCenter] = useState([64.1, 25.0]);
   const [formX, setFormX] = useState(25.0);
   const [formY, setFormY] = useState(64.1);
-  const user = loggedUser();
+  const loggeduser = loggedUser();
 
   useEffect(() => {
     setDefaultCenter([64.1, 25.0]);
@@ -85,7 +85,7 @@ function NewTargetForm(props) {
           </Form.Control.Feedback>
         </Form.Group>
         <br />
-        {user !== null && (
+        {loggeduser !== null && (
         <p>
           {' '}
           <Form.Group>
@@ -95,7 +95,7 @@ function NewTargetForm(props) {
               name="username"
               data-testid="testusername"
               id="username"
-              value={user.name}
+              value={loggeduser.name}
               readOnly
             />
           </Form.Group>
@@ -107,7 +107,7 @@ function NewTargetForm(props) {
               name="userphone"
               data-testid="testuserphone"
               id="userphone"
-              value={user.phone}
+              value={loggeduser.phone}
               readOnly
             />
           </Form.Group>
@@ -119,13 +119,13 @@ function NewTargetForm(props) {
               name="useremail"
               data-testid="testuseremail"
               id="useremail"
-              value={user.email}
+              value={loggeduser.email}
               readOnly
             />
           </Form.Group>
         </p>
         )}
-        {user === null && (
+        {loggeduser === null && (
         <p>
           {' '}
           <Form.Group>
