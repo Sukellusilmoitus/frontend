@@ -16,8 +16,8 @@ describe('Login page', () => {
     fireEvent.change(component.getByTestId('password'), {
       taget: { value: 'password'}
     });
-    fireEvent.click(component.getByTestId('kirjaudu'));
     await waitFor(() => {
+      fireEvent.click(component.getByTestId('kirjaudu'));
       expect(component.getByText('Väärä käyttäjätunnus tai salasana')).toBeInTheDocument();
     });
   });

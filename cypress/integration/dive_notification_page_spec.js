@@ -1,12 +1,23 @@
+const REACT_APP_SERVER_URL = 'https://sukellusilmo-back-test.herokuapp.com/';
 Cypress.on('uncaught:exception', (err, runnable) => {
   return false
 })
 
-before(() => {
+let auth;
+
+before(function fetchUser () {
+  cy.request('POST', `${REACT_APP_SERVER_URL}/api/login`, {
+    username: 'usernametest',
+    password: 'passwordtest',
+  })
+  .its('body')
+  .then((res) => {
+    auth = res.auth;
+  });
   cy.visit('/hylyt');
   cy.get('table tbody').find('tr').first().click();
   cy.get('[id=privacy-checkbox]').click();
-})
+});
 
 describe('Target can be clicked', () => {
   it('successfully loads', () => {
@@ -99,3 +110,29 @@ describe('Diving history is displayed', () => {
     cy.get('[data-testid=dive-history-list]').find('div').eq(2).should('contain', 'Muutokset: ei muutoksia');
   });
 });
+
+
+describe('logged and unglogged user tests', () => {
+  it('form does not autofill with unlogged user', () => {
+    cy.clearLocalStorage();
+    cy.visit('/hylyt');
+    cy.get('table tbody').find('tr').first().click();
+    cy.contains('Tee uusi sukellusilmoitus');
+    cy.get('[id=newname]').should("be.visible");
+    cy.get('[id=newname]').should('have.value', '');
+  });
+  it('form autofills when logged in', () => {
+    cy.clearLocalStorage();
+    cy.visit('/hylyt', {
+      onBeforeLoad (win) {
+        win.localStorage.setItem('auth', auth);
+      },
+    });
+    expect(localStorage.getItem('auth'));
+    cy.get('table tbody').find('tr').first().click();
+    cy.contains('Tee uusi sukellusilmoitus');
+    cy.get('[id=username]');
+    
+  });
+}); 
+
