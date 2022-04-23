@@ -9,6 +9,7 @@ function Navigation() {
   }
 
   const loggedIn = localStorage.getItem('auth') !== null;
+  const isAdmin = true; // temporary until admin field is added to the database
 
   return (
     <Navbar bg="white" expand="lg" sticky="top" className="py-3" collapseOnSelect>
@@ -37,6 +38,12 @@ function Navigation() {
               <LinkContainer to="/uloskirjautuminen">
                 <Nav.Link>Kirjaudu Ulos</Nav.Link>
               </LinkContainer>
+              {isAdmin
+              && (
+                <LinkContainer to="/admin">
+                  <Nav.Link>Hallintapaneeli</Nav.Link>
+                </LinkContainer>
+              )}
             </>
           )}
           {!loggedIn
