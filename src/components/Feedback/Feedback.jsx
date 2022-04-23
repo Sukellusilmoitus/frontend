@@ -13,6 +13,7 @@ function Feedback() {
       feedback_giver_email: feedback.email,
       feedback_giver_phone: feedback.phone,
     };
+    console.log('hello');
     try {
       feedbackService.create(newFeedback);
       setMessage('Palaute lähetetty');
