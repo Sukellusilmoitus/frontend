@@ -7,12 +7,9 @@ import 'react-calendar/dist/Calendar.css';
 import useForm from '../hooks/useNewNotificationForm';
 import Submitmessage from './Submitmessage';
 import CoordinatesMap from './CoordinatesMap';
-<<<<<<< HEAD
 import Modal from './Modal';
 import privacyText from '../assets/tietosuoja';
-=======
 import { loggedUser } from '../services/users';
->>>>>>> master
 
 function NewNotificationForm(props) {
   const {

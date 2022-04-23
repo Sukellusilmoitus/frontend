@@ -7,12 +7,9 @@ import formatcoords from 'formatcoords';
 import useForm from '../hooks/useNewTargetForm';
 import Submitmessage from './Submitmessage';
 import CoordinatesMap from './CoordinatesMap';
-<<<<<<< HEAD
 import Modal from './Modal';
 import privacyText from '../assets/tietosuoja';
-=======
 import { loggedUser } from '../services/users';
->>>>>>> master
 import PageTitle from './PageTitle';
 
 function NewTargetForm(props) {
@@ -20,12 +17,9 @@ function NewTargetForm(props) {
   const [defaultCenter, setDefaultCenter] = useState([64.1, 25.0]);
   const [formX, setFormX] = useState(25.0);
   const [formY, setFormY] = useState(64.1);
-<<<<<<< HEAD
   const [modalOpen, setModalOpen] = useState(false);
   const [termsAccepted, setTermsAccepted] = useState(false);
-=======
   const loggeduser = loggedUser();
->>>>>>> master
 
   useEffect(() => {
     setDefaultCenter([64.1, 25.0]);
