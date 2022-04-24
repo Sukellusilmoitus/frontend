@@ -32,7 +32,7 @@ const updateUser = async (user) => {
   const headers = {
     'X-ACCESS-TOKEN': localStorage.getItem('auth'),
   };
-  const req = await axios.put(`${baseUrl}/api/updateUser`, user, { headers });
+  const req = await axios.put(`${baseUrl}/api/users/`, user, { headers });
   return req.data;
 };
 
