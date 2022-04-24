@@ -275,6 +275,9 @@ const useForm = (postTarget) => {
 
     if (Object.keys(errors).length === 0 && Object.keys(requiredValues).length === 8) {
       callback(event);
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
       setMessage('Lomake lähetetty!');
       setTimeout(() => {
         setMessage(null);

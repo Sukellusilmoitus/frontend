@@ -330,6 +330,7 @@ function NewTargetForm(props) {
           </Form.Text>
         </Form.Group>
         <br />
+        <Submitmessage message={message} />
         <Button variant="primary" type="submit" data-testid="submit" value="Submit">Lähetä</Button>
       </Form>
       <br />
