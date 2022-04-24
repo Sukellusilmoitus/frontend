@@ -28,4 +28,14 @@ const registerRequest = async (username, password, name, email, phone) => {
   return request.data;
 };
 
-export { loginRequest, registerRequest, loggedUser };
+const updateUser = async (user) => {
+  const headers = {
+    'X-ACCESS-TOKEN': localStorage.getItem('auth'),
+  };
+  const req = await axios.put(`${baseUrl}/api/updateUser`, user, { headers });
+  return req.data;
+};
+
+export {
+  loginRequest, registerRequest, loggedUser, updateUser,
+};

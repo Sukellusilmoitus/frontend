@@ -56,7 +56,7 @@ describe('home page tests', () => {
     it('marker popup has id and name strings', () => {
       const regex = new RegExp(`.+`)
       cy.get('.leaflet-marker-pane').within(() => {
-        cy.get('.leaflet-marker-icon').eq(1).click()
+        cy.get('.leaflet-marker-icon').eq(2).click()
       })
       cy.get('.leaflet-marker-pane').find('img').eq(1).click()
       cy.get('.leaflet-popup-pane').within(() => {

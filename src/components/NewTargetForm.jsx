@@ -1,61 +1,75 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Col, Form, Button, Row, Breadcrumb,
+  Col, Form, Button, Row, Breadcrumb, Container,
 } from 'react-bootstrap';
+import formatcoords from 'formatcoords';
 import useForm from '../hooks/useNewTargetForm';
 import Submitmessage from './Submitmessage';
 import CoordinatesMap from './CoordinatesMap';
+import { loggedUser } from '../services/users';
+import PageTitle from './PageTitle';
 
 function NewTargetForm(props) {
   const { postTarget } = props;
   const [defaultCenter, setDefaultCenter] = useState([64.1, 25.0]);
   const [formX, setFormX] = useState(25.0);
   const [formY, setFormY] = useState(64.1);
+  const loggeduser = loggedUser();
 
   useEffect(() => {
     setDefaultCenter([64.1, 25.0]);
   }, defaultCenter);
 
+  const [DMS, setDMS] = useState(formatcoords(
+    Number(formX),
+    Number(formY),
+  ).format());
+
+  useEffect(() => {
+    setDMS(formatcoords(
+      Number(formX),
+      Number(formY),
+    ).format());
+  }, [formX, formY]);
+
   const {
-    handleChange, errors, message, handleSubmit, center, handleCoordinateClick,
+    handleChange, errors, message, handleSubmit, center, handleCoordinatesClick,
   } = useForm(postTarget);
 
-  const handleXCoordinateChange = (event, coordinate, name) => {
-    if (event === null) {
-      handleCoordinateClick(coordinate, name);
-      setFormX(coordinate);
-    } else {
-      handleChange(event);
-      setFormX(event.target.value);
-    }
+  const handleXCoordinateChange = (event) => {
+    handleChange(event);
+    setFormX(event.target.value);
   };
 
-  const handleYCoordinateChange = (event, coordinate, name) => {
-    if (event === null) {
-      handleCoordinateClick(coordinate, name);
-      setFormY(coordinate);
-    } else {
-      handleChange(event);
-      setFormY(event.target.value);
-    }
+  const handleYCoordinateChange = (event) => {
+    handleChange(event);
+    setFormY(event.target.value);
+  };
+
+  const handleCoordinatesChange = (event) => {
+    handleCoordinatesClick(event.latlng);
+    setFormY(event.latlng.lat);
+    setFormX(event.latlng.lng);
   };
 
   return (
-    <div>
-      <h2>Tee ilmoitus uudesta kohteesta</h2>
+    <Container>
+      <PageTitle text="Tee ilmoitus uudesta kohteesta" />
       <Submitmessage message={message} />
-      <h3>
-        Suositteleme yksityiskohtaisemman ilmoituksen tekemistä museoviraston
+      <p>
+        Suosittelemme yksityiskohtaisemman ilmoituksen tekemistä Museoviraston
         {' '}
-        <a href="https://www.kyppi.fi/ilppari">sivuilla</a>
-        {' '}
-      </h3>
-      <h5>Kaikki paitsi lisäinfoa-kenttä ovat pakollisia</h5>
+        <a href="https://www.kyppi.fi/ilppari">sivuilla.</a>
+      </p>
+      <h5>Kohteen tiedot</h5>
       <Form
         onSubmit={handleSubmit}
         data-testid="testform"
         id="newtargetform"
       >
+        <Form.Text muted>
+          Kaikki paitsi lisäinfoa-kenttä ovat pakollisia
+        </Form.Text>
         <Form.Group>
           <Form.Label>Kohteen nimi:</Form.Label>
           <Form.Control
@@ -71,58 +85,103 @@ function NewTargetForm(props) {
           </Form.Control.Feedback>
         </Form.Group>
         <br />
-        <Form.Group>
-          <Form.Label>Ilmoittajan nimi:</Form.Label>
-          <Form.Control
-            type="text"
-            name="divername"
-            data-testid="testdivername"
-            id="newdivername"
-            onChange={handleChange}
-            isInvalid={!!errors.divername}
-          />
-          <Form.Control.Feedback type="invalid">
-            { errors.divername }
-          </Form.Control.Feedback>
-        </Form.Group>
-        <br />
-        <Breadcrumb>
-          <Breadcrumb.Item>Syötä puhelinnumero ja/tai sähköposti</Breadcrumb.Item>
-        </Breadcrumb>
-        <Row>
-          <Col lg>
-            <Form.Group>
-              <Form.Label>Puhelinnumero:</Form.Label>
-              <Form.Control
-                type="text"
-                name="phone"
-                data-testid="testphone"
-                id="newphone"
-                onChange={handleChange}
-                isInvalid={!!errors.phone}
-              />
-              <Form.Control.Feedback type="invalid">
-                { errors.phone }
-              </Form.Control.Feedback>
-            </Form.Group>
-          </Col>
-          <Col lg>
-            <Form.Group>
-              <Form.Label>Sähköpostiosoite:</Form.Label>
-              <Form.Control
-                type="text"
-                name="email"
-                data-testid="testemail"
-                id="newemail"
-                onChange={handleChange}
-                isInvalid={!!errors.email}
-              />
-              <Form.Control.Feedback type="invalid">
-                { errors.email }
-              </Form.Control.Feedback>
-            </Form.Group>
-          </Col>
-        </Row>
+        {loggeduser !== null && (
+        <p>
+          {' '}
+          <Form.Group>
+            <Form.Label>Ilmoittajan nimi:</Form.Label>
+            <Form.Control
+              type="text"
+              name="username"
+              data-testid="testusername"
+              id="username"
+              value={loggeduser.name}
+              readOnly
+            />
+          </Form.Group>
+          <Form.Group>
+            <br />
+            <Form.Label>Puhelinnumero:</Form.Label>
+            <Form.Control
+              type="text"
+              name="userphone"
+              data-testid="testuserphone"
+              id="userphone"
+              value={loggeduser.phone}
+              readOnly
+            />
+          </Form.Group>
+          <Form.Group>
+            <br />
+            <Form.Label>Sähköpostiosoite:</Form.Label>
+            <Form.Control
+              type="text"
+              name="useremail"
+              data-testid="testuseremail"
+              id="useremail"
+              value={loggeduser.email}
+              readOnly
+            />
+          </Form.Group>
+        </p>
+        )}
+        {loggeduser === null && (
+        <p>
+          {' '}
+          <Form.Group>
+            <Form.Label>Ilmoittajan nimi:</Form.Label>
+            <Form.Control
+              type="text"
+              name="divername"
+              data-testid="testdivername"
+              id="newdivername"
+              onChange={handleChange}
+              isInvalid={!!errors.divername}
+            />
+            <Form.Control.Feedback type="invalid">
+              { errors.divername }
+            </Form.Control.Feedback>
+          </Form.Group>
+          <br />
+          <Breadcrumb>
+            <Breadcrumb.Item>Syötä puhelinnumero ja/tai sähköposti</Breadcrumb.Item>
+          </Breadcrumb>
+          <Row>
+            <Col lg>
+              <Form.Group>
+                <Form.Label>Puhelinnumero:</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="phone"
+                  data-testid="testphone"
+                  id="newphone"
+                  onChange={handleChange}
+                  isInvalid={!!errors.phone}
+                />
+                <Form.Control.Feedback type="invalid">
+                  { errors.phone }
+                </Form.Control.Feedback>
+              </Form.Group>
+            </Col>
+            <Col lg>
+              <Form.Group>
+                <Form.Label>Sähköpostiosoite:</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="email"
+                  data-testid="testemail"
+                  id="newemail"
+                  onChange={handleChange}
+                  isInvalid={!!errors.email}
+                />
+                <Form.Control.Feedback type="invalid">
+                  { errors.email }
+                </Form.Control.Feedback>
+              </Form.Group>
+            </Col>
+          </Row>
+        </p>
+        )}
         <br />
         <Row>
           <Col lg>
@@ -205,18 +264,17 @@ function NewTargetForm(props) {
           </Col>
         </Row>
         <br />
+        {DMS}
         {(center[0] === undefined || center[1] === undefined) && (
         <CoordinatesMap
           center={defaultCenter}
-          handleXCoordinateChange={handleXCoordinateChange}
-          handleYCoordinateChange={handleYCoordinateChange}
+          handleCoordinatesChange={handleCoordinatesChange}
         />
         )}
         {(center[0] !== undefined && center[1] !== undefined) && (
         <CoordinatesMap
           center={center}
-          handleXCoordinateChange={handleXCoordinateChange}
-          handleYCoordinateChange={handleYCoordinateChange}
+          handleCoordinatesChange={handleCoordinatesChange}
         />
         )}
         <br />
@@ -275,7 +333,7 @@ function NewTargetForm(props) {
         <Button variant="primary" type="submit" data-testid="submit" value="Submit">Lähetä</Button>
       </Form>
       <br />
-    </div>
+    </Container>
   );
 }
 export default NewTargetForm;

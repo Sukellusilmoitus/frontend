@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Alert, Button, Form } from 'react-bootstrap';
+import {
+  Alert, Button, Container, Form,
+} from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { registerRequest } from '../services/users';
+import PageTitle from './PageTitle';
 
 function Register() {
   const [username, setUsername] = useState('');
@@ -48,7 +51,8 @@ function Register() {
   };
 
   return (
-    <>
+    <Container>
+      <PageTitle text="Rekisteröidy" />
       {alert && <Alert variant="danger">{alert}</Alert>}
       <Form onSubmit={handleSubmit}>
         <Form.Group>
@@ -113,7 +117,7 @@ function Register() {
           Rekisteröidy
         </Button>
       </Form>
-    </>
+    </Container>
   );
 }
 
