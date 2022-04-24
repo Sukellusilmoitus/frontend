@@ -45,6 +45,12 @@ describe('target page tests', () => {
     const info = screen.getByRole('table')
 
     expect(info).toHaveTextContent('testville')
+    expect(info).toHaveTextContent('02.02.2022')
+    expect(info).toHaveTextContent('http://testtarget.com')
+    expect(info).toHaveTextContent('10-100 m')
+    expect(info).toHaveTextContent('kyllä')
+    expect(info).toHaveTextContent('alusten hylyt')
+    expect(info).toHaveTextContent('museovirasto')
   })
 
   it('map is rendered', () => {

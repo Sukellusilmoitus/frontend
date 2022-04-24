@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { omit } from 'lodash';
 import validator from 'validator';
+import { loggedUser } from '../services/users';
 
-const useNotificationForm = (props) => {
+const useNotificationForm = ({ props, date }) => {
   const {
     targetName,
     targetId,
@@ -23,10 +24,25 @@ const useNotificationForm = (props) => {
   const [newMapX, setNewMapX] = useState(targetXcoordinate);
   const [newMapY, setNewMapY] = useState(targetYcoordinate);
   const [center, setCenter] = useState([newMapY, newMapX]);
+  const user = loggedUser();
 
   useEffect(() => {
     setCenter([newMapY, newMapX]);
   }, [newMapY, newMapX]);
+
+  useEffect(() => {
+    if (user !== null) {
+      setRequiredValues({
+        ...requiredValues,
+        divername: user.name,
+      });
+      setValues({
+        ...values,
+        email: user.email,
+        phone: user.phone,
+      });
+    }
+  }, [newMapX]);
 
   const callback = (event) => {
     event.preventDefault();
@@ -37,6 +53,7 @@ const useNotificationForm = (props) => {
       email: values.email || '',
       locationName: targetName,
       locationId: targetId,
+      diveDate: new Intl.DateTimeFormat('fi-FI').format(date),
       locationCorrect,
       xCoordinate: requiredValues.xcoordinate,
       yCoordinate: requiredValues.ycoordinate,
@@ -196,7 +213,6 @@ const useNotificationForm = (props) => {
 
   const handleChange = (event) => {
     event.persist();
-
     const { name } = event.target;
     const val = event.target.value;
 
@@ -215,14 +231,13 @@ const useNotificationForm = (props) => {
     });
   };
 
-  const handleCoordinateClick = (coordinate, name) => {
-    if (name !== 'xcoordinate' && name !== 'ycoordinate') {
-      return;
-    }
-    validate(null, name, coordinate);
+  const handleCoordinatesClick = (xcoordinate, ycoordinate) => {
+    validate(null, 'xcoordinate', xcoordinate);
+    validate(null, 'ycoordinate', ycoordinate);
     setRequiredValues({
       ...requiredValues,
-      [name]: coordinate,
+      xcoordinate,
+      ycoordinate,
     });
   };
 
@@ -310,7 +325,7 @@ const useNotificationForm = (props) => {
     resetChangeText,
     handleCoordinateChange,
     center,
-    handleCoordinateClick,
+    handleCoordinatesClick,
   };
 };
 

@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import formatcoords from 'formatcoords';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 import useForm from '../hooks/useNewNotificationForm';
 import Submitmessage from './Submitmessage';
 import CoordinatesMap from './CoordinatesMap';
+import { loggedUser } from '../services/users';
 
 function NewNotificationForm(props) {
   const {
@@ -19,6 +22,8 @@ function NewNotificationForm(props) {
   const [defaultCenter, setDefaultCenter] = useState([64.1, 25.0]);
   const [formX, setFormX] = useState(targetXcoordinate);
   const [formY, setFormY] = useState(targetYcoordinate);
+  const [date, setDate] = useState(new Date());
+  const loggeduser = loggedUser();
 
   useEffect(() => {
     setDefaultCenter([64.1, 25.0]);
@@ -38,8 +43,8 @@ function NewNotificationForm(props) {
 
   const {
     handleChange, errors, message, handleSubmit, resetChangeText,
-    handleCoordinateChange, center, handleCoordinateClick,
-  } = useForm(props);
+    handleCoordinateChange, center, handleCoordinatesClick,
+  } = useForm({ props, date, loggeduser });
 
   const handleChangeRadio = (value) => {
     setChangeRadio(value);
@@ -49,30 +54,25 @@ function NewNotificationForm(props) {
     }
   };
 
-  const handleXCoordinateChange = (event, coordinate, name) => {
-    if (event === null) {
-      handleCoordinateClick(coordinate, name);
-      setFormX(coordinate);
-    } else {
-      handleChange(event);
-      setFormX(event.target.value);
-    }
+  const handleXCoordinateChange = (event) => {
+    handleChange(event);
+    setFormX(event.target.value);
   };
 
-  const handleYCoordinateChange = (event, coordinate, name) => {
-    if (event === null) {
-      handleCoordinateClick(coordinate, name);
-      setFormY(coordinate);
-    } else {
-      handleChange(event);
-      setFormY(event.target.value);
-    }
+  const handleYCoordinateChange = (event) => {
+    handleChange(event);
+    setFormY(event.target.value);
+  };
+
+  const handleCoordinatesChange = (event) => {
+    handleCoordinatesClick(event.latlng.lng, event.latlng.lat);
+    setFormY(event.latlng.lat);
+    setFormX(event.latlng.lng);
   };
 
   const handleCoordinateChangeClick = (value) => {
     if (value === 'yes') {
-      handleYCoordinateChange(null, targetYcoordinate, 'ycoordinate');
-      handleXCoordinateChange(null, targetXcoordinate, 'xcoordinate');
+      handleCoordinatesClick(targetXcoordinate, targetYcoordinate);
     }
     handleCoordinateChange(value);
     setCoordinateRadio(value);
@@ -87,59 +87,104 @@ function NewNotificationForm(props) {
         data-testid="testform"
         id="newtargetform"
       >
-        <Form.Group>
-          <Form.Label>Sukeltajan etu- ja sukunimi:</Form.Label>
-          <Form.Control
-            type="text"
-            name="divername"
-            data-testid="testdivername"
-            id="newname"
-            onChange={handleChange}
-            isInvalid={!!errors.divername}
-          />
-          <Form.Text className="text-muted">
-            Pakollinen kenttä
-          </Form.Text>
-          <Form.Control.Feedback type="invalid">
-            { errors.divername }
-          </Form.Control.Feedback>
-        </Form.Group>
-        <Form.Group>
-          <br />
-          <Form.Label>Puhelinnumero:</Form.Label>
-          <Form.Control
-            type="text"
-            name="phone"
-            data-testid="testphone"
-            id="newphone"
-            onChange={handleChange}
-            isInvalid={!!errors.phone}
-          />
-          <Form.Text className="text-muted">
-            Anna joko puhelinnumero tai sähköposti
-          </Form.Text>
-          <Form.Control.Feedback type="invalid">
-            { errors.phone }
-          </Form.Control.Feedback>
-        </Form.Group>
-        <Form.Group>
-          <br />
-          <Form.Label>Sähköpostiosoite:</Form.Label>
-          <Form.Control
-            type="text"
-            name="email"
-            data-testid="testemail"
-            id="newemail"
-            onChange={handleChange}
-            isInvalid={!!errors.email}
-          />
-          <Form.Text className="text-muted">
-            Anna joko puhelinnumero tai sähköposti
-          </Form.Text>
-          <Form.Control.Feedback type="invalid">
-            { errors.email }
-          </Form.Control.Feedback>
-        </Form.Group>
+        {loggeduser !== null && (
+        <p>
+          {' '}
+          <Form.Group>
+            <Form.Label>Sukeltajan etu- ja sukunimi:</Form.Label>
+            <Form.Control
+              type="text"
+              name="username"
+              data-testid="testusername"
+              id="username"
+              value={loggeduser.name}
+              readOnly
+            />
+          </Form.Group>
+          <Form.Group>
+            <br />
+            <Form.Label>Puhelinnumero:</Form.Label>
+            <Form.Control
+              type="text"
+              name="userphone"
+              data-testid="testuserphone"
+              id="userphone"
+              value={loggeduser.phone}
+              readOnly
+            />
+          </Form.Group>
+          <Form.Group>
+            <br />
+            <Form.Label>Sähköpostiosoite:</Form.Label>
+            <Form.Control
+              type="text"
+              name="useremail"
+              data-testid="testuseremail"
+              id="useremail"
+              value={loggeduser.email}
+              readOnly
+            />
+          </Form.Group>
+        </p>
+        )}
+        {loggeduser === null && (
+        <p>
+          {' '}
+          <Form.Group>
+            <Form.Label>Sukeltajan etu- ja sukunimi:</Form.Label>
+            <Form.Control
+              type="text"
+              name="divername"
+              data-testid="testdivername"
+              id="newname"
+              onChange={handleChange}
+              isInvalid={!!errors.divername}
+            />
+            <Form.Text className="text-muted">
+              Pakollinen kenttä
+            </Form.Text>
+            <Form.Control.Feedback type="invalid">
+              { errors.divername }
+            </Form.Control.Feedback>
+          </Form.Group>
+          <Form.Group>
+            <br />
+            <Form.Label>Puhelinnumero:</Form.Label>
+            <Form.Control
+              type="text"
+              name="phone"
+              data-testid="testphone"
+              id="newphone"
+              onChange={handleChange}
+              isInvalid={!!errors.phone}
+            />
+            <Form.Text className="text-muted">
+              Anna joko puhelinnumero tai sähköposti
+            </Form.Text>
+            <Form.Control.Feedback type="invalid">
+              { errors.phone }
+            </Form.Control.Feedback>
+          </Form.Group>
+          <Form.Group>
+            <br />
+            <Form.Label>Sähköpostiosoite:</Form.Label>
+            <Form.Control
+              type="text"
+              name="email"
+              data-testid="testemail"
+              id="newemail"
+              onChange={handleChange}
+              isInvalid={!!errors.email}
+            />
+            <Form.Text className="text-muted">
+              Anna joko puhelinnumero tai sähköposti
+            </Form.Text>
+            <Form.Control.Feedback type="invalid">
+              { errors.email }
+            </Form.Control.Feedback>
+          </Form.Group>
+        </p>
+        )}
         <Form.Group>
           <br />
           <Form.Label>Hylyn nimi:</Form.Label>
@@ -165,6 +210,25 @@ function NewNotificationForm(props) {
           <Form.Text className="text-muted">
             Automaattinen täyttö (klikkaa kohdetta)
           </Form.Text>
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Sukelluksen päivämäärä:</Form.Label>
+          <Form.Control
+            type="text"
+            name="divedate"
+            data-testid="testdate"
+            id="newdate"
+            value={new Intl.DateTimeFormat('fi-FI', {
+              year: 'numeric',
+              month: 'long',
+              day: '2-digit',
+            }).format(date)}
+            readOnly
+          />
+          <Form.Text className="text-muted">
+            Valitse kalenterista
+          </Form.Text>
+          <Calendar onChange={setDate} value={date} locale="fi-FI" />
         </Form.Group>
         <Form.Group>
           <br />
@@ -242,15 +306,13 @@ function NewNotificationForm(props) {
             {(center[0] === undefined || center[1] === undefined) && (
               <CoordinatesMap
                 center={defaultCenter}
-                handleXCoordinateChange={handleXCoordinateChange}
-                handleYCoordinateChange={handleYCoordinateChange}
+                handleCoordinatesChange={handleCoordinatesChange}
               />
             )}
             {(center[0] !== undefined && center[1] !== undefined) && (
               <CoordinatesMap
                 center={center}
-                handleXCoordinateChange={handleXCoordinateChange}
-                handleYCoordinateChange={handleYCoordinateChange}
+                handleCoordinatesChange={handleCoordinatesChange}
               />
             )}
             <br />

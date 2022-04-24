@@ -10,12 +10,11 @@ function ChangeMapView({ coords }) {
   return null;
 }
 
-function CoordinatesMap({ center, handleXCoordinateChange, handleYCoordinateChange }) {
+function CoordinatesMap({ center, handleCoordinatesChange }) {
   function LocationOnClick() {
     const mapEvent = useMapEvents({
       click(e) {
-        handleYCoordinateChange(null, e.latlng.lat, 'ycoordinate');
-        handleXCoordinateChange(null, e.latlng.lng, 'xcoordinate');
+        handleCoordinatesChange(e);
         mapEvent.setView(e.latlng);
       },
     });

@@ -16,6 +16,7 @@ import AdminPanel from './components/AdminPanel/AdminPanel';
 import Feedback from './components/Feedback';
 import Login from './components/Login';
 import Register from './components/Register';
+import Logout from './components/Logout';
 
 function App() {
   const createNewTarget = (newTarget) => {
@@ -45,6 +46,9 @@ function App() {
         </Route>
         <Route path="/kirjaudu">
           <Login />
+        </Route>
+        <Route path="/uloskirjautuminen">
+          <Logout />
         </Route>
         <Route path="/rekisteroidy">
           <Register />

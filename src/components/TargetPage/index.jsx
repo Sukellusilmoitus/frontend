@@ -31,6 +31,12 @@ function Target({ id }) {
   const createNewNotification = (notification) => {
     diveService.create(notification);
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    getDives();
+  }, [target]);
+
   if (target === null) {
     return (
       <LoadingSpinner />
