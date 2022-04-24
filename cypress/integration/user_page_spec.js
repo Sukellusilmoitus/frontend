@@ -7,6 +7,12 @@ Cypress.on('uncaught:exception', (err, runnable) => {
 let auth;
 
 before(function fetchUser () {
+  cy.request('POST', `${REACT_APP_SERVER_URL}/api/register`, {
+    name: 'test',
+    email: 'test@test.com',
+    username: 'usernametest',
+    password: 'passwordtest',
+  });
   cy.request('POST', `${REACT_APP_SERVER_URL}/api/login`, {
     username: 'usernametest',
     password: 'passwordtest',
