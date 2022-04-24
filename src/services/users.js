@@ -1,15 +1,8 @@
 import axios from 'axios';
 import REACT_APP_SERVER_URL from '../util/config';
+import parseJwt from '../util/token';
 
 const baseUrl = REACT_APP_SERVER_URL;
-
-const parseJwt = (token) => {
-  try {
-    return JSON.parse(atob(token.split('.')[1]));
-  } catch {
-    return null;
-  }
-};
 
 const AuthVerify = () => {
   const authToken = localStorage.getItem('auth');
