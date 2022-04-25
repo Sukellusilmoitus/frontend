@@ -21,8 +21,10 @@ require('dotenv').config()
 module.exports = (on, config) => {
   // copy any needed variables from process.env to config.env
   config.env.react_app_server_url = process.env.REACT_APP_SERVER_URL
-  config.env.username = process.env.ADMINPANEL_USERNAME
-  config.env.password = process.env.ADMINPANEL_PASSWORD
+  config.env.adminusername = 'admintest'
+  config.env.adminpassword = 'adminpassword'
+  // config.env.adminusername = process.env.ADMIN_USERNAME
+  // config.env.adminpassword = process.env.ADMIN_PASSWORD
 
   // do not forget to return the changed config object!
   return config

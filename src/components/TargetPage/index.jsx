@@ -24,18 +24,14 @@ function Target({ id }) {
     }
   };
 
-  useEffect(() => {
-    getTarget();
-  }, []);
-
   const createNewNotification = (notification) => {
     diveService.create(notification);
   };
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    getDives();
-  }, [target]);
+    getTarget();
+  }, []);
 
   if (target === null) {
     return (

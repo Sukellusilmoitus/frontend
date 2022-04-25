@@ -142,8 +142,8 @@ function setup_db () {
 let user
 before(function fetchUser () {
   cy.request('POST', `${BACKEND_URL}/api/login`, {
-    username: Cypress.env('username'),
-    password: Cypress.env('password'),
+    username: Cypress.env('adminusername'),
+    password: Cypress.env('adminpassword'),
   })
   .its('body')
   .then((res) => {
