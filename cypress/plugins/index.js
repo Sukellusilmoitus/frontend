@@ -22,7 +22,7 @@ module.exports = (on, config) => {
 
   config.defaultCommandTimeout = 10000
   // copy any needed variables from process.env to config.env
-  config.env.react_app_server_url = process.env.REACT_APP_SERVER_URL
+  config.env.react_app_server_url = 'https://sukellusilmo-back-test.herokuapp.com'
   config.env.adminusername = 'admintest'
   config.env.adminpassword = 'adminpassword'
   // config.env.adminusername = process.env.ADMIN_USERNAME
