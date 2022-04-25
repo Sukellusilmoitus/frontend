@@ -167,6 +167,7 @@ describe('Admin panel', () => {
   beforeEach(function setUser () {
     cy.restoreLocalStorage();
     cy.visit('/admin');
+  });
   context('Target page', () => {
     beforeEach(() => {
       cy.visit('/admin#/targets');
@@ -185,7 +186,6 @@ describe('Admin panel', () => {
           change_amount_of_rows_per_page(25)
         })
       })
-    })
     context('Sorting', () => {
       it('sort by id Asc', () => {
         sort_table_by('Id','id','td:nth-child(2)','Asc')
