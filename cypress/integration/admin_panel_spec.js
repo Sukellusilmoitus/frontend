@@ -1,3 +1,4 @@
+import "cypress-localstorage-commands";
 const { _ } = Cypress
 const sort_arrow_asc = '.MuiTableSortLabel-root.MuiTableSortLabel-active.MuiTableSortLabel-root.MuiTableSortLabel-active .MuiTableSortLabel-iconDirectionAsc'
 const sort_arrow_desc = '.MuiTableSortLabel-root.MuiTableSortLabel-active.MuiTableSortLabel-root.MuiTableSortLabel-active .MuiTableSortLabel-iconDirectionDesc'
@@ -139,16 +140,24 @@ function setup_db () {
   add_target('sami sukeltaja','','0456634527489','e2eduplicatetest1','Espoo','hylky','28.810887','64.962023','gps','gps tarkkuus',BACKEND_URL,'False','ilmoitus','ei lisättävää','True')
   
 }
-let user
-before(function fetchUser () {
-  cy.request('POST', `${BACKEND_URL}/api/login`, {
-    username: Cypress.env('adminusername'),
-    password: Cypress.env('adminpassword'),
+
+Cypress.Commands.add('login', () => { 
+  cy.request({
+    method: 'POST',
+    url: `${BACKEND_URL}/api/login`,
+    body: {
+      username: Cypress.env('adminusername'),
+      password: Cypress.env('adminpassword')
+    }
   })
-  .its('body')
-  .then((res) => {
-    user = res
+  .then((resp) => {
+    window.localStorage.setItem('auth', resp.body.auth)
   })
+})
+
+before(() => {
+  cy.login();
+  cy.saveLocalStorage();
 })
 
 describe('Admin panel', () => {
@@ -156,11 +165,8 @@ describe('Admin panel', () => {
     setup_db()
   })
   beforeEach(function setUser () {
-    cy.visit('/admin', {
-      onBeforeLoad (win) {
-        win.localStorage.setItem('auth', JSON.stringify(user))
-      },
-    })
+    cy.restoreLocalStorage();
+    cy.visit('/admin');
   context('Target page', () => {
     beforeEach(() => {
       cy.visit('/admin#/targets');
