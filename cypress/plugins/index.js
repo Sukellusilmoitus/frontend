@@ -20,7 +20,7 @@ require('dotenv').config()
 
 module.exports = (on, config) => {
 
-  config.defaultCommandTimeout = 20000
+  config.defaultCommandTimeout = 10000
   // copy any needed variables from process.env to config.env
   config.env.react_app_server_url = process.env.REACT_APP_SERVER_URL
   config.env.adminusername = 'admintest'
