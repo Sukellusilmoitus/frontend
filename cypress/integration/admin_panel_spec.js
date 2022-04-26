@@ -123,17 +123,17 @@ function add_target (
 
 
 function setup_db () {
-  add_dive('sami sukeltaa','sami@gmail.com','34362728354','1000028223','True','','','','masto rikki','','12.4.2022')
+  add_dive('sami sukeltaa3','sami@gmail.com','34362728354','1000028223','True','','','','masto rikki','','12.4.2022')
   add_dive('matti sukeltaa','sami@gmail.com','04003725583','1957','True','','','','','','10.4.2022')
   add_dive('matti mallikas','','04437594752','1091','True','','','','masto poikki','','12.4.2022')
-  add_dive('sami sukeltaa','sami@gmail.com','045274356583','1388','True','','','','hylkyyn tullut reikä','hieno hylky','12.3.2022')
-  add_dive('sami sukeltaa','sami@gmail.com','34362728354','1000028223','True','','','','masto rikki','','25.3.2022')
+  add_dive('uusi sukeltaa','sami@gmail.com','045274356583','1388','True','','','','hylkyyn tullut reikä','hieno hylky','12.3.2022')
+  add_dive('sami testaaja','sami@gmail.com','34362728354','1000028223','True','','','','masto rikki','','25.3.2022')
   add_dive('mikko sukeltaa','mikko@gmail.com','04003725583','1957','True','','','','','','10.4.2022')
   add_dive('sari saari','','033859363','1091','True','','','','masto poikki','','1.4.2022')
   add_dive('testi testaaja','','045274356583','1388','True','','','','hylkyyn tullut reikä','hieno hylky','11.3.2022')
   add_dive('testi testaaja2','','34362728354','1000028223','True','','','','masto rikki','','12.1.2022')
   add_dive('testi sukeltaa','testi@gmail.com','','1957','True','','','','','','12.4.2022')
-  add_dive('matti mallikas','','045382956382','1091','True','','','','masto poikki','','23.3.2022')
+  add_dive('matti mallikas2','','045382956382','1091','True','','','','masto poikki','','23.3.2022')
   add_dive('sami sukeltaa','sami@gmail.com','045274356583','1388','True','','','','','hieno keli oli sukeltaa','22.2.2022')
 
   add_target('matti sukeltaja','matti@gmail.com','04566342728','e2etestihylky','Helsinki','hylky','25.34234320','60.42342342','arvaus','arvio',BACKEND_URL,'False','ilmoitus','lisätietoja hylystä','True')
