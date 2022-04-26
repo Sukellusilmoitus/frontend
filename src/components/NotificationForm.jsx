@@ -394,6 +394,7 @@ function NewNotificationForm(props) {
           </Form.Control.Feedback>
         </Form.Group>
         <br />
+        <Submitmessage message={message} />
         <Button id="formbtn" variant="primary" type="submit">Lähetä</Button>
       </Form>
     </div>

@@ -305,6 +305,9 @@ const useNotificationForm = ({ props, date }) => {
     if ((changeRadio === 'no' && Object.keys(requiredValues).length === 4)
         || (changeRadio === 'yes' && Object.keys(requiredValues).length === 5)) {
       callback(event);
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
       setMessage('Lomake lähetetty!');
       setTimeout(() => {
         setMessage(null);
