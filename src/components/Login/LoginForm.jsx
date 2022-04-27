@@ -1,42 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
   Alert, Button, Container, Form,
 } from 'react-bootstrap';
-import { useHistory } from 'react-router-dom';
-import { loginRequest } from '../services/users';
-import PageTitle from './PageTitle';
+import PageTitle from '../PageTitle';
 
-function Login() {
+function LoginForm({ handleSubmit, alert }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [alert, setAlert] = useState(null);
-  const history = useHistory();
 
-  useEffect(() => {
-    if (localStorage.getItem('auth')) {
-      history.push('/');
-    }
-  }, []);
-
-  const addAlert = (text) => {
-    setAlert(text);
-    setTimeout(() => {
-      setAlert(null);
-    }, 5000);
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      const res = await loginRequest(username, password);
-      if (res.auth) {
-        localStorage.setItem('auth', res.auth);
-        history.push('/');
-      } else {
-        addAlert('Väärä käyttäjätunnus tai salasana');
-      }
-    } catch (e) {
-      addAlert('Väärä käyttäjätunnus tai salasana');
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (!!username && !!password) {
+      handleSubmit(username, password);
     }
   };
 
@@ -44,7 +19,7 @@ function Login() {
     <Container>
       <PageTitle text="Kirjaudu sisään" />
       {alert && <Alert variant="danger">{alert}</Alert>}
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={onSubmit}>
         <Form.Group>
           <Form.Label>Käyttäjätunnus:</Form.Label>
           <Form.Control
@@ -82,4 +57,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default LoginForm;
