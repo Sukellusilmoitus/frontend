@@ -342,7 +342,7 @@ describe('Admin panel', () => {
       })
     })
     context('Editing', () => {
-      it.only('Edit page opens', () => {
+      it('Edit page opens', () => {
         cy.wait(3000)
         cy.viewport(2048,1080)
         cy.get('table').within(() => {
