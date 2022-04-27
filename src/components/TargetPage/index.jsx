@@ -3,14 +3,25 @@ import Helmet from 'react-helmet';
 import diveService from '../../services/dives';
 import LoadingSpinner from '../LoadingSpinner';
 import TargetPage from './TargetPage';
+import targetservice from '../../services/targets';
 
-function Target({ target }) {
-  const [dives, setDives] = useState('loading...');
+function Target({ id }) {
+  const [dives, setDives] = useState([]);
+  const [target, setTarget] = useState(null);
 
-  const getDives = async () => {
-    if (target) {
-      const data = await diveService.getAllByTarget(target.properties.id);
-      setDives(data.data);
+  const getTarget = async () => {
+    if (id === undefined) {
+      setTarget(undefined);
+    } else if (id === null) {
+      setTarget(null);
+    } else {
+      const data = await targetservice.getTarget(id);
+      if (data.data === null) {
+        setTarget(undefined);
+      } else {
+        setTarget(data.data.target);
+        setDives(data.data.dives);
+      }
     }
   };
 
@@ -20,8 +31,8 @@ function Target({ target }) {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    getDives();
-  }, [target]);
+    getTarget();
+  }, []);
 
   if (target === null) {
     return (
