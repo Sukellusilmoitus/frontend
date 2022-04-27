@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Helmet from 'react-helmet';
 import diveService from '../../services/dives';
 import LoadingSpinner from '../LoadingSpinner';
 import TargetPage from './TargetPage';
@@ -37,11 +38,17 @@ function Target({ target }) {
   }
 
   return (
-    <TargetPage
-      target={target}
-      createNewNotification={createNewNotification}
-      dives={dives}
-    />
+    <>
+      <Helmet>
+        <title>{target.properties.name}</title>
+        <meta name="description" content={`Tarkempia tietoja kohteesta ${target.properties.name}`} />
+      </Helmet>
+      <TargetPage
+        target={target}
+        createNewNotification={createNewNotification}
+        dives={dives}
+      />
+    </>
   );
 }
 

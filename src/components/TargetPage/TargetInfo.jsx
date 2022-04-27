@@ -20,7 +20,7 @@ function TargetInfo(props) {
           </tr>
           <tr>
             <td>Osoite</td>
-            <td><a href={target.properties.url}>{target.properties.url}</a></td>
+            <td><a href={target.properties.url} target="_blank" rel="noopener noreferrer">{target.properties.url}</a></td>
           </tr>
           <tr>
             <td>Lisätty</td>

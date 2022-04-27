@@ -1,5 +1,6 @@
 import { Container, Alert } from 'react-bootstrap';
 import { useState } from 'react';
+import Helmet from 'react-helmet';
 import FeedbackForm from './FeedbackForm';
 import PageTitle from '../PageTitle';
 import feedbackService from '../../services/feedbacks';
@@ -26,6 +27,10 @@ function Feedback() {
 
   return (
     <Container fluid>
+      <Helmet>
+        <title>Anna palautetta</title>
+        <meta name="description" content="Lue lisää tai anna palautetta palvelusta" />
+      </Helmet>
       <PageTitle text="Anna palautetta" />
       {message && <Alert variant="success">{message}</Alert>}
       <FeedbackForm onSubmit={onSubmit} />
