@@ -342,8 +342,9 @@ describe('Admin panel', () => {
       })
     })
     context('Editing', () => {
-      it('Edit page opens', () => {
+      it.only('Edit page opens', () => {
         cy.wait(3000)
+        cy.viewport(2048,1080)
         cy.get('table').within(() => {
           cy.get('tr:nth-child(2)').within(() => {
             cy.get('.RaButton-button-6').click()
