@@ -1,4 +1,5 @@
 import { Admin, Resource, fetchUtils } from 'react-admin';
+import Helmet from 'react-helmet';
 import jsonServerProvider from 'ra-data-json-server';
 import PostIcon from '@material-ui/icons/Book';
 import UserIcon from '@material-ui/icons/Group';
@@ -25,12 +26,17 @@ const dataProvider = jsonServerProvider(`${REACT_APP_SERVER_URL}/api/admin`, htt
 
 export default function AdminPanel() {
   return (
-    <Admin dataProvider={dataProvider} authProvider={authProvider}>
-      <Resource name="targets" options={{ label: 'Hylyt' }} list={TargetListView} edit={TargetListEdit} icon={PostIcon} />
-      <Resource name="users" options={{ label: 'Käyttäjät' }} list={UserListView} edit={UserListEdit} icon={UserIcon} />
-      <Resource name="dives" options={{ label: 'Sukellusilmoitukset' }} list={DiveListView} edit={DiveListEdit} />
-      <Resource name="pending" options={{ label: 'Hyväksyttävät' }} list={PendingListView} edit={PendingListEdit} />
-      <Resource name="duplicates" options={{ label: 'Päällekkäiset ilmoitukset' }} list={DuplicatesListView} />
-    </Admin>
+    <>
+      <Helmet>
+        <title>Hallintapaneeli</title>
+      </Helmet>
+      <Admin dataProvider={dataProvider} authProvider={authProvider}>
+        <Resource name="targets" options={{ label: 'Hylyt' }} list={TargetListView} edit={TargetListEdit} icon={PostIcon} />
+        <Resource name="users" options={{ label: 'Käyttäjät' }} list={UserListView} edit={UserListEdit} icon={UserIcon} />
+        <Resource name="dives" options={{ label: 'Sukellusilmoitukset' }} list={DiveListView} edit={DiveListEdit} />
+        <Resource name="pending" options={{ label: 'Hyväksyttävät' }} list={PendingListView} edit={PendingListEdit} />
+        <Resource name="duplicates" options={{ label: 'Päällekkäiset ilmoitukset' }} list={DuplicatesListView} />
+      </Admin>
+    </>
   );
 }

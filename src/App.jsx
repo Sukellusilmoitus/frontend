@@ -4,6 +4,7 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom';
+import Helmet from 'react-helmet';
 import Header from './components/Navigation';
 import Target from './components/TargetPage/index';
 import UserPage from './components/UserPage';
@@ -25,6 +26,10 @@ function App() {
 
   return (
     <div className="container">
+      <Helmet>
+        <title>Sukellusilmoitus</title>
+        <meta name="description" content="Meriarkeologisen seuran sovellus sukellusilmoitusten tekemiseen" />
+      </Helmet>
       <Header />
       <Switch>
         <Route exact path="/">

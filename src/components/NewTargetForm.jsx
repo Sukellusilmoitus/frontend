@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Helmet from 'react-helmet';
 import {
   Col, Form, Button, Row, Breadcrumb, Container,
 } from 'react-bootstrap';
@@ -54,12 +55,16 @@ function NewTargetForm(props) {
 
   return (
     <Container>
+      <Helmet>
+        <title>Uusi kohde</title>
+        <meta name="description" content="Ilmoita uudesta sukelluskohteesta" />
+      </Helmet>
       <PageTitle text="Tee ilmoitus uudesta kohteesta" />
       <Submitmessage message={message} />
       <p>
         Suosittelemme yksityiskohtaisemman ilmoituksen tekemistä Museoviraston
         {' '}
-        <a href="https://www.kyppi.fi/ilppari">sivuilla.</a>
+        <a href="https://www.kyppi.fi/ilppari" target="_blank" rel="noopener noreferrer">sivuilla.</a>
       </p>
       <h5>Kohteen tiedot</h5>
       <Form
@@ -330,6 +335,7 @@ function NewTargetForm(props) {
           </Form.Text>
         </Form.Group>
         <br />
+        <Submitmessage message={message} />
         <Button variant="primary" type="submit" data-testid="submit" value="Submit">Lähetä</Button>
       </Form>
       <br />
