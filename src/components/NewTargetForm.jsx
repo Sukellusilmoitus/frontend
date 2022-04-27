@@ -61,11 +61,11 @@ function NewTargetForm(props) {
       </Helmet>
       <PageTitle text="Tee ilmoitus uudesta kohteesta" />
       <Submitmessage message={message} />
-      <p>
+      <>
         Suosittelemme yksityiskohtaisemman ilmoituksen tekemistä Museoviraston
         {' '}
         <a href="https://www.kyppi.fi/ilppari" target="_blank" rel="noopener noreferrer">sivuilla.</a>
-      </p>
+      </>
       <h5>Kohteen tiedot</h5>
       <Form
         onSubmit={handleSubmit}
@@ -91,7 +91,7 @@ function NewTargetForm(props) {
         </Form.Group>
         <br />
         {loggeduser !== null && (
-        <p>
+        <>
           {' '}
           <Form.Group>
             <Form.Label>Ilmoittajan nimi:</Form.Label>
@@ -128,10 +128,10 @@ function NewTargetForm(props) {
               readOnly
             />
           </Form.Group>
-        </p>
+        </>
         )}
         {loggeduser === null && (
-        <p>
+        <>
           {' '}
           <Form.Group>
             <Form.Label>Ilmoittajan nimi:</Form.Label>
@@ -185,7 +185,7 @@ function NewTargetForm(props) {
               </Form.Group>
             </Col>
           </Row>
-        </p>
+        </>
         )}
         <br />
         <Row>
