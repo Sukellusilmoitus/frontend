@@ -28,6 +28,7 @@ const mockDiveList = [
       }
     },
     created_at: '20200202T10:00:00',
+    divedate: '20200130T10:00:00',
     location_correction: true,
     new_x_coordinates: '',
     new_y_coordinates: '',
@@ -60,6 +61,7 @@ const mockDiveList = [
       }
     },
     created_at: '20200202T10:00:00',
+    divedate: '20200130T10:00:00',
     location_correction: true,
     new_x_coordinates: '',
     new_y_coordinates: '',
@@ -77,7 +79,7 @@ describe('user dive history list tests', () => {
     expect(heading).toHaveTextContent('Sukellushistoria')
 
     const diveData = screen.getByTestId('1231')
-    expect(diveData).toHaveTextContent('02.02.2020')
+    expect(diveData).toHaveTextContent('30.01.2020')
     expect(diveData).toHaveTextContent('Hylyn muutokset: no changes')
   })
 
