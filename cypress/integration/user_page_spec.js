@@ -1,4 +1,4 @@
-const REACT_APP_SERVER_URL = 'https://sukellusilmo-back-test.herokuapp.com/';
+const REACT_APP_SERVER_URL = 'https://sukellusilmo-back-test.herokuapp.com';
 
 Cypress.on('uncaught:exception', (err, runnable) => {
   return false
@@ -7,13 +7,13 @@ Cypress.on('uncaught:exception', (err, runnable) => {
 let auth;
 
 before(function fetchUser () {
-  cy.request('POST', `${REACT_APP_SERVER_URL}/api/register`, {
+  cy.request('POST', `${REACT_APP_SERVER_URL}/api/register/`, {
     name: 'test',
     email: 'test@test.com',
     username: 'usernametest',
     password: 'passwordtest',
   });
-  cy.request('POST', `${REACT_APP_SERVER_URL}/api/login`, {
+  cy.request('POST', `${REACT_APP_SERVER_URL}/api/login/`, {
     username: 'usernametest',
     password: 'passwordtest',
   })
@@ -23,15 +23,15 @@ before(function fetchUser () {
   });
 });
 
-beforeEach(function setUser () {
-  cy.visit('/omasivu', {
-    onBeforeLoad (win) {
-      win.localStorage.setItem('auth', auth);
-    },
-  });
-});
-
 describe('user info page e2e tests', () => {
+  beforeEach(function setUser () {
+    cy.visit('/omasivu', {
+      onBeforeLoad (win) {
+        win.localStorage.setItem('auth', auth);
+      },
+    });
+  });
+
   it('page loads when logged in', () => {
     cy.contains('Tallenna muutokset');
     cy.contains('Sukellukset kartalla');
@@ -48,7 +48,7 @@ describe('user info page e2e tests', () => {
     cy.get('[data-testid=name]').should('have.value', 'cypress tester');
   });
 
-  it('user can phone or email', () => {
+  it('user can change phone or email', () => {
     cy.get('[data-testid=phone]').clear().type('1234567890')
     cy.get('[data-testid=save]').click();
     cy.contains('Tiedot tallennettu onnistuneesti');
