@@ -6,7 +6,7 @@ import TargetPage from './TargetPage';
 import targetservice from '../../services/targets';
 
 function Target({ id }) {
-  const [dives, setDives] = useState([]);
+  const [dives, setDives] = useState('loading...');
   const [target, setTarget] = useState(null);
 
   const getTarget = async () => {
