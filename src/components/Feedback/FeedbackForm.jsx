@@ -6,6 +6,7 @@ import {
 } from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { loggedUser } from '../../services/users';
 
 const validationSchema = Yup.object().shape({
   feedback: Yup.string().required('Palaute on pakollinen kenttä'),
@@ -29,6 +30,8 @@ function FeedbackForm({ onSubmit }) {
     email: '',
     phone: '',
   };
+
+  const loggeduser = loggedUser();
 
   return (
     <Formik
@@ -69,54 +72,107 @@ function FeedbackForm({ onSubmit }) {
               { errors.feedback }
             </Form.Control.Feedback>
           </Form.Group>
-          <Form.Group style={{ marginTop: '10px' }}>
-            <Form.Label>Nimi:</Form.Label>
-            <Form.Control
-              type="text"
-              name="name"
-              value={values.name}
-              onChange={handleChange}
-              isInvalid={touched.name && errors.name}
-              data-testid="feedback-name"
-            />
-            <Form.Control.Feedback type="invalid">
-              { errors.name }
-            </Form.Control.Feedback>
-          </Form.Group>
-          <Row style={{ marginTop: '10px' }}>
-            <Col>
-              <Form.Group>
-                <Form.Label>Sähköposti:</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="email"
-                  value={values.email}
-                  onChange={handleChange}
-                  isInvalid={touched.email && errors.email}
-                  data-testid="feedback-email"
-                />
-                <Form.Control.Feedback type="invalid">
-                  { errors.email }
-                </Form.Control.Feedback>
-              </Form.Group>
-            </Col>
-            <Col>
-              <Form.Group>
-                <Form.Label>Puhelinnumero:</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="phone"
-                  value={values.phone}
-                  onChange={handleChange}
-                  isInvalid={touched.phone && errors.phone}
-                  data-testid="feedback-phone"
-                />
-                <Form.Control.Feedback type="invalid">
-                  { errors.phone }
-                </Form.Control.Feedback>
-              </Form.Group>
-            </Col>
-          </Row>
+
+          {loggeduser !== null && (
+          <>
+            {' '}
+            <Form.Group style={{ marginTop: '10px' }}>
+              <Form.Label>Nimi:</Form.Label>
+              <Form.Control
+                type="text"
+                name="username"
+                data-testid="testusername"
+                id="username"
+                value={loggeduser.name}
+                readOnly
+              />
+            </Form.Group>
+            <Row style={{ marginTop: '10px' }}>
+              <Col>
+                <Form.Group>
+                  <Form.Label>Sähköposti:</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="useremail"
+                    data-testid="testuseremail"
+                    id="useremail"
+                    value={loggeduser.email}
+                    readOnly
+                  />
+                </Form.Group>
+              </Col>
+              <Col>
+                <Form.Group>
+                  <Form.Label>Puhelinnumero:</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="userphone"
+                    data-testid="testuserphone"
+                    id="userphone"
+                    value={loggeduser.phone}
+                    readOnly
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+
+          </>
+          )}
+          {loggeduser === null && (
+          <>
+            {' '}
+            <Form.Group style={{ marginTop: '10px' }}>
+              <Form.Label>Nimi:</Form.Label>
+              <Form.Control
+                type="text"
+                name="name"
+                value={values.name}
+                onChange={handleChange}
+                isInvalid={touched.name && errors.name}
+                data-testid="feedback-name"
+              />
+              <Form.Control.Feedback type="invalid">
+                { errors.name }
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Row style={{ marginTop: '10px' }}>
+              <Col>
+                <Form.Group>
+                  <Form.Label>Sähköposti:</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="email"
+                    value={values.email}
+                    onChange={handleChange}
+                    isInvalid={touched.email && errors.email}
+                    data-testid="feedback-email"
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    { errors.email }
+                  </Form.Control.Feedback>
+                </Form.Group>
+              </Col>
+              <Col>
+                <Form.Group>
+                  <Form.Label>Puhelinnumero:</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="phone"
+                    value={values.phone}
+                    onChange={handleChange}
+                    isInvalid={touched.phone && errors.phone}
+                    data-testid="feedback-phone"
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    { errors.phone }
+                  </Form.Control.Feedback>
+                </Form.Group>
+              </Col>
+            </Row>
+
+          </>
+          )}
+
           <Button type="submit" className="btn-success my-3">Lähetä</Button>
         </Form>
       )}

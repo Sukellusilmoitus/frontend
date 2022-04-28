@@ -28,10 +28,19 @@ function Feedback() {
   return (
     <Container fluid>
       <Helmet>
-        <title>Anna palautetta</title>
-        <meta name="description" content="Lue lisää tai anna palautetta palvelusta" />
+        <title>Lue lisää ja anna palautetta palvelusta</title>
+        <meta name="description" content="Lue lisää ja anna palautetta palvelusta" />
       </Helmet>
-      <PageTitle text="Anna palautetta" />
+      <PageTitle text="Lue lisää ja anna palautetta palvelusta" />
+      <p>
+        Tämä sivu on toteutettu osana Helsingin yliopiston tietojenkäsittelytieteen
+        kandiohjelmaan kuuluvaa kurssia Ohjelmistotuotantoprojekti.
+        Suomen meriargeologinen seura on
+        akateemista koulutusta ja tutkimusta tukeva tieteellinen seura
+        ja toimi asiakkaana ohjelmistotuotantoryhmällemme.
+        Palvelussa kerättäviä tietoja hyödynnetään
+        muinaismuistolain uudistus- ja historiallisten hylkykohteiden suojelutyössä.
+      </p>
       {message && <Alert variant="success">{message}</Alert>}
       <FeedbackForm onSubmit={onSubmit} />
     </Container>
