@@ -33,7 +33,7 @@ function UserDiveHistory({ dives }) {
         {dives.length > 0
           ? dives.map((dive) => (
             <div key={dive.id} data-testid={dive.id}>
-              <strong>{dayjs(dive.created_at).format('DD.MM.YYYY')}</strong>
+              <strong>{dayjs(dive.divedate).format('DD.MM.YYYY')}</strong>
               <br />
               Kohde:
               {' '}
