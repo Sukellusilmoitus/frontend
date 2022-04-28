@@ -25,15 +25,7 @@ function App() {
     targetService.postTarget(newTarget);
   };
 
-  useEffect(() => {
-    getTargets();
-  }, []);
   AuthVerify();
-
-  const match = useRouteMatch('/hylyt/:id');
-  const target = match && targets !== 'loading...'
-    ? targets.find((t) => t.properties.id === match.params.id)
-    : null;
 
   return (
     <div className="container">
