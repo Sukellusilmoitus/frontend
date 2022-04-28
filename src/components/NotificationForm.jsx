@@ -23,7 +23,7 @@ function NewNotificationForm(props) {
   const [formX, setFormX] = useState(targetXcoordinate);
   const [formY, setFormY] = useState(targetYcoordinate);
   const [date, setDate] = useState(new Date());
-  const user = loggedUser();
+  const loggeduser = loggedUser();
 
   useEffect(() => {
     setDefaultCenter([64.1, 25.0]);
@@ -44,7 +44,7 @@ function NewNotificationForm(props) {
   const {
     handleChange, errors, message, handleSubmit, resetChangeText,
     handleCoordinateChange, center, handleCoordinatesClick,
-  } = useForm({ props, date, user });
+  } = useForm({ props, date, loggeduser });
 
   const handleChangeRadio = (value) => {
     setChangeRadio(value);
@@ -87,8 +87,8 @@ function NewNotificationForm(props) {
         data-testid="testform"
         id="newtargetform"
       >
-        {user !== null && (
-        <p>
+        {loggeduser !== null && (
+        <>
           {' '}
           <Form.Group>
             <Form.Label>Sukeltajan etu- ja sukunimi:</Form.Label>
@@ -97,7 +97,7 @@ function NewNotificationForm(props) {
               name="username"
               data-testid="testusername"
               id="username"
-              value={user.name}
+              value={loggeduser.name}
               readOnly
             />
           </Form.Group>
@@ -109,7 +109,7 @@ function NewNotificationForm(props) {
               name="userphone"
               data-testid="testuserphone"
               id="userphone"
-              value={user.phone}
+              value={loggeduser.phone}
               readOnly
             />
           </Form.Group>
@@ -121,14 +121,14 @@ function NewNotificationForm(props) {
               name="useremail"
               data-testid="testuseremail"
               id="useremail"
-              value={user.email}
+              value={loggeduser.email}
               readOnly
             />
           </Form.Group>
-        </p>
+        </>
         )}
-        {user === null && (
-        <p>
+        {loggeduser === null && (
+        <>
           {' '}
           <Form.Group>
             <Form.Label>Sukeltajan etu- ja sukunimi:</Form.Label>
@@ -183,7 +183,7 @@ function NewNotificationForm(props) {
               { errors.email }
             </Form.Control.Feedback>
           </Form.Group>
-        </p>
+        </>
         )}
         <Form.Group>
           <br />
@@ -266,7 +266,7 @@ function NewNotificationForm(props) {
             onChange={(c) => { handleCoordinateChangeClick(c.target.value); }}
           />
           {coordinateRadio === 'no' && (
-          <p>
+          <>
             {' '}
             <Form.Label>Uusi pituuspiiri desimaaliasteina:</Form.Label>
             <Form.Control
@@ -331,7 +331,7 @@ function NewNotificationForm(props) {
             <Form.Control.Feedback type="invalid">
               { errors.coordinateinfo }
             </Form.Control.Feedback>
-          </p>
+          </>
           )}
         </Form.Group>
         <Form.Group>
@@ -354,7 +354,7 @@ function NewNotificationForm(props) {
             onChange={(c) => { handleChangeRadio(c.target.value); }}
           />
           {changeRadio === 'yes' && (
-          <p>
+          <>
             {' '}
             <Form.Label>Kuvaile muutoksia:</Form.Label>
             <Form.Control
@@ -372,7 +372,7 @@ function NewNotificationForm(props) {
             <Form.Control.Feedback type="invalid">
               { errors.changeText }
             </Form.Control.Feedback>
-          </p>
+          </>
           )}
         </Form.Group>
         <Form.Group>
@@ -394,6 +394,7 @@ function NewNotificationForm(props) {
           </Form.Control.Feedback>
         </Form.Group>
         <br />
+        <Submitmessage message={message} />
         <Button id="formbtn" variant="primary" type="submit">Lähetä</Button>
       </Form>
     </div>

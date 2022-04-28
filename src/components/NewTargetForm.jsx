@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Helmet from 'react-helmet';
 import {
   Col, Form, Button, Row, Breadcrumb, Container,
 } from 'react-bootstrap';
@@ -14,7 +15,7 @@ function NewTargetForm(props) {
   const [defaultCenter, setDefaultCenter] = useState([64.1, 25.0]);
   const [formX, setFormX] = useState(25.0);
   const [formY, setFormY] = useState(64.1);
-  const user = loggedUser();
+  const loggeduser = loggedUser();
 
   useEffect(() => {
     setDefaultCenter([64.1, 25.0]);
@@ -54,13 +55,17 @@ function NewTargetForm(props) {
 
   return (
     <Container>
+      <Helmet>
+        <title>Uusi kohde</title>
+        <meta name="description" content="Ilmoita uudesta sukelluskohteesta" />
+      </Helmet>
       <PageTitle text="Tee ilmoitus uudesta kohteesta" />
       <Submitmessage message={message} />
-      <p>
+      <>
         Suosittelemme yksityiskohtaisemman ilmoituksen tekemistä Museoviraston
         {' '}
-        <a href="https://www.kyppi.fi/ilppari">sivuilla.</a>
-      </p>
+        <a href="https://www.kyppi.fi/ilppari" target="_blank" rel="noopener noreferrer">sivuilla.</a>
+      </>
       <h5>Kohteen tiedot</h5>
       <Form
         onSubmit={handleSubmit}
@@ -85,8 +90,8 @@ function NewTargetForm(props) {
           </Form.Control.Feedback>
         </Form.Group>
         <br />
-        {user !== null && (
-        <p>
+        {loggeduser !== null && (
+        <>
           {' '}
           <Form.Group>
             <Form.Label>Ilmoittajan nimi:</Form.Label>
@@ -95,7 +100,7 @@ function NewTargetForm(props) {
               name="username"
               data-testid="testusername"
               id="username"
-              value={user.name}
+              value={loggeduser.name}
               readOnly
             />
           </Form.Group>
@@ -107,7 +112,7 @@ function NewTargetForm(props) {
               name="userphone"
               data-testid="testuserphone"
               id="userphone"
-              value={user.phone}
+              value={loggeduser.phone}
               readOnly
             />
           </Form.Group>
@@ -119,14 +124,14 @@ function NewTargetForm(props) {
               name="useremail"
               data-testid="testuseremail"
               id="useremail"
-              value={user.email}
+              value={loggeduser.email}
               readOnly
             />
           </Form.Group>
-        </p>
+        </>
         )}
-        {user === null && (
-        <p>
+        {loggeduser === null && (
+        <>
           {' '}
           <Form.Group>
             <Form.Label>Ilmoittajan nimi:</Form.Label>
@@ -180,7 +185,7 @@ function NewTargetForm(props) {
               </Form.Group>
             </Col>
           </Row>
-        </p>
+        </>
         )}
         <br />
         <Row>
@@ -330,6 +335,7 @@ function NewTargetForm(props) {
           </Form.Text>
         </Form.Group>
         <br />
+        <Submitmessage message={message} />
         <Button variant="primary" type="submit" data-testid="submit" value="Submit">Lähetä</Button>
       </Form>
       <br />

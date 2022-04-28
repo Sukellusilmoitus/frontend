@@ -4,14 +4,14 @@ import TargetList from './index'
 
 describe('target list integration tests', () => {
   it('correct content rendered during loading', () => {
-    render(<TargetList targets={'loading...'} />)
+    render(<TargetList listTargets={'loading...'} />)
 
     const loading = screen.getByTestId('loading-spinner')
     expect(loading).toBeDefined()
   })
 
   it('search form is rendered', () => {
-    render(<TargetList targets={[]} />)
+    render(<TargetList listTargets={[]} />)
 
     const searchForm = screen.getByTestId('search-form')
     expect(searchForm).toBeDefined()
