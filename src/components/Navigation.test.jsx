@@ -8,7 +8,7 @@ describe('navbar tests', () => {
     render(<Navigation />, { wrapper: BrowserRouter })
     const links = screen.getAllByRole('link')
 
-    expect(links[0]).toHaveTextContent('Hylkysukellusilmoituspalvelu')
+    expect(links[0]).toHaveTextContent('Sukellusilmoitus')
     expect(links[0].getAttribute('href')).toBe('/')
 
     expect(links[1]).toHaveTextContent('Etusivu')
