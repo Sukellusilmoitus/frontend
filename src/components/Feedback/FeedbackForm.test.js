@@ -1,11 +1,21 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import FeedbackForm from './FeedbackForm'
+import { loggedUser } from '../../services/users';
 
 const mockSubmit = jest.fn()
 
+jest.mock('../../services/users')
+
+const mockUser = {
+  name: 'Mock user',
+  email: 'mock@email.jest',
+  phone: '000-000-000'
+}
+
 describe('feedback form tests', () => {
   beforeEach(() => {
+    loggedUser.mockReturnValue(null);
     render(<FeedbackForm onSubmit={mockSubmit} />)
   })
 
