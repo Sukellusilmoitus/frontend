@@ -31,7 +31,7 @@ function Feedback() {
         <title>Lue lisää ja anna palautetta palvelusta</title>
         <meta name="description" content="Lue lisää ja anna palautetta palvelusta" />
       </Helmet>
-      <PageTitle text="Lue lisää ja anna palautetta palvelusta" />
+      <PageTitle text="Tietoa sivusta ja palaute" />
       <p>
         Tämä sivu on toteutettu osana Helsingin yliopiston tietojenkäsittelytieteen
         kandiohjelmaan kuuluvaa kurssia Ohjelmistotuotantoprojekti.

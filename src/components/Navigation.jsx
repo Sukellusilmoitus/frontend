@@ -12,7 +12,7 @@ function Navigation() {
 
   return (
     <Navbar bg="white" expand="lg" sticky="top" className="py-3" collapseOnSelect>
-      <Navbar.Brand href="/">Hylkysukellusilmoituspalvelu</Navbar.Brand>
+      <Navbar.Brand href="/">Sukellusilmoitus</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
         <Nav>
@@ -26,7 +26,7 @@ function Navigation() {
             <Nav.Link>Uusi hylky</Nav.Link>
           </LinkContainer>
           <LinkContainer to="/palaute">
-            <Nav.Link>Anna palautetta</Nav.Link>
+            <Nav.Link>Info ja palaute</Nav.Link>
           </LinkContainer>
           {loggedIn
           && (
