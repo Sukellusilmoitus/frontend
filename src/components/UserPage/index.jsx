@@ -42,7 +42,7 @@ function User() {
   if (user === undefined) {
     return (
       <div>
-        Kyseistä suekltajaa ei löytynyt, onhan käyttämäsi osoite oikea?
+        Kyseistä sukeltajaa ei löytynyt, onhan käyttämäsi osoite oikea?
       </div>
     );
   }

@@ -22,7 +22,10 @@ const getAllByTarget = async (targetId) => {
 };
 
 const getAllByUser = async (username) => {
-  const response = await axios.get(`${baseUrl}/api/dives/user/${username}`);
+  const headers = {
+    'X-ACCESS-TOKEN': localStorage.getItem('auth'),
+  };
+  const response = await axios.get(`${baseUrl}/api/dives/user/${username}`, { headers });
   return response.data;
 };
 
