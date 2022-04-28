@@ -3,7 +3,7 @@ describe('UI is correct', () => {
     cy.wait(1000);
     cy.visit("/hylyt")
     cy.wait(1000);
-    cy.contains('Hylkysukellusilmoituspalvelu');
+    cy.contains('Sukellusilmoitus');
     cy.get('table').contains('Nimi');
     cy.get('table').contains('Kaupunki');
     cy.get('table').contains('Tyyppi');
