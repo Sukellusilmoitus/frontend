@@ -18,11 +18,14 @@ import Feedback from './components/Feedback';
 import Login from './components/Login';
 import Register from './components/Register';
 import Logout from './components/Logout';
+import { AuthVerify } from './services/users';
 
 function App() {
   const createNewTarget = (newTarget) => {
     targetService.postTarget(newTarget);
   };
+
+  AuthVerify();
 
   return (
     <div className="container">
