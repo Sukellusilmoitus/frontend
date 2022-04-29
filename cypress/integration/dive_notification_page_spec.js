@@ -14,12 +14,13 @@ before(function fetchUser () {
   .then((res) => {
     auth = res.auth;
   });
+  cy.visit('/hylyt');
+  cy.get('table tbody').find('tr').first().click();
+  cy.get('[id=privacy-checkbox]').click();
 });
 
 describe('Target can be clicked', () => {
   it('successfully loads', () => {
-    cy.visit('/hylyt');
-    cy.get('table tbody').find('tr').first().click();
     cy.contains('Tee uusi sukellusilmoitus');
   });
 });
@@ -86,6 +87,13 @@ describe('Test form fields', () => {
     cy.get('[id=newxcoordinate]').type('25.1234567');
     cy.contains('Anna koordinaatti muodossa xx.xxxxxxxx, esim. 60.42342334');
   });
+
+  it('privacy terms have to be accepted', () => {
+    cy.reload();
+    cy.get('[id=formbtn]').should('be.disabled');
+    cy.get('[id=privacy-checkbox]').click();
+    cy.get('[id=formbtn]').should('not.be.disabled');
+  })
 });
 
 describe('Diving history is displayed', () => {
@@ -93,6 +101,7 @@ describe('Diving history is displayed', () => {
     cy.reload();
     cy.get('[id=newname]').type('Test Tester');
     cy.get('[id=newemail]').type('Test@Tester.com');
+    cy.get('[id=privacy-checkbox]').click();
     cy.get('[id=formbtn]').click();
     cy.wait(2000);
     cy.reload();
