@@ -23,7 +23,7 @@ describe('feedback form tests', () => {
     const inputFields = screen.getAllByRole('textbox')
     expect(inputFields).toHaveLength(4)
 
-    const submit = screen.getByRole('button')
+    const submit = screen.getByTestId('submit-button')
     expect(submit).toBeDefined()
 
     const feedbackText = screen.getByTestId('feedback-text')
@@ -37,6 +37,9 @@ describe('feedback form tests', () => {
 
     const feedbackPhone = screen.getByTestId('feedback-phone')
     expect(feedbackPhone).toBeDefined()
+
+    const privacyToggle = screen.getByTestId('privacyToggle')
+    expect(privacyToggle).toBeDefined()
   })
 
   it('the fields have correct initial values', () => {
@@ -89,7 +92,7 @@ describe('feedback form tests', () => {
   })
 
   it('phone not required when email is entered', async () => {
-    const submit = screen.getByRole('button')
+    const submit = screen.getByTestId('submit-button')
     const feedbackEmail = screen.getByTestId('feedback-email')
     const feedbackPhone = screen.getByTestId('feedback-phone')
 
@@ -110,7 +113,7 @@ describe('feedback form tests', () => {
   })
 
   it('email not required when phone is entered', async () => {
-    const submit = screen.getByRole('button')
+    const submit = screen.getByTestId('submit-button')
     const feedbackEmail = screen.getByTestId('feedback-email')
     const feedbackPhone = screen.getByTestId('feedback-phone')
 
@@ -130,7 +133,7 @@ describe('feedback form tests', () => {
   })
 
   it('email does not pass validation with invalid email address', async () => {
-    const submit = screen.getByRole('button')
+    const submit = screen.getByTestId('submit-button')
     const feedbackEmail = screen.getByTestId('feedback-email')
 
     await waitFor(() => {
@@ -153,7 +156,100 @@ describe('feedback form tests', () => {
   })
 
   it('submit function is called with valid inputs', async () => {
-    const submit = screen.getByRole('button')
+    const submit = screen.getByTestId('submit-button')
+    const feedbackText = screen.getByTestId('feedback-text')
+    const feedbackName = screen.getByTestId('feedback-name')
+    const feedbackEmail = screen.getByTestId('feedback-email')
+    const feedbackPhone = screen.getByTestId('feedback-phone')
+    const privacyToggle = screen.getByTestId('privacyToggle')
+
+    await waitFor(() => {
+      fireEvent.change(feedbackText, {
+        target: { value: 'test feedback' }
+      })
+    })
+    await waitFor(() => {
+      fireEvent.change(feedbackName, {
+        target: { value: 'tester' }
+      })
+    })
+    await waitFor(() => {
+      fireEvent.change(feedbackEmail, {
+        target: { value: 'tester@email.com' }
+      })
+    })
+    await waitFor(() => {
+      fireEvent.change(feedbackPhone, {
+        target: { value: '1234567' }
+      })
+    })
+
+    await waitFor(() => {
+      fireEvent.click(privacyToggle)
+    })
+
+    await waitFor(() => {
+      fireEvent.click(submit)
+    })
+
+    expect(mockSubmit).toHaveBeenCalledTimes(1)
+  })
+
+  it('submit function is not called with missing inputs', async () => {
+    const submit = screen.getByTestId('submit-button')
+    const feedbackText = screen.getByTestId('feedback-text')
+
+    await waitFor(() => {
+      fireEvent.change(feedbackText, {
+        target: { value: 'test feedback' }
+      })
+    })
+
+    await waitFor(() => {
+      fireEvent.click(submit)
+    })
+
+    expect(mockSubmit).not.toHaveBeenCalled()
+  })
+
+  it('submit function is not called with invalid email', async () => {
+    const submit = screen.getByTestId('submit-button')
+    const feedbackText = screen.getByTestId('feedback-text')
+    const feedbackName = screen.getByTestId('feedback-name')
+    const feedbackEmail = screen.getByTestId('feedback-email')
+    const feedbackPhone = screen.getByTestId('feedback-phone')
+
+    await waitFor(() => {
+      fireEvent.change(feedbackText, {
+        target: { value: 'test feedback' }
+      })
+    })
+    await waitFor(() => {
+      fireEvent.change(feedbackName, {
+        target: { value: 'tester' }
+      })
+    })
+    await waitFor(() => {
+      fireEvent.change(feedbackEmail, {
+        target: { value: 'tester' }
+      })
+    })
+    await waitFor(() => {
+      fireEvent.change(feedbackPhone, {
+        target: { value: '1234567' }
+      })
+    })
+
+    await waitFor(() => {
+      fireEvent.click(submit)
+    })
+
+    expect(mockSubmit).not.toHaveBeenCalled()
+  })
+
+
+  it('submit function is not called if privacy terms not accepted', async () => {
+    const submit = screen.getByTestId('submit-button')
     const feedbackText = screen.getByTestId('feedback-text')
     const feedbackName = screen.getByTestId('feedback-name')
     const feedbackEmail = screen.getByTestId('feedback-email')
@@ -184,62 +280,10 @@ describe('feedback form tests', () => {
       fireEvent.click(submit)
     })
 
-    expect(mockSubmit).toHaveBeenCalledTimes(1)
-  })
-
-  it('submit function is not called with missing inputs', async () => {
-    const submit = screen.getByRole('button')
-    const feedbackText = screen.getByTestId('feedback-text')
-
-    await waitFor(() => {
-      fireEvent.change(feedbackText, {
-        target: { value: 'test feedback' }
-      })
-    })
-
-    await waitFor(() => {
-      fireEvent.click(submit)
-    })
-
     expect(mockSubmit).not.toHaveBeenCalled()
   })
-
-  it('submit function is not called with invalid email', async () => {
-    const submit = screen.getByRole('button')
-    const feedbackText = screen.getByTestId('feedback-text')
-    const feedbackName = screen.getByTestId('feedback-name')
-    const feedbackEmail = screen.getByTestId('feedback-email')
-    const feedbackPhone = screen.getByTestId('feedback-phone')
-
-    await waitFor(() => {
-      fireEvent.change(feedbackText, {
-        target: { value: 'test feedback' }
-      })
-    })
-    await waitFor(() => {
-      fireEvent.change(feedbackName, {
-        target: { value: 'tester' }
-      })
-    })
-    await waitFor(() => {
-      fireEvent.change(feedbackEmail, {
-        target: { value: 'tester' }
-      })
-    })
-    await waitFor(() => {
-      fireEvent.change(feedbackPhone, {
-        target: { value: '1234567' }
-      })
-    })
-
-    await waitFor(() => {
-      fireEvent.click(submit)
-    })
-
-    expect(mockSubmit).not.toHaveBeenCalled()
-  })
-
 })
+
 
 describe('feedback logged form tests', () => {
 
@@ -251,6 +295,3 @@ describe('feedback logged form tests', () => {
     const feedbackName = component.getByTestId('feedback-name')
     expect(feedbackName.value).toEqual(mockUser.name)
   })
-
-
-})

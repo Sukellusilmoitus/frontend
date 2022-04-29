@@ -15,15 +15,14 @@ describe('feedback page e2e tests', () => {
       cy.get('[name=name]').type('cypress tester')
       cy.get('[name=email]').type('test@cypress.com')
       cy.get('[name=phone]').type('0501234567')
-      cy.get('button').click()
+      cy.get('[name=privacyToggle]').click()
+      cy.get('[data-testid=submit-button]').click()
     })
   })
 
   it('empty form cannot be submitted', () => {
     cy.visit('/palaute')
-    cy.get('form').within(() => {
-      cy.get('button').click()
-    })
+    cy.get('[data-testid=submit-button]').click()
     cy.contains('Palaute on pakollinen kenttä')
   })
 })

@@ -4,7 +4,10 @@ import {
   Alert, Button, Container, Form,
 } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
+import { Parser } from 'html-to-react';
 import { registerRequest } from '../services/users';
+import Modal from './Modal';
+import privacyText from '../assets/tietosuoja';
 import PageTitle from './PageTitle';
 
 function Register() {
@@ -14,6 +17,8 @@ function Register() {
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [alert, setAlert] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [termsAccepted, setTermsAccepted] = useState(false);
   const history = useHistory();
 
   useEffect(() => {
@@ -114,14 +119,35 @@ function Register() {
             Pakollinen kenttä
           </Form.Text>
         </Form.Group>
+        <Form.Check
+          type="checkbox"
+          id="privacy-checkbox"
+          inline
+          onChange={(e) => setTermsAccepted(e.currentTarget.checked)}
+        />
+        Hyväksyn
+        <Button
+          variant="link"
+          onClick={() => setModalOpen(true)}
+        >
+          tietosuojaehdot
+        </Button>
+        <br />
         <Button
           variant="primary"
           type="submit"
           data-testid="submit"
+          disabled={!termsAccepted}
         >
           Rekisteröidy
         </Button>
       </Form>
+      <Modal modalOpen={modalOpen} closeModal={() => setModalOpen(false)}>
+        <>
+          {Parser().parse(privacyText)}
+          <Button onClick={() => setModalOpen(false)}>Sulje</Button>
+        </>
+      </Modal>
     </Container>
   );
 }
