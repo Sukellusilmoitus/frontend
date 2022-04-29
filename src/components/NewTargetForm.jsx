@@ -71,7 +71,7 @@ function NewTargetForm(props) {
         {' '}
         <a href="https://www.kyppi.fi/ilppari" target="_blank" rel="noopener noreferrer">sivuilla.</a>
       </>
-      <h5>Kohteen tiedot</h5>
+      <strong>Kohteen tiedot</strong>
       <Form
         onSubmit={handleSubmit}
         data-testid="testform"
