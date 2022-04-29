@@ -68,7 +68,6 @@ function FeedbackForm({ onSubmit }) {
             className="mx-5 my-2"
             data-testid="feedback-form"
           >
-            {console.log('bbb', values, errors)}
             <Form.Group style={{ marginTop: '10px' }}>
               <Form.Label>Palaute sovelluksesta:</Form.Label>
               <Form.Control
