@@ -295,3 +295,4 @@ describe('feedback logged form tests', () => {
     const feedbackName = component.getByTestId('feedback-name')
     expect(feedbackName.value).toEqual(mockUser.name)
   })
+})
