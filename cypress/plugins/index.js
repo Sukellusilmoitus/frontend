@@ -16,7 +16,18 @@
  * @type {Cypress.PluginConfig}
  */
 // eslint-disable-next-line no-unused-vars
+require('dotenv').config()
+
 module.exports = (on, config) => {
-  // `on` is used to hook into various events Cypress emits
-  // `config` is the resolved Cypress config
-};
+
+  config.defaultCommandTimeout = 20000
+  // copy any needed variables from process.env to config.env
+  config.env.react_app_server_url = 'https://sukellusilmo-back-test.herokuapp.com'
+  config.env.adminusername = 'admintest'
+  config.env.adminpassword = 'adminpassword'
+  // config.env.adminusername = process.env.ADMIN_USERNAME
+  // config.env.adminpassword = process.env.ADMIN_PASSWORD
+
+  // do not forget to return the changed config object!
+  return config
+}
