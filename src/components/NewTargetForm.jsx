@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Helmet from 'react-helmet';
 import {
   Col, Form, Button, Row, Breadcrumb, Container,
 } from 'react-bootstrap';
@@ -59,14 +60,18 @@ function NewTargetForm(props) {
 
   return (
     <Container>
+      <Helmet>
+        <title>Uusi kohde</title>
+        <meta name="description" content="Ilmoita uudesta sukelluskohteesta" />
+      </Helmet>
       <PageTitle text="Tee ilmoitus uudesta kohteesta" />
       <Submitmessage message={message} />
-      <p>
+      <>
         Suosittelemme yksityiskohtaisemman ilmoituksen tekemistä Museoviraston
         {' '}
-        <a href="https://www.kyppi.fi/ilppari">sivuilla.</a>
-      </p>
-      <strong>Kohteen tiedot</strong>
+        <a href="https://www.kyppi.fi/ilppari" target="_blank" rel="noopener noreferrer">sivuilla.</a>
+      </>
+      <h5>Kohteen tiedot</h5>
       <Form
         onSubmit={handleSubmit}
         data-testid="testform"
@@ -91,7 +96,7 @@ function NewTargetForm(props) {
         </Form.Group>
         <br />
         {loggeduser !== null && (
-        <p>
+        <>
           {' '}
           <Form.Group>
             <Form.Label>Ilmoittajan nimi:</Form.Label>
@@ -128,10 +133,10 @@ function NewTargetForm(props) {
               readOnly
             />
           </Form.Group>
-        </p>
+        </>
         )}
         {loggeduser === null && (
-        <p>
+        <>
           {' '}
           <Form.Group>
             <Form.Label>Ilmoittajan nimi:</Form.Label>
@@ -185,7 +190,7 @@ function NewTargetForm(props) {
               </Form.Group>
             </Col>
           </Row>
-        </p>
+        </>
         )}
         <br />
         <Row>
@@ -350,6 +355,7 @@ function NewTargetForm(props) {
           tietosuojaehdot
         </Button>
         <br />
+        <Submitmessage message={message} />
         <Button
           variant="primary"
           type="submit"

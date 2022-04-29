@@ -4,7 +4,10 @@ import REACT_APP_SERVER_URL from '../util/config';
 const baseUrl = REACT_APP_SERVER_URL;
 
 const getAll = async () => {
-  const response = await axios.get(`${baseUrl}/api/dives`);
+  const headers = {
+    'X-ACCESS-TOKEN': localStorage.getItem('auth'),
+  };
+  const response = await axios.get(`${baseUrl}/api/dives`, { headers });
   return response.data;
 };
 
@@ -19,7 +22,10 @@ const getAllByTarget = async (targetId) => {
 };
 
 const getAllByUser = async (username) => {
-  const response = await axios.get(`${baseUrl}/api/dives/user/${username}`);
+  const headers = {
+    'X-ACCESS-TOKEN': localStorage.getItem('auth'),
+  };
+  const response = await axios.get(`${baseUrl}/api/dives/user/${username}`, { headers });
   return response.data;
 };
 

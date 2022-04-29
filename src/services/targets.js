@@ -4,7 +4,10 @@ import REACT_APP_SERVER_URL from '../util/config';
 const baseUrl = REACT_APP_SERVER_URL;
 
 const getAllByUser = async (username) => {
-  const response = await axios.get(`${baseUrl}/api/targets/user/${username}`);
+  const headers = {
+    'X-ACCESS-TOKEN': localStorage.getItem('auth'),
+  };
+  const response = await axios.get(`${baseUrl}/api/targets/user/${username}`, { headers });
   return response.data;
 };
 

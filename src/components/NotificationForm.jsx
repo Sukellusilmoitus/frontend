@@ -93,7 +93,7 @@ function NewNotificationForm(props) {
         id="newtargetform"
       >
         {loggeduser !== null && (
-        <p>
+        <>
           {' '}
           <Form.Group>
             <Form.Label>Sukeltajan etu- ja sukunimi:</Form.Label>
@@ -130,10 +130,10 @@ function NewNotificationForm(props) {
               readOnly
             />
           </Form.Group>
-        </p>
+        </>
         )}
         {loggeduser === null && (
-        <p>
+        <>
           {' '}
           <Form.Group>
             <Form.Label>Sukeltajan etu- ja sukunimi:</Form.Label>
@@ -188,7 +188,7 @@ function NewNotificationForm(props) {
               { errors.email }
             </Form.Control.Feedback>
           </Form.Group>
-        </p>
+        </>
         )}
         <Form.Group>
           <br />
@@ -271,7 +271,7 @@ function NewNotificationForm(props) {
             onChange={(c) => { handleCoordinateChangeClick(c.target.value); }}
           />
           {coordinateRadio === 'no' && (
-          <p>
+          <>
             {' '}
             <Form.Label>Uusi pituuspiiri desimaaliasteina:</Form.Label>
             <Form.Control
@@ -336,7 +336,7 @@ function NewNotificationForm(props) {
             <Form.Control.Feedback type="invalid">
               { errors.coordinateinfo }
             </Form.Control.Feedback>
-          </p>
+          </>
           )}
         </Form.Group>
         <Form.Group>
@@ -359,7 +359,7 @@ function NewNotificationForm(props) {
             onChange={(c) => { handleChangeRadio(c.target.value); }}
           />
           {changeRadio === 'yes' && (
-          <p>
+          <>
             {' '}
             <Form.Label>Kuvaile muutoksia:</Form.Label>
             <Form.Control
@@ -377,7 +377,7 @@ function NewNotificationForm(props) {
             <Form.Control.Feedback type="invalid">
               { errors.changeText }
             </Form.Control.Feedback>
-          </p>
+          </>
           )}
         </Form.Group>
         <Form.Group>
@@ -414,6 +414,7 @@ function NewNotificationForm(props) {
           tietosuojaehdot
         </Button>
         <br />
+        <Submitmessage message={message} />
         <Button
           id="formbtn"
           variant="primary"
