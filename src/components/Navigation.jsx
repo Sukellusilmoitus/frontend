@@ -2,14 +2,20 @@ import React from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useLocation } from 'react-router-dom';
+import parseJwt from '../util/token';
 
 function Navigation() {
   if (useLocation().pathname.match(/admin/)) {
     return null;
   }
 
-  const loggedIn = localStorage.getItem('auth') !== null;
-  const isAdmin = true; // temporary until admin field is added to the database
+  const authToken = localStorage.getItem('auth');
+  let decodedToken;
+  if (authToken) {
+    decodedToken = parseJwt(authToken);
+  }
+  const loggedIn = authToken !== null;
+  const isAdmin = decodedToken?.admin;
 
   return (
     <Navbar bg="white" expand="lg" sticky="top" className="py-3" collapseOnSelect>
