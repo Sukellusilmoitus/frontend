@@ -39,7 +39,6 @@ function FeedbackForm({ onSubmit }) {
     privacyToggle: false,
   };
 
-
   if (loggeduser !== null) {
     initialValues.name = loggeduser.name;
     initialValues.email = loggeduser.email;
