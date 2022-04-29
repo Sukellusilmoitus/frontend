@@ -238,4 +238,19 @@ describe('feedback form tests', () => {
 
     expect(mockSubmit).not.toHaveBeenCalled()
   })
+
+})
+
+describe('feedback logged form tests', () => {
+
+  it('logged user renders', () => {
+
+    loggedUser.mockReturnValue(mockUser);
+    const component = render(
+    <FeedbackForm onSubmit={mockSubmit} />)
+    const feedbackName = component.getByTestId('feedback-name')
+    expect(feedbackName.value).toEqual(mockUser.name)
+  })
+
+
 })
