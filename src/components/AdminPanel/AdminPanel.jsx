@@ -9,6 +9,7 @@ import { DiveListView, DiveListEdit } from './dives';
 import { PendingListView, PendingListEdit } from './pending';
 import DuplicatesListView from './duplicates';
 import REACT_APP_SERVER_URL from '../../util/config';
+import CustomLayout from './CustomLayout';
 import authProvider from './authProvider';
 
 const httpClient = (url, options = {}) => {
@@ -30,7 +31,7 @@ export default function AdminPanel() {
       <Helmet>
         <title>Hallintapaneeli</title>
       </Helmet>
-      <Admin dataProvider={dataProvider} authProvider={authProvider}>
+      <Admin dataProvider={dataProvider} authProvider={authProvider} layout={CustomLayout}>
         <Resource name="targets" options={{ label: 'Hylyt' }} list={TargetListView} edit={TargetListEdit} icon={PostIcon} />
         <Resource name="users" options={{ label: 'Käyttäjät' }} list={UserListView} edit={UserListEdit} icon={UserIcon} />
         <Resource name="dives" options={{ label: 'Sukellusilmoitukset' }} list={DiveListView} edit={DiveListEdit} />
