@@ -1,11 +1,21 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import FeedbackForm from './FeedbackForm'
+import { loggedUser } from '../../services/users';
 
 const mockSubmit = jest.fn()
 
+jest.mock('../../services/users')
+
+const mockUser = {
+  name: 'Mock user',
+  email: 'mock@email.jest',
+  phone: '000-000-000'
+}
+
 describe('feedback form tests', () => {
   beforeEach(() => {
+    loggedUser.mockReturnValue(null);
     render(<FeedbackForm onSubmit={mockSubmit} />)
   })
 
@@ -237,6 +247,7 @@ describe('feedback form tests', () => {
     expect(mockSubmit).not.toHaveBeenCalled()
   })
 
+
   it('submit function is not called if privacy terms not accepted', async () => {
     const submit = screen.getByTestId('submit-button')
     const feedbackText = screen.getByTestId('feedback-text')
@@ -270,5 +281,18 @@ describe('feedback form tests', () => {
     })
 
     expect(mockSubmit).not.toHaveBeenCalled()
+  })
+})
+
+
+describe('feedback logged form tests', () => {
+
+  it('logged user renders', () => {
+
+    loggedUser.mockReturnValue(mockUser);
+    const component = render(
+    <FeedbackForm onSubmit={mockSubmit} />)
+    const feedbackName = component.getByTestId('feedback-name')
+    expect(feedbackName.value).toEqual(mockUser.name)
   })
 })

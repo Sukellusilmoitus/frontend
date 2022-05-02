@@ -5,7 +5,7 @@ Cypress.on('uncaught:exception', (err, runnable) => {
 describe('feedback page e2e tests', () => {
   it('page succesfully loads', () => {
     cy.visit('/palaute')
-    cy.contains('Anna palautetta')
+    cy.contains('Tietoa sivusta ja palaute')
   })
 
   it('form can be submitted', () => {

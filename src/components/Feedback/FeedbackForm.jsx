@@ -10,6 +10,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import Modal from '../Modal';
 import privacyText from '../../assets/tietosuoja';
+import { loggedUser } from '../../services/users';
 
 const validationSchema = Yup.object().shape({
   feedback: Yup.string().required('Palaute on pakollinen kenttä'),
@@ -28,6 +29,8 @@ const validationSchema = Yup.object().shape({
 }, [['phone', 'email']]);
 
 function FeedbackForm({ onSubmit }) {
+  const loggeduser = loggedUser();
+
   const initialValues = {
     feedback: '',
     name: '',
@@ -36,6 +39,11 @@ function FeedbackForm({ onSubmit }) {
     privacyToggle: false,
   };
 
+  if (loggeduser !== null) {
+    initialValues.name = loggeduser.name;
+    initialValues.email = loggeduser.email;
+    initialValues.phone = loggeduser.phone;
+  }
   const [modalOpen, setModalOpen] = useState(false);
 
   return (
@@ -60,7 +68,6 @@ function FeedbackForm({ onSubmit }) {
             className="mx-5 my-2"
             data-testid="feedback-form"
           >
-            {console.log('bbb', values, errors)}
             <Form.Group style={{ marginTop: '10px' }}>
               <Form.Label>Palaute sovelluksesta:</Form.Label>
               <Form.Control

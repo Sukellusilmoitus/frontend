@@ -8,7 +8,7 @@ describe('navbar tests', () => {
     render(<Navigation />, { wrapper: BrowserRouter })
     const links = screen.getAllByRole('link')
 
-    expect(links[0]).toHaveTextContent('Hylkysukellusilmoituspalvelu')
+    expect(links[0]).toHaveTextContent('Sukellusilmoitus')
     expect(links[0].getAttribute('href')).toBe('/')
 
     expect(links[1]).toHaveTextContent('Etusivu')
@@ -20,7 +20,7 @@ describe('navbar tests', () => {
     expect(links[3]).toHaveTextContent('Uusi hylky')
     expect(links[3].getAttribute('href')).toBe('/uusi')
 
-    expect(links[4]).toHaveTextContent('Anna palautetta')
+    expect(links[4]).toHaveTextContent('Info ja palaute')
     expect(links[4].getAttribute('href')).toBe('/palaute')
 
     expect(links[5]).toHaveTextContent('Kirjaudu')
