@@ -70,8 +70,10 @@ function NewTargetForm(props) {
         Suosittelemme yksityiskohtaisemman ilmoituksen tekemistä Museoviraston
         {' '}
         <a href="https://www.kyppi.fi/ilppari" target="_blank" rel="noopener noreferrer">sivuilla.</a>
+        {' '}
+        Hylkyilmoitus jää odottamaan ylläpitäjän hyväksyntää,
+        joten se ei näy välittömästi tietokannassa.
       </>
-      <strong>Kohteen tiedot</strong>
       <Form
         onSubmit={handleSubmit}
         data-testid="testform"
