@@ -15,8 +15,8 @@ jobs:
       - uses: actions/setup-node@v2
       - name: install frontend dependencies
         run: npm ci
-      - name: wake up heroku backend to make sure e2e tests work
-        run: curl https://sukellusilmo-back-staging.herokuapp.com
+      - name: wake up heroku test backend to make sure e2e tests work
+        run: curl https://sukellusilmo-back-test.herokuapp.com
       - name: frontend tests
         run: CI=true npm test -- --coverage
       - name: Upload coverage to Codecov
