@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Helmet from 'react-helmet';
 import {
   Alert, Button, Container, Form,
 } from 'react-bootstrap';
@@ -17,6 +18,10 @@ function LoginForm({ handleSubmit, alert }) {
 
   return (
     <Container>
+      <Helmet>
+        <title>Kirjaudu sisään</title>
+        <meta name="description" content="Kirjaudu sisään" />
+      </Helmet>
       <PageTitle text="Kirjaudu sisään" />
       {alert && <Alert variant="danger">{alert}</Alert>}
       <Form onSubmit={onSubmit}>

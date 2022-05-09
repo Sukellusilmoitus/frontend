@@ -1,13 +1,24 @@
 import axios from 'axios';
 import REACT_APP_SERVER_URL from '../util/config';
+import parseJwt from '../util/token';
 
 const baseUrl = REACT_APP_SERVER_URL;
+
+const AuthVerify = () => {
+  const authToken = localStorage.getItem('auth');
+  if (authToken) {
+    const decodedToken = parseJwt(authToken);
+    if (decodedToken.exp * 1000 < Date.now()) {
+      localStorage.removeItem('auth');
+    }
+  }
+};
 
 const loggedUser = () => {
   try {
     const token = localStorage.getItem('auth');
-    const tokenUserData = JSON.parse(atob(token.split('.')[1]));
-    return tokenUserData;
+    const tokenData = parseJwt(token);
+    return tokenData;
   } catch {
     return null;
   }
@@ -37,5 +48,5 @@ const updateUser = async (user) => {
 };
 
 export {
-  loginRequest, registerRequest, loggedUser, updateUser,
+  loginRequest, registerRequest, loggedUser, updateUser, AuthVerify,
 };

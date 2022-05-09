@@ -1,5 +1,6 @@
 import { Container, Alert } from 'react-bootstrap';
 import { useState } from 'react';
+import Helmet from 'react-helmet';
 import FeedbackForm from './FeedbackForm';
 import PageTitle from '../PageTitle';
 import feedbackService from '../../services/feedbacks';
@@ -26,7 +27,20 @@ function Feedback() {
 
   return (
     <Container fluid>
-      <PageTitle text="Anna palautetta" />
+      <Helmet>
+        <title>Lue lisää ja anna palautetta palvelusta</title>
+        <meta name="description" content="Lue lisää ja anna palautetta palvelusta" />
+      </Helmet>
+      <PageTitle text="Tietoa sivusta ja palaute" />
+      <p>
+        Tämä sivu on toteutettu osana Helsingin yliopiston tietojenkäsittelytieteen
+        kandiohjelmaan kuuluvaa kurssia Ohjelmistotuotantoprojekti.
+        Suomen meriargeologinen seura on
+        akateemista koulutusta ja tutkimusta tukeva tieteellinen seura
+        ja toimi asiakkaana ohjelmistotuotantoryhmällemme.
+        Palvelussa kerättäviä tietoja hyödynnetään
+        muinaismuistolain uudistus- ja historiallisten hylkykohteiden suojelutyössä.
+      </p>
       {message && <Alert variant="success">{message}</Alert>}
       <FeedbackForm onSubmit={onSubmit} />
     </Container>

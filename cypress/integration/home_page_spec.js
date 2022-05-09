@@ -5,7 +5,7 @@ Cypress.on('uncaught:exception', (err, runnable) => {
 describe('Initial test', () => {
   it('successfully loads', () => {
     cy.visit("/")
-    cy.contains('Hylkysukellusilmoituspalvelu');
+    cy.contains('Sukellusilmoitus');
   });
 });
 

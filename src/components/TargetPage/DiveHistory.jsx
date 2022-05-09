@@ -26,7 +26,7 @@ function DiveHistory({ diveList }) {
         {diveList.length > 0
           ? diveList.map((dive) => (
             <div key={dive.id} data-testid={dive.id}>
-              <strong>{dayjs(dive.created_at).format('DD.MM.YYYY')}</strong>
+              <strong>{dayjs(dive.divedate).format('DD.MM.YYYY')}</strong>
               <br />
               Sukeltaja:
               {' '}
@@ -35,6 +35,8 @@ function DiveHistory({ diveList }) {
               Muutokset:
               {' '}
               <i>{dive.change_text || 'ei muutoksia'}</i>
+              <br />
+              <br />
             </div>
           ))
           : <div>Ei rekisteröityjä sukelluksia</div>}

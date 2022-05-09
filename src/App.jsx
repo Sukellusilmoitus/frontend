@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {
   Switch,
   Route,
   Redirect,
-  useRouteMatch,
 } from 'react-router-dom';
+import Helmet from 'react-helmet';
 import Header from './components/Navigation';
-import TargetPage from './components/TargetPage';
+import Target from './components/TargetPage/index';
 import UserPage from './components/UserPage';
 import Home from './components/Home';
 import targetService from './services/targets';
@@ -18,45 +18,39 @@ import Feedback from './components/Feedback';
 import Login from './components/Login/Login';
 import Register from './components/Register';
 import Logout from './components/Logout';
+import { AuthVerify } from './services/users';
 
 function App() {
-  const [targets, setTargets] = useState('loading...');
-
-  const getTargets = async () => {
-    const data = await targetService.getAllTargets();
-    data.features.sort((a, b) => (a.properties.name > b.properties.name ? 1 : -1));
-    setTargets(data.features);
-  };
-
   const createNewTarget = (newTarget) => {
     targetService.postTarget(newTarget);
   };
 
-  useEffect(() => {
-    getTargets();
-  }, []);
-
-  const match = useRouteMatch('/hylyt/:id');
-  const target = match && targets !== 'loading...'
-    ? targets.find((t) => t.properties.id === match.params.id)
-    : null;
+  AuthVerify();
 
   return (
     <div className="container">
+      <Helmet>
+        <title>Sukellusilmoitus</title>
+        <meta name="description" content="Meriarkeologisen seuran sovellus sukellusilmoitusten tekemiseen" />
+      </Helmet>
       <Header />
       <Switch>
         <Route exact path="/">
           <Redirect to="/etusivu" />
         </Route>
         <Route path="/etusivu" component={Home} />
-        <Route path="/hylyt/:id">
-          <TargetPage target={target} />
-        </Route>
+        <Route
+          exact
+          path="/hylyt/:id"
+          render={(props) => (
+            <Target id={props.match.params.id} />
+          )}
+        />
         <Route path="/omasivu">
           <UserPage />
         </Route>
         <Route path="/hylyt">
-          <TargetList targets={targets} />
+          <TargetList />
         </Route>
         <Route path="/kirjaudu">
           <Login />

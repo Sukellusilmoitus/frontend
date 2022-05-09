@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import Helmet from 'react-helmet';
 import {
   Col, Form, Button, Row, Breadcrumb, Container,
 } from 'react-bootstrap';
+import { Parser } from 'html-to-react';
 import formatcoords from 'formatcoords';
 import useForm from '../hooks/useNewTargetForm';
 import Submitmessage from './Submitmessage';
 import CoordinatesMap from './CoordinatesMap';
+import Modal from './Modal';
+import privacyText from '../assets/tietosuoja';
 import { loggedUser } from '../services/users';
 import PageTitle from './PageTitle';
 
@@ -14,6 +18,8 @@ function NewTargetForm(props) {
   const [defaultCenter, setDefaultCenter] = useState([64.1, 25.0]);
   const [formX, setFormX] = useState(25.0);
   const [formY, setFormY] = useState(64.1);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [termsAccepted, setTermsAccepted] = useState(false);
   const loggeduser = loggedUser();
 
   useEffect(() => {
@@ -54,14 +60,20 @@ function NewTargetForm(props) {
 
   return (
     <Container>
+      <Helmet>
+        <title>Uusi kohde</title>
+        <meta name="description" content="Ilmoita uudesta sukelluskohteesta" />
+      </Helmet>
       <PageTitle text="Tee ilmoitus uudesta kohteesta" />
       <Submitmessage message={message} />
-      <p>
+      <>
         Suosittelemme yksityiskohtaisemman ilmoituksen tekemistä Museoviraston
         {' '}
-        <a href="https://www.kyppi.fi/ilppari">sivuilla.</a>
-      </p>
-      <h5>Kohteen tiedot</h5>
+        <a href="https://www.kyppi.fi/ilppari" target="_blank" rel="noopener noreferrer">sivuilla.</a>
+        {' '}
+        Hylkyilmoitus jää odottamaan ylläpitäjän hyväksyntää,
+        joten se ei näy välittömästi tietokannassa.
+      </>
       <Form
         onSubmit={handleSubmit}
         data-testid="testform"
@@ -86,7 +98,7 @@ function NewTargetForm(props) {
         </Form.Group>
         <br />
         {loggeduser !== null && (
-        <p>
+        <>
           {' '}
           <Form.Group>
             <Form.Label>Ilmoittajan nimi:</Form.Label>
@@ -123,10 +135,10 @@ function NewTargetForm(props) {
               readOnly
             />
           </Form.Group>
-        </p>
+        </>
         )}
         {loggeduser === null && (
-        <p>
+        <>
           {' '}
           <Form.Group>
             <Form.Label>Ilmoittajan nimi:</Form.Label>
@@ -180,7 +192,7 @@ function NewTargetForm(props) {
               </Form.Group>
             </Col>
           </Row>
-        </p>
+        </>
         )}
         <br />
         <Row>
@@ -330,9 +342,38 @@ function NewTargetForm(props) {
           </Form.Text>
         </Form.Group>
         <br />
+        <Form.Check
+          type="checkbox"
+          id="privacy-checkbox"
+          data-testid="privacy-checkbox"
+          inline
+          onChange={(e) => setTermsAccepted(e.currentTarget.checked)}
+        />
+        Hyväksyn
+        <Button
+          variant="link"
+          onClick={() => setModalOpen(true)}
+        >
+          tietosuojaehdot
+        </Button>
+        <br />
         <Submitmessage message={message} />
-        <Button variant="primary" type="submit" data-testid="submit" value="Submit">Lähetä</Button>
+        <Button
+          variant="primary"
+          type="submit"
+          data-testid="submit"
+          value="Submit"
+          disabled={!termsAccepted}
+        >
+          Lähetä
+        </Button>
       </Form>
+      <Modal modalOpen={modalOpen} closeModal={() => setModalOpen(false)}>
+        <>
+          {Parser().parse(privacyText)}
+          <Button onClick={() => setModalOpen(false)}>Sulje</Button>
+        </>
+      </Modal>
       <br />
     </Container>
   );
