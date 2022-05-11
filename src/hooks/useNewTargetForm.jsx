@@ -35,8 +35,6 @@ const useForm = (postTarget) => {
     event.preventDefault();
     // Try to generate target id until free one is found
     const targetID = await targets.generateUniqueID();
-    const baseUrl = 'https://sukellusilmo-front-staging.herokuapp.com';
-    const targetUrl = `${baseUrl}/hylyt/${targetID}`;
 
     postTarget({
       id: targetID,
@@ -51,7 +49,7 @@ const useForm = (postTarget) => {
       is_ancient: false,
       is_pending: true,
       created_at: Date.now() / 1000.0,
-      url: targetUrl,
+      url: null,
       source: 'ilmoitus',
       phone: values.phone || '',
       email: values.email || '',
