@@ -7,12 +7,12 @@ const getAll = async () => {
   const headers = {
     'X-ACCESS-TOKEN': localStorage.getItem('auth'),
   };
-  const response = await axios.get(`${baseUrl}/api/dives`, { headers });
+  const response = await axios.get(`${baseUrl}/api/dives/`, { headers });
   return response.data;
 };
 
 const create = async (newDive) => {
-  const response = await axios.post(`${baseUrl}/api/dives`, newDive);
+  const response = await axios.post(`${baseUrl}/api/dives/`, newDive);
   return response.data;
 };
 

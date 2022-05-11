@@ -12,7 +12,7 @@ const getAllByUser = async (username) => {
 };
 
 const getAllTargets = () => {
-  const request = axios.get(`${baseUrl}/api/targets`);
+  const request = axios.get(`${baseUrl}/api/targets/`);
   return request.then((response) => response.data);
 };
 
@@ -22,7 +22,7 @@ const getTarget = async (id) => {
 };
 
 const postTarget = (newTarget) => {
-  const request = axios.post(`${baseUrl}/api/targets`, newTarget);
+  const request = axios.post(`${baseUrl}/api/targets/`, newTarget);
   return request.data;
 };
 

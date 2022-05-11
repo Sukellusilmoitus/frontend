@@ -65,7 +65,7 @@ function add_dive (
   change_text,
   miscellaneous,
   diveDate) {
-    cy.request('POST',`${BACKEND_URL}/api/dives`, {
+    cy.request('POST',`${BACKEND_URL}/api/dives/`, {
       name:name,
       email:diver_email,
       phone:diver_phone,
@@ -100,7 +100,7 @@ function add_target (
   const random_id = (Math.random() * 1e16).toString(36);
   const today = new Date()
   const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-  cy.request('POST', `${BACKEND_URL}/api/targets`, {
+  cy.request('POST', `${BACKEND_URL}/api/targets/`, {
     id:random_id,
     divername:divername,
     email:email,
@@ -144,7 +144,7 @@ function setup_db () {
 Cypress.Commands.add('login', () => { 
   cy.request({
     method: 'POST',
-    url: `${BACKEND_URL}/api/login`,
+    url: `${BACKEND_URL}/api/login/`,
     body: {
       username: Cypress.env('adminusername'),
       password: Cypress.env('adminpassword')

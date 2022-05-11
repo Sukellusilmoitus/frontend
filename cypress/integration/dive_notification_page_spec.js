@@ -1,4 +1,4 @@
-const REACT_APP_SERVER_URL = 'https://sukellusilmo-back-test.herokuapp.com/';
+const REACT_APP_SERVER_URL = Cypress.env('react_app_server_url');
 Cypress.on('uncaught:exception', (err, runnable) => {
   return false
 })
@@ -6,7 +6,7 @@ Cypress.on('uncaught:exception', (err, runnable) => {
 let auth;
 
 before(function fetchUser () {
-  cy.request('POST', `${REACT_APP_SERVER_URL}/api/login`, {
+  cy.request('POST', `${REACT_APP_SERVER_URL}/api/login/`, {
     username: 'usernametest',
     password: 'passwordtest',
   })
@@ -19,8 +19,14 @@ before(function fetchUser () {
   cy.get('[id=privacy-checkbox]').click();
 });
 
+// beforeEach(() => {
+//   cy.visit('/hylyt')
+// })
+
 describe('Target can be clicked', () => {
   it('successfully loads', () => {
+    cy.visit('/hylyt');
+    cy.get('table tbody').find('tr').first().click();
     cy.contains('Tee uusi sukellusilmoitus');
   });
 });
@@ -40,6 +46,7 @@ describe('Test form fields', () => {
   });
     
   it('user has to fill in their name', () => {
+    cy.get('[id=privacy-checkbox]').click();
     cy.get('[id=formbtn]').click();
     cy.contains('Ilmoita sukeltajan nimi!');
   });

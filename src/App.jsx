@@ -15,7 +15,7 @@ import TargetList from './components/TargetList';
 import './assets/styles/App.css';
 import AdminPanel from './components/AdminPanel/AdminPanel';
 import Feedback from './components/Feedback';
-import Login from './components/Login';
+import Login from './components/Login/Login';
 import Register from './components/Register';
 import Logout from './components/Logout';
 import { AuthVerify } from './services/users';

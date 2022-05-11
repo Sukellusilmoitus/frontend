@@ -25,13 +25,13 @@ const loggedUser = () => {
 };
 
 const loginRequest = async (username, password) => {
-  const request = await axios.post(`${baseUrl}/api/login`, { username, password });
+  const request = await axios.post(`${baseUrl}/api/login/`, { username, password });
   return request.data;
 };
 
 const registerRequest = async (username, password, name, email, phone) => {
   const request = await axios.post(
-    `${baseUrl}/api/register`,
+    `${baseUrl}/api/register/`,
     {
       username, password, name, email, phone,
     },
@@ -43,7 +43,7 @@ const updateUser = async (user) => {
   const headers = {
     'X-ACCESS-TOKEN': localStorage.getItem('auth'),
   };
-  const req = await axios.put(`${baseUrl}/api/updateUser`, user, { headers });
+  const req = await axios.put(`${baseUrl}/api/users/`, user, { headers });
   return req.data;
 };
 

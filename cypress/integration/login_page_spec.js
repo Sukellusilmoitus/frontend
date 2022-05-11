@@ -7,14 +7,16 @@ describe('Login', () => {
     cy.visit('/kirjaudu');
   });
 
-  it('requires username', () => {
+  it('login fails with non-existing username', () => {
+    cy.get('[data-testid=username]').type('aaaaaaaaaaaaaaaaaaa');
     cy.get('[data-testid=password]').type('password');
     cy.get('[data-testid=kirjaudu]').click();
     cy.contains('Väärä käyttäjätunnus tai salasana');
   });
 
-  it('requires password', () => {
+  it('login fails with invalid password', () => {
     cy.get('[data-testid=username]').type('username');
+    cy.get('[data-testid=password]').type('x');
     cy.get('[data-testid=kirjaudu]').click();
     cy.contains('Väärä käyttäjätunnus tai salasana');
   });
