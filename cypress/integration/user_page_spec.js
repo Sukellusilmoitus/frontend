@@ -1,4 +1,4 @@
-const REACT_APP_SERVER_URL = 'https://sukellusilmo-back-test.herokuapp.com';
+const REACT_APP_SERVER_URL = Cypress.env('react_app_server_url');
 
 Cypress.on('uncaught:exception', (err, runnable) => {
   return false
